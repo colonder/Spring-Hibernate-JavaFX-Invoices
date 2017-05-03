@@ -1,7 +1,7 @@
-package controller;
+package com.controller;
 
-import dao.IServiceDAO;
-import entity.ServiceEntity;
+import com.dao.IServiceDAO;
+import com.entity.ServiceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;

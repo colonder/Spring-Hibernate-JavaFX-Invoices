@@ -1,7 +1,7 @@
-package controller;
+package com.controller;
 
-import dao.ICustomerDAO;
-import entity.Customer;
+import com.dao.ICustomerDAO;
+import com.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;

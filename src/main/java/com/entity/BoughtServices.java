@@ -1,4 +1,4 @@
-package entity;
+package com.entity;
 
 import org.hibernate.annotations.Immutable;
 

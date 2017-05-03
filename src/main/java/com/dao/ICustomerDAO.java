@@ -1,8 +1,10 @@
-package dao;
+package com.dao;
 
-import entity.Customer;
+import com.entity.Customer;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ICustomerDAO extends CrudRepository<Customer, Integer>
 {
     Customer findCustomerByAlias(String alias);

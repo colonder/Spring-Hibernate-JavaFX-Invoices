@@ -1,8 +1,10 @@
-package dao;
+package com.dao;
 
-import entity.ServiceEntity;
+import com.entity.ServiceEntity;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface IServiceDAO extends CrudRepository<ServiceEntity, Integer>
 {
 
