@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Invoices-desktop" target="1.5" />
+      <module name="Invoices-desktop" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
