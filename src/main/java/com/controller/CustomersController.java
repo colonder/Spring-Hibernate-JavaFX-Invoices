@@ -1,7 +1,7 @@
 package com.controller;
 
-import com.dao.ICustomerDAO;
 import com.entity.Customer;
+import com.repositories.ICustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.List;
 public class CustomersController implements IUtilities<Customer>
 {
     @Autowired
-    private ICustomerDAO customerDAO;
+    private ICustomerRepository customerDAO;
 
     public void manageCustomers()
     {

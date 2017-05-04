@@ -1,5 +1,7 @@
 package com.entity;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -7,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "kontrahenci")
+@NoArgsConstructor
 public class Customer
 {
     @Id

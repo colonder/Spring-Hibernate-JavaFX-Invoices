@@ -1,7 +1,7 @@
 package com.controller;
 
-import com.dao.IServiceDAO;
 import com.entity.ServiceEntity;
+import com.repositories.IServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.List;
 public class ServicesController implements IUtilities<ServiceEntity>
 {
     @Autowired
-    private IServiceDAO serviceDAO;
+    private IServiceRepository serviceDAO;
     
     public void manageServices()
     {

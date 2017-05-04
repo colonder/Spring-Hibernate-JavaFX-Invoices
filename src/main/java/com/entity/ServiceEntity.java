@@ -1,11 +1,14 @@
 package com.entity;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "uslugi")
+@NoArgsConstructor
 public class ServiceEntity
 {
     @Id

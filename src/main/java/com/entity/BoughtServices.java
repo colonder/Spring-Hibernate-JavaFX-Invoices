@@ -1,5 +1,6 @@
 package com.entity;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "wykupione_uslugi")
 @Immutable
+@NoArgsConstructor
 public class BoughtServices implements Serializable
 {
     @Embeddable
@@ -62,8 +64,6 @@ public class BoughtServices implements Serializable
     @ManyToOne
     @JoinColumn(name = "usluga_id", insertable = false, updatable = false)
     private ServiceEntity serviceEntity;
-
-    public BoughtServices() {}
 
     public BoughtServices(Customer customer, ServiceEntity serviceEntity, BigDecimal quantity)
     {
