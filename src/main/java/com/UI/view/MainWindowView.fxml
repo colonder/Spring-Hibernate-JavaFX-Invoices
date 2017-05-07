@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.view.MainWindowView">
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.29797979797979796" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -144,20 +143,20 @@
                            <children>
                               <TableView editable="true" layoutX="192.0" layoutY="100.0" prefHeight="18.0" prefWidth="696.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                    <TableColumn editable="false" minWidth="20.0" prefWidth="35.0" text="Lp" />
-                                  <TableColumn editable="false" prefWidth="302.0" resizable="false" sortable="false" text="Nazwa towaru lub usługi" />
-                                  <TableColumn editable="false" minWidth="0.0" prefWidth="87.68927001953125" resizable="false" sortable="false" text="Symbol&#10;PKWIU/PKOB" />
-                                    <TableColumn editable="false" minWidth="7.10888671875" prefWidth="32.10888671875" resizable="false" sortable="false" text="j. m." />
-                                    <TableColumn prefWidth="81.60760498046875" resizable="false" sortable="false" text="Ilość" />
-                                    <TableColumn editable="false" prefWidth="75.9361572265625" resizable="false" sortable="false" text="Cena jed.&#10;netto (zł)" />
-                                    <TableColumn editable="false" prefWidth="99.0115966796875" resizable="false" sortable="false" text="Wartość &#10;bez podatku (zł)" />
-                                    <TableColumn editable="false" prefWidth="181.98846435546875" resizable="false" sortable="false" text="Podatek">
+                                    <TableColumn editable="false" minWidth="20.0" prefWidth="35.0" resizable="false" text="Lp" />
+                                  <TableColumn editable="false" prefWidth="323.0" resizable="false" sortable="false" text="Nazwa towaru lub usługi" />
+                                  <TableColumn editable="false" minWidth="0.0" prefWidth="84.0" resizable="false" sortable="false" text="Symbol&#10;PKWIU/PKOB" />
+                                    <TableColumn editable="false" minWidth="7.10888671875" prefWidth="30.0" resizable="false" sortable="false" text="j. m." />
+                                    <TableColumn prefWidth="79.0" resizable="false" sortable="false" text="Ilość" />
+                                    <TableColumn editable="false" prefWidth="79.0" resizable="false" sortable="false" text="Cena jed.&#10;netto (zł)" />
+                                    <TableColumn editable="false" prefWidth="99.0" resizable="false" sortable="false" text="Wartość &#10;bez podatku (zł)" />
+                                    <TableColumn editable="false" prefWidth="163.0" resizable="false" sortable="false" text="Podatek">
                                        <columns>
                                           <TableColumn editable="false" prefWidth="81.3643798828125" resizable="false" sortable="false" text="Stawka VAT" />
                                           <TableColumn editable="false" prefWidth="93.44091796875" resizable="false" sortable="false" text="Kwota (zł)" />
                                        </columns>
                                     </TableColumn>
-                                    <TableColumn editable="false" prefWidth="105.0" resizable="false" sortable="false" text="Wartość z&#10;podatkiem (zł)" />
+                                    <TableColumn editable="false" prefWidth="109.0" resizable="false" sortable="false" text="Wartość z&#10;podatkiem (zł)" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
