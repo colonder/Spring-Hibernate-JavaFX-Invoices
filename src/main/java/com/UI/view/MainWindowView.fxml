@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.mainWindowController">
    <children>
       <SplitPane dividerPositions="0.29797979797979796" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -12,27 +12,27 @@
                <children>
                   <VBox layoutX="33.0" layoutY="67.0" prefHeight="598.0" prefWidth="184.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Zarządzaj kontrahentami" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="manageContractorsButton" mnemonicParsing="false" text="Zarządzaj kontrahentami" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Zarządzaj usługami" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="manageServicesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Zarządzaj usługami" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Drukuj" textAlignment="CENTER">
+                        <Button fx:id="printButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Drukuj" textAlignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Zapisz" textAlignment="CENTER">
+                        <Button fx:id="saveButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Zapisz" textAlignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Ustawienia" textAlignment="CENTER">
+                        <Button fx:id="settingsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Ustawienia" textAlignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -54,12 +54,12 @@
                                  <children>
                                     <ButtonBar buttonMinWidth="50.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
                                       <buttons>
-                                        <Button mnemonicParsing="false" text="Szukaj" />
-                                          <TextField nodeOrientation="LEFT_TO_RIGHT" promptText="Wyszukiwana fraza" />
-                                          <ChoiceBox nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" />
+                                        <Button fx:id="searchContractorButton" mnemonicParsing="false" text="Szukaj" />
+                                          <TextField fx:id="searchContractorTextField" nodeOrientation="LEFT_TO_RIGHT" promptText="Wyszukiwana fraza" />
+                                          <ChoiceBox fx:id="searchContractorChoiceBox" nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" />
                                           <Label nodeOrientation="LEFT_TO_RIGHT" text="Wyszukaj kontrahenta po:" />
-                                          <Button mnemonicParsing="false" text="Następny" />
-                                          <Button mnemonicParsing="false" text="Poprzedni" />
+                                          <Button fx:id="nextContractorButton" mnemonicParsing="false" text="Następny" />
+                                          <Button fx:id="previousContractorButton" mnemonicParsing="false" text="Poprzedni" />
                                       </buttons>
                                        <VBox.margin>
                                           <Insets left="5.0" right="5.0" />
@@ -108,27 +108,27 @@
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Label" GridPane.columnIndex="1">
+                                          <Label fx:id="contractorNameLabel" text="Label" GridPane.columnIndex="1">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          <Label fx:id="companyNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                          <Label fx:id="addressLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                          <Label fx:id="cityLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                          <Label fx:id="taxIDLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -141,22 +141,22 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="140.0" prefWidth="696.0">
                            <children>
-                              <TableView editable="true" layoutX="192.0" layoutY="100.0" prefHeight="18.0" prefWidth="696.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="boughtServicesTableView" editable="true" layoutX="192.0" layoutY="100.0" prefHeight="18.0" prefWidth="696.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                    <TableColumn editable="false" minWidth="20.0" prefWidth="35.0" resizable="false" text="Lp" />
-                                  <TableColumn editable="false" prefWidth="323.0" resizable="false" sortable="false" text="Nazwa towaru lub usługi" />
-                                  <TableColumn editable="false" minWidth="0.0" prefWidth="84.0" resizable="false" sortable="false" text="Symbol&#10;PKWIU/PKOB" />
-                                    <TableColumn editable="false" minWidth="7.10888671875" prefWidth="30.0" resizable="false" sortable="false" text="j. m." />
-                                    <TableColumn prefWidth="79.0" resizable="false" sortable="false" text="Ilość" />
-                                    <TableColumn editable="false" prefWidth="79.0" resizable="false" sortable="false" text="Cena jed.&#10;netto (zł)" />
-                                    <TableColumn editable="false" prefWidth="99.0" resizable="false" sortable="false" text="Wartość &#10;bez podatku (zł)" />
-                                    <TableColumn editable="false" prefWidth="163.0" resizable="false" sortable="false" text="Podatek">
+                                    <TableColumn fx:id="orderColumn" editable="false" minWidth="20.0" prefWidth="35.0" resizable="false" text="Lp" />
+                                  <TableColumn fx:id="serviceNameColumn" editable="false" prefWidth="323.0" resizable="false" sortable="false" text="Nazwa towaru lub usługi" />
+                                  <TableColumn fx:id="symbolColumn" editable="false" minWidth="0.0" prefWidth="84.0" resizable="false" sortable="false" text="Symbol&#10;PKWIU/PKOB" />
+                                    <TableColumn fx:id="unitColumn" editable="false" minWidth="7.10888671875" prefWidth="30.0" resizable="false" sortable="false" text="j. m." />
+                                    <TableColumn fx:id="quantityColumn" prefWidth="79.0" resizable="false" sortable="false" text="Ilość" />
+                                    <TableColumn fx:id="unitPriceColumn" editable="false" prefWidth="79.0" resizable="false" sortable="false" text="Cena jed.&#10;netto (zł)" />
+                                    <TableColumn fx:id="valWithoutTax" editable="false" prefWidth="99.0" resizable="false" sortable="false" text="Wartość &#10;bez podatku (zł)" />
+                                    <TableColumn fx:id="taxColumn" editable="false" prefWidth="163.0" resizable="false" sortable="false" text="Podatek">
                                        <columns>
-                                          <TableColumn editable="false" prefWidth="81.3643798828125" resizable="false" sortable="false" text="Stawka VAT" />
-                                          <TableColumn editable="false" prefWidth="93.44091796875" resizable="false" sortable="false" text="Kwota (zł)" />
+                                          <TableColumn fx:id="taxRateColumn" editable="false" prefWidth="81.3643798828125" resizable="false" sortable="false" text="Stawka VAT" />
+                                          <TableColumn fx:id="taxValColumn" editable="false" prefWidth="93.44091796875" resizable="false" sortable="false" text="Kwota (zł)" />
                                        </columns>
                                     </TableColumn>
-                                    <TableColumn editable="false" prefWidth="109.0" resizable="false" sortable="false" text="Wartość z&#10;podatkiem (zł)" />
+                                    <TableColumn fx:id="valWithTaxColumn" editable="false" prefWidth="109.0" resizable="false" sortable="false" text="Wartość z&#10;podatkiem (zł)" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -164,7 +164,48 @@
                               </TableView>
                            </children>
                         </AnchorPane>
-                        <AnchorPane maxHeight="-Infinity" prefHeight="30.0" prefWidth="696.0" />
+                        <AnchorPane maxHeight="-Infinity" prefHeight="30.0" prefWidth="696.0">
+                           <children>
+                              <FlowPane layoutX="478.0" layoutY="-86.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="114.0" prefWidth="1015.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label fx:id="sumWordsLabel" text="Label">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <FlowPane.margin>
+                                          <Insets left="5.0" right="5.0" />
+                                       </FlowPane.margin>
+                                    </Label>
+                                    <Label text="Słownie:">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <FlowPane.margin>
+                                          <Insets left="5.0" right="5.0" />
+                                       </FlowPane.margin>
+                                    </Label>
+                                    <Label fx:id="sumLabel" text="Label">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <FlowPane.margin>
+                                          <Insets left="5.0" right="5.0" />
+                                       </FlowPane.margin>
+                                    </Label>
+                                    <Label text="Suma:">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <FlowPane.margin>
+                                          <Insets left="5.0" right="5.0" />
+                                       </FlowPane.margin>
+                                    </Label>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </FlowPane>
+                           </children></AnchorPane>
                     </items>
                   </SplitPane>
                </children>

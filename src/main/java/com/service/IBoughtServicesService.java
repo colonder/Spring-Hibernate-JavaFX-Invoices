@@ -1,12 +1,13 @@
 package com.service;
 
 import com.entity.BoughtServices;
-import com.entity.ServiceEntity;
+
+import java.util.List;
 
 public interface IBoughtServicesService
 {
-    Iterable<BoughtServices> findAll();
-    BoughtServices findOne(int id);
-    BoughtServices save(ServiceEntity serviceEntity);
+    BoughtServices save(BoughtServices boughtServices);
     void delete(int id);
+    List<BoughtServices> findAllByCustomerAlias(String alias);
+    List<BoughtServices> findAll();
 }

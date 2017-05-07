@@ -18,7 +18,8 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() throws Exception
+    {
 
         super.stop();
         applicationContext.close();

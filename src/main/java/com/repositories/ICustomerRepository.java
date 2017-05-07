@@ -1,10 +1,9 @@
 package com.repositories;
 
 import com.entity.Customer;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ICustomerRepository extends CrudRepository<Customer, Integer>
+public interface ICustomerRepository extends JpaRepository<Customer, Integer>
 {
-    Customer findCustomerByAlias(String alias);
-    void deleteCustomerByAlias(String alias);
+
 }
