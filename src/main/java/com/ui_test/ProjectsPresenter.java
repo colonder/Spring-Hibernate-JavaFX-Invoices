@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ui;
+package com.ui_test;
 
 import com.entity.Customer;
-import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
-import com.service.IServicesEntityService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;

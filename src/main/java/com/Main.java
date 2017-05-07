@@ -1,6 +1,6 @@
 package com;
 
-import com.ui.ProjectsView;
+import com.UI.ProjectsView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
