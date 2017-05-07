@@ -1,8 +1,10 @@
 package com.UI.controllers;
 
 import com.entity.BoughtServices;
+import com.entity.Customer;
 import com.entity.ServiceEntity;
 import com.service.IBoughtServicesService;
+import com.service.ICustomerService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class mainWindowController
+public class MainWindowController
 {
     @FXML private TableView<ServiceEntity> boughtServicesTableView;
 
@@ -36,25 +38,30 @@ public class mainWindowController
     @FXML private Label taxIDLabel;
 
     @Autowired
+    private ICustomerService customerService;
+
+    @Autowired
     private IBoughtServicesService boughtServicesService;
 
     @FXML
     public void initialize()
     {
-        configureContractorData();
         configureServicesTable();
+        showCustomerDetails(customerService.findOne(1));
 
-        // actual Hibernate query, just for testing purposes right now
-        for (BoughtServices services : boughtServicesService.findAllByCustomerAlias("zebrad"))
+        for(BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias("zebrad"))
         {
-            System.out.println(services.getServiceEntity());
-            boughtServicesTableView.getItems().add(services.getServiceEntity());
+            boughtServicesTableView.getItems().add(boughtServices.getServiceEntity());
         }
     }
 
-    private void configureContractorData()
+    private void showCustomerDetails(Customer customer)
     {
-
+        contractorNameLabel.setText(customer.getFirstName() + " " + customer.getLastName());
+        companyNameLabel.setText(customer.getCompanyName());
+        addressLabel.setText(customer.getAddress());
+        cityLabel.setText(customer.getPostalCode() + " " + customer.getCity());
+        taxIDLabel.setText(customer.getTaxIdentifier());
     }
 
     private void configureServicesTable()
