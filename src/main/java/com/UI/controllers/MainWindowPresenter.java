@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class MainWindowController
+public class MainWindowPresenter
 {
     @FXML private TableView<ServiceEntity> boughtServicesTableView;
 
@@ -38,7 +38,7 @@ public class MainWindowController
     @FXML private Label taxIDLabel;
 
     @Autowired
-    private ICustomerService customerService;
+    private ICustomerService customerService; //TODO: check why @autowired gives null
 
     @Autowired
     private IBoughtServicesService boughtServicesService;
@@ -47,12 +47,12 @@ public class MainWindowController
     public void initialize()
     {
         configureServicesTable();
-        showCustomerDetails(customerService.findOne(1));
+        //showCustomerDetails(customerService.findOne(1));
 
-        for(BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias("zebrad"))
-        {
-            boughtServicesTableView.getItems().add(boughtServices.getServiceEntity());
-        }
+        //for(BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias("zebrad"))
+        //{
+        //    boughtServicesTableView.getItems().add(boughtServices.getServiceEntity());
+        //}
     }
 
     private void showCustomerDetails(Customer customer)
