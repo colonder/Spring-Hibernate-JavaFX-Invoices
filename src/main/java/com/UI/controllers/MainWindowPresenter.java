@@ -47,12 +47,12 @@ public class MainWindowPresenter
     public void initialize()
     {
         configureServicesTable();
-        //showCustomerDetails(customerService.findOne(1));
+        showCustomerDetails(customerService.findOne(1));
 
-        //for(BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias("zebrad"))
-        //{
-        //    boughtServicesTableView.getItems().add(boughtServices.getServiceEntity());
-        //}
+        for(BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias("zebrad"))
+        {
+            boughtServicesTableView.getItems().add(boughtServices.getServiceEntity());
+        }
     }
 
     private void showCustomerDetails(Customer customer)
@@ -66,7 +66,6 @@ public class MainWindowPresenter
 
     private void configureServicesTable()
     {
-        //lp
         serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
         symbolColumn.setCellValueFactory(new PropertyValueFactory<>("symbol"));
         unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
