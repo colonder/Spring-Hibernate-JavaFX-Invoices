@@ -33,7 +33,7 @@ public class MainWindowPresenter
     @FXML private TableColumn taxValColumn;
     @FXML private TableColumn taxWithValColumn;
 
-    @FXML private TableView<String> customersTableView;
+    @FXML private TableView<Customer> customersTableView;
 
     @FXML private TableColumn<Customer, String> customersCol;
 
@@ -49,7 +49,7 @@ public class MainWindowPresenter
     @Autowired
     private IBoughtServicesService boughtServicesService;
 
-    private ObservableList<String> customerList = FXCollections.observableArrayList();
+    private ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize()
@@ -69,10 +69,11 @@ public class MainWindowPresenter
     {
         customersCol.setCellValueFactory(new PropertyValueFactory<>("alias"));
 
-        for(Customer customer : customerService.findAll())
-            customerList.add(customer.getAlias());
+        customerList.addAll(customerService.findAll());
 
         customersTableView.setItems(customerList);
+        customersTableView.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldVal, newVal) -> showCustomerDetails(newVal));
     }
 
     private void showCustomerDetails(Customer customer)
