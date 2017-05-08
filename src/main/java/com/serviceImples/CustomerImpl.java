@@ -23,6 +23,11 @@ public class CustomerImpl implements ICustomerService
         return customerRepository.findOne(id);
     }
 
+    @Override
+    public Customer findByAlias(String alias) {
+        return customerRepository.findByAlias(alias);
+    }
+
     @Transactional
     public void delete(int id) {
         customerRepository.delete(id);
