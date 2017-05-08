@@ -5,6 +5,8 @@ import com.entity.Customer;
 import com.entity.ServiceEntity;
 import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -31,6 +33,10 @@ public class MainWindowPresenter
     @FXML private TableColumn taxValColumn;
     @FXML private TableColumn taxWithValColumn;
 
+    @FXML private TableView<String> customersTableView;
+
+    @FXML private TableColumn<Customer, String> customersCol;
+
     @FXML private Label contractorNameLabel;
     @FXML private Label companyNameLabel;
     @FXML private Label addressLabel;
@@ -43,16 +49,30 @@ public class MainWindowPresenter
     @Autowired
     private IBoughtServicesService boughtServicesService;
 
+    private ObservableList<String> customerList = FXCollections.observableArrayList();
+
     @FXML
     public void initialize()
     {
         configureServicesTable();
+        configureCustomersTable();
+
         showCustomerDetails(customerService.findOne(1));
 
         for(BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias("zebrad"))
         {
             boughtServicesTableView.getItems().add(boughtServices.getServiceEntity());
         }
+    }
+
+    private void configureCustomersTable()
+    {
+        customersCol.setCellValueFactory(new PropertyValueFactory<>("alias"));
+
+        for(Customer customer : customerService.findAll())
+            customerList.add(customer.getAlias());
+
+        customersTableView.setItems(customerList);
     }
 
     private void showCustomerDetails(Customer customer)

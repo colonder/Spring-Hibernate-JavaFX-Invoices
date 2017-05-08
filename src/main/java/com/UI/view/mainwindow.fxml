@@ -19,7 +19,7 @@
                         </TextField>
                         <TableView fx:id="customersTableView">
                            <columns>
-                              <TableColumn prefWidth="174.0" resizable="false" text="Kontrahenci" />
+                              <TableColumn fx:id="customersCol" prefWidth="174.0" resizable="false" text="Kontrahenci" />
                            </columns>
                         </TableView>
                      </children>

@@ -1,7 +1,5 @@
 package com.entity;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -12,50 +10,49 @@ import java.util.Set;
 @Entity
 @Table(name = "kontrahenci")
 @NoArgsConstructor
-@Access(value = AccessType.PROPERTY)
 public class Customer
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private SimpleIntegerProperty id;
+    private int id;
 
     @Column(name = "nazwisko")  // in case that an invoice is issued to a company then first and last name can be null
-    private SimpleStringProperty lastName;    // the same is for the case when an invoice is issued to a person that has no official
+    private String lastName;    // the same is for the case when an invoice is issued to a person that has no official
                                 // company name - then it can be null
     @Column(name = "imie")
-    private SimpleStringProperty firstName;
+    private String firstName;
 
     @Column(name = "firma_nazwa")
-    private SimpleStringProperty companyName;
+    private String companyName;
 
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "nip_pesel", nullable = false)
-    private SimpleStringProperty taxIdentifier;
+    private String taxIdentifier;
 
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "ulica_nr_mieszkania", nullable = false)
-    private SimpleStringProperty address;
+    private String address;
 
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "kod_pocztowy", nullable = false)
-    private SimpleStringProperty postalCode;
+    private String postalCode;
 
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "miejscowosc", nullable = false)
-    private SimpleStringProperty city;
+    private String city;
 
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "sposob_zaplaty", nullable = false)
-    private SimpleStringProperty paymentMethod; //TODO: change to enum with 0 = cash and 1 = bank transfer
+    private String paymentMethod; //TODO: change to enum with 0 = cash and 1 = bank transfer
 
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "uwzglednij_numer_faktury", nullable = false)
-    private SimpleStringProperty includeInCount; //TODO: change to enum with 1 and 0
+    private String includeInCount; //TODO: change to enum with 1 and 0
 
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "alias", nullable = false)
-    private SimpleStringProperty alias;
+    private String alias;
 
     @OneToMany(mappedBy = "customer")
     private Set<BoughtServices> boughtServices = new HashSet<>();
@@ -69,134 +66,90 @@ public class Customer
     }
 
     public int getId() {
-        return id.get();
-    }
-
-    public SimpleIntegerProperty idProperty() {
         return id;
     }
 
     public void setId(int id) {
-        this.id.set(id);
+        this.id = id;
     }
 
     public String getLastName() {
-        return lastName.get();
-    }
-
-    public SimpleStringProperty lastNameProperty() {
         return lastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName.set(lastName);
+        this.lastName = lastName;
     }
 
     public String getFirstName() {
-        return firstName.get();
-    }
-
-    public SimpleStringProperty firstNameProperty() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName.set(firstName);
+        this.firstName = firstName;
     }
 
     public String getCompanyName() {
-        return companyName.get();
-    }
-
-    public SimpleStringProperty companyNameProperty() {
         return companyName;
     }
 
     public void setCompanyName(String companyName) {
-        this.companyName.set(companyName);
+        this.companyName = companyName;
     }
 
     public String getTaxIdentifier() {
-        return taxIdentifier.get();
-    }
-
-    public SimpleStringProperty taxIdentifierProperty() {
         return taxIdentifier;
     }
 
     public void setTaxIdentifier(String taxIdentifier) {
-        this.taxIdentifier.set(taxIdentifier);
+        this.taxIdentifier = taxIdentifier;
     }
 
     public String getAddress() {
-        return address.get();
-    }
-
-    public SimpleStringProperty addressProperty() {
         return address;
     }
 
     public void setAddress(String address) {
-        this.address.set(address);
+        this.address = address;
     }
 
     public String getPostalCode() {
-        return postalCode.get();
-    }
-
-    public SimpleStringProperty postalCodeProperty() {
         return postalCode;
     }
 
     public void setPostalCode(String postalCode) {
-        this.postalCode.set(postalCode);
+        this.postalCode = postalCode;
     }
 
     public String getCity() {
-        return city.get();
-    }
-
-    public SimpleStringProperty cityProperty() {
         return city;
     }
 
     public void setCity(String city) {
-        this.city.set(city);
+        this.city = city;
     }
 
     public String getPaymentMethod() {
-        return paymentMethod.get();
-    }
-
-    public SimpleStringProperty paymentMethodProperty() {
         return paymentMethod;
     }
 
     public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod.set(paymentMethod);
+        this.paymentMethod = paymentMethod;
     }
 
     public String getIncludeInCount() {
-        return includeInCount.get();
-    }
-
-    public SimpleStringProperty includeInCountProperty() {
         return includeInCount;
     }
 
     public void setIncludeInCount(String includeInCount) {
-        this.includeInCount.set(includeInCount);
+        this.includeInCount = includeInCount;
     }
 
     public String getAlias() {
-        return alias.get();
-    }
-
-    public SimpleStringProperty aliasProperty() {
         return alias;
     }
 
     public void setAlias(String alias) {
-        this.alias.set(alias);
+        this.alias = alias;
     }
 }
