@@ -4,67 +4,36 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.MainWindowPresenter">
+<AnchorPane prefHeight="400.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.MainWindowPresenter">
    <children>
-      <SplitPane dividerPositions="0.29797979797979796" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.29797979797979796" prefHeight="400.0" prefWidth="1194.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="175.0">
                <children>
-                  <VBox layoutX="33.0" layoutY="67.0" prefHeight="598.0" prefWidth="184.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox layoutX="11.0" layoutY="84.0" prefHeight="398.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="manageContractorsButton" mnemonicParsing="false" text="Zarządzaj kontrahentami" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="manageServicesButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Zarządzaj usługami" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="printButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Drukuj" textAlignment="CENTER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="saveButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Zapisz" textAlignment="CENTER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="settingsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Ustawienia" textAlignment="CENTER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
+                        <TextField fx:id="customerSearch" promptText="Wyszukaj">
+                           <VBox.margin>
+                              <Insets bottom="2.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TableView fx:id="customersTableView">
+                           <columns>
+                              <TableColumn prefWidth="174.0" resizable="false" text="Kontrahenci" />
+                           </columns>
+                        </TableView>
                      </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
                   </VBox>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <SplitPane dividerPositions="0.4595959595959596, 0.5" orientation="VERTICAL" prefHeight="398.0" prefWidth="417.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.2398989898989899, 0.9242424242424242" orientation="VERTICAL" prefHeight="398.0" prefWidth="1011.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="696.0">
+                      <AnchorPane maxHeight="-Infinity" minHeight="100.0" minWidth="0.0" prefHeight="100.0" prefWidth="1009.0">
                            <children>
                               <VBox layoutX="122.0" prefHeight="200.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <ButtonBar buttonMinWidth="50.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
-                                      <buttons>
-                                        <Button fx:id="searchContractorButton" mnemonicParsing="false" text="Szukaj" />
-                                          <TextField fx:id="searchContractorTextField" nodeOrientation="LEFT_TO_RIGHT" promptText="Wyszukiwana fraza" />
-                                          <ChoiceBox fx:id="searchContractorChoiceBox" nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" />
-                                          <Label nodeOrientation="LEFT_TO_RIGHT" text="Wyszukaj kontrahenta po:" />
-                                          <Button fx:id="nextContractorButton" mnemonicParsing="false" text="Następny" />
-                                          <Button fx:id="previousContractorButton" mnemonicParsing="false" text="Poprzedni" />
-                                      </buttons>
-                                       <VBox.margin>
-                                          <Insets left="5.0" right="5.0" />
-                                       </VBox.margin>
-                                    </ButtonBar>
                                     <Label text="Dane kontrahenta">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
@@ -73,14 +42,15 @@
                                     <GridPane>
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="460.0" minWidth="150.0" prefWidth="150.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="830.0" minWidth="10.0" prefWidth="789.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="830.0" minWidth="10.0" prefWidth="789.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="830.0" minWidth="10.0" prefWidth="789.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="830.0" minWidth="10.0" prefWidth="789.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="830.0" minWidth="10.0" prefWidth="789.0" />
                                       </columnConstraints>
                                       <rowConstraints>
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
                                           <Label text="Imię i nazwisko">
@@ -88,22 +58,22 @@
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Nazwa firmy" GridPane.rowIndex="1">
+                                          <Label text="Nazwa firmy" GridPane.columnIndex="2">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Ulica i nr mieszkania" GridPane.rowIndex="2">
+                                          <Label text="Ulica i nr mieszkania" GridPane.columnIndex="4">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Miejscowość" GridPane.rowIndex="3">
+                                          <Label text="Miejscowość" GridPane.rowIndex="1">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label text="NIP/PESEL" GridPane.rowIndex="4">
+                                          <Label text="NIP/PESEL" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
@@ -113,22 +83,22 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="companyNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          <Label fx:id="companyNameLabel" text="Label" GridPane.columnIndex="3">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="addressLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                          <Label fx:id="addressLabel" text="Label" GridPane.columnIndex="5">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="cityLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                          <Label fx:id="cityLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="taxIDLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                          <Label fx:id="taxIDLabel" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
