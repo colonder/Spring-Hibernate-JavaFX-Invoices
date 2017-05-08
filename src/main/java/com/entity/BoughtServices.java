@@ -1,5 +1,6 @@
 package com.entity;
 
+import javafx.beans.property.SimpleObjectProperty;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "wykupione_uslugi")
 @Immutable
+@Access(value = AccessType.PROPERTY)
 @NoArgsConstructor
 public class BoughtServices implements Serializable
 {
@@ -55,7 +57,7 @@ public class BoughtServices implements Serializable
 
     @NotNull
     @Column(name = "ilosc")
-    private BigDecimal quantity;
+    private SimpleObjectProperty<BigDecimal> quantity;
 
     @ManyToOne
     @JoinColumn(name = "kontrahent_id", insertable = false, updatable = false)
@@ -69,7 +71,7 @@ public class BoughtServices implements Serializable
     {
         this.customer = customer;
         this.serviceEntity = serviceEntity;
-        this.quantity = quantity;
+        this.quantity.set(quantity);
 
         this.id.customerId = customer.getId();
         this.id.serviceId = serviceEntity.getId();
@@ -82,12 +84,20 @@ public class BoughtServices implements Serializable
         return id;
     }
 
+    public void setId(Id id) {
+        this.id = id;
+    }
+
     public BigDecimal getQuantity() {
+        return quantity.get();
+    }
+
+    public SimpleObjectProperty<BigDecimal> quantityProperty() {
         return quantity;
     }
 
     public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
+        this.quantity.set(quantity);
     }
 
     public Customer getCustomer() {

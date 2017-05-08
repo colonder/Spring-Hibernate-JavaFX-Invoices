@@ -38,7 +38,7 @@ public class MainWindowPresenter
     @FXML private Label taxIDLabel;
 
     @Autowired
-    private ICustomerService customerService; //TODO: check why @autowired gives null
+    private ICustomerService customerService;
 
     @Autowired
     private IBoughtServicesService boughtServicesService;
@@ -66,6 +66,7 @@ public class MainWindowPresenter
 
     private void configureServicesTable()
     {
+        //lp
         serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
         symbolColumn.setCellValueFactory(new PropertyValueFactory<>("symbol"));
         unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
