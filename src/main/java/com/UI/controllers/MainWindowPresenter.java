@@ -5,6 +5,7 @@ import com.entity.Customer;
 import com.entity.ServiceEntity;
 import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,7 +32,7 @@ public class MainWindowPresenter
     @FXML private TableColumn valWithoutTax;
     @FXML private TableColumn<ServiceEntity, Integer>  taxRateColumn;
     @FXML private TableColumn taxValColumn;
-    @FXML private TableColumn taxWithValColumn;
+    @FXML private TableColumn valWithTaxColumn;
 
     @FXML private TableView<Customer> customersTableView;
 
@@ -50,17 +51,19 @@ public class MainWindowPresenter
     private IBoughtServicesService boughtServicesService;
 
     private ObservableList<Customer> customerList = FXCollections.observableArrayList();
+    private ObservableList<ServiceEntity> servicesList = FXCollections.observableArrayList();
+    private SimpleObjectProperty<BigDecimal> withoutTax = new SimpleObjectProperty<>(/*TODO: initial value has to be unitPrice * quantity*/);
+    private SimpleObjectProperty<BigDecimal> tax = new SimpleObjectProperty<>(/*TODO: initial value has to be withoutTax * taxRate*/);
+    private SimpleObjectProperty<BigDecimal> withTax = new SimpleObjectProperty<>(/*TODO: initial value has to be withoutTax + tax*/);
 
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
         configureServicesTable();
         configureCustomersTable();
 
         showCustomerDetails(customerService.findOne(1));
 
-        for(BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias("zebrad"))
-        {
+        for (BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias("zebrad")) {
             boughtServicesTableView.getItems().add(boughtServices.getServiceEntity());
         }
     }
@@ -73,7 +76,14 @@ public class MainWindowPresenter
 
         customersTableView.setItems(customerList);
         customersTableView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldVal, newVal) -> showCustomerDetails(newVal));
+                .addListener((observable, oldVal, newVal) -> {
+
+            showCustomerDetails(newVal);
+            for (BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias(newVal.getAlias()))
+            {
+                boughtServicesTableView.getItems().add(boughtServices.getServiceEntity());
+            }
+        });
     }
 
     private void showCustomerDetails(Customer customer)
@@ -93,9 +103,9 @@ public class MainWindowPresenter
         unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         unitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("netUnitPrice"));
-        //bez podatku
+        valWithoutTax.setCellValueFactory(new PropertyValueFactory<>("withoutTax"));
         taxRateColumn.setCellValueFactory(new PropertyValueFactory<>("vatTaxRate"));
-        //podatek
-        //z podatkiem
+        taxValColumn.setCellValueFactory(new PropertyValueFactory<>("tax"));
+        valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("withTax"));
     }
 }
