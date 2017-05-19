@@ -28,7 +28,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <SplitPane dividerPositions="0.2398989898989899, 0.9242424242424242" orientation="VERTICAL" prefHeight="398.0" prefWidth="1011.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.2601010101010101, 0.3383838383838384, 0.9242424242424242" orientation="VERTICAL" prefHeight="398.0" prefWidth="1011.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                       <AnchorPane maxHeight="-Infinity" minHeight="100.0" minWidth="0.0" prefHeight="100.0" prefWidth="1009.0">
                            <children>
@@ -106,10 +106,44 @@
                                        </children>
                                     </GridPane>
                                  </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
                               </VBox>
                            </children>
                         </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="140.0" prefWidth="696.0">
+                        <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="1011.0">
+                           <children>
+                              <Label text="Usługi">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <FlowPane.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </FlowPane.margin>
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="serviceAddButton" mnemonicParsing="false" text="Dodaj nową">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <FlowPane.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </FlowPane.margin>
+                              </Button>
+                              <Button fx:id="serviceDeleteButton" mnemonicParsing="false" text="Usuń wybraną">
+                                 <FlowPane.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </FlowPane.margin>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </FlowPane>
+                      <AnchorPane>
                            <children>
                               <TableView fx:id="boughtServicesTableView" editable="true" layoutX="192.0" layoutY="100.0" prefHeight="18.0" prefWidth="696.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
@@ -138,7 +172,7 @@
                            <children>
                               <FlowPane layoutX="478.0" layoutY="-86.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="114.0" prefWidth="1015.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label fx:id="sumWordsLabel" text="Label">
+                                    <Label fx:id="sumWordsLabel" text="-">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -154,7 +188,7 @@
                                           <Insets left="5.0" right="5.0" />
                                        </FlowPane.margin>
                                     </Label>
-                                    <Label fx:id="sumLabel" text="Label">
+                                    <Label fx:id="sumLabel" text="-">
                                        <font>
                                           <Font size="18.0" />
                                        </font>

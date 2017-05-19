@@ -5,10 +5,10 @@ import com.entity.Customer;
 import com.entity.ServiceEntity;
 import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -44,29 +44,32 @@ public class MainWindowPresenter
     @FXML private Label cityLabel;
     @FXML private Label taxIDLabel;
 
+    @FXML private Button serviceAddButton;
+    @FXML private Button serviceDeleteButton;
+
     @Autowired
     private ICustomerService customerService;
 
     @Autowired
     private IBoughtServicesService boughtServicesService;
 
+    private BigDecimal withoutTax = new BigDecimal(0);
+    private BigDecimal tax = new BigDecimal(0);
+    private BigDecimal withtTax = new BigDecimal(0);
+
     private ObservableList<Customer> customerList = FXCollections.observableArrayList();
     private ObservableList<ServiceEntity> servicesList = FXCollections.observableArrayList();
-    private SimpleObjectProperty<BigDecimal> withoutTax;
-    private SimpleObjectProperty<BigDecimal> tax;
-    private SimpleObjectProperty<BigDecimal> withTax;
 
     @FXML
-    public void initialize() {
+    public void initialize()
+    {
         configureServicesTable();
         configureCustomersTable();
 
         showCustomerDetails(customerService.findOne(1));
         populateBoughtServicesData(customerService.findOne(1));
 
-        withoutTax = new SimpleObjectProperty<>(/*TODO: initial value has to be unitPrice * quantity*/);
-        tax = new SimpleObjectProperty<>(/*TODO: initial value has to be withoutTax * taxRate*/);
-        withTax = new SimpleObjectProperty<>(/*TODO: initial value has to be withoutTax + tax*/);
+
     }
 
     private void configureCustomersTable()
@@ -105,6 +108,7 @@ public class MainWindowPresenter
         taxRateColumn.setCellValueFactory(new PropertyValueFactory<>("vatTaxRate"));
         taxValColumn.setCellValueFactory(new PropertyValueFactory<>("tax"));
         valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("withTax"));
+
     }
 
     private void populateBoughtServicesData(Customer customer)
