@@ -52,9 +52,9 @@ public class MainWindowPresenter
 
     private ObservableList<Customer> customerList = FXCollections.observableArrayList();
     private ObservableList<ServiceEntity> servicesList = FXCollections.observableArrayList();
-    private SimpleObjectProperty<BigDecimal> withoutTax = new SimpleObjectProperty<>(/*TODO: initial value has to be unitPrice * quantity*/);
-    private SimpleObjectProperty<BigDecimal> tax = new SimpleObjectProperty<>(/*TODO: initial value has to be withoutTax * taxRate*/);
-    private SimpleObjectProperty<BigDecimal> withTax = new SimpleObjectProperty<>(/*TODO: initial value has to be withoutTax + tax*/);
+    private SimpleObjectProperty<BigDecimal> withoutTax;
+    private SimpleObjectProperty<BigDecimal> tax;
+    private SimpleObjectProperty<BigDecimal> withTax;
 
     @FXML
     public void initialize() {
@@ -62,10 +62,11 @@ public class MainWindowPresenter
         configureCustomersTable();
 
         showCustomerDetails(customerService.findOne(1));
+        populateBoughtServicesData("zebrad");
 
-        for (BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias("zebrad")) {
-            boughtServicesTableView.getItems().add(boughtServices.getServiceEntity());
-        }
+        withoutTax = new SimpleObjectProperty<>(/*TODO: initial value has to be unitPrice * quantity*/);
+        tax = new SimpleObjectProperty<>(/*TODO: initial value has to be withoutTax * taxRate*/);
+        withTax = new SimpleObjectProperty<>(/*TODO: initial value has to be withoutTax + tax*/);
     }
 
     private void configureCustomersTable()
@@ -79,10 +80,7 @@ public class MainWindowPresenter
                 .addListener((observable, oldVal, newVal) -> {
 
             showCustomerDetails(newVal);
-            for (BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias(newVal.getAlias()))
-            {
-                boughtServicesTableView.getItems().add(boughtServices.getServiceEntity());
-            }
+            populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem().getAlias());
         });
     }
 
@@ -107,5 +105,16 @@ public class MainWindowPresenter
         taxRateColumn.setCellValueFactory(new PropertyValueFactory<>("vatTaxRate"));
         taxValColumn.setCellValueFactory(new PropertyValueFactory<>("tax"));
         valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("withTax"));
+    }
+
+    private void populateBoughtServicesData(String customerAlias)
+    {
+        servicesList.clear();
+        for (BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias(customerAlias))
+        {
+            servicesList.add(boughtServices.getServiceEntity());
+        }
+
+        boughtServicesTableView.setItems(servicesList);
     }
 }
