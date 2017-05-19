@@ -62,7 +62,7 @@ public class MainWindowPresenter
         configureCustomersTable();
 
         showCustomerDetails(customerService.findOne(1));
-        populateBoughtServicesData("zebrad");
+        populateBoughtServicesData(customerService.findOne(1));
 
         withoutTax = new SimpleObjectProperty<>(/*TODO: initial value has to be unitPrice * quantity*/);
         tax = new SimpleObjectProperty<>(/*TODO: initial value has to be withoutTax * taxRate*/);
@@ -80,7 +80,7 @@ public class MainWindowPresenter
                 .addListener((observable, oldVal, newVal) -> {
 
             showCustomerDetails(newVal);
-            populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem().getAlias());
+            populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
         });
     }
 
@@ -107,10 +107,10 @@ public class MainWindowPresenter
         valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("withTax"));
     }
 
-    private void populateBoughtServicesData(String customerAlias)
+    private void populateBoughtServicesData(Customer customer)
     {
         servicesList.clear();
-        for (BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias(customerAlias))
+        for (BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias(customer.getAlias()))
         {
             servicesList.add(boughtServices.getServiceEntity());
         }
