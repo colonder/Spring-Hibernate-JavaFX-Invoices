@@ -74,7 +74,7 @@ public class BoughtServices implements Serializable
         this.id.customerId = customer.getId();
         this.id.serviceId = serviceEntity.getId();
 
-        customer.getBoughtServices().add(this); // bidirectional navigation
+        //customer.getBoughtServices().add(this); // bidirectional navigation
     }
 
     public Id getId()

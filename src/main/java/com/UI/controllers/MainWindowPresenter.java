@@ -5,6 +5,7 @@ import com.entity.Customer;
 import com.entity.ServiceEntity;
 import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
+import com.utilities.ChoiceServiceDialog;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -53,6 +54,9 @@ public class MainWindowPresenter
     @Autowired
     private IBoughtServicesService boughtServicesService;
 
+    @Autowired
+    private ChoiceServiceDialog choiceServiceDialog;
+
     private BigDecimal withoutTax = new BigDecimal(0);
     private BigDecimal tax = new BigDecimal(0);
     private BigDecimal withtTax = new BigDecimal(0);
@@ -68,8 +72,16 @@ public class MainWindowPresenter
 
         showCustomerDetails(customerService.findOne(1));
         populateBoughtServicesData(customerService.findOne(1));
+        boughtServicesTableView.setItems(servicesList);
 
+        configureButtons();
+    }
 
+    private void configureButtons()
+    {
+        serviceAddButton.setOnAction(e -> choiceServiceDialog.showDialog(customersTableView
+                .getSelectionModel().getSelectedItem()));
+        populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
     }
 
     private void configureCustomersTable()
@@ -85,6 +97,8 @@ public class MainWindowPresenter
             showCustomerDetails(newVal);
             populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
         });
+
+        customersTableView.getSelectionModel().select(0);
     }
 
     private void showCustomerDetails(Customer customer)
@@ -108,17 +122,14 @@ public class MainWindowPresenter
         taxRateColumn.setCellValueFactory(new PropertyValueFactory<>("vatTaxRate"));
         taxValColumn.setCellValueFactory(new PropertyValueFactory<>("tax"));
         valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("withTax"));
-
     }
 
     private void populateBoughtServicesData(Customer customer)
     {
         servicesList.clear();
-        for (BoughtServices boughtServices : boughtServicesService.findAllByCustomerAlias(customer.getAlias()))
+        for (BoughtServices boughtServices : boughtServicesService.findBoughtServicesByCustomer_Id(customer.getId()))
         {
             servicesList.add(boughtServices.getServiceEntity());
         }
-
-        boughtServicesTableView.setItems(servicesList);
     }
 }

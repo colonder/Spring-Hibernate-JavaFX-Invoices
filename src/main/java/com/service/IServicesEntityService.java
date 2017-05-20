@@ -10,4 +10,5 @@ public interface IServicesEntityService
     ServiceEntity findOne(int id);
     ServiceEntity save(ServiceEntity serviceEntity);
     void delete(int id);
+    List<ServiceEntity> findByServiceNameContaining(String string);
 }

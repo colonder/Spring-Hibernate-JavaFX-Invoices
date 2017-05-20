@@ -8,6 +8,6 @@ public interface IBoughtServicesService
 {
     BoughtServices save(BoughtServices boughtServices);
     void delete(int id);
-    List<BoughtServices> findAllByCustomerAlias(String alias);
+    List<BoughtServices> findBoughtServicesByCustomer_Id(int id);
     List<BoughtServices> findAll();
 }

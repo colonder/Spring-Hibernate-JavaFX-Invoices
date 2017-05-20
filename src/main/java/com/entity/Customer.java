@@ -4,8 +4,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "kontrahenci")
@@ -55,13 +55,13 @@ public class Customer
     private String alias;
 
     @OneToMany(mappedBy = "customer")
-    private Set<BoughtServices> boughtServices = new HashSet<>();
+    private List<BoughtServices> boughtServices = new ArrayList<>();
 
-    public Set<BoughtServices> getBoughtServices() {
+    public List<BoughtServices> getBoughtServices() {
         return boughtServices;
     }
 
-    public void setBoughtServices(Set<BoughtServices> boughtServices) {
+    public void setBoughtServices(List<BoughtServices> boughtServices) {
         this.boughtServices = boughtServices;
     }
 

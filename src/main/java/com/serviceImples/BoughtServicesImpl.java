@@ -25,9 +25,9 @@ public class BoughtServicesImpl implements IBoughtServicesService
         boughtServicesRepository.delete(id);
     }
 
-    public List<BoughtServices> findAllByCustomerAlias(String alias)
+    public List<BoughtServices> findBoughtServicesByCustomer_Id(int id)
     {
-        return boughtServicesRepository.findAllByCustomerAlias(alias);
+        return boughtServicesRepository.findBoughtServicesByCustomer_Id(id);
     }
 
     public List<BoughtServices> findAll() {

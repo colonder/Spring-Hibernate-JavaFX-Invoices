@@ -32,4 +32,9 @@ public class ServiceImpl implements IServicesEntityService {
     public void delete(int id) {
         serviceRepository.delete(id);
     }
+
+    @Override
+    public List<ServiceEntity> findByServiceNameContaining(String string) {
+        return serviceRepository.findByServiceNameContaining(string);
+    }
 }
