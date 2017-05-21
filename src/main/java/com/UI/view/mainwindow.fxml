@@ -147,7 +147,7 @@
                            <children>
                               <TableView fx:id="boughtServicesTableView" editable="true" layoutX="192.0" layoutY="100.0" prefHeight="18.0" prefWidth="696.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                    <TableColumn fx:id="orderColumn" editable="false" minWidth="20.0" prefWidth="35.0" resizable="false" text="Lp" />
+                                    <TableColumn fx:id="orderColumn" editable="false" minWidth="20.0" prefWidth="35.0" resizable="false" sortable="false" text="Lp" />
                                   <TableColumn fx:id="serviceNameColumn" editable="false" prefWidth="323.0" resizable="false" sortable="false" text="Nazwa towaru lub usługi" />
                                   <TableColumn fx:id="symbolColumn" editable="false" minWidth="0.0" prefWidth="84.0" resizable="false" sortable="false" text="Symbol&#10;PKWIU/PKOB" />
                                     <TableColumn fx:id="unitColumn" editable="false" minWidth="7.10888671875" prefWidth="30.0" resizable="false" sortable="false" text="j. m." />

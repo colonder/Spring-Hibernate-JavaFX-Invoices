@@ -6,13 +6,13 @@ import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
 import com.utilities.ChoiceServiceDialog;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.BigDecimalStringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,10 +30,10 @@ public class MainWindowPresenter
     @FXML private TableColumn<BoughtServices, String>  unitColumn;
     @FXML private TableColumn<BoughtServices, BigDecimal> quantityColumn;
     @FXML private TableColumn<BoughtServices, BigDecimal>  unitPriceColumn;
-    @FXML private TableColumn valWithoutTax;
+    @FXML private TableColumn<BoughtServices, BigDecimal> valWithoutTax;
     @FXML private TableColumn<BoughtServices, Integer>  taxRateColumn;
-    @FXML private TableColumn taxValColumn;
-    @FXML private TableColumn valWithTaxColumn;
+    @FXML private TableColumn<BoughtServices, BigDecimal> taxValColumn;
+    @FXML private TableColumn<BoughtServices, BigDecimal> valWithTaxColumn;
 
     @FXML private TableView<Customer> customersTableView;
 
@@ -56,10 +56,6 @@ public class MainWindowPresenter
 
     @Autowired
     private ChoiceServiceDialog choiceServiceDialog;
-
-    private BigDecimal withoutTax = BigDecimal.ZERO;
-    private BigDecimal tax = BigDecimal.ZERO;
-    private BigDecimal withtTax = BigDecimal.ZERO;
 
     private ObservableList<Customer> customerList = FXCollections.observableArrayList();
     private ObservableList<BoughtServices> servicesList = FXCollections.observableArrayList();
@@ -133,44 +129,24 @@ public class MainWindowPresenter
 
     private void configureServicesTable()
     {
-        serviceNameColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<BoughtServices, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<BoughtServices, String> param) {
-                return new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getServiceName());
-            }
-        });
-
-        symbolColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<BoughtServices, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<BoughtServices, String> param) {
-                return new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getSymbol());
-            }
-        });
-
-        unitColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<BoughtServices, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<BoughtServices, String> param) {
-                return new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getUnit());
-            }
-        });
-
+        serviceNameColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getServiceName()));
+        symbolColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getSymbol()));
+        unitColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getUnit()));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        unitPriceColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<BoughtServices, BigDecimal>, ObservableValue<BigDecimal>>() {
-            @Override
-            public ObservableValue<BigDecimal> call(TableColumn.CellDataFeatures<BoughtServices, BigDecimal> param) {
-                return new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getNetUnitPrice());
-            }
-        });
+        quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
+        quantityColumn.setOnEditCommit(event -> boughtServicesService.save(event.getRowValue())); //TODO: why it's not working?
+        unitPriceColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getNetUnitPrice()));
+        valWithoutTax.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getNetUnitPrice()
+                        .multiply(param.getValue().getQuantity()).setScale(2, BigDecimal.ROUND_HALF_DOWN)));
+        taxRateColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getVatTaxRate()));
 
-        valWithoutTax.setCellValueFactory(new PropertyValueFactory<>("withoutTax"));
-        taxRateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<BoughtServices, Integer>, ObservableValue<Integer>>() {
-            @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<BoughtServices, Integer> param) {
-                return new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getVatTaxRate());
-            }
-        });
+        taxValColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(
+                BigDecimal.valueOf(param.getValue().getServiceEntity().getVatTaxRate()) // tax rate
+                        .multiply(new BigDecimal(0.01)) // tax as percents
+                        .multiply(param.getValue().getServiceEntity().getNetUnitPrice().multiply(param.getValue()
+                                .getQuantity())) // value without tax
+                        .setScale(2, BigDecimal.ROUND_HALF_DOWN)));
 
-        taxValColumn.setCellValueFactory(new PropertyValueFactory<>("tax"));
         valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("withTax"));
     }
 
