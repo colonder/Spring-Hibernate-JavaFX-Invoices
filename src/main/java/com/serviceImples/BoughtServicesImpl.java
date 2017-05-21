@@ -1,6 +1,7 @@
 package com.serviceImples;
 
 import com.entity.BoughtServices;
+import com.entity.Customer;
 import com.repositories.IBoughtServicesRepository;
 import com.service.IBoughtServicesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,18 @@ public class BoughtServicesImpl implements IBoughtServicesService
         boughtServicesRepository.delete(id);
     }
 
-    public List<BoughtServices> findBoughtServicesByCustomer_Id(int id)
-    {
-        return boughtServicesRepository.findBoughtServicesByCustomer_Id(id);
-    }
-
     public List<BoughtServices> findAll() {
         return boughtServicesRepository.findAll();
+    }
+
+    @Override
+    public List<BoughtServices> findBoughtServicesByCustomer(Customer customer) {
+        return boughtServicesRepository.findBoughtServicesByCustomer(customer);
+    }
+
+    @Override
+    @Transactional
+    public void delete(BoughtServices boughtServices) {
+        boughtServicesRepository.delete(boughtServices);
     }
 }

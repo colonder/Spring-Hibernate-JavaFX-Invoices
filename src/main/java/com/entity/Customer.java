@@ -4,8 +4,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "kontrahenci")
@@ -53,17 +51,6 @@ public class Customer
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "alias", nullable = false)
     private String alias;
-
-    @OneToMany(mappedBy = "customer")
-    private List<BoughtServices> boughtServices = new ArrayList<>();
-
-    public List<BoughtServices> getBoughtServices() {
-        return boughtServices;
-    }
-
-    public void setBoughtServices(List<BoughtServices> boughtServices) {
-        this.boughtServices = boughtServices;
-    }
 
     public int getId() {
         return id;
