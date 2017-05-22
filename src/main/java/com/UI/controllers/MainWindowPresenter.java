@@ -30,10 +30,10 @@ public class MainWindowPresenter
     @FXML private TableColumn<BoughtServices, String>  unitColumn;
     @FXML private TableColumn<BoughtServices, BigDecimal> quantityColumn;
     @FXML private TableColumn<BoughtServices, BigDecimal>  unitPriceColumn;
-    @FXML private TableColumn<BoughtServices, BigDecimal> valWithoutTax;
+    @FXML private TableColumn valWithoutTaxColumn;
     @FXML private TableColumn<BoughtServices, Integer>  taxRateColumn;
-    @FXML private TableColumn<BoughtServices, BigDecimal> taxValColumn;
-    @FXML private TableColumn<BoughtServices, BigDecimal> valWithTaxColumn;
+    @FXML private TableColumn taxValColumn;
+    @FXML private TableColumn valWithTaxColumn;
 
     @FXML private TableView<Customer> customersTableView;
 
@@ -104,9 +104,7 @@ public class MainWindowPresenter
     private void configureCustomersTable()
     {
         customersCol.setCellValueFactory(new PropertyValueFactory<>("alias"));
-
         customerList.addAll(customerService.findAll());
-
         customersTableView.setItems(customerList);
         customersTableView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldVal, newVal) -> {
@@ -129,25 +127,31 @@ public class MainWindowPresenter
 
     private void configureServicesTable()
     {
+        //region Bought services properties
         serviceNameColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getServiceName()));
         symbolColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getSymbol()));
         unitColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getUnit()));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
-        quantityColumn.setOnEditCommit(event -> boughtServicesService.save(event.getRowValue())); //TODO: why it's not working?
+        quantityColumn.setOnEditCommit(event -> {
+            event.getRowValue().setQuantity(event.getNewValue());
+            boughtServicesService.save(event.getRowValue()); //TODO: why it's not working?
+        });
         unitPriceColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getNetUnitPrice()));
-        valWithoutTax.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getNetUnitPrice()
-                        .multiply(param.getValue().getQuantity()).setScale(2, BigDecimal.ROUND_HALF_DOWN)));
-        taxRateColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getVatTaxRate()));
 
-        taxValColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(
+        taxRateColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getVatTaxRate()));
+        //endregion
+
+        /*valWithoutTax.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity()
+                .getNetUnitPrice().multiply(param.getValue().getQuantity()).setScale(2, BigDecimal.ROUND_HALF_DOWN)));*/
+        /*taxValColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(
                 BigDecimal.valueOf(param.getValue().getServiceEntity().getVatTaxRate()) // tax rate
                         .multiply(new BigDecimal(0.01)) // tax as percents
                         .multiply(param.getValue().getServiceEntity().getNetUnitPrice().multiply(param.getValue()
                                 .getQuantity())) // value without tax
                         .setScale(2, BigDecimal.ROUND_HALF_DOWN)));
 
-        valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("withTax"));
+        valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("withTax"));*/
     }
 
     private void populateBoughtServicesData(Customer customer)

@@ -15,9 +15,9 @@ public class Customer
     @Column(name = "id")
     private int id;
 
-    @Column(name = "nazwisko")  // in case that an invoice is issued to a company then first and last name can be null
-    private String lastName;    // the same is for the case when an invoice is issued to a person that has no official
-                                // company name - then it can be null
+    @Column(name = "nazwisko")
+    private String lastName;
+
     @Column(name = "imie")
     private String firstName;
 

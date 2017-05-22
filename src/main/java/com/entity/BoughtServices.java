@@ -112,5 +112,4 @@ public class BoughtServices implements Serializable
     public void setServiceEntity(ServiceEntity serviceEntity) {
         this.serviceEntity = serviceEntity;
     }
-
 }
