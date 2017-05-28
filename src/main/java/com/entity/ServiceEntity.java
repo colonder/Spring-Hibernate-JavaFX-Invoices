@@ -39,92 +39,12 @@ public class ServiceEntity
 
     //TODO: write a trigger in database preventing from deleting service when any customer is still using it(?)
 
-    @Transient
-    private SimpleStringProperty serviceNameProp;
-    @Transient
-    private SimpleStringProperty symbolProp;
-    @Transient
-    private SimpleStringProperty unitProp;
-    @Transient
-    private SimpleDoubleProperty netUnitPriceProp;
-    @Transient
-    private SimpleIntegerProperty vatProp;
-
-    public ServiceEntity()
-    {
-        serviceNameProp = new SimpleStringProperty(serviceName);
-        symbolProp = new SimpleStringProperty(symbol);
-        unitProp = new SimpleStringProperty(unit);
-        netUnitPriceProp = new SimpleDoubleProperty(netUnitPrice.doubleValue());
-        vatProp = new SimpleIntegerProperty(vatTaxRate);
-    }
-
     public ServiceEntity(String serviceName, String symbol, String unit, BigDecimal netUnitPrice, int vatTaxRate) {
         this.serviceName = serviceName;
         this.symbol = symbol;
         this.unit = unit;
         this.netUnitPrice = netUnitPrice;
         this.vatTaxRate = vatTaxRate;
-    }
-
-    public String getServiceNameProp() {
-        return serviceNameProp.get();
-    }
-
-    public SimpleStringProperty serviceNamePropProperty() {
-        return serviceNameProp;
-    }
-
-    public void setServiceNameProp(String serviceNameProp) {
-        this.serviceNameProp.set(serviceNameProp);
-    }
-
-    public String getSymbolProp() {
-        return symbolProp.get();
-    }
-
-    public SimpleStringProperty symbolPropProperty() {
-        return symbolProp;
-    }
-
-    public void setSymbolProp(String symbolProp) {
-        this.symbolProp.set(symbolProp);
-    }
-
-    public String getUnitProp() {
-        return unitProp.get();
-    }
-
-    public SimpleStringProperty unitPropProperty() {
-        return unitProp;
-    }
-
-    public void setUnitProp(String unitProp) {
-        this.unitProp.set(unitProp);
-    }
-
-    public double getNetUnitPriceProp() {
-        return netUnitPriceProp.get();
-    }
-
-    public SimpleDoubleProperty netUnitPricePropProperty() {
-        return netUnitPriceProp;
-    }
-
-    public void setNetUnitPriceProp(double netUnitPriceProp) {
-        this.netUnitPriceProp.set(netUnitPriceProp);
-    }
-
-    public int getVatProp() {
-        return vatProp.get();
-    }
-
-    public SimpleIntegerProperty vatPropProperty() {
-        return vatProp;
-    }
-
-    public void setVatProp(int vatProp) {
-        this.vatProp.set(vatProp);
     }
 
     public int getId() {

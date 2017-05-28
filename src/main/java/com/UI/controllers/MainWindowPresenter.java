@@ -2,6 +2,7 @@ package com.UI.controllers;
 
 import com.entity.BoughtServices;
 import com.entity.Customer;
+import com.intermediary.PersonalData;
 import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
 import com.utilities.ChoiceServiceDialog;
@@ -21,18 +22,18 @@ import java.util.Optional;
 @Component
 public class MainWindowPresenter
 {
-    @FXML private TableView<BoughtServices> boughtServicesTableView;
+    @FXML private TableView<PersonalData> boughtServicesTableView;
 
     @FXML private TableColumn orderColumn;
-    @FXML private TableColumn<BoughtServices, String>  serviceNameColumn;
-    @FXML private TableColumn<BoughtServices, String>  symbolColumn;
-    @FXML private TableColumn<BoughtServices, String>  unitColumn;
-    @FXML private TableColumn<BoughtServices, Number> quantityColumn;
-    @FXML private TableColumn<BoughtServices, Number>  unitPriceColumn;
-    @FXML private TableColumn<BoughtServices, Number> valWithoutTaxColumn;
-    @FXML private TableColumn<BoughtServices, Number>  taxRateColumn;
-    @FXML private TableColumn<BoughtServices, Number> taxValColumn;
-    @FXML private TableColumn<BoughtServices, Number> valWithTaxColumn;
+    @FXML private TableColumn<PersonalData, String>  serviceNameColumn;
+    @FXML private TableColumn<PersonalData, String>  symbolColumn;
+    @FXML private TableColumn<PersonalData, String>  unitColumn;
+    @FXML private TableColumn<PersonalData, Number> quantityColumn;
+    @FXML private TableColumn<PersonalData, Number>  unitPriceColumn;
+    @FXML private TableColumn<PersonalData, Number> valWithoutTaxColumn;
+    @FXML private TableColumn<PersonalData, Number>  taxRateColumn;
+    @FXML private TableColumn<PersonalData, Number> taxValColumn;
+    @FXML private TableColumn<PersonalData, Number> valWithTaxColumn;
 
     @FXML private TableView<Customer> customersTableView;
 
@@ -48,23 +49,22 @@ public class MainWindowPresenter
     @FXML private Button serviceDeleteButton;
 
     @Autowired
-    private ICustomerService customerService;
-
-    @Autowired
-    private IBoughtServicesService boughtServicesService;
-
-    @Autowired
     private ChoiceServiceDialog choiceServiceDialog;
 
+    @Autowired
+    private PersonalData personalData;
+
+    @Autowired
+    private ICustomerService customerService;
+
     private ObservableList<Customer> customerList = FXCollections.observableArrayList();
-    private ObservableList<BoughtServices> servicesList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize()
     {
         configureCustomersTable();
         showCustomerDetails(customersTableView.getSelectionModel().getSelectedItem());
-        boughtServicesTableView.setItems(servicesList);
+        //boughtServicesTableView.setItems(servicesList);
         boughtServicesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         configureButtons();
@@ -89,12 +89,12 @@ public class MainWindowPresenter
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent())
             {
-                for(BoughtServices serviceToDelete : boughtServicesTableView.getSelectionModel().getSelectedItems())
+                /*for(BoughtServices serviceToDelete : boughtServicesTableView.getSelectionModel().getSelectedItems())
                 {
                     boughtServicesService.delete(serviceToDelete);
                 }
 
-                populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
+                populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());*/
             }
         });
     }
@@ -125,7 +125,7 @@ public class MainWindowPresenter
 
     private void configureServicesTable()
     {
-        serviceNameColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().serviceNamePropProperty());
+        /*serviceNameColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().serviceNamePropProperty());
         symbolColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().symbolPropProperty());
         unitColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().unitPropProperty());
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -139,12 +139,12 @@ public class MainWindowPresenter
         taxRateColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().vatPropProperty());
         //valWithoutTaxColumn.setCellValueFactory(new PropertyValueFactory<>("valWithoutTax"));
         //taxValColumn.setCellValueFactory(new PropertyValueFactory<>("taxVal"));
-        //valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("totalVal"));
+        //valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("totalVal"));*/
     }
 
     private void populateBoughtServicesData(Customer customer)
     {
-        servicesList.clear();
-        servicesList.setAll(boughtServicesService.findBoughtServicesByCustomer(customer));
+        //servicesList.clear();
+        //servicesList.setAll(boughtServicesService.findBoughtServicesByCustomer(customer));
     }
 }

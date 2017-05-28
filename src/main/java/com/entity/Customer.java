@@ -1,12 +1,16 @@
 package com.entity;
 
 import javafx.beans.property.SimpleStringProperty;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "kontrahenci")
+@NoArgsConstructor
 public class Customer
 {
     @Id
@@ -51,40 +55,14 @@ public class Customer
     @Column(name = "alias", nullable = false)
     private String alias;
 
-    @Transient
-    private SimpleStringProperty lastNameProp;
-    @Transient
-    private SimpleStringProperty firstNameProp;
-    @Transient
-    private SimpleStringProperty companyNameProp;
-    @Transient
-    private SimpleStringProperty taxIdProp;
-    @Transient
-    private SimpleStringProperty addressProp;
-    @Transient
-    private SimpleStringProperty postalCodeProp;
-    @Transient
-    private SimpleStringProperty cityProp;
-    @Transient
-    private SimpleStringProperty aliasProp;
-    //TODO: also make properties for payment method and include in count fields
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BoughtServices> boughtServices = new ArrayList<>();
 
-    public Customer()
-    {
-        lastNameProp = new SimpleStringProperty(lastName);
-        firstNameProp = new SimpleStringProperty(firstName);
-        companyNameProp = new SimpleStringProperty(companyName);
-        taxIdProp = new SimpleStringProperty(taxIdentifier);
-        addressProp = new SimpleStringProperty(address);
-        postalCodeProp = new SimpleStringProperty(postalCode);
-        cityProp = new SimpleStringProperty(city);
-        aliasProp = new SimpleStringProperty(alias);
-    }
+    //TODO: also make properties for payment method and include in count fields
 
     public Customer(String lastName, String firstName, String companyName, String taxIdentifier, String address,
                     String postalCode, String city, String paymentMethod, String includeInCount, String alias)
     {
-        this(); //default constructor call
         this.lastName = lastName;
         this.firstName = firstName;
         this.companyName = companyName;
@@ -95,6 +73,26 @@ public class Customer
         this.paymentMethod = paymentMethod;
         this.includeInCount = includeInCount;
         this.alias = alias;
+    }
+
+    public List<BoughtServices> getBoughtServices() {
+        return boughtServices;
+    }
+
+    public void setBoughtServices(List<BoughtServices> boughtServices) {
+        this.boughtServices = boughtServices;
+    }
+
+    public void addBoughtService(BoughtServices service)
+    {
+        boughtServices.add(service);
+        service.setCustomer(this);
+    }
+
+    public void removeBoughtService(BoughtServices service)
+    {
+        boughtServices.remove(service);
+        service.setCustomer(null);
     }
 
     public int getId() {
@@ -183,101 +181,5 @@ public class Customer
 
     public void setAlias(String alias) {
         this.alias = alias;
-    }
-
-    public String getLastNameProp() {
-        return lastNameProp.get();
-    }
-
-    public SimpleStringProperty lastNamePropProperty() {
-        return lastNameProp;
-    }
-
-    public void setLastNameProp(String lastNameProp) {
-        this.lastNameProp.set(lastNameProp);
-    }
-
-    public String getFirstNameProp() {
-        return firstNameProp.get();
-    }
-
-    public SimpleStringProperty firstNamePropProperty() {
-        return firstNameProp;
-    }
-
-    public void setFirstNameProp(String firstNameProp) {
-        this.firstNameProp.set(firstNameProp);
-    }
-
-    public String getCompanyNameProp() {
-        return companyNameProp.get();
-    }
-
-    public SimpleStringProperty companyNamePropProperty() {
-        return companyNameProp;
-    }
-
-    public void setCompanyNameProp(String companyNameProp) {
-        this.companyNameProp.set(companyNameProp);
-    }
-
-    public String getTaxIdProp() {
-        return taxIdProp.get();
-    }
-
-    public SimpleStringProperty taxIdPropProperty() {
-        return taxIdProp;
-    }
-
-    public void setTaxIdProp(String taxIdProp) {
-        this.taxIdProp.set(taxIdProp);
-    }
-
-    public String getAddressProp() {
-        return addressProp.get();
-    }
-
-    public SimpleStringProperty addressPropProperty() {
-        return addressProp;
-    }
-
-    public void setAddressProp(String addressProp) {
-        this.addressProp.set(addressProp);
-    }
-
-    public String getPostalCodeProp() {
-        return postalCodeProp.get();
-    }
-
-    public SimpleStringProperty postalCodePropProperty() {
-        return postalCodeProp;
-    }
-
-    public void setPostalCodeProp(String postalCodeProp) {
-        this.postalCodeProp.set(postalCodeProp);
-    }
-
-    public String getCityProp() {
-        return cityProp.get();
-    }
-
-    public SimpleStringProperty cityPropProperty() {
-        return cityProp;
-    }
-
-    public void setCityProp(String cityProp) {
-        this.cityProp.set(cityProp);
-    }
-
-    public String getAliasProp() {
-        return aliasProp.get();
-    }
-
-    public SimpleStringProperty aliasPropProperty() {
-        return aliasProp;
-    }
-
-    public void setAliasProp(String aliasProp) {
-        this.aliasProp.set(aliasProp);
     }
 }
