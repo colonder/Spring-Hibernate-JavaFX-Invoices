@@ -5,14 +5,13 @@ import com.entity.Customer;
 import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
 import com.utilities.ChoiceServiceDialog;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.converter.BigDecimalStringConverter;
+import javafx.util.converter.NumberStringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,12 +27,12 @@ public class MainWindowPresenter
     @FXML private TableColumn<BoughtServices, String>  serviceNameColumn;
     @FXML private TableColumn<BoughtServices, String>  symbolColumn;
     @FXML private TableColumn<BoughtServices, String>  unitColumn;
-    @FXML private TableColumn<BoughtServices, BigDecimal> quantityColumn;
-    @FXML private TableColumn<BoughtServices, BigDecimal>  unitPriceColumn;
-    @FXML private TableColumn valWithoutTaxColumn;
-    @FXML private TableColumn<BoughtServices, Integer>  taxRateColumn;
-    @FXML private TableColumn taxValColumn;
-    @FXML private TableColumn valWithTaxColumn;
+    @FXML private TableColumn<BoughtServices, Number> quantityColumn;
+    @FXML private TableColumn<BoughtServices, Number>  unitPriceColumn;
+    @FXML private TableColumn<BoughtServices, Number> valWithoutTaxColumn;
+    @FXML private TableColumn<BoughtServices, Number>  taxRateColumn;
+    @FXML private TableColumn<BoughtServices, Number> taxValColumn;
+    @FXML private TableColumn<BoughtServices, Number> valWithTaxColumn;
 
     @FXML private TableView<Customer> customersTableView;
 
@@ -63,14 +62,13 @@ public class MainWindowPresenter
     @FXML
     public void initialize()
     {
-        configureServicesTable();
         configureCustomersTable();
-
         showCustomerDetails(customersTableView.getSelectionModel().getSelectedItem());
         boughtServicesTableView.setItems(servicesList);
         boughtServicesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         configureButtons();
+        configureServicesTable();
     }
 
     private void configureButtons()
@@ -127,31 +125,21 @@ public class MainWindowPresenter
 
     private void configureServicesTable()
     {
-        //region Bought services properties
-        serviceNameColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getServiceName()));
-        symbolColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getSymbol()));
-        unitColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getUnit()));
+        serviceNameColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().serviceNamePropProperty());
+        symbolColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().symbolPropProperty());
+        unitColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().unitPropProperty());
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
+        quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
         quantityColumn.setOnEditCommit(event -> {
-            event.getRowValue().setQuantity(event.getNewValue());
+            event.getRowValue().setQuantity(BigDecimal.valueOf(event.getNewValue().doubleValue()));
+            event.getRowValue().setQuantityProp(event.getNewValue().doubleValue());
             boughtServicesService.save(event.getRowValue()); //TODO: why it's not working?
         });
-        unitPriceColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getNetUnitPrice()));
-
-        taxRateColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity().getVatTaxRate()));
-        //endregion
-
-        /*valWithoutTax.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getServiceEntity()
-                .getNetUnitPrice().multiply(param.getValue().getQuantity()).setScale(2, BigDecimal.ROUND_HALF_DOWN)));*/
-        /*taxValColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(
-                BigDecimal.valueOf(param.getValue().getServiceEntity().getVatTaxRate()) // tax rate
-                        .multiply(new BigDecimal(0.01)) // tax as percents
-                        .multiply(param.getValue().getServiceEntity().getNetUnitPrice().multiply(param.getValue()
-                                .getQuantity())) // value without tax
-                        .setScale(2, BigDecimal.ROUND_HALF_DOWN)));
-
-        valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("withTax"));*/
+        unitPriceColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().netUnitPricePropProperty());
+        taxRateColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().vatPropProperty());
+        //valWithoutTaxColumn.setCellValueFactory(new PropertyValueFactory<>("valWithoutTax"));
+        //taxValColumn.setCellValueFactory(new PropertyValueFactory<>("taxVal"));
+        //valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("totalVal"));
     }
 
     private void populateBoughtServicesData(Customer customer)
