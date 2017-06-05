@@ -1,4 +1,4 @@
-package com.utilities;
+package com.utilities.dialogs;
 
 import org.springframework.stereotype.Component;
 

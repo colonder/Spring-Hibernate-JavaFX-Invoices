@@ -1,8 +1,6 @@
 package com.entity;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +8,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "uslugi")
+@NoArgsConstructor
 public class ServiceEntity
 {
     @Id

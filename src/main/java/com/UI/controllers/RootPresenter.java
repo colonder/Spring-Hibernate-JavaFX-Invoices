@@ -1,7 +1,7 @@
 package com.UI.controllers;
 
-import com.utilities.ManageCustomersDialog;
-import com.utilities.ManageServicesDialog;
+import com.utilities.dialogs.ManageCustomersDialog;
+import com.utilities.dialogs.ManageServicesDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import org.springframework.beans.factory.annotation.Autowired;

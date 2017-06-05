@@ -55,8 +55,11 @@ public class Customer
     @Column(name = "alias", nullable = false)
     private String alias;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoughtServices> boughtServices = new ArrayList<>();
+
+    @Transient
+    private CustomerProps customerProps;
 
     //TODO: also make properties for payment method and include in count fields
 
@@ -73,6 +76,10 @@ public class Customer
         this.paymentMethod = paymentMethod;
         this.includeInCount = includeInCount;
         this.alias = alias;
+    }
+
+    public CustomerProps getCustomerProps() {
+        return customerProps;
     }
 
     public List<BoughtServices> getBoughtServices() {
@@ -181,5 +188,145 @@ public class Customer
 
     public void setAlias(String alias) {
         this.alias = alias;
+    }
+
+    public class CustomerProps
+    {
+        // customer properties
+        private SimpleStringProperty lastNameProp;
+        private SimpleStringProperty firstNameProp;
+        private SimpleStringProperty companyNameProp;
+        private SimpleStringProperty taxIdProp;
+        private SimpleStringProperty addressProp;
+        private SimpleStringProperty postalCodeProp;
+        private SimpleStringProperty cityProp;
+        private SimpleStringProperty aliasProp;
+
+        public CustomerProps()
+        {
+            this.lastNameProp = new SimpleStringProperty(lastName);
+            this.firstNameProp = new SimpleStringProperty(firstName);
+            this.companyNameProp = new SimpleStringProperty(companyName);
+            this.taxIdProp = new SimpleStringProperty(taxIdentifier);
+            this.addressProp = new SimpleStringProperty(address);
+            this.postalCodeProp = new SimpleStringProperty(postalCode);
+            this.cityProp = new SimpleStringProperty(city);
+            this.aliasProp = new SimpleStringProperty(alias);
+        }
+
+        //TODO: presenters calling methods in here to remove, add etc?
+
+        public Customer getCustomer()
+        {
+            return Customer.this;
+        }
+
+        public String getLastNameProp()
+        {
+            return lastNameProp.get();
+        }
+
+        public SimpleStringProperty lastNamePropProperty() {
+            return lastNameProp;
+        }
+
+        public void setLastNameProp(String lastNameProp)
+        {
+            setLastName(lastNameProp);
+            this.lastNameProp.set(lastNameProp);
+        }
+
+        public String getFirstNameProp() {
+            return firstNameProp.get();
+        }
+
+        public SimpleStringProperty firstNamePropProperty() {
+            return firstNameProp;
+        }
+
+        public void setFirstNameProp(String firstNameProp) {
+            setFirstName(firstNameProp);
+            this.firstNameProp.set(firstNameProp);
+        }
+
+        public String getCompanyNameProp() {
+            return companyNameProp.get();
+        }
+
+        public SimpleStringProperty companyNamePropProperty() {
+            return companyNameProp;
+        }
+
+        public void setCompanyNameProp(String companyNameProp) {
+            setCompanyName(companyNameProp);
+            this.companyNameProp.set(companyNameProp);
+        }
+
+        public String getTaxIdProp() {
+            return taxIdProp.get();
+        }
+
+        public SimpleStringProperty taxIdPropProperty() {
+            return taxIdProp;
+        }
+
+        public void setTaxIdProp(String taxIdProp) {
+            setTaxIdentifier(taxIdProp);
+            this.taxIdProp.set(taxIdProp);
+        }
+
+        public String getAddressProp() {
+            return addressProp.get();
+        }
+
+        public SimpleStringProperty addressPropProperty() {
+            return addressProp;
+        }
+
+        public void setAddressProp(String addressProp)
+        {
+            setAddress(addressProp);
+            this.addressProp.set(addressProp);
+        }
+
+        public String getPostalCodeProp() {
+            return postalCodeProp.get();
+        }
+
+        public SimpleStringProperty postalCodePropProperty() {
+            return postalCodeProp;
+        }
+
+        public void setPostalCodeProp(String postalCodeProp) {
+            setPostalCode(postalCodeProp);
+            this.postalCodeProp.set(postalCodeProp);
+        }
+
+        public String getCityProp() {
+            return cityProp.get();
+        }
+
+        public SimpleStringProperty cityPropProperty() {
+            return cityProp;
+        }
+
+        public void setCityProp(String cityProp)
+        {
+            setCity(cityProp);
+            this.cityProp.set(cityProp);
+        }
+
+        public String getAliasProp() {
+            return aliasProp.get();
+        }
+
+        public SimpleStringProperty aliasPropProperty() {
+            return aliasProp;
+        }
+
+        public void setAliasProp(String aliasProp) {
+            setAlias(aliasProp);
+            this.aliasProp.set(aliasProp);
+        }
     }
 }

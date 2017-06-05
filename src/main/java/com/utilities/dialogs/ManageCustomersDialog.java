@@ -1,4 +1,4 @@
-package com.utilities;
+package com.utilities.dialogs;
 
 import com.entity.Customer;
 import com.service.ICustomerService;

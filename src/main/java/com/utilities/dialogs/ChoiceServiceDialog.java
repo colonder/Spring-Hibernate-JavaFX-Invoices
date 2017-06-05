@@ -1,9 +1,6 @@
-package com.utilities;
+package com.utilities.dialogs;
 
-import com.entity.BoughtServices;
-import com.entity.Customer;
 import com.entity.ServiceEntity;
-import com.service.IBoughtServicesService;
 import com.service.IServicesEntityService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,8 +11,8 @@ import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -24,11 +21,9 @@ public class ChoiceServiceDialog
     @Autowired
     private IServicesEntityService servicesEntityService;
 
-    @Autowired
-    private IBoughtServicesService boughtServicesService;
-
-    public void showDialog(Customer customer)
+    public List<ServiceEntity> showDialog()
     {
+        List<ServiceEntity> services = new ArrayList<>();
         Dialog<ArrayList<ServiceEntity>> dialog = new Dialog<>();
         ButtonType cancelButton = new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE);
         ButtonType acceptButton = new ButtonType("Dodaj wybrane", ButtonBar.ButtonData.OK_DONE);
@@ -67,11 +62,8 @@ public class ChoiceServiceDialog
         });
 
         Optional<ArrayList<ServiceEntity>> result = dialog.showAndWait();
-        result.ifPresent(serviceEntities -> {
-            for(ServiceEntity service : serviceEntities)
-            {
-                boughtServicesService.save(new BoughtServices(customer, service, BigDecimal.ZERO));
-            }
-        });
+        result.ifPresent(services::addAll);
+
+        return services;
     }
 }

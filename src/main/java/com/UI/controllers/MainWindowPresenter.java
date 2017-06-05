@@ -1,11 +1,12 @@
 package com.UI.controllers;
-
 import com.entity.BoughtServices;
+import com.entity.BoughtServices.BoughtServicesProps;
 import com.entity.Customer;
-import com.intermediary.PersonalData;
+import com.entity.Customer.CustomerProps;
+import com.entity.ServiceEntity;
 import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
-import com.utilities.ChoiceServiceDialog;
+import com.utilities.dialogs.ChoiceServiceDialog;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,22 +23,22 @@ import java.util.Optional;
 @Component
 public class MainWindowPresenter
 {
-    @FXML private TableView<PersonalData> boughtServicesTableView;
+    @FXML private TableView<BoughtServicesProps> boughtServicesTableView;
 
     @FXML private TableColumn orderColumn;
-    @FXML private TableColumn<PersonalData, String>  serviceNameColumn;
-    @FXML private TableColumn<PersonalData, String>  symbolColumn;
-    @FXML private TableColumn<PersonalData, String>  unitColumn;
-    @FXML private TableColumn<PersonalData, Number> quantityColumn;
-    @FXML private TableColumn<PersonalData, Number>  unitPriceColumn;
-    @FXML private TableColumn<PersonalData, Number> valWithoutTaxColumn;
-    @FXML private TableColumn<PersonalData, Number>  taxRateColumn;
-    @FXML private TableColumn<PersonalData, Number> taxValColumn;
-    @FXML private TableColumn<PersonalData, Number> valWithTaxColumn;
+    @FXML private TableColumn<BoughtServicesProps, String>  serviceNameColumn;
+    @FXML private TableColumn<BoughtServicesProps, String>  symbolColumn;
+    @FXML private TableColumn<BoughtServicesProps, String>  unitColumn;
+    @FXML private TableColumn<BoughtServicesProps, Number> quantityColumn;
+    @FXML private TableColumn<BoughtServicesProps, Number>  unitPriceColumn;
+    @FXML private TableColumn<BoughtServicesProps, Number> valWithoutTaxColumn;
+    @FXML private TableColumn<BoughtServicesProps, Number>  taxRateColumn;
+    @FXML private TableColumn<BoughtServicesProps, Number> taxValColumn;
+    @FXML private TableColumn<BoughtServicesProps, Number> valWithTaxColumn;
 
-    @FXML private TableView<Customer> customersTableView;
+    @FXML private TableView<CustomerProps> customersTableView;
 
-    @FXML private TableColumn<Customer, String> customersCol;
+    @FXML private TableColumn<CustomerProps, String> customersCol;
 
     @FXML private Label contractorNameLabel;
     @FXML private Label companyNameLabel;
@@ -52,29 +53,37 @@ public class MainWindowPresenter
     private ChoiceServiceDialog choiceServiceDialog;
 
     @Autowired
-    private PersonalData personalData;
-
-    @Autowired
     private ICustomerService customerService;
 
-    private ObservableList<Customer> customerList = FXCollections.observableArrayList();
+    @Autowired
+    private IBoughtServicesService boughtServicesService;
+
+    private ObservableList<CustomerProps> customerList = FXCollections.observableArrayList();
+    private ObservableList<BoughtServicesProps> boughtServices = FXCollections.observableArrayList();
 
     @FXML
     public void initialize()
     {
-        configureCustomersTable();
-        showCustomerDetails(customersTableView.getSelectionModel().getSelectedItem());
-        //boughtServicesTableView.setItems(servicesList);
-        boughtServicesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        for(Customer customer : customerService.findAll())
+        {
+            customerList.add(customer.new CustomerProps());
+        }
 
+        configureCustomersTable();
         configureButtons();
         configureServicesTable();
+        showCustomerDetails(customersTableView.getSelectionModel().getSelectedItem());
     }
 
     private void configureButtons()
     {
         serviceAddButton.setOnAction(e -> {
-            choiceServiceDialog.showDialog(customersTableView.getSelectionModel().getSelectedItem());
+            for(ServiceEntity service : choiceServiceDialog.showDialog())
+            {
+                boughtServicesService.save(new BoughtServices(customersTableView.getSelectionModel().getSelectedItem()
+                        .getCustomer(), service, BigDecimal.ZERO));
+            }
+
             populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
         });
 
@@ -89,24 +98,21 @@ public class MainWindowPresenter
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent())
             {
-                /*for(BoughtServices serviceToDelete : boughtServicesTableView.getSelectionModel().getSelectedItems())
+                for(BoughtServicesProps serviceToDelete : boughtServicesTableView.getSelectionModel().getSelectedItems())
                 {
-                    boughtServicesService.delete(serviceToDelete);
+                    boughtServicesService.delete(serviceToDelete.getBoughtService());
                 }
 
-                populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());*/
+                populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
             }
         });
     }
 
     private void configureCustomersTable()
     {
-        customersCol.setCellValueFactory(new PropertyValueFactory<>("alias"));
-        customerList.addAll(customerService.findAll());
         customersTableView.setItems(customerList);
-        customersTableView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldVal, newVal) -> {
-
+        customersCol.setCellValueFactory(new PropertyValueFactory<>("aliasProp"));
+        customersTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
             showCustomerDetails(newVal);
             populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
         });
@@ -114,37 +120,40 @@ public class MainWindowPresenter
         customersTableView.getSelectionModel().select(0);
     }
 
-    private void showCustomerDetails(Customer customer)
+    private void showCustomerDetails(CustomerProps customer)
     {
-        contractorNameLabel.setText(customer.getFirstName() + " " + customer.getLastName());
-        companyNameLabel.setText(customer.getCompanyName());
-        addressLabel.setText(customer.getAddress());
-        cityLabel.setText(customer.getPostalCode() + " " + customer.getCity());
-        taxIDLabel.setText(customer.getTaxIdentifier());
+        contractorNameLabel.setText(customer.getFirstNameProp() + " " + customer.getLastNameProp());
+        companyNameLabel.setText(customer.getCompanyNameProp());
+        addressLabel.setText(customer.getAddressProp());
+        cityLabel.setText(customer.getPostalCodeProp() + " " + customer.getCityProp());
+        taxIDLabel.setText(customer.getTaxIdProp());
     }
 
     private void configureServicesTable()
     {
-        /*serviceNameColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().serviceNamePropProperty());
-        symbolColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().symbolPropProperty());
-        unitColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().unitPropProperty());
-        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceNameProp"));
+        symbolColumn.setCellValueFactory(new PropertyValueFactory<>("symbolProp"));
+        unitColumn.setCellValueFactory(new PropertyValueFactory<>("unitProp"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
         quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
         quantityColumn.setOnEditCommit(event -> {
-            event.getRowValue().setQuantity(BigDecimal.valueOf(event.getNewValue().doubleValue()));
             event.getRowValue().setQuantityProp(event.getNewValue().doubleValue());
-            boughtServicesService.save(event.getRowValue()); //TODO: why it's not working?
+            boughtServicesService.save(event.getRowValue().getBoughtService()); //TODO: why it's not working?
         });
-        unitPriceColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().netUnitPricePropProperty());
-        taxRateColumn.setCellValueFactory(param -> param.getValue().getServiceEntity().vatPropProperty());
-        //valWithoutTaxColumn.setCellValueFactory(new PropertyValueFactory<>("valWithoutTax"));
-        //taxValColumn.setCellValueFactory(new PropertyValueFactory<>("taxVal"));
-        //valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("totalVal"));*/
+        unitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("netUnitPriceProp"));
+        taxRateColumn.setCellValueFactory(new PropertyValueFactory<>("vatProp"));
+        valWithoutTaxColumn.setCellValueFactory(new PropertyValueFactory<>("valWithoutTax"));
+        taxValColumn.setCellValueFactory(new PropertyValueFactory<>("taxVal"));
+        valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("totalVal"));
+        boughtServicesTableView.setItems(boughtServices);
+        populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
+        boughtServicesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
-    private void populateBoughtServicesData(Customer customer)
+    private void populateBoughtServicesData(CustomerProps customer)
     {
-        //servicesList.clear();
-        //servicesList.setAll(boughtServicesService.findBoughtServicesByCustomer(customer));
+        boughtServices.clear();
+        for(BoughtServices service : boughtServicesService.findBoughtServicesByCustomer(customer.getCustomer()))
+            boughtServices.add(service.new BoughtServicesProps());
     }
 }

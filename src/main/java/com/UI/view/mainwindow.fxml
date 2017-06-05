@@ -153,7 +153,7 @@
                                     <TableColumn fx:id="unitColumn" editable="false" minWidth="7.10888671875" prefWidth="30.0" resizable="false" sortable="false" text="j. m." />
                                     <TableColumn fx:id="quantityColumn" prefWidth="79.0" resizable="false" sortable="false" text="Ilość" />
                                     <TableColumn fx:id="unitPriceColumn" editable="false" prefWidth="79.0" resizable="false" sortable="false" text="Cena jed.&#10;netto (zł)" />
-                                    <TableColumn fx:id="valWithoutTax" editable="false" prefWidth="99.0" resizable="false" sortable="false" text="Wartość &#10;bez podatku (zł)" />
+                                    <TableColumn fx:id="valWithoutTaxColumn" editable="false" prefWidth="99.0" resizable="false" sortable="false" text="Wartość &#10;bez podatku (zł)" />
                                     <TableColumn fx:id="taxColumn" editable="false" prefWidth="163.0" resizable="false" sortable="false" text="Podatek">
                                        <columns>
                                           <TableColumn fx:id="taxRateColumn" editable="false" prefWidth="81.3643798828125" resizable="false" sortable="false" text="Stawka VAT" />
