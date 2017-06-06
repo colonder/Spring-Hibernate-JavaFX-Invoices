@@ -1,4 +1,5 @@
 package com.UI.controllers;
+
 import com.entity.BoughtServices;
 import com.entity.BoughtServices.BoughtServicesProps;
 import com.entity.Customer;
@@ -13,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.converter.NumberStringConverter;
+import javafx.util.converter.BigDecimalStringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,12 +30,12 @@ public class MainWindowPresenter
     @FXML private TableColumn<BoughtServicesProps, String>  serviceNameColumn;
     @FXML private TableColumn<BoughtServicesProps, String>  symbolColumn;
     @FXML private TableColumn<BoughtServicesProps, String>  unitColumn;
-    @FXML private TableColumn<BoughtServicesProps, Number> quantityColumn;
-    @FXML private TableColumn<BoughtServicesProps, Number>  unitPriceColumn;
-    @FXML private TableColumn<BoughtServicesProps, Number> valWithoutTaxColumn;
-    @FXML private TableColumn<BoughtServicesProps, Number>  taxRateColumn;
-    @FXML private TableColumn<BoughtServicesProps, Number> taxValColumn;
-    @FXML private TableColumn<BoughtServicesProps, Number> valWithTaxColumn;
+    @FXML private TableColumn<BoughtServicesProps, BigDecimal> quantityColumn;
+    @FXML private TableColumn<BoughtServicesProps, BigDecimal>  unitPriceColumn;
+    @FXML private TableColumn<BoughtServicesProps, BigDecimal> valWithoutTaxColumn;
+    @FXML private TableColumn<BoughtServicesProps, Integer>  taxRateColumn;
+    @FXML private TableColumn<BoughtServicesProps, BigDecimal> taxValColumn;
+    @FXML private TableColumn<BoughtServicesProps, BigDecimal> valWithTaxColumn;
 
     @FXML private TableView<CustomerProps> customersTableView;
 
@@ -135,9 +136,10 @@ public class MainWindowPresenter
         symbolColumn.setCellValueFactory(new PropertyValueFactory<>("symbolProp"));
         unitColumn.setCellValueFactory(new PropertyValueFactory<>("unitProp"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
-        quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+        quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
         quantityColumn.setOnEditCommit(event -> {
-            event.getRowValue().setQuantityProp(event.getNewValue().doubleValue());
+            event.getRowValue().setQuantityProp(event.getNewValue());
+            //System.out.println(event.getRowValue().getBoughtService().getQuantity());
             boughtServicesService.save(event.getRowValue().getBoughtService()); //TODO: why it's not working?
         });
         unitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("netUnitPriceProp"));

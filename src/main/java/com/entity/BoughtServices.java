@@ -1,10 +1,10 @@
 package com.entity;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyDoubleWrapper;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
@@ -128,16 +128,16 @@ public class BoughtServices implements Serializable
     public class BoughtServicesProps
     {
         // bought service properties
-        private SimpleDoubleProperty quantityProp;
-        private ReadOnlyDoubleWrapper valWithoutTax;
-        private ReadOnlyDoubleWrapper taxVal;
-        private ReadOnlyDoubleWrapper totalVal;
+        private SimpleObjectProperty<BigDecimal> quantityProp;
+        private ReadOnlyObjectWrapper<BigDecimal> valWithoutTax;
+        private ReadOnlyObjectWrapper<BigDecimal> taxVal;
+        private ReadOnlyObjectWrapper<BigDecimal> totalVal;
 
         // service properties
         private SimpleStringProperty serviceNameProp;
         private SimpleStringProperty symbolProp;
         private SimpleStringProperty unitProp;
-        private SimpleDoubleProperty netUnitPriceProp;
+        private SimpleObjectProperty<BigDecimal> netUnitPriceProp;
         private SimpleIntegerProperty vatProp;
 
         public BoughtServicesProps()
@@ -145,17 +145,29 @@ public class BoughtServices implements Serializable
             serviceNameProp = new SimpleStringProperty(serviceEntity.getServiceName());
             symbolProp = new SimpleStringProperty(serviceEntity.getSymbol());
             unitProp = new SimpleStringProperty(serviceEntity.getUnit());
-            netUnitPriceProp = new SimpleDoubleProperty(serviceEntity.getNetUnitPrice().doubleValue());
+            netUnitPriceProp = new SimpleObjectProperty<>(serviceEntity.getNetUnitPrice());
             vatProp = new SimpleIntegerProperty(serviceEntity.getVatTaxRate());
 
-            quantityProp = new SimpleDoubleProperty(quantity.doubleValue());
-            valWithoutTax = new ReadOnlyDoubleWrapper();
-            taxVal = new ReadOnlyDoubleWrapper();
-            totalVal = new ReadOnlyDoubleWrapper();
+            quantityProp = new SimpleObjectProperty<>(quantity);
+            valWithoutTax = new ReadOnlyObjectWrapper<>();
+            taxVal = new ReadOnlyObjectWrapper<>();
+            totalVal = new ReadOnlyObjectWrapper<>();
 
-            valWithoutTax.bind(quantityProp.multiply(netUnitPriceProp));
-            taxVal.bind(Bindings.multiply(valWithoutTax, vatProp).multiply(0.01));
-            totalVal.bind(valWithoutTax.add(taxVal));
+            quantityProp.addListener((ObservableValue<? extends BigDecimal> observable, BigDecimal oldValue, BigDecimal newValue) -> {
+                    valWithoutTax.set(newValue.multiply(getNetUnitPriceProp()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
+                    performCalculations();
+                });
+
+            netUnitPriceProp.addListener((ObservableValue<? extends BigDecimal> observable, BigDecimal oldValue, BigDecimal newValue) -> {
+                valWithoutTax.set(newValue.multiply(getQuantityProp()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
+                performCalculations();
+            });
+        }
+
+        private void performCalculations()
+        {
+            taxVal.set(getValWithoutTax().multiply(BigDecimal.valueOf(getVatProp())).setScale(2, BigDecimal.ROUND_HALF_DOWN));
+            totalVal.set(getValWithoutTax().multiply(getTaxVal()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
         }
 
         public BoughtServices getBoughtService()
@@ -163,52 +175,41 @@ public class BoughtServices implements Serializable
             return BoughtServices.this;
         }
 
-        public double getQuantityProp() {
-            return quantityProp.get();
-        }
-
-        public SimpleDoubleProperty quantityPropProperty() {
-            return quantityProp;
-        }
-
-        public void setQuantityProp(double quantityProp) {
-            this.quantityProp.set(quantityProp);
-        }
-
-        public double getValWithoutTax() {
+        public BigDecimal getValWithoutTax() {
             return valWithoutTax.get();
         }
 
-        public ReadOnlyDoubleWrapper valWithoutTaxProperty() {
+        public ReadOnlyObjectWrapper<BigDecimal> valWithoutTaxProperty() {
             return valWithoutTax;
         }
 
-        public void setValWithoutTax(double valWithoutTax) {
-            this.valWithoutTax.set(valWithoutTax);
-        }
-
-        public double getTaxVal() {
+        public BigDecimal getTaxVal() {
             return taxVal.get();
         }
 
-        public ReadOnlyDoubleWrapper taxValProperty() {
+        public ReadOnlyObjectWrapper<BigDecimal> taxValProperty() {
             return taxVal;
         }
 
-        public void setTaxVal(double taxVal) {
-            this.taxVal.set(taxVal);
-        }
-
-        public double getTotalVal() {
+        public BigDecimal getTotalVal() {
             return totalVal.get();
         }
 
-        public ReadOnlyDoubleWrapper totalValProperty() {
+        public ReadOnlyObjectWrapper<BigDecimal> totalValProperty() {
             return totalVal;
         }
 
-        public void setTotalVal(double totalVal) {
-            this.totalVal.set(totalVal);
+        public BigDecimal getQuantityProp() {
+            return quantityProp.get();
+        }
+
+        public SimpleObjectProperty<BigDecimal> quantityPropProperty() {
+            return quantityProp;
+        }
+
+        public void setQuantityProp(BigDecimal quantityProp) {
+            this.quantityProp.set(quantityProp);
+            BoughtServices.this.setQuantity(quantityProp);
         }
 
         public String getServiceNameProp() {
@@ -247,15 +248,15 @@ public class BoughtServices implements Serializable
             this.unitProp.set(unitProp);
         }
 
-        public double getNetUnitPriceProp() {
+        public BigDecimal getNetUnitPriceProp() {
             return netUnitPriceProp.get();
         }
 
-        public SimpleDoubleProperty netUnitPricePropProperty() {
+        public SimpleObjectProperty<BigDecimal> netUnitPricePropProperty() {
             return netUnitPriceProp;
         }
 
-        public void setNetUnitPriceProp(double netUnitPriceProp) {
+        public void setNetUnitPriceProp(BigDecimal netUnitPriceProp) {
             this.netUnitPriceProp.set(netUnitPriceProp);
         }
 
