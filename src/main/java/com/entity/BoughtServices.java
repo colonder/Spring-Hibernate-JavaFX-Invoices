@@ -149,9 +149,11 @@ public class BoughtServices implements Serializable
             vatProp = new SimpleIntegerProperty(serviceEntity.getVatTaxRate());
 
             quantityProp = new SimpleObjectProperty<>(quantity);
-            valWithoutTax = new ReadOnlyObjectWrapper<>();
+            valWithoutTax = new ReadOnlyObjectWrapper<>(quantity.multiply(getNetUnitPriceProp())
+                    .setScale(2, BigDecimal.ROUND_HALF_DOWN));
             taxVal = new ReadOnlyObjectWrapper<>();
             totalVal = new ReadOnlyObjectWrapper<>();
+            performCalculations();
 
             quantityProp.addListener((ObservableValue<? extends BigDecimal> observable, BigDecimal oldValue, BigDecimal newValue) -> {
                     valWithoutTax.set(newValue.multiply(getNetUnitPriceProp()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
