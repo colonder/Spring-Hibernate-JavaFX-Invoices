@@ -201,6 +201,8 @@ public class Customer
         private SimpleStringProperty postalCodeProp;
         private SimpleStringProperty cityProp;
         private SimpleStringProperty aliasProp;
+        private SimpleStringProperty countProp;
+        private SimpleStringProperty paymentProp;
 
         public CustomerProps()
         {
@@ -212,6 +214,8 @@ public class Customer
             this.postalCodeProp = new SimpleStringProperty(postalCode);
             this.cityProp = new SimpleStringProperty(city);
             this.aliasProp = new SimpleStringProperty(alias);
+            this.countProp = new SimpleStringProperty(includeInCount);
+            this.paymentProp = new SimpleStringProperty(paymentMethod);
         }
 
         //TODO: presenters calling methods in here to remove, add etc?
@@ -221,8 +225,7 @@ public class Customer
             return Customer.this;
         }
 
-        public String getLastNameProp()
-        {
+        public String getLastNameProp() {
             return lastNameProp.get();
         }
 
@@ -230,9 +233,7 @@ public class Customer
             return lastNameProp;
         }
 
-        public void setLastNameProp(String lastNameProp)
-        {
-            setLastName(lastNameProp);
+        public void setLastNameProp(String lastNameProp) {
             this.lastNameProp.set(lastNameProp);
         }
 
@@ -245,7 +246,6 @@ public class Customer
         }
 
         public void setFirstNameProp(String firstNameProp) {
-            setFirstName(firstNameProp);
             this.firstNameProp.set(firstNameProp);
         }
 
@@ -258,7 +258,6 @@ public class Customer
         }
 
         public void setCompanyNameProp(String companyNameProp) {
-            setCompanyName(companyNameProp);
             this.companyNameProp.set(companyNameProp);
         }
 
@@ -271,7 +270,6 @@ public class Customer
         }
 
         public void setTaxIdProp(String taxIdProp) {
-            setTaxIdentifier(taxIdProp);
             this.taxIdProp.set(taxIdProp);
         }
 
@@ -283,9 +281,7 @@ public class Customer
             return addressProp;
         }
 
-        public void setAddressProp(String addressProp)
-        {
-            setAddress(addressProp);
+        public void setAddressProp(String addressProp) {
             this.addressProp.set(addressProp);
         }
 
@@ -298,7 +294,6 @@ public class Customer
         }
 
         public void setPostalCodeProp(String postalCodeProp) {
-            setPostalCode(postalCodeProp);
             this.postalCodeProp.set(postalCodeProp);
         }
 
@@ -310,9 +305,7 @@ public class Customer
             return cityProp;
         }
 
-        public void setCityProp(String cityProp)
-        {
-            setCity(cityProp);
+        public void setCityProp(String cityProp) {
             this.cityProp.set(cityProp);
         }
 
@@ -325,8 +318,31 @@ public class Customer
         }
 
         public void setAliasProp(String aliasProp) {
-            setAlias(aliasProp);
             this.aliasProp.set(aliasProp);
+        }
+
+        public String getCountProp() {
+            return countProp.get();
+        }
+
+        public SimpleStringProperty countPropProperty() {
+            return countProp;
+        }
+
+        public void setCountProp(String countProp) {
+            this.countProp.set(countProp);
+        }
+
+        public String getPaymentProp() {
+            return paymentProp.get();
+        }
+
+        public SimpleStringProperty paymentPropProperty() {
+            return paymentProp;
+        }
+
+        public void setPaymentProp(String paymentProp) {
+            this.paymentProp.set(paymentProp);
         }
     }
 }

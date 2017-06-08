@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -39,5 +40,11 @@ public class BoughtServicesImpl implements IBoughtServicesService
     @Transactional
     public void delete(BoughtServices boughtServices) {
         boughtServicesRepository.delete(boughtServices);
+    }
+
+    @Transactional
+    @Override
+    public int update(BigDecimal value, int id) {
+        return boughtServicesRepository.update(value, id);
     }
 }

@@ -15,7 +15,6 @@ import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 @Component
@@ -32,33 +31,33 @@ public class ManageCustomersDialog
         dialog.getDialogPane().getButtonTypes().addAll(okBtn, editBtn);
 
         TableView<CustomerProps> table = new TableView<>();
+        TableColumn<CustomerProps, String> lastNameCol = new TableColumn<>("Nazwisko");
+        TableColumn<CustomerProps, String> firstNameCol = new TableColumn<>("Imię");
+        TableColumn<CustomerProps, String> companyNameCol = new TableColumn<>("Nazwa firmy");
+        TableColumn<CustomerProps, String> IdNumberCol = new TableColumn<>("NIP/PESEL");
+        TableColumn<CustomerProps, String> nameCol = new TableColumn<>("Adres");
+        TableColumn<CustomerProps, String> postalCodeCol = new TableColumn<>("Kod pocztowy");
+        TableColumn<CustomerProps, String> cityCol = new TableColumn<>("Miejscowość");
+        TableColumn<CustomerProps, String> considerCountingCol = new TableColumn<>("Uwzględnij nr faktury");
+        TableColumn<CustomerProps, String> paymentMethodCol = new TableColumn<>("Sposób zapłaty");
+        TableColumn<CustomerProps, String> aliasCol = new TableColumn<>("Alias");
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastNameProp"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("firstNameProp"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("companyNameProp"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("taxIdProp"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("addressProp"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("postalCodeProp"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("cityProp"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("paymentProp")); //TODO: change to boolean or sth
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("countProp")); //TODO: finally do the enumerate
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("aliasProp"));
         table.setEditable(false);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        TableColumn<CustomerProps, String> lastNameCol = new TableColumn<>("Nazwisko");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastNameProp"));
-        TableColumn<CustomerProps, String> firstNameCol = new TableColumn<>("Imię");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("firstNameProp"));
-        TableColumn<CustomerProps, String> companyNameCol = new TableColumn<>("Nazwa firmy");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("companyNameProp"));
-        TableColumn<CustomerProps, String> IdNumberCol = new TableColumn<>("NIP/PESEL");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("taxIdProp"));
-        TableColumn<CustomerProps, String> nameCol = new TableColumn<>("Adres");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("addressProp"));
-        TableColumn<CustomerProps, String> postalCodeCol = new TableColumn<>("Kod pocztowy");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("postalCodeProp"));
-        TableColumn<CustomerProps, String> cityCol = new TableColumn<>("Miejscowość");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("cityProp"));
-        TableColumn<CustomerProps, String> paymentMethodCol = new TableColumn<>("Sposób zapłaty");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("paymentMethod"));
-        TableColumn<CustomerProps, String> considerCountingCol = new TableColumn<>("Uwzględnij nr faktury");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("includeInCount"));
-        TableColumn<CustomerProps, String> aliasCol = new TableColumn<>("Alias");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("aliasProp"));
+        table.getColumns().addAll(lastNameCol, firstNameCol, companyNameCol, IdNumberCol, nameCol, postalCodeCol,
+                cityCol, paymentMethodCol, considerCountingCol, aliasCol);
 
         //TODO: table showing up only alias
 
-        table.getColumns().addAll(Arrays.asList(lastNameCol, firstNameCol, companyNameCol, IdNumberCol, nameCol,
-                postalCodeCol, cityCol, paymentMethodCol, considerCountingCol, aliasCol));
         ObservableList<CustomerProps> data = FXCollections.observableArrayList();
         for(Customer customer : customerService.findAll())
         {
@@ -135,5 +134,6 @@ public class ManageCustomersDialog
         dialog.getDialogPane().setContent(vBox);
 
         Optional result = dialog.showAndWait();
+        //TODO: do something with the result!
     }
 }

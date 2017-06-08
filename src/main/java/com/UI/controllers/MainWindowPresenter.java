@@ -139,8 +139,8 @@ public class MainWindowPresenter
         quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
         quantityColumn.setOnEditCommit(event -> {
             event.getRowValue().setQuantityProp(event.getNewValue());
-            //System.out.println(event.getRowValue().getBoughtService().getQuantity());
-            boughtServicesService.save(event.getRowValue().getBoughtService()); //TODO: why it's not working?
+            boughtServicesService.update(event.getNewValue(), event.getRowValue().getBoughtService().
+                    getInternalId().getId());
         });
         unitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("netUnitPriceProp"));
         taxRateColumn.setCellValueFactory(new PropertyValueFactory<>("vatProp"));
@@ -148,7 +148,6 @@ public class MainWindowPresenter
         taxValColumn.setCellValueFactory(new PropertyValueFactory<>("taxVal"));
         valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("totalVal"));
         boughtServicesTableView.setItems(boughtServices);
-        populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
         boughtServicesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
