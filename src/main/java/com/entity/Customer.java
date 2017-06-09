@@ -1,6 +1,9 @@
 package com.entity;
 
+import com.entity.BoughtServices.BoughtServicesProps;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -203,6 +206,7 @@ public class Customer
         private SimpleStringProperty aliasProp;
         private SimpleStringProperty countProp;
         private SimpleStringProperty paymentProp;
+        private ObservableList<BoughtServicesProps> boughtServicesProps = FXCollections.observableArrayList();
 
         public CustomerProps()
         {
@@ -216,9 +220,26 @@ public class Customer
             this.aliasProp = new SimpleStringProperty(alias);
             this.countProp = new SimpleStringProperty(includeInCount);
             this.paymentProp = new SimpleStringProperty(paymentMethod);
+
+            for(BoughtServices service : getBoughtServices())
+                this.boughtServicesProps.add(service.new BoughtServicesProps());
         }
 
-        //TODO: presenters calling methods in here to remove, add etc?
+        public ObservableList<BoughtServicesProps> boughtServicesProps() {
+            return boughtServicesProps;
+        }
+
+        public void addBoughtServiceProp(BoughtServicesProps prop)
+        {
+            this.boughtServicesProps.add(prop);
+            Customer.this.addBoughtService(prop.getBoughtService());
+        }
+
+        public void deleteBoughtServiceProp(BoughtServicesProps prop)
+        {
+            Customer.this.removeBoughtService(prop.getBoughtService());
+            this.boughtServicesProps.remove(prop);
+        }
 
         public Customer getCustomer()
         {
@@ -234,6 +255,7 @@ public class Customer
         }
 
         public void setLastNameProp(String lastNameProp) {
+            Customer.this.setLastName(lastNameProp);
             this.lastNameProp.set(lastNameProp);
         }
 
@@ -246,6 +268,7 @@ public class Customer
         }
 
         public void setFirstNameProp(String firstNameProp) {
+            Customer.this.setFirstName(firstNameProp);
             this.firstNameProp.set(firstNameProp);
         }
 
@@ -258,6 +281,7 @@ public class Customer
         }
 
         public void setCompanyNameProp(String companyNameProp) {
+            Customer.this.setCompanyName(companyNameProp);
             this.companyNameProp.set(companyNameProp);
         }
 
@@ -270,6 +294,7 @@ public class Customer
         }
 
         public void setTaxIdProp(String taxIdProp) {
+            Customer.this.setTaxIdentifier(taxIdProp);
             this.taxIdProp.set(taxIdProp);
         }
 
@@ -282,6 +307,7 @@ public class Customer
         }
 
         public void setAddressProp(String addressProp) {
+            Customer.this.setAddress(addressProp);
             this.addressProp.set(addressProp);
         }
 
@@ -294,6 +320,7 @@ public class Customer
         }
 
         public void setPostalCodeProp(String postalCodeProp) {
+            Customer.this.setPostalCode(postalCodeProp);
             this.postalCodeProp.set(postalCodeProp);
         }
 
@@ -306,6 +333,7 @@ public class Customer
         }
 
         public void setCityProp(String cityProp) {
+            Customer.this.setCity(cityProp);
             this.cityProp.set(cityProp);
         }
 
@@ -318,6 +346,7 @@ public class Customer
         }
 
         public void setAliasProp(String aliasProp) {
+            Customer.this.setAlias(aliasProp);
             this.aliasProp.set(aliasProp);
         }
 
@@ -330,6 +359,7 @@ public class Customer
         }
 
         public void setCountProp(String countProp) {
+            Customer.this.setIncludeInCount(countProp);
             this.countProp.set(countProp);
         }
 
@@ -342,6 +372,7 @@ public class Customer
         }
 
         public void setPaymentProp(String paymentProp) {
+            Customer.this.setPaymentMethod(paymentProp);
             this.paymentProp.set(paymentProp);
         }
     }

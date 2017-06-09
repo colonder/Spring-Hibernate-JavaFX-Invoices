@@ -2,11 +2,14 @@ package com.repositories;
 
 import com.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface ICustomerRepository extends JpaRepository<Customer, Integer>
 {
+    @Query("SELECT DISTINCT c FROM Customer c JOIN FETCH c.boughtServices s")
+    List<Customer> findAll();
     Customer findByAlias(String alias);
     List<Customer> findAllByFirstNameContaining(String string);
     List<Customer> findAllByLastNameContaining(String string);

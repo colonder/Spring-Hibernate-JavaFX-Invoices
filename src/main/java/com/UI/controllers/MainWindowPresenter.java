@@ -60,7 +60,6 @@ public class MainWindowPresenter
     private IBoughtServicesService boughtServicesService;
 
     private ObservableList<CustomerProps> customerList = FXCollections.observableArrayList();
-    private ObservableList<BoughtServicesProps> boughtServices = FXCollections.observableArrayList();
 
     @FXML
     public void initialize()
@@ -81,11 +80,11 @@ public class MainWindowPresenter
         serviceAddButton.setOnAction(e -> {
             for(ServiceEntity service : choiceServiceDialog.showDialog())
             {
-                boughtServicesService.save(new BoughtServices(customersTableView.getSelectionModel().getSelectedItem()
-                        .getCustomer(), service, BigDecimal.ZERO));
+                BoughtServices bs = new BoughtServices(customersTableView.getSelectionModel().getSelectedItem()
+                        .getCustomer(), service, BigDecimal.ZERO);
+                boughtServicesService.save(bs);
+                customersTableView.getSelectionModel().getSelectedItem().addBoughtServiceProp(bs.new BoughtServicesProps());
             }
-
-            populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
         });
 
         serviceDeleteButton.setOnAction(e -> {
@@ -101,10 +100,9 @@ public class MainWindowPresenter
             {
                 for(BoughtServicesProps serviceToDelete : boughtServicesTableView.getSelectionModel().getSelectedItems())
                 {
+                    customersTableView.getSelectionModel().getSelectedItem().deleteBoughtServiceProp(serviceToDelete);
                     boughtServicesService.delete(serviceToDelete.getBoughtService());
                 }
-
-                populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
             }
         });
     }
@@ -137,7 +135,7 @@ public class MainWindowPresenter
         unitColumn.setCellValueFactory(new PropertyValueFactory<>("unitProp"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
         quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
-        quantityColumn.setOnEditCommit(event -> {
+        quantityColumn.setOnEditCommit(event -> { //TODO: change decimal separator to comma instead of period
             event.getRowValue().setQuantityProp(event.getNewValue());
             boughtServicesService.update(event.getNewValue(), event.getRowValue().getBoughtService().
                     getInternalId().getId());
@@ -147,14 +145,11 @@ public class MainWindowPresenter
         valWithoutTaxColumn.setCellValueFactory(new PropertyValueFactory<>("valWithoutTax"));
         taxValColumn.setCellValueFactory(new PropertyValueFactory<>("taxVal"));
         valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("totalVal"));
-        boughtServicesTableView.setItems(boughtServices);
         boughtServicesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     private void populateBoughtServicesData(CustomerProps customer)
     {
-        boughtServices.clear();
-        for(BoughtServices service : boughtServicesService.findBoughtServicesByCustomer(customer.getCustomer()))
-            boughtServices.add(service.new BoughtServicesProps());
+        boughtServicesTableView.setItems(customer.boughtServicesProps());
     }
 }

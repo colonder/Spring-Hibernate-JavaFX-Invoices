@@ -76,7 +76,7 @@ public class BoughtServices implements Serializable
     @JoinColumn(name = "kontrahent_id", insertable = false, updatable = false)
     private Customer customer;
 
-    @ManyToOne//(fetch = FetchType.LAZY) TODO: had to comment this out for now
+    @ManyToOne//(fetch = FetchType.LAZY) //TODO: comment out for now
     @JoinColumn(name = "usluga_id", insertable = false, updatable = false)
     private ServiceEntity serviceEntity;
 
