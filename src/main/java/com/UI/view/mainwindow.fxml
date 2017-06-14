@@ -103,6 +103,16 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
+                                          <Label text="Sposób płatności" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="paymentLabel" text="Label" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
                                        </children>
                                     </GridPane>
                                  </children>
@@ -125,7 +135,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="serviceAddButton" mnemonicParsing="false" text="Dodaj nową">
+                              <Button fx:id="serviceAddButton" mnemonicParsing="false" text="Dodaj nowe">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -133,7 +143,7 @@
                                     <Insets left="5.0" right="5.0" />
                                  </FlowPane.margin>
                               </Button>
-                              <Button fx:id="serviceDeleteButton" mnemonicParsing="false" text="Usuń wybraną">
+                              <Button fx:id="serviceDeleteButton" mnemonicParsing="false" text="Usuń wybrane">
                                  <FlowPane.margin>
                                     <Insets left="5.0" right="5.0" />
                                  </FlowPane.margin>

@@ -142,25 +142,25 @@ public class BoughtServices implements Serializable
 
         public BoughtServicesProps()
         {
-            serviceNameProp = new SimpleStringProperty(serviceEntity.getServiceName());
-            symbolProp = new SimpleStringProperty(serviceEntity.getSymbol());
-            unitProp = new SimpleStringProperty(serviceEntity.getUnit());
-            netUnitPriceProp = new SimpleObjectProperty<>(serviceEntity.getNetUnitPrice());
-            vatProp = new SimpleIntegerProperty(serviceEntity.getVatTaxRate());
+            this.serviceNameProp = new SimpleStringProperty(serviceEntity.getServiceName());
+            this.symbolProp = new SimpleStringProperty(serviceEntity.getSymbol());
+            this.unitProp = new SimpleStringProperty(serviceEntity.getUnit());
+            this.netUnitPriceProp = new SimpleObjectProperty<>(serviceEntity.getNetUnitPrice());
+            this.vatProp = new SimpleIntegerProperty(serviceEntity.getVatTaxRate());
 
-            quantityProp = new SimpleObjectProperty<>(quantity);
-            valWithoutTax = new ReadOnlyObjectWrapper<>(quantity.multiply(getNetUnitPriceProp())
+            this.quantityProp = new SimpleObjectProperty<>(quantity);
+            this.valWithoutTax = new ReadOnlyObjectWrapper<>(quantity.multiply(getNetUnitPriceProp())
                     .setScale(2, BigDecimal.ROUND_HALF_DOWN));
-            taxVal = new ReadOnlyObjectWrapper<>();
-            totalVal = new ReadOnlyObjectWrapper<>();
+            this.taxVal = new ReadOnlyObjectWrapper<>();
+            this.totalVal = new ReadOnlyObjectWrapper<>();
             performCalculations();
 
-            quantityProp.addListener((ObservableValue<? extends BigDecimal> observable, BigDecimal oldValue, BigDecimal newValue) -> {
+            this.quantityProp.addListener((ObservableValue<? extends BigDecimal> observable, BigDecimal oldValue, BigDecimal newValue) -> {
                     valWithoutTax.set(newValue.multiply(getNetUnitPriceProp()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
                     performCalculations();
                 });
 
-            netUnitPriceProp.addListener((ObservableValue<? extends BigDecimal> observable, BigDecimal oldValue, BigDecimal newValue) -> {
+            this.netUnitPriceProp.addListener((ObservableValue<? extends BigDecimal> observable, BigDecimal oldValue, BigDecimal newValue) -> {
                 valWithoutTax.set(newValue.multiply(getQuantityProp()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
                 performCalculations();
             });

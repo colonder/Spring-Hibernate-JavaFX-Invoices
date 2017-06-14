@@ -46,8 +46,9 @@ public class MainWindowPresenter
     @FXML private Label addressLabel;
     @FXML private Label cityLabel;
     @FXML private Label taxIDLabel;
+    @FXML private Label paymentLabel;
     @FXML private Label sumWordsLabel;
-    @FXML private Label sumLabel; //TODO: modify & write a trigger in the database
+    @FXML private Label sumLabel;
 
     @FXML private Button serviceAddButton;
     @FXML private Button serviceDeleteButton;
@@ -129,6 +130,7 @@ public class MainWindowPresenter
             addressLabel.setText(customer.getAddressProp());
             cityLabel.setText(customer.getPostalCodeProp() + " " + customer.getCityProp());
             taxIDLabel.setText(customer.getTaxIdProp());
+            paymentLabel.setText(customer.getPaymentProp().toString());
         }
 
         catch (NullPointerException e)
@@ -138,6 +140,7 @@ public class MainWindowPresenter
             addressLabel.setText("");
             cityLabel.setText("");
             taxIDLabel.setText("");
+            paymentLabel.setText("");
         }
     }
 
