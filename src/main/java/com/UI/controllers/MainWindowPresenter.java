@@ -46,6 +46,8 @@ public class MainWindowPresenter
     @FXML private Label addressLabel;
     @FXML private Label cityLabel;
     @FXML private Label taxIDLabel;
+    @FXML private Label sumWordsLabel;
+    @FXML private Label sumLabel; //TODO: modify & write a trigger in the database
 
     @FXML private Button serviceAddButton;
     @FXML private Button serviceDeleteButton;
