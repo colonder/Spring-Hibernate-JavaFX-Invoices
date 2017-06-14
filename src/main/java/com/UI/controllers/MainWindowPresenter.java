@@ -8,6 +8,7 @@ import com.entity.ServiceEntity;
 import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
 import com.utilities.dialogs.ChoiceServiceDialog;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ public class MainWindowPresenter
 {
     @FXML private TableView<BoughtServicesProps> boughtServicesTableView;
 
-    @FXML private TableColumn orderColumn;
+    @FXML private TableColumn<BoughtServicesProps, Number> orderColumn;
     @FXML private TableColumn<BoughtServicesProps, String>  serviceNameColumn;
     @FXML private TableColumn<BoughtServicesProps, String>  symbolColumn;
     @FXML private TableColumn<BoughtServicesProps, String>  unitColumn;
@@ -146,6 +147,7 @@ public class MainWindowPresenter
 
     private void configureServicesTable()
     {
+        orderColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(boughtServicesTableView.getItems().indexOf(param.getValue()) + 1));
         serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceNameProp"));
         symbolColumn.setCellValueFactory(new PropertyValueFactory<>("symbolProp"));
         unitColumn.setCellValueFactory(new PropertyValueFactory<>("unitProp"));
