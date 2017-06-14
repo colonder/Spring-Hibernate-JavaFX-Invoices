@@ -123,11 +123,22 @@ public class MainWindowPresenter
 
     private void showCustomerDetails(CustomerProps customer)
     {
-        contractorNameLabel.setText(customer.getFirstNameProp() + " " + customer.getLastNameProp());
-        companyNameLabel.setText(customer.getCompanyNameProp());
-        addressLabel.setText(customer.getAddressProp());
-        cityLabel.setText(customer.getPostalCodeProp() + " " + customer.getCityProp());
-        taxIDLabel.setText(customer.getTaxIdProp());
+        try {
+            contractorNameLabel.setText(customer.getFirstNameProp() + " " + customer.getLastNameProp());
+            companyNameLabel.setText(customer.getCompanyNameProp());
+            addressLabel.setText(customer.getAddressProp());
+            cityLabel.setText(customer.getPostalCodeProp() + " " + customer.getCityProp());
+            taxIDLabel.setText(customer.getTaxIdProp());
+        }
+
+        catch (NullPointerException e)
+        {
+            contractorNameLabel.setText("");
+            companyNameLabel.setText("");
+            addressLabel.setText("");
+            cityLabel.setText("");
+            taxIDLabel.setText("");
+        }
     }
 
     private void configureServicesTable()

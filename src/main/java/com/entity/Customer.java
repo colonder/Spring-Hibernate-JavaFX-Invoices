@@ -1,6 +1,8 @@
 package com.entity;
 
 import com.entity.BoughtServices.BoughtServicesProps;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,13 +48,14 @@ public class Customer
     @Column(name = "miejscowosc", nullable = false)
     private String city;
 
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "sposob_zaplaty", nullable = false)
-    private String paymentMethod; //TODO: change to enum with 0 = cash and 1 = bank transfer
+    private PaymentMethod paymentMethod;
 
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "uwzglednij_numer_faktury", nullable = false)
-    private String includeInCount; //TODO: change to enum with 1 and 0
+    private boolean includeInCount;
 
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "alias", nullable = false)
@@ -64,10 +67,8 @@ public class Customer
     @Transient
     private CustomerProps customerProps;
 
-    //TODO: also make properties for payment method and include in count fields
-
     public Customer(String lastName, String firstName, String companyName, String taxIdentifier, String address,
-                    String postalCode, String city, String paymentMethod, String includeInCount, String alias)
+                    String postalCode, String city, PaymentMethod paymentMethod, boolean includeInCount, String alias)
     {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -169,19 +170,19 @@ public class Customer
         this.city = city;
     }
 
-    public String getPaymentMethod() {
+    public PaymentMethod getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getIncludeInCount() {
+    public boolean isIncludeInCount() {
         return includeInCount;
     }
 
-    public void setIncludeInCount(String includeInCount) {
+    public void setIncludeInCount(boolean includeInCount) {
         this.includeInCount = includeInCount;
     }
 
@@ -191,6 +192,10 @@ public class Customer
 
     public void setAlias(String alias) {
         this.alias = alias;
+    }
+
+    public void setCustomerProps(CustomerProps customerProps) {
+        this.customerProps = customerProps;
     }
 
     public class CustomerProps
@@ -204,8 +209,8 @@ public class Customer
         private SimpleStringProperty postalCodeProp;
         private SimpleStringProperty cityProp;
         private SimpleStringProperty aliasProp;
-        private SimpleStringProperty countProp;
-        private SimpleStringProperty paymentProp;
+        private SimpleBooleanProperty countProp;
+        private SimpleObjectProperty<PaymentMethod> paymentProp;
         private ObservableList<BoughtServicesProps> boughtServicesProps = FXCollections.observableArrayList();
 
         public CustomerProps()
@@ -218,8 +223,8 @@ public class Customer
             this.postalCodeProp = new SimpleStringProperty(postalCode);
             this.cityProp = new SimpleStringProperty(city);
             this.aliasProp = new SimpleStringProperty(alias);
-            this.countProp = new SimpleStringProperty(includeInCount);
-            this.paymentProp = new SimpleStringProperty(paymentMethod);
+            this.countProp = new SimpleBooleanProperty(includeInCount);
+            this.paymentProp = new SimpleObjectProperty<>(paymentMethod);
 
             for(BoughtServices service : getBoughtServices())
                 this.boughtServicesProps.add(service.new BoughtServicesProps());
@@ -350,30 +355,42 @@ public class Customer
             this.aliasProp.set(aliasProp);
         }
 
-        public String getCountProp() {
+        public boolean getCountProp() {
             return countProp.get();
         }
 
-        public SimpleStringProperty countPropProperty() {
+        public SimpleBooleanProperty countPropProperty() {
             return countProp;
         }
 
-        public void setCountProp(String countProp) {
+        public void setCountProp(boolean countProp) {
             Customer.this.setIncludeInCount(countProp);
             this.countProp.set(countProp);
         }
 
-        public String getPaymentProp() {
+        public PaymentMethod getPaymentProp() {
             return paymentProp.get();
         }
 
-        public SimpleStringProperty paymentPropProperty() {
+        public SimpleObjectProperty<PaymentMethod> paymentPropProperty() {
             return paymentProp;
         }
 
-        public void setPaymentProp(String paymentProp) {
+        public void setPaymentProp(PaymentMethod paymentProp) {
             Customer.this.setPaymentMethod(paymentProp);
             this.paymentProp.set(paymentProp);
+        }
+
+        public boolean isCountProp() {
+            return countProp.get();
+        }
+
+        public ObservableList<BoughtServicesProps> getBoughtServicesProps() {
+            return boughtServicesProps;
+        }
+
+        public void setBoughtServicesProps(ObservableList<BoughtServicesProps> boughtServicesProps) {
+            this.boughtServicesProps = boughtServicesProps;
         }
     }
 }
