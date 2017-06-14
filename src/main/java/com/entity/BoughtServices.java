@@ -168,8 +168,8 @@ public class BoughtServices implements Serializable
 
         private void performCalculations()
         {
-            taxVal.set(getValWithoutTax().multiply(BigDecimal.valueOf(getVatProp())).setScale(2, BigDecimal.ROUND_HALF_DOWN));
-            totalVal.set(getValWithoutTax().multiply(getTaxVal()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
+            taxVal.set(getValWithoutTax().multiply(BigDecimal.valueOf(getVatProp())).multiply(BigDecimal.valueOf(0.01)).setScale(2, BigDecimal.ROUND_HALF_DOWN));
+            totalVal.set(getValWithoutTax().add(getTaxVal()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
         }
 
         public BoughtServices getBoughtService()
