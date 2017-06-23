@@ -118,6 +118,7 @@ public class MainWindowPresenter
         customersTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
             showCustomerDetails(newVal);
             populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
+            sumLabel.setText(sumAll(customersTableView.getSelectionModel().getSelectedItem()).toString());
         });
 
         customersTableView.getSelectionModel().select(0);
@@ -169,5 +170,17 @@ public class MainWindowPresenter
     private void populateBoughtServicesData(CustomerProps customer)
     {
         boughtServicesTableView.setItems(customer.boughtServicesProps());
+    }
+
+    private BigDecimal sumAll(CustomerProps customer)
+    {
+        BigDecimal outcome = BigDecimal.ZERO;
+
+        for(BoughtServicesProps service : customer.boughtServicesProps())
+        {
+            outcome = outcome.add(service.getTotalVal());
+        }
+
+        return outcome;
     }
 }

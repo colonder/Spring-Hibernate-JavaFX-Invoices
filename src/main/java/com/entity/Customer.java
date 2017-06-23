@@ -385,10 +385,6 @@ public class Customer
             return countProp.get();
         }
 
-        public ObservableList<BoughtServicesProps> getBoughtServicesProps() {
-            return boughtServicesProps;
-        }
-
         public void setBoughtServicesProps(ObservableList<BoughtServicesProps> boughtServicesProps) {
             this.boughtServicesProps = boughtServicesProps;
         }
