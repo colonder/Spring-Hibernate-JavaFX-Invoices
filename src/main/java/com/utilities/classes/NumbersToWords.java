@@ -50,12 +50,12 @@ public class NumbersToWords
         }
 
         List<String> digits = new ArrayList<>();
-        for(int i = len - 1; i >= 0; i -= 3)
+        for(int i = len; i > 0; i -= 3)
         {
             digits.add(parts[0].substring(Math.max(0, i - 3), i)); //split every three digits from the back
         }
 
-        System.out.println(digits.toString());
+        digits.forEach(System.out::println);
 
         //builder.append(parts[1]).append("/100");
 

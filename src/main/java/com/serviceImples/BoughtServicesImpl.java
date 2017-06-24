@@ -4,6 +4,8 @@ import com.entity.BoughtServices;
 import com.entity.Customer;
 import com.repositories.IBoughtServicesRepository;
 import com.service.IBoughtServicesService;
+import org.hibernate.exception.ConstraintViolationException;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +46,8 @@ public class BoughtServicesImpl implements IBoughtServicesService
 
     @Transactional
     @Override
-    public int update(BigDecimal value, int id) {
+    public int update(BigDecimal value, int id) throws PSQLException, ConstraintViolationException
+    {
         return boughtServicesRepository.update(value, id);
     }
 }

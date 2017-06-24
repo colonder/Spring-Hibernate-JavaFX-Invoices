@@ -7,6 +7,7 @@ import com.entity.Customer.CustomerProps;
 import com.entity.ServiceEntity;
 import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
+import com.utilities.classes.NumbersToWords;
 import com.utilities.dialogs.ChoiceServiceDialog;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -16,6 +17,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.BigDecimalStringConverter;
+import org.hibernate.exception.ConstraintViolationException;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -118,7 +121,7 @@ public class MainWindowPresenter
         customersTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
             showCustomerDetails(newVal);
             populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
-            sumLabel.setText(sumAll(customersTableView.getSelectionModel().getSelectedItem()).toString());
+            sumAll(customersTableView.getSelectionModel().getSelectedItem());
         });
 
         customersTableView.getSelectionModel().select(0);
@@ -155,9 +158,30 @@ public class MainWindowPresenter
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
         quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
         quantityColumn.setOnEditCommit(event -> { //TODO: change decimal separator to comma instead of period
-            event.getRowValue().setQuantityProp(event.getNewValue());
-            boughtServicesService.update(event.getNewValue(), event.getRowValue().getBoughtService().
-                    getInternalId().getId());
+            try {
+                boughtServicesService.update(event.getNewValue(), event.getRowValue().getBoughtService().
+                        getInternalId().getId());
+                event.getRowValue().setQuantityProp(event.getNewValue());
+                sumAll(customersTableView.getSelectionModel().getSelectedItem());
+            }
+
+            //TODO: make this exceptions be caught properly
+
+            catch (PSQLException e)
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Wartość zbyt duża");
+                alert.setContentText("Wartość musi być mniejsza niż 9999.99");
+                alert.show();
+            }
+
+            catch(ConstraintViolationException c)
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Wartość nieprawidłowa");
+                alert.setContentText("Wartość nie może być ujemna");
+                alert.show();
+            }
         });
         unitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("netUnitPriceProp"));
         taxRateColumn.setCellValueFactory(new PropertyValueFactory<>("vatProp"));
@@ -172,15 +196,16 @@ public class MainWindowPresenter
         boughtServicesTableView.setItems(customer.boughtServicesProps());
     }
 
-    private BigDecimal sumAll(CustomerProps customer)
+    private void sumAll(CustomerProps customer)
     {
-        BigDecimal outcome = BigDecimal.ZERO;
+        BigDecimal sum = BigDecimal.ZERO;
 
         for(BoughtServicesProps service : customer.boughtServicesProps())
         {
-            outcome = outcome.add(service.getTotalVal());
+            sum = sum.add(service.getTotalVal());
         }
 
-        return outcome;
+        sumLabel.setText(sum.toString());
+        NumbersToWords.convert(sum);
     }
 }

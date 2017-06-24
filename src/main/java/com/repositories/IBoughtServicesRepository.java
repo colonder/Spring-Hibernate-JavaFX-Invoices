@@ -13,8 +13,6 @@ public interface IBoughtServicesRepository extends JpaRepository<BoughtServices,
 {
     List<BoughtServices> findBoughtServicesByCustomer(Customer customer);
 
-
-
     @Modifying
     @Query("UPDATE BoughtServices b SET b.quantity =?1 WHERE b.internalId.id =?2")
     int update(BigDecimal value, int id);
