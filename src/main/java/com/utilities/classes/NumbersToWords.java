@@ -15,16 +15,19 @@ import java.util.List;
 
 public class NumbersToWords
 {
-    private static HashMap<Integer, HashMap<String, String>> map;
+    private static HashMap<String, HashMap<String, String>> map;
+    private static HashMap<String, HashMap<String, String>> currency;
 
     public NumbersToWords()
     {
-        Type type = new TypeToken<HashMap<Integer, HashMap<String, String>>>() {}.getType();
+        Type type = new TypeToken<HashMap<String, HashMap<String, String>>>() {}.getType();
         JsonReader reader;
         try
         {
             reader = new JsonReader(new FileReader("numbersInWords.json"));
             map = new Gson().fromJson(reader, type);
+            reader = new JsonReader(new FileReader("currencyStrings.json"));
+            currency = new Gson().fromJson(reader, type);
         }
         catch (FileNotFoundException e)
         {
