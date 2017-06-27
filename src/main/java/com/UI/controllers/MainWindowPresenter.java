@@ -206,6 +206,6 @@ public class MainWindowPresenter
         }
 
         sumLabel.setText(sum.toString());
-        NumbersToWords.convert(sum);
+        sumWordsLabel.setText(NumbersToWords.convert(sum));
     }
 }

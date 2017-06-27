@@ -1,26 +1,26 @@
 {
-  "oneness": {
-    "0": "złotych",
-    "1": "złotych",
-    "2": "złote",
-    "3": "złote",
-    "4": "złote",
-    "5": "złotych",
-    "6": "złotych",
-    "7": "złotych",
-    "8": "złotych",
-    "9": "złotych"
+  "0": {
+    "0": "złotych ",
+    "1": "złotych ",
+    "2": "złote ",
+    "3": "złote ",
+    "4": "złote ",
+    "5": "złotych ",
+    "6": "złotych ",
+    "7": "złotych ",
+    "8": "złotych ",
+    "9": "złotych "
   },
-  "thousands": {
+  "2": {
     "0": "",
-    "1": "tysiąc",
-    "2": "tysiące",
-    "3": "tysiące",
-    "4": "tysiące",
-    "5": "tysięcy",
-    "6": "tysięcy",
-    "7": "tysięcy",
-    "8": "tysięcy",
-    "9": "tysięcy"
+    "1": "tysiąc ",
+    "2": "tysiące ",
+    "3": "tysiące ",
+    "4": "tysiące ",
+    "5": "tysięcy ",
+    "6": "tysięcy ",
+    "7": "tysięcy ",
+    "8": "tysięcy ",
+    "9": "tysięcy "
   }
 }
