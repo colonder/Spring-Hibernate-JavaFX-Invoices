@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "kontrahenci")
@@ -61,9 +59,6 @@ public class Customer
     @Column(name = "alias", nullable = false)
     private String alias;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<BoughtServices> boughtServices = new ArrayList<>();
-
     @Transient
     private CustomerProps customerProps;
 
@@ -84,26 +79,6 @@ public class Customer
 
     public CustomerProps getCustomerProps() {
         return customerProps;
-    }
-
-    public List<BoughtServices> getBoughtServices() {
-        return boughtServices;
-    }
-
-    public void setBoughtServices(List<BoughtServices> boughtServices) {
-        this.boughtServices = boughtServices;
-    }
-
-    public void addBoughtService(BoughtServices service)
-    {
-        boughtServices.add(service);
-        service.setCustomer(this);
-    }
-
-    public void removeBoughtService(BoughtServices service)
-    {
-        boughtServices.remove(service);
-        service.setCustomer(null);
     }
 
     public int getId() {
@@ -225,25 +200,10 @@ public class Customer
             this.aliasProp = new SimpleStringProperty(alias);
             this.countProp = new SimpleBooleanProperty(includeInCount);
             this.paymentProp = new SimpleObjectProperty<>(paymentMethod);
-
-            for(BoughtServices service : getBoughtServices())
-                this.boughtServicesProps.add(service.new BoughtServicesProps());
         }
 
         public ObservableList<BoughtServicesProps> boughtServicesProps() {
             return boughtServicesProps;
-        }
-
-        public void addBoughtServiceProp(BoughtServicesProps prop)
-        {
-            this.boughtServicesProps.add(prop);
-            Customer.this.addBoughtService(prop.getBoughtService());
-        }
-
-        public void deleteBoughtServiceProp(BoughtServicesProps prop)
-        {
-            Customer.this.removeBoughtService(prop.getBoughtService());
-            this.boughtServicesProps.remove(prop);
         }
 
         public Customer getCustomer()

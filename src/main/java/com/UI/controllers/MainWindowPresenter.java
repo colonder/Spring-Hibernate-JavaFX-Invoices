@@ -7,7 +7,7 @@ import com.entity.Customer.CustomerProps;
 import com.entity.ServiceEntity;
 import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
-import com.utilities.classes.NumbersToWords;
+import com.utilities.classes.CurrencyHandler;
 import com.utilities.dialogs.ChoiceServiceDialog;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -90,7 +90,6 @@ public class MainWindowPresenter
                 BoughtServices bs = new BoughtServices(customersTableView.getSelectionModel().getSelectedItem()
                         .getCustomer(), service, BigDecimal.ZERO);
                 boughtServicesService.save(bs);
-                customersTableView.getSelectionModel().getSelectedItem().addBoughtServiceProp(bs.new BoughtServicesProps());
             }
         });
 
@@ -107,7 +106,6 @@ public class MainWindowPresenter
             {
                 for(BoughtServicesProps serviceToDelete : boughtServicesTableView.getSelectionModel().getSelectedItems())
                 {
-                    customersTableView.getSelectionModel().getSelectedItem().deleteBoughtServiceProp(serviceToDelete);
                     boughtServicesService.delete(serviceToDelete.getBoughtService());
                 }
             }
@@ -206,6 +204,6 @@ public class MainWindowPresenter
         }
 
         sumLabel.setText(sum.toString());
-        sumWordsLabel.setText(NumbersToWords.convert(sum));
+        sumWordsLabel.setText(CurrencyHandler.convertToWords(sum));
     }
 }
