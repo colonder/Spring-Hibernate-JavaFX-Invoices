@@ -1,6 +1,9 @@
 package com.utilities.dialogs;
 
+import com.entity.BoughtServices;
+import com.entity.Customer.CustomerProps;
 import com.entity.ServiceEntity;
+import com.service.IBoughtServicesService;
 import com.service.IServicesEntityService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,8 +14,8 @@ import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -21,9 +24,11 @@ public class ChoiceServiceDialog
     @Autowired
     private IServicesEntityService servicesEntityService;
 
-    public List<ServiceEntity> showDialog()
+    @Autowired
+    private IBoughtServicesService boughtServicesService;
+
+    public void showDialog(CustomerProps props)
     {
-        List<ServiceEntity> services = new ArrayList<>();
         Dialog<ArrayList<ServiceEntity>> dialog = new Dialog<>();
         ButtonType cancelButton = new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE);
         ButtonType acceptButton = new ButtonType("Dodaj wybrane", ButtonBar.ButtonData.OK_DONE);
@@ -62,8 +67,14 @@ public class ChoiceServiceDialog
         });
 
         Optional<ArrayList<ServiceEntity>> result = dialog.showAndWait();
-        result.ifPresent(services::addAll);
-
-        return services;
+        result.ifPresent(list -> {
+            for(ServiceEntity service : list)
+            {
+                BoughtServices bs = new BoughtServices(props.getCustomer(), service, BigDecimal.ZERO);
+                boughtServicesService.save(bs);
+                props.addBoughtServicesProps(bs.new BoughtServicesProps());
+                //FIXME: why DB is making PK suddenly 0 and then refuses to add rest of the services?
+            }
+        });
     }
 }

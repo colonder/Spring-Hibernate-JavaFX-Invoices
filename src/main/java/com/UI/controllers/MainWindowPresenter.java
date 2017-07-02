@@ -1,10 +1,8 @@
 package com.UI.controllers;
 
-import com.entity.BoughtServices;
 import com.entity.BoughtServices.BoughtServicesProps;
 import com.entity.Customer;
 import com.entity.Customer.CustomerProps;
-import com.entity.ServiceEntity;
 import com.service.IBoughtServicesService;
 import com.service.ICustomerService;
 import com.utilities.classes.CurrencyHandler;
@@ -89,12 +87,7 @@ public class MainWindowPresenter
     private void configureButtons()
     {
         serviceAddButton.setOnAction(e -> {
-            for(ServiceEntity service : choiceServiceDialog.showDialog())
-            {
-                boughtServicesService.save(new BoughtServices(customersTableView.getSelectionModel().getSelectedItem()
-                        .getCustomer(), service, BigDecimal.ZERO));
-                //FIXME: why DB is making PK suddenly 0 and then refuses to add rest of the services?
-            }
+            choiceServiceDialog.showDialog(customersTableView.getSelectionModel().getSelectedItem());
         });
 
         serviceDeleteButton.setOnAction(e -> {
@@ -110,6 +103,7 @@ public class MainWindowPresenter
             {
                 for(BoughtServicesProps serviceToDelete : boughtServicesTableView.getSelectionModel().getSelectedItems())
                 {
+                    customersTableView.getSelectionModel().getSelectedItem().removeBoughtSerbicesProps(serviceToDelete);
                     boughtServicesService.delete(serviceToDelete.getBoughtService());
                 }
             }
