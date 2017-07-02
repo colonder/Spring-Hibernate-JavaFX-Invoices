@@ -28,6 +28,8 @@ import java.util.Optional;
 @Component
 public class MainWindowPresenter
 {
+
+    //region variables declarations
     @FXML private TableView<BoughtServicesProps> boughtServicesTableView;
 
     @FXML private TableColumn<BoughtServicesProps, Number> orderColumn;
@@ -68,6 +70,8 @@ public class MainWindowPresenter
 
     private ObservableList<CustomerProps> customerList = FXCollections.observableArrayList();
 
+    //endregion
+
     @FXML
     public void initialize()
     {
@@ -87,9 +91,9 @@ public class MainWindowPresenter
         serviceAddButton.setOnAction(e -> {
             for(ServiceEntity service : choiceServiceDialog.showDialog())
             {
-                BoughtServices bs = new BoughtServices(customersTableView.getSelectionModel().getSelectedItem()
-                        .getCustomer(), service, BigDecimal.ZERO);
-                boughtServicesService.save(bs);
+                boughtServicesService.save(new BoughtServices(customersTableView.getSelectionModel().getSelectedItem()
+                        .getCustomer(), service, BigDecimal.ZERO));
+                //FIXME: why DB is making PK suddenly 0 and then refuses to add rest of the services?
             }
         });
 
@@ -187,18 +191,26 @@ public class MainWindowPresenter
         taxValColumn.setCellValueFactory(new PropertyValueFactory<>("taxVal"));
         valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("totalVal"));
         boughtServicesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
     }
 
-    private void populateBoughtServicesData(CustomerProps customer)
+    private void populateBoughtServicesData(CustomerProps customerProps)
     {
-        boughtServicesTableView.setItems(customer.boughtServicesProps());
+        // lazy load (and only once) list of bought services
+        if(customerProps.getBoughtServicesProps().isEmpty())
+        {
+            boughtServicesService.findBoughtServicesByCustomer(customerProps.getCustomer()).forEach(service ->
+                customerProps.addBoughtServicesProps(service.new BoughtServicesProps()));
+        }
+
+        boughtServicesTableView.setItems(customerProps.getBoughtServicesProps());
     }
 
-    private void sumAll(CustomerProps customer)
+    private void sumAll(CustomerProps customerProps)
     {
         BigDecimal sum = BigDecimal.ZERO;
 
-        for(BoughtServicesProps service : customer.boughtServicesProps())
+        for(BoughtServicesProps service : customerProps.getBoughtServicesProps())
         {
             sum = sum.add(service.getTotalVal());
         }

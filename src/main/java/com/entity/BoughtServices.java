@@ -91,6 +91,7 @@ public class BoughtServices implements Serializable
 
         this.internalId.customerId = customer.getId();
         this.internalId.serviceId = serviceEntity.getId();
+        this.boughtServicesProps = new BoughtServicesProps();
     }
 
     public BoughtServicesProps getBoughtServicesProps() {
@@ -172,6 +173,7 @@ public class BoughtServices implements Serializable
             totalVal.set(getValWithoutTax().add(getTaxVal()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
         }
 
+        //region getters and setters
         public BoughtServices getBoughtService()
         {
             return BoughtServices.this;
@@ -273,5 +275,6 @@ public class BoughtServices implements Serializable
         public void setVatProp(int vatProp) {
             this.vatProp.set(vatProp);
         }
+        //endregion
     }
 }

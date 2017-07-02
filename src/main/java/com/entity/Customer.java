@@ -77,6 +77,7 @@ public class Customer
         this.alias = alias;
     }
 
+    //region getters and setters
     public CustomerProps getCustomerProps() {
         return customerProps;
     }
@@ -172,10 +173,10 @@ public class Customer
     public void setCustomerProps(CustomerProps customerProps) {
         this.customerProps = customerProps;
     }
+    //endregion
 
     public class CustomerProps
     {
-        // customer properties
         private SimpleStringProperty lastNameProp;
         private SimpleStringProperty firstNameProp;
         private SimpleStringProperty companyNameProp;
@@ -202,10 +203,7 @@ public class Customer
             this.paymentProp = new SimpleObjectProperty<>(paymentMethod);
         }
 
-        public ObservableList<BoughtServicesProps> boughtServicesProps() {
-            return boughtServicesProps;
-        }
-
+        //region getters and setters
         public Customer getCustomer()
         {
             return Customer.this;
@@ -345,8 +343,20 @@ public class Customer
             return countProp.get();
         }
 
-        public void setBoughtServicesProps(ObservableList<BoughtServicesProps> boughtServicesProps) {
-            this.boughtServicesProps = boughtServicesProps;
+        public ObservableList<BoughtServicesProps> getBoughtServicesProps() {
+            return boughtServicesProps;
         }
+
+        public void addBoughtServicesProps(BoughtServicesProps props)
+        {
+            this.boughtServicesProps.add(props);
+        }
+
+        public void removeBoughtSerbicesProps(BoughtServicesProps props)
+        {
+            this.boughtServicesProps.remove(props);
+        }
+
+        //endregion
     }
 }

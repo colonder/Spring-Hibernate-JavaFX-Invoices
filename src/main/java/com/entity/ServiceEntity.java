@@ -46,6 +46,7 @@ public class ServiceEntity
         this.vatTaxRate = vatTaxRate;
     }
 
+    //region getters and setters
     public int getId() {
         return id;
     }
@@ -93,4 +94,5 @@ public class ServiceEntity
     public void setVatTaxRate(int vatTaxRate) {
         this.vatTaxRate = vatTaxRate;
     }
+    //endregion
 }
