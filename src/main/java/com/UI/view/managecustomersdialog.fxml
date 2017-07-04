@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.ManageCustomersDialogPresenter">
+   <children>
+      <VBox layoutX="77.0" layoutY="39.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TableView fx:id="customersListTableView" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="lastNameCol" prefWidth="75.0" text="Nazwisko" />
+                <TableColumn fx:id="firstNameCol" prefWidth="75.0" text="Imię" />
+                  <TableColumn fx:id="companyNameCol" prefWidth="75.0" text="Firma" />
+                  <TableColumn fx:id="IdNumberCol" prefWidth="75.0" text="NIP/PESEL" />
+                  <TableColumn fx:id="addressCol" prefWidth="75.0" text="Adres" />
+                  <TableColumn fx:id="postalCodeCol" prefWidth="75.0" text="Kod pocztowy" />
+                  <TableColumn fx:id="cityCol" prefWidth="75.0" text="Miasto" />
+                  <TableColumn fx:id="paymentMethodCol" prefWidth="75.0" text="Sposób &#10;płatności&#10;" />
+                  <TableColumn fx:id="considerCountingCol" prefWidth="75.0" text="Uwzględnij&#10;numer" />
+                  <TableColumn fx:id="aliasCol" prefWidth="75.0" text="Alias" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

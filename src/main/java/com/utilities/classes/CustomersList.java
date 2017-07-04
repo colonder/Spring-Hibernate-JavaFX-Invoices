@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomersList
 {
-
     private static ICustomerService customerService;
 
     public static ObservableList<CustomerProps> customerList = FXCollections.observableArrayList();
