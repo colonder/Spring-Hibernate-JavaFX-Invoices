@@ -2,6 +2,7 @@ package com.utilities.dialogs;
 
 import com.entity.Customer;
 import com.entity.Customer.CustomerProps;
+import com.entity.PaymentMethod;
 import com.service.ICustomerService;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
@@ -31,6 +32,8 @@ public class ManageCustomersDialog
         dialog.getDialogPane().getButtonTypes().addAll(okBtn, editBtn);
 
         TableView<CustomerProps> table = new TableView<>();
+
+        //region columns' declarations
         TableColumn<CustomerProps, String> lastNameCol = new TableColumn<>("Nazwisko");
         TableColumn<CustomerProps, String> firstNameCol = new TableColumn<>("Imię");
         TableColumn<CustomerProps, String> companyNameCol = new TableColumn<>("Nazwa firmy");
@@ -38,8 +41,8 @@ public class ManageCustomersDialog
         TableColumn<CustomerProps, String> nameCol = new TableColumn<>("Adres");
         TableColumn<CustomerProps, String> postalCodeCol = new TableColumn<>("Kod pocztowy");
         TableColumn<CustomerProps, String> cityCol = new TableColumn<>("Miejscowość");
-        TableColumn<CustomerProps, String> considerCountingCol = new TableColumn<>("Uwzględnij nr faktury");
-        TableColumn<CustomerProps, String> paymentMethodCol = new TableColumn<>("Sposób zapłaty");
+        TableColumn<CustomerProps, Boolean> considerCountingCol = new TableColumn<>("Uwzględnij nr faktury");
+        TableColumn<CustomerProps, PaymentMethod> paymentMethodCol = new TableColumn<>("Sposób zapłaty");
         TableColumn<CustomerProps, String> aliasCol = new TableColumn<>("Alias");
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastNameProp"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("firstNameProp"));
@@ -48,20 +51,23 @@ public class ManageCustomersDialog
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("addressProp"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("postalCodeProp"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("cityProp"));
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("paymentProp")); //TODO: change to boolean or sth
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("countProp")); //TODO: finally do the enumerate
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("paymentProp"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("countProp"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("aliasProp"));
+        //endregion
+
         table.setEditable(false);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.getColumns().addAll(lastNameCol, firstNameCol, companyNameCol, IdNumberCol, nameCol, postalCodeCol,
                 cityCol, paymentMethodCol, considerCountingCol, aliasCol);
 
-        //TODO: table showing up only alias
+        //FIXME: table showing up only alias
+        //TODO: add list sorting capability
 
         ObservableList<CustomerProps> data = FXCollections.observableArrayList();
         for(Customer customer : customerService.findAll())
         {
-            data.add(customer.new CustomerProps());
+            data.add(customer.new CustomerProps()); //FIXME
         }
         table.setItems(data);
 

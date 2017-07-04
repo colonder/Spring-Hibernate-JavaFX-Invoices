@@ -201,6 +201,7 @@ public class Customer
             this.aliasProp = new SimpleStringProperty(alias);
             this.countProp = new SimpleBooleanProperty(includeInCount);
             this.paymentProp = new SimpleObjectProperty<>(paymentMethod);
+            Customer.this.setCustomerProps(this);
         }
 
         //region getters and setters

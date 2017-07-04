@@ -26,6 +26,6 @@ public class CurrencyHandler
         // Need a little bit of modification
         return spellOutFormatter.format(value.intValue());
 
-        //TODO: get back to this later
+        //FIXME: refine and adjust spelling out
     }
 }

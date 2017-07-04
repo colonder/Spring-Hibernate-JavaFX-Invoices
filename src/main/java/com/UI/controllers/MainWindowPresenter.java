@@ -1,15 +1,12 @@
 package com.UI.controllers;
 
 import com.entity.BoughtServices.BoughtServicesProps;
-import com.entity.Customer;
 import com.entity.Customer.CustomerProps;
 import com.service.IBoughtServicesService;
-import com.service.ICustomerService;
 import com.utilities.classes.CurrencyHandler;
+import com.utilities.classes.CustomersList;
 import com.utilities.dialogs.ChoiceServiceDialog;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,7 +23,6 @@ import java.util.Optional;
 @Component
 public class MainWindowPresenter
 {
-
     //region variables declarations
     @FXML private TableView<BoughtServicesProps> boughtServicesTableView;
 
@@ -61,23 +57,12 @@ public class MainWindowPresenter
     private ChoiceServiceDialog choiceServiceDialog;
 
     @Autowired
-    private ICustomerService customerService;
-
-    @Autowired
     private IBoughtServicesService boughtServicesService;
-
-    private ObservableList<CustomerProps> customerList = FXCollections.observableArrayList();
-
     //endregion
 
     @FXML
     public void initialize()
     {
-        for(Customer customer : customerService.findAll())
-        {
-            customerList.add(customer.new CustomerProps());
-        }
-
         configureCustomersTable();
         configureButtons();
         configureServicesTable();
@@ -86,11 +71,10 @@ public class MainWindowPresenter
 
     private void configureButtons()
     {
-        serviceAddButton.setOnAction(e -> {
-            choiceServiceDialog.showDialog(customersTableView.getSelectionModel().getSelectedItem());
-        });
+        serviceAddButton.setOnAction(actionEvent ->
+                choiceServiceDialog.showDialog(customersTableView.getSelectionModel().getSelectedItem()));
 
-        serviceDeleteButton.setOnAction(e -> {
+        serviceDeleteButton.setOnAction(actionEvent -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Usunięcie usługi");
             alert.setHeaderText("Na pewno usunąć?");
@@ -112,7 +96,7 @@ public class MainWindowPresenter
 
     private void configureCustomersTable()
     {
-        customersTableView.setItems(customerList);
+        customersTableView.setItems(CustomersList.customerList);
         customersCol.setCellValueFactory(new PropertyValueFactory<>("aliasProp"));
         customersTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
             showCustomerDetails(newVal);
