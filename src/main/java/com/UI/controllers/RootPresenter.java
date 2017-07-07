@@ -1,7 +1,8 @@
 package com.UI.controllers;
 
+import com.UI.view.AbstractFxmlView;
 import com.UI.view.ManageCustomersDialogView;
-import com.utilities.dialogs.ManageServicesDialog;
+import com.UI.view.ManageServicesDialogView;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -25,24 +26,24 @@ public class RootPresenter
     private ManageCustomersDialogView manageCustomersDialog;
 
     @Autowired
-    private ManageServicesDialog manageServicesDialog;
+    private ManageServicesDialogView manageServicesDialog;
 
     @FXML
     public void initialize()
     {
-        manageCustomersBtn.setOnAction(e -> showCustomersManagement());
-        manageServicesBtn.setOnAction(e -> manageServicesDialog.showDialog());
+        manageCustomersBtn.setOnAction(e -> showManagementWindow(manageCustomersDialog, manageCustomersBtn.getText()));
+        manageServicesBtn.setOnAction(e -> showManagementWindow(manageServicesDialog, manageServicesBtn.getText()));
     }
 
-    public void showCustomersManagement()
+    private void showManagementWindow(AbstractFxmlView view, String windowTitle)
     {
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
                 Platform.runLater(() -> {
                     Stage stage = new Stage();
-                    AnchorPane rootLayout = new AnchorPane(manageCustomersDialog.getView());
-                    stage.setTitle("test");
+                    AnchorPane rootLayout = new AnchorPane(view.getView());
+                    stage.setTitle(windowTitle);
                     stage.setScene(new Scene(rootLayout));
                     stage.setResizable(false);
                     stage.centerOnScreen();
