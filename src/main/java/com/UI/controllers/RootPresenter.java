@@ -41,7 +41,7 @@ public class RootPresenter
             protected Void call() throws Exception {
                 Platform.runLater(() -> {
                     Stage stage = new Stage();
-                    AnchorPane rootLayout = (AnchorPane) manageCustomersDialog.getView();
+                    AnchorPane rootLayout = new AnchorPane(manageCustomersDialog.getView());
                     stage.setTitle("test");
                     stage.setScene(new Scene(rootLayout));
                     stage.setResizable(false);
@@ -52,6 +52,6 @@ public class RootPresenter
             }
         };
 
-        task.run(); //FIXME: make window openable many times
+        task.run();
     }
 }

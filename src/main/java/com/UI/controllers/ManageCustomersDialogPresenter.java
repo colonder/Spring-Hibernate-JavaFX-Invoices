@@ -37,8 +37,8 @@ public class ManageCustomersDialogPresenter
         addressCol.setCellValueFactory(new PropertyValueFactory<>("addressProp"));
         postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCodeProp"));
         cityCol.setCellValueFactory(new PropertyValueFactory<>("cityProp"));
-        considerCountingCol.setCellValueFactory(new PropertyValueFactory<>("paymentProp"));
-        paymentMethodCol.setCellValueFactory(new PropertyValueFactory<>("countProp"));
+        considerCountingCol.setCellValueFactory(new PropertyValueFactory<>("countProp"));
+        paymentMethodCol.setCellValueFactory(new PropertyValueFactory<>("paymentProp"));
         aliasCol.setCellValueFactory(new PropertyValueFactory<>("aliasProp"));
 
         //TODO: add list sorting capability
