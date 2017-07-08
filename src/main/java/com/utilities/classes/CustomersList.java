@@ -35,6 +35,6 @@ public class CustomersList
     public static void removeCustomer(CustomerProps customerProps)
     {
         customerList.remove(customerProps);
-        customerService.delete(customerProps.getCustomer().getId());
+        customerService.delete(customerProps.getCustomer());
     }
 }

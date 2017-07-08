@@ -37,4 +37,9 @@ public class CustomerImpl implements ICustomerService
     public Customer save(Customer customer) {
         return customerRepository.save(customer);
     }
+
+    @Transactional
+    public void delete(Customer customer) {
+        customerRepository.delete(customer);
+    }
 }

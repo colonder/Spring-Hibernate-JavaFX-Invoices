@@ -11,4 +11,5 @@ public interface ICustomerService
     Customer findByAlias(String alias);
     void delete(int id);
     Customer save(Customer customer);
+    void delete(Customer customer);
 }

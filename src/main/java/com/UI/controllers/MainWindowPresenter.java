@@ -66,7 +66,6 @@ public class MainWindowPresenter
         configureCustomersTable();
         configureButtons();
         configureServicesTable();
-        showCustomerDetails(customersTableView.getSelectionModel().getSelectedItem());
     }
 
     private void configureButtons()
@@ -99,9 +98,23 @@ public class MainWindowPresenter
         customersTableView.setItems(CustomersList.customerList);
         customersCol.setCellValueFactory(new PropertyValueFactory<>("aliasProp"));
         customersTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
-            showCustomerDetails(newVal);
-            populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
-            sumAll(customersTableView.getSelectionModel().getSelectedItem());
+            try {
+                showCustomerDetails(newVal);
+                populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
+                sumAll(customersTableView.getSelectionModel().getSelectedItem());
+            } catch (NullPointerException e) {
+                contractorNameLabel.setText("");
+                companyNameLabel.setText("");
+                addressLabel.setText("");
+                cityLabel.setText("");
+                taxIDLabel.setText("");
+                paymentLabel.setText("");
+
+                boughtServicesTableView.getItems().clear();
+
+                sumLabel.setText("");
+                sumWordsLabel.setText("");
+            }
         });
 
         customersTableView.getSelectionModel().select(0);
@@ -109,24 +122,12 @@ public class MainWindowPresenter
 
     private void showCustomerDetails(CustomerProps customer)
     {
-        try {
             contractorNameLabel.setText(customer.getFirstNameProp() + " " + customer.getLastNameProp());
             companyNameLabel.setText(customer.getCompanyNameProp());
             addressLabel.setText(customer.getAddressProp());
             cityLabel.setText(customer.getPostalCodeProp() + " " + customer.getCityProp());
             taxIDLabel.setText(customer.getTaxIdProp());
             paymentLabel.setText(customer.getPaymentProp().toString());
-        }
-
-        catch (NullPointerException e)
-        {
-            contractorNameLabel.setText("");
-            companyNameLabel.setText("");
-            addressLabel.setText("");
-            cityLabel.setText("");
-            taxIDLabel.setText("");
-            paymentLabel.setText("");
-        }
     }
 
     private void configureServicesTable()

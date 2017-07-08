@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class ManageCustomersDialogPresenter
 {
@@ -131,7 +133,22 @@ public class ManageCustomersDialogPresenter
         });
 
         removeCustomerBtn.setOnAction(event -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Usunięcie kontrahenta");
+            alert.setHeaderText("Czy na pewno chcesz usunąć wybranych kontrahentów?");
 
+            Optional<ButtonType> result = alert.showAndWait();
+            result.ifPresent(e -> {
+                Alert lastStand = new Alert(Alert.AlertType.CONFIRMATION);
+                lastStand.setTitle("Usunięcie kontrahenta");
+                lastStand.setHeaderText("To jest ostatni moment kiedy możesz się wycofać!");
+
+                Optional<ButtonType> finalResult = lastStand.showAndWait();
+                finalResult.ifPresent(c -> {
+                    for (CustomerProps props : customersListTableView.getSelectionModel().getSelectedItems())
+                        CustomersList.removeCustomer(props);
+                });
+            });
         });
     }
 }
