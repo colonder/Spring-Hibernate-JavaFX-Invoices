@@ -129,26 +129,35 @@ public class ManageCustomersDialogPresenter
         });
 
         editCustomerBtn.setOnAction(event -> {
-
+            if (customersListTableView.getSelectionModel().getSelectedItems().size() > 1)
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Edytowanie kontrahenta");
+                alert.setHeaderText("Nie można edytować kilku kontrahentów na raz");
+                alert.show();
+            }
         });
 
         removeCustomerBtn.setOnAction(event -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Usunięcie kontrahenta");
-            alert.setHeaderText("Czy na pewno chcesz usunąć wybranych kontrahentów?");
+            if(customersListTableView.getSelectionModel().getSelectedItems().size() > 0)
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Usunięcie kontrahenta");
+                alert.setHeaderText("Czy na pewno chcesz usunąć wybranych kontrahentów?");
 
-            Optional<ButtonType> result = alert.showAndWait();
-            result.ifPresent(e -> {
-                Alert lastStand = new Alert(Alert.AlertType.CONFIRMATION);
-                lastStand.setTitle("Usunięcie kontrahenta");
-                lastStand.setHeaderText("To jest ostatni moment kiedy możesz się wycofać!");
+                Optional<ButtonType> result = alert.showAndWait();
+                result.ifPresent(e -> {
+                    Alert lastStand = new Alert(Alert.AlertType.CONFIRMATION);
+                    lastStand.setTitle("Usunięcie kontrahenta");
+                    lastStand.setHeaderText("To jest ostatni moment kiedy możesz się wycofać!");
 
-                Optional<ButtonType> finalResult = lastStand.showAndWait();
-                finalResult.ifPresent(c -> {
-                    for (CustomerProps props : customersListTableView.getSelectionModel().getSelectedItems())
-                        CustomersList.removeCustomer(props);
+                    Optional<ButtonType> finalResult = lastStand.showAndWait();
+                    finalResult.ifPresent(c -> {
+                        for (CustomerProps props : customersListTableView.getSelectionModel().getSelectedItems())
+                            CustomersList.removeCustomer(props);
+                    });
                 });
-            });
+            }
         });
     }
 }
