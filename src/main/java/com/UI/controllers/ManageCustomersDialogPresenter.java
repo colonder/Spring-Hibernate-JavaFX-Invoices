@@ -1,7 +1,9 @@
 package com.UI.controllers;
 
+import com.entity.Customer;
 import com.entity.Customer.CustomerProps;
 import com.entity.PaymentMethod;
+import com.service.ICustomerService;
 import com.utilities.classes.CustomersList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +11,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -16,6 +20,9 @@ import java.util.Optional;
 @Component
 public class ManageCustomersDialogPresenter
 {
+    @Autowired
+    private ICustomerService customerService;
+
     //region @FXML objects
     @FXML TableView<CustomerProps> customersListTableView;
     @FXML TableColumn<CustomerProps, String> lastNameCol;
@@ -57,12 +64,9 @@ public class ManageCustomersDialogPresenter
         //initially display all tha data
         filteredList = new FilteredList<>(CustomersList.customerList, p -> true);
         customersListTableView.setItems(filteredList);
-
         customersListTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
         filterComboBox.setItems(filterCriteria);
         filterComboBox.getSelectionModel().select(0);
-
         initializeButtons();
     }
 
@@ -123,18 +127,20 @@ public class ManageCustomersDialogPresenter
                 return false;
             });
         });
-
-        newCustomerBtn.setOnAction(event -> {
-
-        });
-
+        newCustomerBtn.setOnAction(event -> showCustomerWindow(null));
         editCustomerBtn.setOnAction(event -> {
-            if (customersListTableView.getSelectionModel().getSelectedItems().size() > 1)
+            if (customersListTableView.getSelectionModel().getSelectedItems().size() != 1)
             {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Edytowanie kontrahenta");
-                alert.setHeaderText("Nie można edytować kilku kontrahentów na raz");
+                alert.setHeaderText("Nie można edytować kilku kontrahentów na raz lub żadnego");
+                alert.setContentText("Edytować kontrahentów można tylko pojedynczo");
                 alert.show();
+            }
+
+            else
+            {
+                showCustomerWindow(customersListTableView.getSelectionModel().getSelectedItem());
             }
         });
 
@@ -144,7 +150,6 @@ public class ManageCustomersDialogPresenter
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Usunięcie kontrahenta");
                 alert.setHeaderText("Czy na pewno chcesz usunąć wybranych kontrahentów?");
-
                 Optional<ButtonType> result = alert.showAndWait();
                 result.ifPresent(e -> {
                     Alert lastStand = new Alert(Alert.AlertType.CONFIRMATION);
@@ -158,6 +163,80 @@ public class ManageCustomersDialogPresenter
                     });
                 });
             }
+        });
+    }
+
+    private void showCustomerWindow(CustomerProps props)
+    {
+        Dialog<Customer> dialog = new Dialog<>();
+        dialog.setTitle("Edycja kontrahenta");
+        ButtonType acceptBtnType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(acceptBtnType, ButtonType.CANCEL);
+        VBox box = new VBox(5);
+        RadioButton yesRadioBtn = new RadioButton("Tak");
+        RadioButton noRadioBtn = new RadioButton("Nie");
+        RadioButton cashRadioBtn = new RadioButton("Gotówka");
+        RadioButton bankRadioBtn = new RadioButton("Przelew");
+        ToggleGroup countGroup = new ToggleGroup();
+        ToggleGroup paymentGroup = new ToggleGroup();
+        yesRadioBtn.setToggleGroup(countGroup);
+        noRadioBtn.setToggleGroup(countGroup);
+        cashRadioBtn.setToggleGroup(paymentGroup);
+        bankRadioBtn.setToggleGroup(paymentGroup);
+
+        TextField firstNameTxtFld;
+        TextField lastNameTxtFld;
+        TextField companyTxtField;
+        TextField taxIdTxtFld;
+        TextField addressTxtFld;
+        TextField postalCodeTxtFld;
+        TextField cityTxtFld;
+        TextField aliasTxtFld;
+        if(props != null)
+        {
+            firstNameTxtFld = new TextField(props.getFirstNameProp());
+            lastNameTxtFld = new TextField(props.getLastNameProp());
+            companyTxtField = new TextField(props.getCompanyNameProp());
+            taxIdTxtFld = new TextField(props.getTaxIdProp());
+            addressTxtFld = new TextField(props.getAddressProp());
+            postalCodeTxtFld = new TextField(props.getPostalCodeProp());
+            cityTxtFld = new TextField(props.getCityProp());
+            aliasTxtFld = new TextField(props.getAliasProp());
+        }
+        else
+        {
+            firstNameTxtFld = new TextField();
+            lastNameTxtFld = new TextField();
+            companyTxtField = new TextField();
+            taxIdTxtFld = new TextField();
+            addressTxtFld = new TextField();
+            postalCodeTxtFld = new TextField();
+            cityTxtFld = new TextField();
+            aliasTxtFld = new TextField();
+        }
+
+        box.getChildren().addAll(new Label("Imię"), firstNameTxtFld, new Label("Nazwisko"), lastNameTxtFld,
+                new Label("Firma"), companyTxtField, new Label("NIP/PESEL"), taxIdTxtFld, new Label("Adres"),
+                addressTxtFld, new Label("Kod pocztowy"), postalCodeTxtFld, new Label("Miasto"), cityTxtFld,
+                new Label("Uwzględnij numer faktury"), yesRadioBtn, noRadioBtn, new Label("Forma płatności"),
+                cashRadioBtn, bankRadioBtn, new Label("Alias"), aliasTxtFld);
+
+        dialog.getDialogPane().setContent(box);
+        dialog.setResultConverter(dialogButton -> {
+            if(dialogButton == acceptBtnType)
+            {
+                return new Customer(lastNameTxtFld.getText(), firstNameTxtFld.getText(), companyTxtField.getText(),
+                        taxIdTxtFld.getText(), addressTxtFld.getText(), postalCodeTxtFld.getText(), cityTxtFld.getText(),
+                        (cashRadioBtn.isSelected()) ? PaymentMethod.gotówka : PaymentMethod.przelew,
+                        yesRadioBtn.isSelected(), aliasTxtFld.getText());
+            }
+
+            return null;
+        });
+        Optional<Customer> result = dialog.showAndWait();
+        result.ifPresent(c -> {
+            customerService.save(c);
+            CustomersList.addCustomer(c);
         });
     }
 }
