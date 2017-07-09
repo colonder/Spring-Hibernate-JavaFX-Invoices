@@ -160,6 +160,7 @@ public class ManageCustomersDialogPresenter
                     finalResult.ifPresent(c -> {
                         for (CustomerProps props : customersListTableView.getSelectionModel().getSelectedItems())
                             CustomersList.removeCustomer(props);
+                        //FIXME: the last customer from those that are selected is not being deleted
                     });
                 });
             }
@@ -183,6 +184,8 @@ public class ManageCustomersDialogPresenter
         noRadioBtn.setToggleGroup(countGroup);
         cashRadioBtn.setToggleGroup(paymentGroup);
         bankRadioBtn.setToggleGroup(paymentGroup);
+        yesRadioBtn.setSelected(true);
+        cashRadioBtn.setSelected(true);
 
         TextField firstNameTxtFld;
         TextField lastNameTxtFld;
@@ -229,6 +232,7 @@ public class ManageCustomersDialogPresenter
                         taxIdTxtFld.getText(), addressTxtFld.getText(), postalCodeTxtFld.getText(), cityTxtFld.getText(),
                         (cashRadioBtn.isSelected()) ? PaymentMethod.gotówka : PaymentMethod.przelew,
                         yesRadioBtn.isSelected(), aliasTxtFld.getText());
+                //FIXME: Need to write native query for inserting values into postgres with casted enum values
             }
 
             return null;
