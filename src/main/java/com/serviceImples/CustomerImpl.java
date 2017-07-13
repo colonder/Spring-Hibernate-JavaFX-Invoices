@@ -1,6 +1,7 @@
 package com.serviceImples;
 
 import com.entity.Customer;
+import com.entity.PaymentMethod;
 import com.repositories.ICustomerRepository;
 import com.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,6 @@ public class CustomerImpl implements ICustomerService
         return customerRepository.findOne(id);
     }
 
-    @Override
-    public Customer findByAlias(String alias) {
-        return customerRepository.findByAlias(alias);
-    }
-
     @Transactional
     public void delete(int id) {
         customerRepository.delete(id);
@@ -41,5 +37,12 @@ public class CustomerImpl implements ICustomerService
     @Transactional
     public void delete(Customer customer) {
         customerRepository.delete(customer);
+    }
+
+    @Override
+    public int update(String lastName, String firstName, String companyName, String taxIdentifier, String address,
+                      String postalCode, String city, PaymentMethod paymentMethod, boolean includeInCount, String alias) {
+        return customerRepository.update(lastName, firstName, companyName, taxIdentifier, address, postalCode, city,
+                paymentMethod, includeInCount, alias);
     }
 }

@@ -26,10 +26,10 @@ public class CustomersList
         }
     }
 
-    public static void addCustomer(Customer customer)
+    public static void addCustomer(CustomerProps customer)
     {
-        customerService.save(customer);
-        customerList.add(customer.new CustomerProps());
+        customerService.save(customer.getCustomer());
+        customerList.add(customer);
     }
 
     public static void removeCustomer(CustomerProps customerProps)

@@ -6,14 +6,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "kontrahenci")
-@NoArgsConstructor
 public class Customer
 {
     @Id
@@ -61,6 +59,8 @@ public class Customer
 
     @Transient
     private CustomerProps customerProps;
+
+    public Customer(){}
 
     public Customer(String lastName, String firstName, String companyName, String taxIdentifier, String address,
                     String postalCode, String city, PaymentMethod paymentMethod, boolean includeInCount, String alias)

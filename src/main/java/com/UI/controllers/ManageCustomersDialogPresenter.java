@@ -127,7 +127,10 @@ public class ManageCustomersDialogPresenter
                 return false;
             });
         });
-        newCustomerBtn.setOnAction(event -> showCustomerWindow(null));
+        newCustomerBtn.setOnAction(event -> {
+            Customer c = new Customer();
+            showCustomerWindow(c.new CustomerProps(), newCustomerBtn);
+        });
         editCustomerBtn.setOnAction(event -> {
             if (customersListTableView.getSelectionModel().getSelectedItems().size() != 1)
             {
@@ -140,7 +143,7 @@ public class ManageCustomersDialogPresenter
 
             else
             {
-                showCustomerWindow(customersListTableView.getSelectionModel().getSelectedItem());
+                showCustomerWindow(customersListTableView.getSelectionModel().getSelectedItem(), editCustomerBtn);
             }
         });
 
@@ -167,12 +170,11 @@ public class ManageCustomersDialogPresenter
         });
     }
 
-    private void showCustomerWindow(CustomerProps props)
+    private void showCustomerWindow(CustomerProps props, Button source)
     {
-        Dialog<Customer> dialog = new Dialog<>();
+        Dialog dialog = new Dialog();
         dialog.setTitle("Edycja kontrahenta");
-        ButtonType acceptBtnType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(acceptBtnType, ButtonType.CANCEL);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         VBox box = new VBox(5);
         RadioButton yesRadioBtn = new RadioButton("Tak");
         RadioButton noRadioBtn = new RadioButton("Nie");
@@ -195,8 +197,6 @@ public class ManageCustomersDialogPresenter
         TextField postalCodeTxtFld;
         TextField cityTxtFld;
         TextField aliasTxtFld;
-        if(props != null)
-        {
             firstNameTxtFld = new TextField(props.getFirstNameProp());
             lastNameTxtFld = new TextField(props.getLastNameProp());
             companyTxtField = new TextField(props.getCompanyNameProp());
@@ -205,18 +205,6 @@ public class ManageCustomersDialogPresenter
             postalCodeTxtFld = new TextField(props.getPostalCodeProp());
             cityTxtFld = new TextField(props.getCityProp());
             aliasTxtFld = new TextField(props.getAliasProp());
-        }
-        else
-        {
-            firstNameTxtFld = new TextField();
-            lastNameTxtFld = new TextField();
-            companyTxtField = new TextField();
-            taxIdTxtFld = new TextField();
-            addressTxtFld = new TextField();
-            postalCodeTxtFld = new TextField();
-            cityTxtFld = new TextField();
-            aliasTxtFld = new TextField();
-        }
 
         box.getChildren().addAll(new Label("Imię"), firstNameTxtFld, new Label("Nazwisko"), lastNameTxtFld,
                 new Label("Firma"), companyTxtField, new Label("NIP/PESEL"), taxIdTxtFld, new Label("Adres"),
@@ -225,22 +213,34 @@ public class ManageCustomersDialogPresenter
                 cashRadioBtn, bankRadioBtn, new Label("Alias"), aliasTxtFld);
 
         dialog.getDialogPane().setContent(box);
-        dialog.setResultConverter(dialogButton -> {
-            if(dialogButton == acceptBtnType)
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if(result.isPresent() && result.get().equals(ButtonType.OK))
+        {
+            props.setTaxIdProp(taxIdTxtFld.getText());
+            props.setPostalCodeProp(postalCodeTxtFld.getText());
+            props.setPaymentProp(cashRadioBtn.isSelected() ? PaymentMethod.gotówka : PaymentMethod.przelew);
+            props.setLastNameProp(lastNameTxtFld.getText());
+            props.setFirstNameProp(firstNameTxtFld.getText());
+            props.setCountProp(yesRadioBtn.isSelected());
+            props.setCompanyNameProp(companyTxtField.getText());
+            props.setCityProp(cityTxtFld.getText());
+            props.setAliasProp(aliasTxtFld.getText());
+            props.setAddressProp(addressTxtFld.getText());
+
+            if(source.equals(newCustomerBtn))
             {
-                return new Customer(lastNameTxtFld.getText(), firstNameTxtFld.getText(), companyTxtField.getText(),
-                        taxIdTxtFld.getText(), addressTxtFld.getText(), postalCodeTxtFld.getText(), cityTxtFld.getText(),
-                        (cashRadioBtn.isSelected()) ? PaymentMethod.gotówka : PaymentMethod.przelew,
-                        yesRadioBtn.isSelected(), aliasTxtFld.getText());
-                //FIXME: Need to write native query for inserting values into postgres with casted enum values
+                CustomersList.addCustomer(props);
             }
 
-            return null;
-        });
-        Optional<Customer> result = dialog.showAndWait();
-        result.ifPresent(c -> {
-            customerService.save(c);
-            CustomersList.addCustomer(c);
-        });
+            else
+            {
+                Customer tmp = props.getCustomer();
+                customerService.update(tmp.getLastName(), tmp.getFirstName(), tmp.getCompanyName(), tmp.getTaxIdentifier(),
+                        tmp.getAddress(), tmp.getPostalCode(), tmp.getCity(), tmp.getPaymentMethod(), tmp.isIncludeInCount(),
+                        tmp.getAlias());
+            }
+        }
+
     }
 }
