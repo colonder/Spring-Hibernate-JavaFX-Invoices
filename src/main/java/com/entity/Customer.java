@@ -44,9 +44,9 @@ public class Customer
     @Column(name = "miejscowosc", nullable = false)
     private String city;
 
-    @Enumerated(EnumType.STRING)
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "sposob_zaplaty", nullable = false)
+    @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
     @NotNull(message = "To pole jest wymagane")
@@ -60,6 +60,7 @@ public class Customer
     @Transient
     private CustomerProps customerProps;
 
+    // do not implement
     public Customer(){}
 
     public Customer(String lastName, String firstName, String companyName, String taxIdentifier, String address,

@@ -186,25 +186,31 @@ public class ManageCustomersDialogPresenter
         noRadioBtn.setToggleGroup(countGroup);
         cashRadioBtn.setToggleGroup(paymentGroup);
         bankRadioBtn.setToggleGroup(paymentGroup);
-        yesRadioBtn.setSelected(true);
-        cashRadioBtn.setSelected(true);
+        yesRadioBtn.setSelected(props.getCountProp());
+        try {
+            if(props.getCountProp())
+                yesRadioBtn.setSelected(true);
+            else
+                noRadioBtn.setSelected(true);
 
-        TextField firstNameTxtFld;
-        TextField lastNameTxtFld;
-        TextField companyTxtField;
-        TextField taxIdTxtFld;
-        TextField addressTxtFld;
-        TextField postalCodeTxtFld;
-        TextField cityTxtFld;
-        TextField aliasTxtFld;
-            firstNameTxtFld = new TextField(props.getFirstNameProp());
-            lastNameTxtFld = new TextField(props.getLastNameProp());
-            companyTxtField = new TextField(props.getCompanyNameProp());
-            taxIdTxtFld = new TextField(props.getTaxIdProp());
-            addressTxtFld = new TextField(props.getAddressProp());
-            postalCodeTxtFld = new TextField(props.getPostalCodeProp());
-            cityTxtFld = new TextField(props.getCityProp());
-            aliasTxtFld = new TextField(props.getAliasProp());
+
+            if(props.getPaymentProp().name().equals("gotówka"))
+                cashRadioBtn.setSelected(true);
+            else
+                bankRadioBtn.setSelected(true);
+        } catch (NullPointerException e) {
+            cashRadioBtn.setSelected(true); // select default values
+            yesRadioBtn.setSelected(true);
+        }
+
+        TextField firstNameTxtFld = new TextField(props.getFirstNameProp());
+        TextField lastNameTxtFld = new TextField(props.getLastNameProp());
+        TextField companyTxtField = new TextField(props.getCompanyNameProp());
+        TextField taxIdTxtFld = new TextField(props.getTaxIdProp());
+        TextField addressTxtFld = new TextField(props.getAddressProp());
+        TextField postalCodeTxtFld = new TextField(props.getPostalCodeProp());
+        TextField cityTxtFld = new TextField(props.getCityProp());
+        TextField aliasTxtFld = new TextField(props.getAliasProp());
 
         box.getChildren().addAll(new Label("Imię"), firstNameTxtFld, new Label("Nazwisko"), lastNameTxtFld,
                 new Label("Firma"), companyTxtField, new Label("NIP/PESEL"), taxIdTxtFld, new Label("Adres"),
@@ -238,7 +244,7 @@ public class ManageCustomersDialogPresenter
                 Customer tmp = props.getCustomer();
                 customerService.update(tmp.getLastName(), tmp.getFirstName(), tmp.getCompanyName(), tmp.getTaxIdentifier(),
                         tmp.getAddress(), tmp.getPostalCode(), tmp.getCity(), tmp.getPaymentMethod(), tmp.isIncludeInCount(),
-                        tmp.getAlias());
+                        tmp.getAlias(), tmp.getId());
             }
         }
 

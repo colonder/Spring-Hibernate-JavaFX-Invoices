@@ -15,5 +15,5 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer>
     @Query("UPDATE Customer c SET c.lastName=?1, c.firstName =?2, c.companyName =?3, c.taxIdentifier =?4, c.address =?5," +
             "c.postalCode =?6, c.city =?7, c.paymentMethod =?8, c.includeInCount =?9, c.alias =?10 WHERE c.id =?11")
     int update(String lastName, String firstName, String companyName, String taxIdentifier, String address,
-               String postalCode, String city, PaymentMethod paymentMethod, boolean includeInCount, String alias);
+               String postalCode, String city, PaymentMethod paymentMethod, boolean includeInCount, String alias, int id);
 }

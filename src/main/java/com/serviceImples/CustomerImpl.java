@@ -40,9 +40,11 @@ public class CustomerImpl implements ICustomerService
     }
 
     @Override
+    @Transactional
     public int update(String lastName, String firstName, String companyName, String taxIdentifier, String address,
-                      String postalCode, String city, PaymentMethod paymentMethod, boolean includeInCount, String alias) {
+                      String postalCode, String city, PaymentMethod paymentMethod, boolean includeInCount, String alias,
+                      int id) {
         return customerRepository.update(lastName, firstName, companyName, taxIdentifier, address, postalCode, city,
-                paymentMethod, includeInCount, alias);
+                paymentMethod, includeInCount, alias, id);
     }
 }
