@@ -15,7 +15,7 @@
                         <Font size="14.0" />
                      </font>
                      <padding>
-                        <Insets right="10.0" />
+                        <Insets left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </Label>
                   <ComboBox fx:id="filterComboBox" prefWidth="150.0" />

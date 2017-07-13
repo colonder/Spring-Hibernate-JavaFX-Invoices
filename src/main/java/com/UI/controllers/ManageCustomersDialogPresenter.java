@@ -172,7 +172,7 @@ public class ManageCustomersDialogPresenter
 
     private void showCustomerWindow(CustomerProps props, Button source)
     {
-        Dialog dialog = new Dialog();
+        Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Edycja kontrahenta");
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         VBox box = new VBox(5);
