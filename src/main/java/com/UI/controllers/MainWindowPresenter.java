@@ -21,26 +21,21 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 @Component
-public class MainWindowPresenter
-{
+public class MainWindowPresenter {
     //region variables declarations
     @FXML private TableView<BoughtServicesProps> boughtServicesTableView;
-
     @FXML private TableColumn<BoughtServicesProps, Number> orderColumn;
-    @FXML private TableColumn<BoughtServicesProps, String>  serviceNameColumn;
-    @FXML private TableColumn<BoughtServicesProps, String>  symbolColumn;
-    @FXML private TableColumn<BoughtServicesProps, String>  unitColumn;
+    @FXML private TableColumn<BoughtServicesProps, String> serviceNameColumn;
+    @FXML private TableColumn<BoughtServicesProps, String> symbolColumn;
+    @FXML private TableColumn<BoughtServicesProps, String> unitColumn;
     @FXML private TableColumn<BoughtServicesProps, BigDecimal> quantityColumn;
-    @FXML private TableColumn<BoughtServicesProps, BigDecimal>  unitPriceColumn;
+    @FXML private TableColumn<BoughtServicesProps, BigDecimal> unitPriceColumn;
     @FXML private TableColumn<BoughtServicesProps, BigDecimal> valWithoutTaxColumn;
-    @FXML private TableColumn<BoughtServicesProps, Integer>  taxRateColumn;
+    @FXML private TableColumn<BoughtServicesProps, Integer> taxRateColumn;
     @FXML private TableColumn<BoughtServicesProps, BigDecimal> taxValColumn;
     @FXML private TableColumn<BoughtServicesProps, BigDecimal> valWithTaxColumn;
-
     @FXML private TableView<CustomerProps> customersTableView;
-
     @FXML private TableColumn<CustomerProps, String> customersCol;
-
     @FXML private Label contractorNameLabel;
     @FXML private Label companyNameLabel;
     @FXML private Label addressLabel;
@@ -49,27 +44,20 @@ public class MainWindowPresenter
     @FXML private Label paymentLabel;
     @FXML private Label sumWordsLabel;
     @FXML private Label sumLabel;
-
     @FXML private Button serviceAddButton;
     @FXML private Button serviceDeleteButton;
-
-    @Autowired
-    private ChoiceServiceDialog choiceServiceDialog;
-
-    @Autowired
-    private IBoughtServicesService boughtServicesService;
+    @Autowired private ChoiceServiceDialog choiceServiceDialog;
+    @Autowired private IBoughtServicesService boughtServicesService;
     //endregion
 
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
         configureCustomersTable();
         configureButtons();
         configureServicesTable();
     }
 
-    private void configureButtons()
-    {
+    private void configureButtons() {
         serviceAddButton.setOnAction(actionEvent ->
                 choiceServiceDialog.showDialog(customersTableView.getSelectionModel().getSelectedItem()));
 
@@ -82,9 +70,9 @@ public class MainWindowPresenter
             alert.getButtonTypes().setAll(okBtn, noBtn);
 
             Optional<ButtonType> result = alert.showAndWait();
-            if(result.isPresent())
+            if (result.isPresent())
             {
-                for(BoughtServicesProps serviceToDelete : boughtServicesTableView.getSelectionModel().getSelectedItems())
+                for (BoughtServicesProps serviceToDelete : boughtServicesTableView.getSelectionModel().getSelectedItems())
                 {
                     customersTableView.getSelectionModel().getSelectedItem().removeBoughtSerbicesProps(serviceToDelete);
                     boughtServicesService.delete(serviceToDelete.getBoughtService());
@@ -98,11 +86,15 @@ public class MainWindowPresenter
         customersTableView.setItems(CustomersList.customerList);
         customersCol.setCellValueFactory(new PropertyValueFactory<>("aliasProp"));
         customersTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
-            try {
+            try
+            {
                 showCustomerDetails(newVal);
                 populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
                 sumAll(customersTableView.getSelectionModel().getSelectedItem());
-            } catch (NullPointerException e) {
+            }
+
+            catch (NullPointerException e)
+            {
                 contractorNameLabel.setText("");
                 companyNameLabel.setText("");
                 addressLabel.setText("");
@@ -120,18 +112,16 @@ public class MainWindowPresenter
         customersTableView.getSelectionModel().select(0);
     }
 
-    private void showCustomerDetails(CustomerProps customer)
-    {
-            contractorNameLabel.setText(customer.getFirstNameProp() + " " + customer.getLastNameProp());
-            companyNameLabel.setText(customer.getCompanyNameProp());
-            addressLabel.setText(customer.getAddressProp());
-            cityLabel.setText(customer.getPostalCodeProp() + " " + customer.getCityProp());
-            taxIDLabel.setText(customer.getTaxIdProp());
-            paymentLabel.setText(customer.getPaymentProp().toString());
+    private void showCustomerDetails(CustomerProps customer) {
+        contractorNameLabel.setText(customer.getFirstNameProp() + " " + customer.getLastNameProp());
+        companyNameLabel.setText(customer.getCompanyNameProp());
+        addressLabel.setText(customer.getAddressProp());
+        cityLabel.setText(customer.getPostalCodeProp() + " " + customer.getCityProp());
+        taxIDLabel.setText(customer.getTaxIdProp());
+        paymentLabel.setText(customer.getPaymentProp().toString());
     }
 
-    private void configureServicesTable()
-    {
+    private void configureServicesTable() {
         orderColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(boughtServicesTableView.getItems().indexOf(param.getValue()) + 1));
         serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceNameProp"));
         symbolColumn.setCellValueFactory(new PropertyValueFactory<>("symbolProp"));
@@ -148,16 +138,12 @@ public class MainWindowPresenter
 
             //TODO: make this exceptions be caught properly
 
-            catch (PSQLException e)
-            {
+            catch (PSQLException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Wartość zbyt duża");
                 alert.setContentText("Wartość musi być mniejsza niż 9999.99");
                 alert.show();
-            }
-
-            catch(ConstraintViolationException c)
-            {
+            } catch (ConstraintViolationException c) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Wartość nieprawidłowa");
                 alert.setContentText("Wartość nie może być ujemna");
@@ -170,16 +156,13 @@ public class MainWindowPresenter
         taxValColumn.setCellValueFactory(new PropertyValueFactory<>("taxVal"));
         valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("totalVal"));
         boughtServicesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
     }
 
-    private void populateBoughtServicesData(CustomerProps customerProps)
-    {
+    private void populateBoughtServicesData(CustomerProps customerProps) {
         // lazy load (and only once) list of bought services
-        if(customerProps.getBoughtServicesProps().isEmpty())
-        {
+        if (customerProps.getBoughtServicesProps().isEmpty()) {
             boughtServicesService.findBoughtServicesByCustomer(customerProps.getCustomer()).forEach(service ->
-                customerProps.addBoughtServicesProps(service.new BoughtServicesProps()));
+                    customerProps.addBoughtServicesProps(service.new BoughtServicesProps()));
         }
 
         boughtServicesTableView.setItems(customerProps.getBoughtServicesProps());
@@ -189,8 +172,7 @@ public class MainWindowPresenter
     {
         BigDecimal sum = BigDecimal.ZERO;
 
-        for(BoughtServicesProps service : customerProps.getBoughtServicesProps())
-        {
+        for (BoughtServicesProps service : customerProps.getBoughtServicesProps()) {
             sum = sum.add(service.getTotalVal());
         }
 

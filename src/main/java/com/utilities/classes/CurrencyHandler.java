@@ -12,15 +12,13 @@ import java.math.BigDecimal;
  * I highly recommend using this libraries for any kind of project (especially engineering, language and banking ones,
  * ICU has created very good stuff supporting those issues in Java)
  */
-public class CurrencyHandler
-{
+public class CurrencyHandler {
     // can be easily changed to almost any language that is supported by ICU
     private static ULocale locale = new ULocale("pl_PL");
     //private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
     private static NumberFormat spellOutFormatter = new RuleBasedNumberFormat(locale, RuleBasedNumberFormat.SPELLOUT);
 
-    public static String convertToWords(BigDecimal value)
-    {
+    public static String convertToWords(BigDecimal value) {
 
         // SO EASY! It even supports BigDecimal right out of the box!
         // Need a little bit of modification

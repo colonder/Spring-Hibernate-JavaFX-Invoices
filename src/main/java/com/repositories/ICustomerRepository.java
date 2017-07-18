@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ICustomerRepository extends JpaRepository<Customer, Integer>
-{
+public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     List<Customer> findAll();
+
     @Modifying
     @Query("UPDATE Customer c SET c.lastName=?1, c.firstName =?2, c.companyName =?3, c.taxIdentifier =?4, c.address =?5," +
             "c.postalCode =?6, c.city =?7, c.paymentMethod =?8, c.includeInCount =?9, c.alias =?10 WHERE c.id =?11")

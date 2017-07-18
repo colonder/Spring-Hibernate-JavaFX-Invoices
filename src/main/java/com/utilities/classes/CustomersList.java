@@ -9,31 +9,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomersList
-{
+public class CustomersList {
+    public static ObservableList<CustomerProps> customerList = FXCollections.observableArrayList();
     private static ICustomerService customerService;
 
-    public static ObservableList<CustomerProps> customerList = FXCollections.observableArrayList();
-
     @Autowired
-    public CustomersList(ICustomerService customerService)
-    {
+    public CustomersList(ICustomerService customerService) {
         CustomersList.customerService = customerService; // to be able to inject static field
 
-        for (Customer customer : customerService.findAll())
-        {
+        for (Customer customer : customerService.findAll()) {
             customerList.add(customer.new CustomerProps());
         }
     }
 
-    public static void addCustomer(CustomerProps customer)
-    {
+    public static void addCustomer(CustomerProps customer) {
         customerService.save(customer.getCustomer());
         customerList.add(customer);
     }
 
-    public static void removeCustomer(CustomerProps customerProps)
-    {
+    public static void removeCustomer(CustomerProps customerProps) {
         customerList.remove(customerProps);
         customerService.delete(customerProps.getCustomer());
     }

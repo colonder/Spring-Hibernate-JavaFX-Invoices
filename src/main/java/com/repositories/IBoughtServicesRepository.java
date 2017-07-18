@@ -9,8 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface IBoughtServicesRepository extends JpaRepository<BoughtServices, Integer>
-{
+public interface IBoughtServicesRepository extends JpaRepository<BoughtServices, Integer> {
     List<BoughtServices> findBoughtServicesByCustomer(Customer customer);
 
     @Modifying

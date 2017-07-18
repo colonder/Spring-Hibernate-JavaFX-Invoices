@@ -14,13 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RootPresenter
-{
-    @FXML private Button settingsBtn;
-    @FXML private Button printBtn;
-    @FXML private Button saveBtn;
-    @FXML private Button manageServicesBtn;
-    @FXML private Button manageCustomersBtn;
+public class RootPresenter {
+    @FXML
+    private Button settingsBtn;
+    @FXML
+    private Button printBtn;
+    @FXML
+    private Button saveBtn;
+    @FXML
+    private Button manageServicesBtn;
+    @FXML
+    private Button manageCustomersBtn;
 
     @Autowired
     private ManageCustomersDialogView manageCustomersDialog;
@@ -29,14 +33,12 @@ public class RootPresenter
     private ManageServicesDialogView manageServicesDialog;
 
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
         manageCustomersBtn.setOnAction(e -> showManagementWindow(manageCustomersDialog, manageCustomersBtn.getText()));
         manageServicesBtn.setOnAction(e -> showManagementWindow(manageServicesDialog, manageServicesBtn.getText()));
     }
 
-    private void showManagementWindow(AbstractFxmlView view, String windowTitle)
-    {
+    private void showManagementWindow(AbstractFxmlView view, String windowTitle) {
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {

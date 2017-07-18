@@ -4,67 +4,69 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.ManageCustomersDialogPresenter">
-   <children>
-      <VBox layoutX="77.0" layoutY="39.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox prefHeight="70.0">
-               <children>
-                  <Label text="Filtruj">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </Label>
-                  <ComboBox fx:id="filterComboBox" prefWidth="150.0" />
-                  <TextField fx:id="filterTextField" prefWidth="200.0" promptText="Wpisz szukaną frazę">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Button fx:id="filterBtn" mnemonicParsing="false" text="Filtruj">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="29.0" />
-                  <Button fx:id="newCustomerBtn" mnemonicParsing="false" text="Nowy kontrahent">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="editCustomerBtn" mnemonicParsing="false" text="Edytuj kontrahenta">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="removeCustomerBtn" mnemonicParsing="false" text="Usuń wybranych kontrahentów">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <VBox.margin>
-                  <Insets left="5.0" top="5.0" />
-               </VBox.margin>
-            </HBox>
-            <TableView fx:id="customersListTableView">
-              <columns>
-                <TableColumn fx:id="lastNameCol" prefWidth="94.0" text="Nazwisko" />
-                <TableColumn fx:id="firstNameCol" prefWidth="74.0" text="Imię" />
-                  <TableColumn fx:id="companyNameCol" prefWidth="155.0" text="Firma" />
-                  <TableColumn fx:id="IdNumberCol" prefWidth="108.0" text="NIP/PESEL" />
-                  <TableColumn fx:id="addressCol" prefWidth="141.0" text="Adres" />
-                  <TableColumn fx:id="postalCodeCol" prefWidth="69.0" text="Kod&#10;pocztowy" />
-                  <TableColumn fx:id="cityCol" prefWidth="136.0" text="Miasto" />
-                  <TableColumn fx:id="paymentMethodCol" prefWidth="56.0" text="Sposób &#10;płatności&#10;" />
-                  <TableColumn fx:id="considerCountingCol" prefWidth="72.0" text="Uwzględnij&#10;numer" />
-                  <TableColumn fx:id="aliasCol" prefWidth="94.0" text="Alias" />
-              </columns>
-            </TableView>
-         </children>
-      </VBox>
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="1000.0"
+            xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.ManageCustomersDialogPresenter">
+    <children>
+        <VBox layoutX="77.0" layoutY="39.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox prefHeight="70.0">
+                    <children>
+                        <Label text="Filtruj">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <padding>
+                                <Insets left="5.0" right="5.0" top="5.0"/>
+                            </padding>
+                        </Label>
+                        <ComboBox fx:id="filterComboBox" prefWidth="150.0"/>
+                        <TextField fx:id="filterTextField" prefWidth="200.0" promptText="Wpisz szukaną frazę">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </TextField>
+                        <Button fx:id="filterBtn" mnemonicParsing="false" text="Filtruj">
+                            <HBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </HBox.margin>
+                        </Button>
+                        <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="29.0"/>
+                        <Button fx:id="newCustomerBtn" mnemonicParsing="false" text="Nowy kontrahent">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="editCustomerBtn" mnemonicParsing="false" text="Edytuj kontrahenta">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="removeCustomerBtn" mnemonicParsing="false" text="Usuń wybranych kontrahentów">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets left="5.0" top="5.0"/>
+                    </VBox.margin>
+                </HBox>
+                <TableView fx:id="customersListTableView">
+                    <columns>
+                        <TableColumn fx:id="lastNameCol" prefWidth="94.0" text="Nazwisko"/>
+                        <TableColumn fx:id="firstNameCol" prefWidth="74.0" text="Imię"/>
+                        <TableColumn fx:id="companyNameCol" prefWidth="155.0" text="Firma"/>
+                        <TableColumn fx:id="IdNumberCol" prefWidth="108.0" text="NIP/PESEL"/>
+                        <TableColumn fx:id="addressCol" prefWidth="141.0" text="Adres"/>
+                        <TableColumn fx:id="postalCodeCol" prefWidth="69.0" text="Kod&#10;pocztowy"/>
+                        <TableColumn fx:id="cityCol" prefWidth="136.0" text="Miasto"/>
+                        <TableColumn fx:id="paymentMethodCol" prefWidth="56.0" text="Sposób &#10;płatności&#10;"/>
+                        <TableColumn fx:id="considerCountingCol" prefWidth="72.0" text="Uwzględnij&#10;numer"/>
+                        <TableColumn fx:id="aliasCol" prefWidth="94.0" text="Alias"/>
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

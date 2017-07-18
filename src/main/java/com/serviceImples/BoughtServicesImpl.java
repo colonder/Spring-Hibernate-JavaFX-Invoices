@@ -14,8 +14,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class BoughtServicesImpl implements IBoughtServicesService
-{
+public class BoughtServicesImpl implements IBoughtServicesService {
     @Autowired
     private IBoughtServicesRepository boughtServicesRepository;
 
@@ -46,8 +45,7 @@ public class BoughtServicesImpl implements IBoughtServicesService
 
     @Transactional
     @Override
-    public int update(BigDecimal value, int id) throws PSQLException, ConstraintViolationException
-    {
+    public int update(BigDecimal value, int id) throws PSQLException, ConstraintViolationException {
         return boughtServicesRepository.update(value, id);
     }
 }

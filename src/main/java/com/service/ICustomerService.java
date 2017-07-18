@@ -5,13 +5,17 @@ import com.entity.PaymentMethod;
 
 import java.util.List;
 
-public interface ICustomerService
-{
+public interface ICustomerService {
     List<Customer> findAll();
+
     Customer findOne(int id);
+
     void delete(int id);
+
     Customer save(Customer customer);
+
     void delete(Customer customer);
+
     int update(String lastName, String firstName, String companyName, String taxIdentifier, String address,
                String postalCode, String city, PaymentMethod paymentMethod, boolean includeInCount, String alias, int id);
 }

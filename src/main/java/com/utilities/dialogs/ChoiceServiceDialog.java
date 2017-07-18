@@ -19,16 +19,14 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Component
-public class ChoiceServiceDialog
-{
+public class ChoiceServiceDialog {
     @Autowired
     private IServicesEntityService servicesEntityService;
 
     @Autowired
     private IBoughtServicesService boughtServicesService;
 
-    public void showDialog(CustomerProps props)
-    {
+    public void showDialog(CustomerProps props) {
         Dialog<ArrayList<ServiceEntity>> dialog = new Dialog<>();
         ButtonType cancelButton = new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE);
         ButtonType acceptButton = new ButtonType("Dodaj wybrane", ButtonBar.ButtonData.OK_DONE);
@@ -60,7 +58,7 @@ public class ChoiceServiceDialog
         dialog.getDialogPane().setContent(vBox);
 
         dialog.setResultConverter(dialogButton -> {
-            if(dialogButton == acceptButton)
+            if (dialogButton == acceptButton)
                 return new ArrayList<>(table.getSelectionModel().getSelectedItems());
 
             return null;
@@ -68,8 +66,7 @@ public class ChoiceServiceDialog
 
         Optional<ArrayList<ServiceEntity>> result = dialog.showAndWait();
         result.ifPresent(list -> {
-            for(ServiceEntity service : list)
-            {
+            for (ServiceEntity service : list) {
                 BoughtServices bs = new BoughtServices(props.getCustomer(), service, BigDecimal.ZERO);
                 boughtServicesService.save(bs);
                 props.addBoughtServicesProps(bs.new BoughtServicesProps());

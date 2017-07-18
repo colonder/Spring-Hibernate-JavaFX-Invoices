@@ -1,5 +1,8 @@
 package com.entity;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,8 +12,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "uslugi")
 @NoArgsConstructor
-public class ServiceEntity
-{
+public class ServiceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -35,6 +37,9 @@ public class ServiceEntity
     @NotNull(message = "To pole jest wymagane")
     @Column(name = "stawka_vat", nullable = false)
     private int vatTaxRate;
+
+    @Transient
+    private ServiceEntityProps serviceEntityProps;
 
     //TODO: write a trigger in database preventing from deleting service when any customer is still using it(?)
 
@@ -94,5 +99,91 @@ public class ServiceEntity
     public void setVatTaxRate(int vatTaxRate) {
         this.vatTaxRate = vatTaxRate;
     }
+
+    public ServiceEntityProps getServiceEntityProps() {
+        return serviceEntityProps;
+    }
     //endregion
+
+    public class ServiceEntityProps
+    {
+        private SimpleStringProperty serviceNameProp;
+        private SimpleStringProperty symbolProp;
+        private SimpleStringProperty unitProp;
+        private SimpleObjectProperty<BigDecimal> netunitPriceProp;
+        private SimpleIntegerProperty vatProp;
+
+        public ServiceEntityProps()
+        {
+            this.serviceNameProp = new SimpleStringProperty(serviceName);
+            this.symbolProp = new SimpleStringProperty(symbol);
+            this.unitProp = new SimpleStringProperty(unit);
+            this.netunitPriceProp = new SimpleObjectProperty<>(netUnitPrice);
+            this.vatProp = new SimpleIntegerProperty(vatTaxRate);
+        }
+
+        public ServiceEntity getSetviceEntity(){
+            return ServiceEntity.this;
+        }
+
+        public String getServiceNameProp() {
+            return serviceNameProp.get();
+        }
+
+        public SimpleStringProperty serviceNamePropProperty() {
+            return serviceNameProp;
+        }
+
+        public void setServiceNameProp(String serviceNameProp) {
+            this.serviceNameProp.set(serviceNameProp);
+        }
+
+        public String getSymbolProp() {
+            return symbolProp.get();
+        }
+
+        public SimpleStringProperty symbolPropProperty() {
+            return symbolProp;
+        }
+
+        public void setSymbolProp(String symbolProp) {
+            this.symbolProp.set(symbolProp);
+        }
+
+        public String getUnitProp() {
+            return unitProp.get();
+        }
+
+        public SimpleStringProperty unitPropProperty() {
+            return unitProp;
+        }
+
+        public void setUnitProp(String unitProp) {
+            this.unitProp.set(unitProp);
+        }
+
+        public BigDecimal getNetunitPriceProp() {
+            return netunitPriceProp.get();
+        }
+
+        public SimpleObjectProperty<BigDecimal> netunitPricePropProperty() {
+            return netunitPriceProp;
+        }
+
+        public void setNetunitPriceProp(BigDecimal netunitPriceProp) {
+            this.netunitPriceProp.set(netunitPriceProp);
+        }
+
+        public int getVatProp() {
+            return vatProp.get();
+        }
+
+        public SimpleIntegerProperty vatPropProperty() {
+            return vatProp;
+        }
+
+        public void setVatProp(int vatProp) {
+            this.vatProp.set(vatProp);
+        }
+    }
 }

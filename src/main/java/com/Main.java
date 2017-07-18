@@ -19,9 +19,12 @@ public class Main extends AbstractJavaFxApplicationSupport {
     @Autowired
     private MainWindowView mainWindowView;
 
+    public static void main(String[] args) {
+        launchApp(Main.class, args);
+    }
+
     @Override
-    public void start(Stage stage) throws Exception
-    {
+    public void start(Stage stage) throws Exception {
         BorderPane rootLayout = (BorderPane) rootView.getView();
         rootLayout.setCenter(mainWindowView.getView());
         stage.setTitle("test");
@@ -29,9 +32,5 @@ public class Main extends AbstractJavaFxApplicationSupport {
         stage.setResizable(false);
         stage.centerOnScreen();
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launchApp(Main.class, args);
     }
 }

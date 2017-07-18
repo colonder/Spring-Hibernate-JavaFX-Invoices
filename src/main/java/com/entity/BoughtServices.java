@@ -17,54 +17,7 @@ import java.math.BigDecimal;
 @Table(name = "wykupione_uslugi")
 @Immutable
 @NoArgsConstructor
-public class BoughtServices implements Serializable
-{
-    @Embeddable
-    public static class InternalId implements Serializable
-    {
-        @Column(name = "kontrahent_id")
-        private int customerId;
-
-        @Column(name = "usluga_id")
-        private int serviceId;
-
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "id")
-        private int id;
-
-        public InternalId() {}
-
-        public InternalId(int serviceId, int customerId)
-        {
-            this.serviceId = serviceId;
-            this.customerId = customerId;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            InternalId that = (InternalId) o;
-
-            if (customerId != that.customerId) return false;
-            if (serviceId != that.serviceId) return false;
-            return id == that.id;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = customerId;
-            result = 31 * result + serviceId;
-            result = 31 * result + id;
-            return result;
-        }
-    }
-
+public class BoughtServices implements Serializable {
     @EmbeddedId
     private InternalId internalId = new InternalId();
 
@@ -83,12 +36,10 @@ public class BoughtServices implements Serializable
     @Transient
     private BoughtServicesProps boughtServicesProps;
 
-    public BoughtServices(Customer customer, ServiceEntity serviceEntity, BigDecimal quantity)
-    {
+    public BoughtServices(Customer customer, ServiceEntity serviceEntity, BigDecimal quantity) {
         this.customer = customer;
         this.serviceEntity = serviceEntity;
         this.quantity = quantity;
-
         this.internalId.customerId = customer.getId();
         this.internalId.serviceId = serviceEntity.getId();
         this.boughtServicesProps = new BoughtServicesProps();
@@ -96,6 +47,10 @@ public class BoughtServices implements Serializable
 
     public BoughtServicesProps getBoughtServicesProps() {
         return boughtServicesProps;
+    }
+
+    public void setBoughtServicesProps(BoughtServicesProps boughtServicesProps) {
+        this.boughtServicesProps = boughtServicesProps;
     }
 
     public InternalId getInternalId() {
@@ -126,12 +81,49 @@ public class BoughtServices implements Serializable
         this.serviceEntity = serviceEntity;
     }
 
-    public void setBoughtServicesProps(BoughtServicesProps boughtServicesProps) {
-        this.boughtServicesProps = boughtServicesProps;
+    @Embeddable
+    public static class InternalId implements Serializable {
+        @Column(name = "kontrahent_id")
+        private int customerId;
+
+        @Column(name = "usluga_id")
+        private int serviceId;
+
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "id")
+        private int id;
+
+        public InternalId() {}
+
+        public InternalId(int serviceId, int customerId) {
+            this.serviceId = serviceId;
+            this.customerId = customerId;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            InternalId that = (InternalId) o;
+            if (customerId != that.customerId) return false;
+            if (serviceId != that.serviceId) return false;
+            return id == that.id;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = customerId;
+            result = 31 * result + serviceId;
+            result = 31 * result + id;
+            return result;
+        }
     }
 
-    public class BoughtServicesProps
-    {
+    public class BoughtServicesProps {
         // bought service properties
         private SimpleObjectProperty<BigDecimal> quantityProp;
         private ReadOnlyObjectWrapper<BigDecimal> valWithoutTax;
@@ -144,15 +136,15 @@ public class BoughtServices implements Serializable
         private SimpleStringProperty unitProp;
         private SimpleObjectProperty<BigDecimal> netUnitPriceProp;
         private SimpleIntegerProperty vatProp;
+        private ServiceEntity.ServiceEntityProps serviceEntityProps;
 
-        public BoughtServicesProps()
-        {
-            this.serviceNameProp = new SimpleStringProperty(serviceEntity.getServiceName());
-            this.symbolProp = new SimpleStringProperty(serviceEntity.getSymbol());
-            this.unitProp = new SimpleStringProperty(serviceEntity.getUnit());
-            this.netUnitPriceProp = new SimpleObjectProperty<>(serviceEntity.getNetUnitPrice());
-            this.vatProp = new SimpleIntegerProperty(serviceEntity.getVatTaxRate());
-
+        public BoughtServicesProps() {
+            this.serviceEntityProps = serviceEntity.getServiceEntityProps();
+            this.serviceNameProp = serviceEntityProps.serviceNamePropProperty();
+            this.symbolProp = serviceEntityProps.symbolPropProperty();
+            this.unitProp = serviceEntityProps.unitPropProperty();
+            this.netUnitPriceProp = serviceEntityProps.netunitPricePropProperty();
+            this.vatProp = serviceEntityProps.vatPropProperty();
             this.quantityProp = new SimpleObjectProperty<>(quantity);
             this.valWithoutTax = new ReadOnlyObjectWrapper<>(quantity.multiply(getNetUnitPriceProp())
                     .setScale(2, BigDecimal.ROUND_HALF_DOWN));
@@ -162,9 +154,9 @@ public class BoughtServices implements Serializable
             performCalculations();
 
             this.quantityProp.addListener((ObservableValue<? extends BigDecimal> observable, BigDecimal oldValue, BigDecimal newValue) -> {
-                    valWithoutTax.set(newValue.multiply(getNetUnitPriceProp()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
-                    performCalculations();
-                });
+                valWithoutTax.set(newValue.multiply(getNetUnitPriceProp()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
+                performCalculations();
+            });
 
             this.netUnitPriceProp.addListener((ObservableValue<? extends BigDecimal> observable, BigDecimal oldValue, BigDecimal newValue) -> {
                 valWithoutTax.set(newValue.multiply(getQuantityProp()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
@@ -172,15 +164,13 @@ public class BoughtServices implements Serializable
             });
         }
 
-        private void performCalculations()
-        {
+        private void performCalculations() {
             taxVal.set(getValWithoutTax().multiply(BigDecimal.valueOf(getVatProp())).multiply(BigDecimal.valueOf(0.01)).setScale(2, BigDecimal.ROUND_HALF_DOWN));
             totalVal.set(getValWithoutTax().add(getTaxVal()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
         }
 
         //region getters and setters
-        public BoughtServices getBoughtService()
-        {
+        public BoughtServices getBoughtService() {
             return BoughtServices.this;
         }
 
@@ -212,73 +202,73 @@ public class BoughtServices implements Serializable
             return quantityProp.get();
         }
 
-        public SimpleObjectProperty<BigDecimal> quantityPropProperty() {
-            return quantityProp;
-        }
-
         public void setQuantityProp(BigDecimal quantityProp) {
             this.quantityProp.set(quantityProp);
             BoughtServices.this.setQuantity(quantityProp);
+        }
+
+        public SimpleObjectProperty<BigDecimal> quantityPropProperty() {
+            return quantityProp;
         }
 
         public String getServiceNameProp() {
             return serviceNameProp.get();
         }
 
-        public SimpleStringProperty serviceNamePropProperty() {
-            return serviceNameProp;
-        }
-
         public void setServiceNameProp(String serviceNameProp) {
             this.serviceNameProp.set(serviceNameProp);
+        }
+
+        public SimpleStringProperty serviceNamePropProperty() {
+            return serviceNameProp;
         }
 
         public String getSymbolProp() {
             return symbolProp.get();
         }
 
-        public SimpleStringProperty symbolPropProperty() {
-            return symbolProp;
-        }
-
         public void setSymbolProp(String symbolProp) {
             this.symbolProp.set(symbolProp);
+        }
+
+        public SimpleStringProperty symbolPropProperty() {
+            return symbolProp;
         }
 
         public String getUnitProp() {
             return unitProp.get();
         }
 
-        public SimpleStringProperty unitPropProperty() {
-            return unitProp;
-        }
-
         public void setUnitProp(String unitProp) {
             this.unitProp.set(unitProp);
+        }
+
+        public SimpleStringProperty unitPropProperty() {
+            return unitProp;
         }
 
         public BigDecimal getNetUnitPriceProp() {
             return netUnitPriceProp.get();
         }
 
-        public SimpleObjectProperty<BigDecimal> netUnitPricePropProperty() {
-            return netUnitPriceProp;
-        }
-
         public void setNetUnitPriceProp(BigDecimal netUnitPriceProp) {
             this.netUnitPriceProp.set(netUnitPriceProp);
+        }
+
+        public SimpleObjectProperty<BigDecimal> netUnitPricePropProperty() {
+            return netUnitPriceProp;
         }
 
         public int getVatProp() {
             return vatProp.get();
         }
 
-        public SimpleIntegerProperty vatPropProperty() {
-            return vatProp;
-        }
-
         public void setVatProp(int vatProp) {
             this.vatProp.set(vatProp);
+        }
+
+        public SimpleIntegerProperty vatPropProperty() {
+            return vatProp;
         }
         //endregion
     }

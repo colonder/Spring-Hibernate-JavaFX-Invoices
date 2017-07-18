@@ -12,8 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "kontrahenci")
-public class Customer
-{
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -61,11 +60,11 @@ public class Customer
     private CustomerProps customerProps;
 
     // do not implement
-    public Customer(){}
+    public Customer() {
+    }
 
     public Customer(String lastName, String firstName, String companyName, String taxIdentifier, String address,
-                    String postalCode, String city, PaymentMethod paymentMethod, boolean includeInCount, String alias)
-    {
+                    String postalCode, String city, PaymentMethod paymentMethod, boolean includeInCount, String alias) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.companyName = companyName;
@@ -81,6 +80,10 @@ public class Customer
     //region getters and setters
     public CustomerProps getCustomerProps() {
         return customerProps;
+    }
+
+    public void setCustomerProps(CustomerProps customerProps) {
+        this.customerProps = customerProps;
     }
 
     public int getId() {
@@ -170,14 +173,9 @@ public class Customer
     public void setAlias(String alias) {
         this.alias = alias;
     }
-
-    public void setCustomerProps(CustomerProps customerProps) {
-        this.customerProps = customerProps;
-    }
     //endregion
 
-    public class CustomerProps
-    {
+    public class CustomerProps {
         private SimpleStringProperty lastNameProp;
         private SimpleStringProperty firstNameProp;
         private SimpleStringProperty companyNameProp;
@@ -190,8 +188,7 @@ public class Customer
         private SimpleObjectProperty<PaymentMethod> paymentProp;
         private ObservableList<BoughtServicesProps> boughtServicesProps = FXCollections.observableArrayList();
 
-        public CustomerProps()
-        {
+        public CustomerProps() {
             this.lastNameProp = new SimpleStringProperty(lastName);
             this.firstNameProp = new SimpleStringProperty(firstName);
             this.companyNameProp = new SimpleStringProperty(companyName);
@@ -206,8 +203,7 @@ public class Customer
         }
 
         //region getters and setters
-        public Customer getCustomer()
-        {
+        public Customer getCustomer() {
             return Customer.this;
         }
 
@@ -215,21 +211,17 @@ public class Customer
             return lastNameProp.get();
         }
 
-        public SimpleStringProperty lastNamePropProperty() {
-            return lastNameProp;
-        }
-
         public void setLastNameProp(String lastNameProp) {
             Customer.this.setLastName(lastNameProp);
             this.lastNameProp.set(lastNameProp);
         }
 
-        public String getFirstNameProp() {
-            return firstNameProp.get();
+        public SimpleStringProperty lastNamePropProperty() {
+            return lastNameProp;
         }
 
-        public SimpleStringProperty firstNamePropProperty() {
-            return firstNameProp;
+        public String getFirstNameProp() {
+            return firstNameProp.get();
         }
 
         public void setFirstNameProp(String firstNameProp) {
@@ -237,12 +229,12 @@ public class Customer
             this.firstNameProp.set(firstNameProp);
         }
 
-        public String getCompanyNameProp() {
-            return companyNameProp.get();
+        public SimpleStringProperty firstNamePropProperty() {
+            return firstNameProp;
         }
 
-        public SimpleStringProperty companyNamePropProperty() {
-            return companyNameProp;
+        public String getCompanyNameProp() {
+            return companyNameProp.get();
         }
 
         public void setCompanyNameProp(String companyNameProp) {
@@ -250,12 +242,12 @@ public class Customer
             this.companyNameProp.set(companyNameProp);
         }
 
-        public String getTaxIdProp() {
-            return taxIdProp.get();
+        public SimpleStringProperty companyNamePropProperty() {
+            return companyNameProp;
         }
 
-        public SimpleStringProperty taxIdPropProperty() {
-            return taxIdProp;
+        public String getTaxIdProp() {
+            return taxIdProp.get();
         }
 
         public void setTaxIdProp(String taxIdProp) {
@@ -263,12 +255,12 @@ public class Customer
             this.taxIdProp.set(taxIdProp);
         }
 
-        public String getAddressProp() {
-            return addressProp.get();
+        public SimpleStringProperty taxIdPropProperty() {
+            return taxIdProp;
         }
 
-        public SimpleStringProperty addressPropProperty() {
-            return addressProp;
+        public String getAddressProp() {
+            return addressProp.get();
         }
 
         public void setAddressProp(String addressProp) {
@@ -276,12 +268,12 @@ public class Customer
             this.addressProp.set(addressProp);
         }
 
-        public String getPostalCodeProp() {
-            return postalCodeProp.get();
+        public SimpleStringProperty addressPropProperty() {
+            return addressProp;
         }
 
-        public SimpleStringProperty postalCodePropProperty() {
-            return postalCodeProp;
+        public String getPostalCodeProp() {
+            return postalCodeProp.get();
         }
 
         public void setPostalCodeProp(String postalCodeProp) {
@@ -289,12 +281,12 @@ public class Customer
             this.postalCodeProp.set(postalCodeProp);
         }
 
-        public String getCityProp() {
-            return cityProp.get();
+        public SimpleStringProperty postalCodePropProperty() {
+            return postalCodeProp;
         }
 
-        public SimpleStringProperty cityPropProperty() {
-            return cityProp;
+        public String getCityProp() {
+            return cityProp.get();
         }
 
         public void setCityProp(String cityProp) {
@@ -302,17 +294,21 @@ public class Customer
             this.cityProp.set(cityProp);
         }
 
-        public String getAliasProp() {
-            return aliasProp.get();
+        public SimpleStringProperty cityPropProperty() {
+            return cityProp;
         }
 
-        public SimpleStringProperty aliasPropProperty() {
-            return aliasProp;
+        public String getAliasProp() {
+            return aliasProp.get();
         }
 
         public void setAliasProp(String aliasProp) {
             Customer.this.setAlias(aliasProp);
             this.aliasProp.set(aliasProp);
+        }
+
+        public SimpleStringProperty aliasPropProperty() {
+            return aliasProp;
         }
 
         public boolean getCountProp() {
@@ -323,17 +319,8 @@ public class Customer
             return countProp;
         }
 
-        public void setCountProp(boolean countProp) {
-            Customer.this.setIncludeInCount(countProp);
-            this.countProp.set(countProp);
-        }
-
         public PaymentMethod getPaymentProp() {
             return paymentProp.get();
-        }
-
-        public SimpleObjectProperty<PaymentMethod> paymentPropProperty() {
-            return paymentProp;
         }
 
         public void setPaymentProp(PaymentMethod paymentProp) {
@@ -341,21 +328,28 @@ public class Customer
             this.paymentProp.set(paymentProp);
         }
 
+        public SimpleObjectProperty<PaymentMethod> paymentPropProperty() {
+            return paymentProp;
+        }
+
         public boolean isCountProp() {
             return countProp.get();
+        }
+
+        public void setCountProp(boolean countProp) {
+            Customer.this.setIncludeInCount(countProp);
+            this.countProp.set(countProp);
         }
 
         public ObservableList<BoughtServicesProps> getBoughtServicesProps() {
             return boughtServicesProps;
         }
 
-        public void addBoughtServicesProps(BoughtServicesProps props)
-        {
+        public void addBoughtServicesProps(BoughtServicesProps props) {
             this.boughtServicesProps.add(props);
         }
 
-        public void removeBoughtSerbicesProps(BoughtServicesProps props)
-        {
+        public void removeBoughtSerbicesProps(BoughtServicesProps props) {
             this.boughtServicesProps.remove(props);
         }
 

@@ -1,6 +1,5 @@
 package com.entity;
 
-public enum PaymentMethod
-{
+public enum PaymentMethod {
     gotówka, przelew
 }

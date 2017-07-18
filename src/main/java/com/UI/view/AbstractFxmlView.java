@@ -43,194 +43,194 @@ import static java.util.ResourceBundle.getBundle;
  * {@link AbstractFxmlView} is a stripped down version of <a href=
  * "https://github.com/AdamBien/afterburner.fx/blob/02f25fdde9629fcce50ea8ace5dec4f802958c8d/src/main/java/com/airhacks/afterburner/views/FXMLView.java"
  * >FXMLView</a> that provides DI for Java FX Controllers via Spring.
- * 
+ *
  * @author Thomas Darimont
  */
 public abstract class AbstractFxmlView implements ApplicationContextAware {
 
-	protected ObjectProperty<Object> presenterProperty;
-	protected FXMLLoader fxmlLoader;
-	protected ResourceBundle bundle;
+    protected ObjectProperty<Object> presenterProperty;
+    protected FXMLLoader fxmlLoader;
+    protected ResourceBundle bundle;
 
-	protected URL resource;
+    protected URL resource;
 
-	private ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public AbstractFxmlView() {
 
-		if (this.applicationContext != null) {
-			return;
-		}
+        this.presenterProperty = new SimpleObjectProperty<>();
+        this.resource = getClass().getResource(getFxmlName());
+        this.bundle = getResourceBundle(getBundleName());
+    }
 
-		this.applicationContext = applicationContext;
-	}
+    static String stripEnding(String clazz) {
 
-	public AbstractFxmlView() {
+        if (!clazz.endsWith("view")) {
+            return clazz;
+        }
 
-		this.presenterProperty = new SimpleObjectProperty<>();
-		this.resource = getClass().getResource(getFxmlName());
-		this.bundle = getResourceBundle(getBundleName());
-	}
+        return clazz.substring(0, clazz.lastIndexOf("view"));
+    }
 
-	private Object createControllerForType(Class<?> type) {
-		return this.applicationContext.getBean(type);
-	}
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 
-	FXMLLoader loadSynchronously(URL resource, ResourceBundle bundle) throws IllegalStateException {
+        if (this.applicationContext != null) {
+            return;
+        }
 
-		FXMLLoader loader = new FXMLLoader(resource, bundle);
-		loader.setControllerFactory(this::createControllerForType);
+        this.applicationContext = applicationContext;
+    }
 
-		try {
-			loader.load();
-		} catch (IOException ex) {
-			throw new IllegalStateException("Cannot load " + getConventionalName(), ex);
-		}
+    private Object createControllerForType(Class<?> type) {
+        return this.applicationContext.getBean(type);
+    }
 
-		return loader;
-	}
+    FXMLLoader loadSynchronously(URL resource, ResourceBundle bundle) throws IllegalStateException {
 
-	void ensureFxmlLoaderInitialized() {
+        FXMLLoader loader = new FXMLLoader(resource, bundle);
+        loader.setControllerFactory(this::createControllerForType);
 
-		if (this.fxmlLoader != null) {
-			return;
-		}
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            throw new IllegalStateException("Cannot load " + getConventionalName(), ex);
+        }
 
-		this.fxmlLoader = loadSynchronously(resource, bundle);
-		this.presenterProperty.set(this.fxmlLoader.getController());
-	}
+        return loader;
+    }
 
-	/**
-	 * Initializes the view by loading the FXML (if not happened yet) and returns the top Node (parent) specified in the
-	 * FXML file.
-	 *
-	 * @return
-	 */
-	public Parent getView() {
+    void ensureFxmlLoaderInitialized() {
 
-		ensureFxmlLoaderInitialized();
+        if (this.fxmlLoader != null) {
+            return;
+        }
 
-		Parent parent = fxmlLoader.getRoot();
-		addCSSIfAvailable(parent);
-		return parent;
-	}
+        this.fxmlLoader = loadSynchronously(resource, bundle);
+        this.presenterProperty.set(this.fxmlLoader.getController());
+    }
 
-	/**
-	 * Initializes the view synchronously and invokes the consumer with the created parent Node within the FX UI thread.
-	 *
-	 * @param consumer - an object interested in received the {@link Parent} as callback
-	 */
-	public void getView(Consumer<Parent> consumer) {
-		CompletableFuture.supplyAsync(this::getView, Platform::runLater).thenAccept(consumer);
-	}
+    /**
+     * Initializes the view by loading the FXML (if not happened yet) and returns the top Node (parent) specified in the
+     * FXML file.
+     *
+     * @return
+     */
+    public Parent getView() {
 
-	/**
-	 * Scene Builder creates for each FXML document a root container. This method omits the root container (e.g.
-	 * {@link AnchorPane}) and gives you the access to its first child.
-	 *
-	 * @return the first child of the {@link AnchorPane}
-	 */
-	public Node getViewWithoutRootContainer() {
+        ensureFxmlLoaderInitialized();
 
-		ObservableList<Node> children = getView().getChildrenUnmodifiable();
-		if (children.isEmpty()) {
-			return null;
-		}
+        Parent parent = fxmlLoader.getRoot();
+        addCSSIfAvailable(parent);
+        return parent;
+    }
 
-		return children.listIterator().next();
-	}
+    /**
+     * Initializes the view synchronously and invokes the consumer with the created parent Node within the FX UI thread.
+     *
+     * @param consumer - an object interested in received the {@link Parent} as callback
+     */
+    public void getView(Consumer<Parent> consumer) {
+        CompletableFuture.supplyAsync(this::getView, Platform::runLater).thenAccept(consumer);
+    }
 
-	void addCSSIfAvailable(Parent parent) {
+    /**
+     * Scene Builder creates for each FXML document a root container. This method omits the root container (e.g.
+     * {@link AnchorPane}) and gives you the access to its first child.
+     *
+     * @return the first child of the {@link AnchorPane}
+     */
+    public Node getViewWithoutRootContainer() {
 
-		URL uri = getClass().getResource(getStyleSheetName());
-		if (uri == null) {
-			return;
-		}
+        ObservableList<Node> children = getView().getChildrenUnmodifiable();
+        if (children.isEmpty()) {
+            return null;
+        }
 
-		String uriToCss = uri.toExternalForm();
-		parent.getStylesheets().add(uriToCss);
-	}
+        return children.listIterator().next();
+    }
 
-	String getStyleSheetName() {
-		return getConventionalName(".css");
-	}
+    void addCSSIfAvailable(Parent parent) {
 
-	/**
-	 * In case the view was not initialized yet, the conventional fxml (airhacks.fxml for the AirhacksView and
-	 * AirhacksPresenter) are loaded and the specified presenter / controller is going to be constructed and returned.
-	 *
-	 * @return the corresponding controller / presenter (usually for a AirhacksView the AirhacksPresenter)
-	 */
-	public Object getPresenter() {
+        URL uri = getClass().getResource(getStyleSheetName());
+        if (uri == null) {
+            return;
+        }
 
-		ensureFxmlLoaderInitialized();
+        String uriToCss = uri.toExternalForm();
+        parent.getStylesheets().add(uriToCss);
+    }
 
-		return this.presenterProperty.get();
-	}
+    String getStyleSheetName() {
+        return getConventionalName(".css");
+    }
 
-	/**
-	 * Does not initialize the view. Only registers the Consumer and waits until the the view is going to be created / the
-	 * method FXMLView#getView or FXMLView#getViewAsync invoked.
-	 *
-	 * @param presenterConsumer listener for the presenter construction
-	 */
-	public void getPresenter(Consumer<Object> presenterConsumer) {
+    /**
+     * In case the view was not initialized yet, the conventional fxml (airhacks.fxml for the AirhacksView and
+     * AirhacksPresenter) are loaded and the specified presenter / controller is going to be constructed and returned.
+     *
+     * @return the corresponding controller / presenter (usually for a AirhacksView the AirhacksPresenter)
+     */
+    public Object getPresenter() {
 
-		this.presenterProperty.addListener((ObservableValue<? extends Object> o, Object oldValue, Object newValue) -> {
-			presenterConsumer.accept(newValue);
-		});
-	}
+        ensureFxmlLoaderInitialized();
 
-	/**
-	 * @param ending the suffix to append
-	 * @return the conventional name with stripped ending
-	 */
-	protected String getConventionalName(String ending) {
-		return getConventionalName() + ending;
-	}
+        return this.presenterProperty.get();
+    }
 
-	/**
-	 * @return the name of the view without the "View" prefix in lowerCase. For AirhacksView just airhacks is going to be
-	 *         returned.
-	 */
-	protected String getConventionalName() {
-		return stripEnding(getClass().getSimpleName().toLowerCase());
-	}
+    /**
+     * Does not initialize the view. Only registers the Consumer and waits until the the view is going to be created / the
+     * method FXMLView#getView or FXMLView#getViewAsync invoked.
+     *
+     * @param presenterConsumer listener for the presenter construction
+     */
+    public void getPresenter(Consumer<Object> presenterConsumer) {
 
-	String getBundleName() {
-		return getClass().getPackage().getName() + "." + getConventionalName();
-	}
+        this.presenterProperty.addListener((ObservableValue<? extends Object> o, Object oldValue, Object newValue) -> {
+            presenterConsumer.accept(newValue);
+        });
+    }
 
-	static String stripEnding(String clazz) {
+    /**
+     * @param ending the suffix to append
+     * @return the conventional name with stripped ending
+     */
+    protected String getConventionalName(String ending) {
+        return getConventionalName() + ending;
+    }
 
-		if (!clazz.endsWith("view")) {
-			return clazz;
-		}
+    /**
+     * @return the name of the view without the "View" prefix in lowerCase. For AirhacksView just airhacks is going to be
+     * returned.
+     */
+    protected String getConventionalName() {
+        return stripEnding(getClass().getSimpleName().toLowerCase());
+    }
 
-		return clazz.substring(0, clazz.lastIndexOf("view"));
-	}
+    String getBundleName() {
+        return getClass().getPackage().getName() + "." + getConventionalName();
+    }
 
-	/**
-	 * @return the name of the fxml file derived from the FXML view. e.g. The name for the AirhacksView is going to be
-	 *         airhacks.fxml.
-	 */
-	final String getFxmlName() {
-		return getConventionalName(".fxml");
-	}
+    /**
+     * @return the name of the fxml file derived from the FXML view. e.g. The name for the AirhacksView is going to be
+     * airhacks.fxml.
+     */
+    final String getFxmlName() {
+        return getConventionalName(".fxml");
+    }
 
-	private ResourceBundle getResourceBundle(String name) {
-		try {
-			return getBundle(name);
-		} catch (MissingResourceException ex) {
-			return null;
-		}
-	}
+    private ResourceBundle getResourceBundle(String name) {
+        try {
+            return getBundle(name);
+        } catch (MissingResourceException ex) {
+            return null;
+        }
+    }
 
-	/**
-	 * @return an existing resource bundle, or null
-	 */
-	public ResourceBundle getResourceBundle() {
-		return this.bundle;
-	}
+    /**
+     * @return an existing resource bundle, or null
+     */
+    public ResourceBundle getResourceBundle() {
+        return this.bundle;
+    }
 }
