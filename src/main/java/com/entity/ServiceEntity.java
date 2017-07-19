@@ -51,6 +51,22 @@ public class ServiceEntity {
         this.vatTaxRate = vatTaxRate;
     }
 
+    @PostLoad
+    private void createEntityProps()
+    {
+        this.serviceEntityProps= new ServiceEntityProps();
+    }
+
+    @PreUpdate
+    private void updateEntityFields()
+    {
+        this.serviceName = this.serviceEntityProps.getServiceNameProp();
+        this.symbol = this.serviceEntityProps.getSymbolProp();
+        this.unit = this.serviceEntityProps.getUnitProp();
+        this.netUnitPrice = this.serviceEntityProps.getNetUnitPriceProp();
+        this.vatTaxRate = this.serviceEntityProps.getVatProp();
+    }
+
     //region getters and setters
     public int getId() {
         return id;
@@ -110,7 +126,7 @@ public class ServiceEntity {
         private SimpleStringProperty serviceNameProp;
         private SimpleStringProperty symbolProp;
         private SimpleStringProperty unitProp;
-        private SimpleObjectProperty<BigDecimal> netunitPriceProp;
+        private SimpleObjectProperty<BigDecimal> netUnitPriceProp;
         private SimpleIntegerProperty vatProp;
 
         public ServiceEntityProps()
@@ -118,7 +134,7 @@ public class ServiceEntity {
             this.serviceNameProp = new SimpleStringProperty(serviceName);
             this.symbolProp = new SimpleStringProperty(symbol);
             this.unitProp = new SimpleStringProperty(unit);
-            this.netunitPriceProp = new SimpleObjectProperty<>(netUnitPrice);
+            this.netUnitPriceProp = new SimpleObjectProperty<>(netUnitPrice);
             this.vatProp = new SimpleIntegerProperty(vatTaxRate);
         }
 
@@ -162,16 +178,16 @@ public class ServiceEntity {
             this.unitProp.set(unitProp);
         }
 
-        public BigDecimal getNetunitPriceProp() {
-            return netunitPriceProp.get();
+        public BigDecimal getNetUnitPriceProp() {
+            return netUnitPriceProp.get();
         }
 
-        public SimpleObjectProperty<BigDecimal> netunitPricePropProperty() {
-            return netunitPriceProp;
+        public SimpleObjectProperty<BigDecimal> netUnitPricePropProperty() {
+            return netUnitPriceProp;
         }
 
-        public void setNetunitPriceProp(BigDecimal netunitPriceProp) {
-            this.netunitPriceProp.set(netunitPriceProp);
+        public void setNetUnitPriceProp(BigDecimal netUnitPriceProp) {
+            this.netUnitPriceProp.set(netUnitPriceProp);
         }
 
         public int getVatProp() {

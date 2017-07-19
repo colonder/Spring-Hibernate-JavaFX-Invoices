@@ -69,7 +69,7 @@ public class ChoiceServiceDialog {
             for (ServiceEntity service : list) {
                 BoughtServices bs = new BoughtServices(props.getCustomer(), service, BigDecimal.ZERO);
                 boughtServicesService.save(bs);
-                props.addBoughtServicesProps(bs.new BoughtServicesProps());
+                props.addBoughtServicesProps(bs.getBoughtServicesProps());
                 //FIXME: why DB is making PK suddenly 0 and then refuses to add rest of the services?
             }
         });

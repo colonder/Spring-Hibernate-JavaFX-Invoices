@@ -36,51 +36,6 @@ public class BoughtServices implements Serializable {
     @Transient
     private BoughtServicesProps boughtServicesProps;
 
-    public BoughtServices(Customer customer, ServiceEntity serviceEntity, BigDecimal quantity) {
-        this.customer = customer;
-        this.serviceEntity = serviceEntity;
-        this.quantity = quantity;
-        this.internalId.customerId = customer.getId();
-        this.internalId.serviceId = serviceEntity.getId();
-        this.boughtServicesProps = new BoughtServicesProps();
-    }
-
-    public BoughtServicesProps getBoughtServicesProps() {
-        return boughtServicesProps;
-    }
-
-    public void setBoughtServicesProps(BoughtServicesProps boughtServicesProps) {
-        this.boughtServicesProps = boughtServicesProps;
-    }
-
-    public InternalId getInternalId() {
-        return internalId;
-    }
-
-    public BigDecimal getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public ServiceEntity getServiceEntity() {
-        return serviceEntity;
-    }
-
-    public void setServiceEntity(ServiceEntity serviceEntity) {
-        this.serviceEntity = serviceEntity;
-    }
-
     @Embeddable
     public static class InternalId implements Serializable {
         @Column(name = "kontrahent_id")
@@ -123,6 +78,64 @@ public class BoughtServices implements Serializable {
         }
     }
 
+    public BoughtServices(Customer customer, ServiceEntity serviceEntity, BigDecimal quantity) {
+        this.customer = customer;
+        this.serviceEntity = serviceEntity;
+        this.quantity = quantity;
+        this.internalId.customerId = customer.getId();
+        this.internalId.serviceId = serviceEntity.getId();
+    }
+
+    @PostLoad
+    private void createEntityProps()
+    {
+        this.boughtServicesProps = new BoughtServicesProps();
+    }
+
+    @PreUpdate
+    private void updateEntityFields()
+    {
+        this.quantity = this.boughtServicesProps.getQuantityProp();
+    }
+
+    //region getters and setters
+    public BoughtServicesProps getBoughtServicesProps() {
+        return boughtServicesProps;
+    }
+
+    public void setBoughtServicesProps(BoughtServicesProps boughtServicesProps) {
+        this.boughtServicesProps = boughtServicesProps;
+    }
+
+    public InternalId getInternalId() {
+        return internalId;
+    }
+
+    public BigDecimal getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(BigDecimal quantity) {
+        this.quantity = quantity;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public ServiceEntity getServiceEntity() {
+        return serviceEntity;
+    }
+
+    public void setServiceEntity(ServiceEntity serviceEntity) {
+        this.serviceEntity = serviceEntity;
+    }
+    //endregion
+
     public class BoughtServicesProps {
         // bought service properties
         private SimpleObjectProperty<BigDecimal> quantityProp;
@@ -143,7 +156,7 @@ public class BoughtServices implements Serializable {
             this.serviceNameProp = serviceEntityProps.serviceNamePropProperty();
             this.symbolProp = serviceEntityProps.symbolPropProperty();
             this.unitProp = serviceEntityProps.unitPropProperty();
-            this.netUnitPriceProp = serviceEntityProps.netunitPricePropProperty();
+            this.netUnitPriceProp = serviceEntityProps.netUnitPricePropProperty();
             this.vatProp = serviceEntityProps.vatPropProperty();
             this.quantityProp = new SimpleObjectProperty<>(quantity);
             this.valWithoutTax = new ReadOnlyObjectWrapper<>(quantity.multiply(getNetUnitPriceProp())
@@ -204,7 +217,6 @@ public class BoughtServices implements Serializable {
 
         public void setQuantityProp(BigDecimal quantityProp) {
             this.quantityProp.set(quantityProp);
-            BoughtServices.this.setQuantity(quantityProp);
         }
 
         public SimpleObjectProperty<BigDecimal> quantityPropProperty() {

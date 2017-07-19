@@ -18,7 +18,7 @@ public class CustomersList {
         CustomersList.customerService = customerService; // to be able to inject static field
 
         for (Customer customer : customerService.findAll()) {
-            customerList.add(customer.new CustomerProps());
+            customerList.add(customer.getCustomerProps());
         }
     }
 

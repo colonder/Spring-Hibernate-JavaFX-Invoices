@@ -59,22 +59,29 @@ public class Customer {
     @Transient
     private CustomerProps customerProps;
 
-    // do not implement
-    public Customer() {
+    public Customer() { this.customerProps = new CustomerProps(); }
+
+    // auto creates properties class for this customer after loading
+    @PostLoad
+    private void createEntityProps()
+    {
+        this.customerProps = new CustomerProps();
     }
 
-    public Customer(String lastName, String firstName, String companyName, String taxIdentifier, String address,
-                    String postalCode, String city, PaymentMethod paymentMethod, boolean includeInCount, String alias) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.companyName = companyName;
-        this.taxIdentifier = taxIdentifier;
-        this.address = address;
-        this.postalCode = postalCode;
-        this.city = city;
-        this.paymentMethod = paymentMethod;
-        this.includeInCount = includeInCount;
-        this.alias = alias;
+    // auto update fields just before UPDATE query execution
+    @PreUpdate
+    private void updateEntityFields()
+    {
+        this.lastName = this.customerProps.getLastNameProp();
+        this.firstName = this.customerProps.getFirstNameProp();
+        this.companyName = this.customerProps.getCompanyNameProp();
+        this.taxIdentifier = this.customerProps.getTaxIdProp();
+        this.address = this.customerProps.getAddressProp();
+        this.postalCode = this.customerProps.getPostalCodeProp();
+        this.city = this.customerProps.getCityProp();
+        this.paymentMethod = this.customerProps.getPaymentProp();
+        this.includeInCount = this.customerProps.getCountProp();
+        this.alias = this.customerProps.getAliasProp();
     }
 
     //region getters and setters
@@ -199,7 +206,6 @@ public class Customer {
             this.aliasProp = new SimpleStringProperty(alias);
             this.countProp = new SimpleBooleanProperty(includeInCount);
             this.paymentProp = new SimpleObjectProperty<>(paymentMethod);
-            Customer.this.setCustomerProps(this);
         }
 
         //region getters and setters
@@ -212,7 +218,6 @@ public class Customer {
         }
 
         public void setLastNameProp(String lastNameProp) {
-            Customer.this.setLastName(lastNameProp);
             this.lastNameProp.set(lastNameProp);
         }
 
@@ -225,7 +230,6 @@ public class Customer {
         }
 
         public void setFirstNameProp(String firstNameProp) {
-            Customer.this.setFirstName(firstNameProp);
             this.firstNameProp.set(firstNameProp);
         }
 
@@ -238,7 +242,6 @@ public class Customer {
         }
 
         public void setCompanyNameProp(String companyNameProp) {
-            Customer.this.setCompanyName(companyNameProp);
             this.companyNameProp.set(companyNameProp);
         }
 
@@ -251,7 +254,6 @@ public class Customer {
         }
 
         public void setTaxIdProp(String taxIdProp) {
-            Customer.this.setTaxIdentifier(taxIdProp);
             this.taxIdProp.set(taxIdProp);
         }
 
@@ -264,7 +266,6 @@ public class Customer {
         }
 
         public void setAddressProp(String addressProp) {
-            Customer.this.setAddress(addressProp);
             this.addressProp.set(addressProp);
         }
 
@@ -277,7 +278,6 @@ public class Customer {
         }
 
         public void setPostalCodeProp(String postalCodeProp) {
-            Customer.this.setPostalCode(postalCodeProp);
             this.postalCodeProp.set(postalCodeProp);
         }
 
@@ -290,7 +290,6 @@ public class Customer {
         }
 
         public void setCityProp(String cityProp) {
-            Customer.this.setCity(cityProp);
             this.cityProp.set(cityProp);
         }
 
@@ -303,7 +302,6 @@ public class Customer {
         }
 
         public void setAliasProp(String aliasProp) {
-            Customer.this.setAlias(aliasProp);
             this.aliasProp.set(aliasProp);
         }
 
@@ -324,7 +322,6 @@ public class Customer {
         }
 
         public void setPaymentProp(PaymentMethod paymentProp) {
-            Customer.this.setPaymentMethod(paymentProp);
             this.paymentProp.set(paymentProp);
         }
 
@@ -337,7 +334,6 @@ public class Customer {
         }
 
         public void setCountProp(boolean countProp) {
-            Customer.this.setIncludeInCount(countProp);
             this.countProp.set(countProp);
         }
 
@@ -352,7 +348,6 @@ public class Customer {
         public void removeBoughtSerbicesProps(BoughtServicesProps props) {
             this.boughtServicesProps.remove(props);
         }
-
         //endregion
     }
 }

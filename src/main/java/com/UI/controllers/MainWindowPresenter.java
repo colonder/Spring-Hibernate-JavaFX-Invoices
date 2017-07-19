@@ -162,7 +162,7 @@ public class MainWindowPresenter {
         // lazy load (and only once) list of bought services
         if (customerProps.getBoughtServicesProps().isEmpty()) {
             boughtServicesService.findBoughtServicesByCustomer(customerProps.getCustomer()).forEach(service ->
-                    customerProps.addBoughtServicesProps(service.new BoughtServicesProps()));
+                    customerProps.addBoughtServicesProps(service.getBoughtServicesProps()));
         }
 
         boughtServicesTableView.setItems(customerProps.getBoughtServicesProps());

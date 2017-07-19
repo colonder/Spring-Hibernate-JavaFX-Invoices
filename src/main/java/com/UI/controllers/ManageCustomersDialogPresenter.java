@@ -139,7 +139,7 @@ public class ManageCustomersDialogPresenter {
         });
         newCustomerBtn.setOnAction(event -> {
             Customer c = new Customer();
-            showCustomerWindow(c.new CustomerProps(), newCustomerBtn);
+            showCustomerWindow(c.getCustomerProps(), newCustomerBtn);
         });
         editCustomerBtn.setOnAction(event -> {
             if (customersListTableView.getSelectionModel().getSelectedItems().size() != 1) {
