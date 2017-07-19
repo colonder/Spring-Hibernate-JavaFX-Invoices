@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.BigDecimalStringConverter;
-import org.hibernate.exception.ConstraintViolationException;
 import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -121,7 +120,8 @@ public class MainWindowPresenter {
         paymentLabel.setText(customer.getPaymentProp().toString());
     }
 
-    private void configureServicesTable() {
+    private void configureServicesTable()
+    {
         orderColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(boughtServicesTableView.getItems().indexOf(param.getValue()) + 1));
         serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceNameProp"));
         symbolColumn.setCellValueFactory(new PropertyValueFactory<>("symbolProp"));
@@ -129,25 +129,30 @@ public class MainWindowPresenter {
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
         quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
         quantityColumn.setOnEditCommit(event -> { //TODO: change decimal separator to comma instead of period
-            try {
-                boughtServicesService.update(event.getNewValue(), event.getRowValue().getBoughtService().
-                        getInternalId().getId());
-                event.getRowValue().setQuantityProp(event.getNewValue());
-                sumAll(customersTableView.getSelectionModel().getSelectedItem());
-            }
-
-            //TODO: make this exceptions be caught properly
-
-            catch (PSQLException e) {
+            if(event.getNewValue().compareTo(BigDecimal.valueOf(9999.99)) > 0)
+            {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Wartość zbyt duża");
                 alert.setContentText("Wartość musi być mniejsza niż 9999.99");
                 alert.show();
-            } catch (ConstraintViolationException c) {
+            }
+            else if (event.getNewValue().compareTo(BigDecimal.ZERO) < 0)
+            {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Wartość nieprawidłowa");
                 alert.setContentText("Wartość nie może być ujemna");
                 alert.show();
+            }
+            else
+            {
+                try {
+                    boughtServicesService.update(event.getNewValue(), event.getRowValue().getBoughtService().
+                            getInternalId().getId());
+                } catch (PSQLException e) {
+                    e.printStackTrace();
+                }
+                event.getRowValue().setQuantityProp(event.getNewValue());
+                sumAll(customersTableView.getSelectionModel().getSelectedItem());
             }
         });
         unitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("netUnitPriceProp"));
@@ -160,22 +165,21 @@ public class MainWindowPresenter {
 
     private void populateBoughtServicesData(CustomerProps customerProps) {
         // lazy load (and only once) list of bought services
-        if (customerProps.getBoughtServicesProps().isEmpty()) {
+        if (customerProps.getBoughtServicesProps().isEmpty())
+        {
             boughtServicesService.findBoughtServicesByCustomer(customerProps.getCustomer()).forEach(service ->
                     customerProps.addBoughtServicesProps(service.getBoughtServicesProps()));
         }
-
         boughtServicesTableView.setItems(customerProps.getBoughtServicesProps());
     }
 
     private void sumAll(CustomerProps customerProps)
     {
         BigDecimal sum = BigDecimal.ZERO;
-
-        for (BoughtServicesProps service : customerProps.getBoughtServicesProps()) {
+        for (BoughtServicesProps service : customerProps.getBoughtServicesProps())
+        {
             sum = sum.add(service.getTotalVal());
         }
-
         sumLabel.setText(sum.toString());
         sumWordsLabel.setText(CurrencyHandler.convertToWords(sum));
     }
