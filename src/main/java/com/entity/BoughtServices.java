@@ -163,7 +163,6 @@ public class BoughtServices implements Serializable {
                     .setScale(2, BigDecimal.ROUND_HALF_DOWN));
             this.taxVal = new ReadOnlyObjectWrapper<>();
             this.totalVal = new ReadOnlyObjectWrapper<>();
-            BoughtServices.this.setBoughtServicesProps(this);
             performCalculations();
 
             this.quantityProp.addListener((ObservableValue<? extends BigDecimal> observable, BigDecimal oldValue, BigDecimal newValue) -> {

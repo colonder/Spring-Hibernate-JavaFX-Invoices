@@ -244,6 +244,7 @@ public class ManageCustomersDialogPresenter {
                 customerService.update(tmp.getLastName(), tmp.getFirstName(), tmp.getCompanyName(), tmp.getTaxIdentifier(),
                         tmp.getAddress(), tmp.getPostalCode(), tmp.getCity(), tmp.getPaymentMethod(), tmp.isIncludeInCount(),
                         tmp.getAlias(), tmp.getId());
+                // TODO: change these methods to values from text fields since @PreUpdate
             }
         }
     }

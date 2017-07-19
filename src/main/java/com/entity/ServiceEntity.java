@@ -3,7 +3,6 @@ package com.entity;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,7 +10,6 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "uslugi")
-@NoArgsConstructor
 public class ServiceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +40,11 @@ public class ServiceEntity {
     private ServiceEntityProps serviceEntityProps;
 
     //TODO: write a trigger in database preventing from deleting service when any customer is still using it(?)
+
+    public ServiceEntity()
+    {
+        this.serviceEntityProps = new ServiceEntityProps();
+    }
 
     public ServiceEntity(String serviceName, String symbol, String unit, BigDecimal netUnitPrice, int vatTaxRate) {
         this.serviceName = serviceName;
@@ -138,7 +141,12 @@ public class ServiceEntity {
             this.vatProp = new SimpleIntegerProperty(vatTaxRate);
         }
 
-        public ServiceEntity getSetviceEntity(){
+        public ServiceEntity getServiceEntity()
+        {
+            return ServiceEntity.this;
+        }
+
+        public ServiceEntity setServiceEntity(){
             return ServiceEntity.this;
         }
 
