@@ -240,11 +240,10 @@ public class ManageCustomersDialogPresenter {
             if (source.equals(newCustomerBtn)) {
                 CustomersList.addCustomer(props);
             } else {
-                Customer tmp = props.getCustomer();
-                customerService.update(tmp.getLastName(), tmp.getFirstName(), tmp.getCompanyName(), tmp.getTaxIdentifier(),
-                        tmp.getAddress(), tmp.getPostalCode(), tmp.getCity(), tmp.getPaymentMethod(), tmp.isIncludeInCount(),
-                        tmp.getAlias(), tmp.getId());
-                // TODO: change these methods to values from text fields since @PreUpdate
+                customerService.update(lastNameTxtFld.getText(), firstNameTxtFld.getText(), companyTxtField.getText(),
+                        taxIdTxtFld.getText(), addressTxtFld.getText(), postalCodeTxtFld.getText(), cityTxtFld.getText(),
+                        cashRadioBtn.isSelected() ? PaymentMethod.gotówka : PaymentMethod.przelew, yesRadioBtn.isSelected(),
+                        aliasTxtFld.getText(), props.getCustomer().getId());
             }
         }
     }

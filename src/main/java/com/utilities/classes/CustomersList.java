@@ -22,9 +22,9 @@ public class CustomersList {
         }
     }
 
-    public static void addCustomer(CustomerProps customer) {
-        customerService.save(customer.getCustomer());
-        customerList.add(customer);
+    public static void addCustomer(CustomerProps customerProps) {
+        customerService.save(customerProps.getCustomer());
+        customerList.add(customerProps);
     }
 
     public static void removeCustomer(CustomerProps customerProps) {

@@ -141,6 +141,7 @@ public class ServiceEntity {
             this.vatProp = new SimpleIntegerProperty(vatTaxRate);
         }
 
+        //region getters and setters
         public ServiceEntity getServiceEntity()
         {
             return ServiceEntity.this;
@@ -209,5 +210,6 @@ public class ServiceEntity {
         public void setVatProp(int vatProp) {
             this.vatProp.set(vatProp);
         }
+        //endregion
     }
 }

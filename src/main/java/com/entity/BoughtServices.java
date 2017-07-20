@@ -149,15 +149,13 @@ public class BoughtServices implements Serializable {
         private SimpleStringProperty unitProp;
         private SimpleObjectProperty<BigDecimal> netUnitPriceProp;
         private SimpleIntegerProperty vatProp;
-        private ServiceEntity.ServiceEntityProps serviceEntityProps;
 
         public BoughtServicesProps() {
-            this.serviceEntityProps = serviceEntity.getServiceEntityProps();
-            this.serviceNameProp = serviceEntityProps.serviceNamePropProperty();
-            this.symbolProp = serviceEntityProps.symbolPropProperty();
-            this.unitProp = serviceEntityProps.unitPropProperty();
-            this.netUnitPriceProp = serviceEntityProps.netUnitPricePropProperty();
-            this.vatProp = serviceEntityProps.vatPropProperty();
+            this.serviceNameProp = serviceEntity.getServiceEntityProps().serviceNamePropProperty();
+            this.symbolProp = serviceEntity.getServiceEntityProps().symbolPropProperty();
+            this.unitProp = serviceEntity.getServiceEntityProps().unitPropProperty();
+            this.netUnitPriceProp = serviceEntity.getServiceEntityProps().netUnitPricePropProperty();
+            this.vatProp = serviceEntity.getServiceEntityProps().vatPropProperty();
             this.quantityProp = new SimpleObjectProperty<>(quantity);
             this.valWithoutTax = new ReadOnlyObjectWrapper<>(quantity.multiply(getNetUnitPriceProp())
                     .setScale(2, BigDecimal.ROUND_HALF_DOWN));
