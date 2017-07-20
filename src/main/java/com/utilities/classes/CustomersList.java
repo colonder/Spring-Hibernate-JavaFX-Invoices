@@ -9,17 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomersList {
-    public static ObservableList<CustomerProps> customerList = FXCollections.observableArrayList();
+public class CustomersList implements Runnable{
+    public static ObservableList<CustomerProps> customerList;
     private static ICustomerService customerService;
 
     @Autowired
     public CustomersList(ICustomerService customerService) {
         CustomersList.customerService = customerService; // to be able to inject static field
-
-        for (Customer customer : customerService.findAll()) {
-            customerList.add(customer.getCustomerProps());
-        }
+        customerList = FXCollections.observableArrayList();
+        Thread thread = new Thread(this);
+        thread.start();
     }
 
     public static void addCustomer(CustomerProps customerProps) {
@@ -30,5 +29,12 @@ public class CustomersList {
     public static void removeCustomer(CustomerProps customerProps) {
         customerList.remove(customerProps);
         customerService.delete(customerProps.getCustomer());
+    }
+
+    @Override
+    public void run() {
+        for (Customer customer : customerService.findAll()) {
+            customerList.add(customer.getCustomerProps());
+        }
     }
 }

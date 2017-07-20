@@ -3,6 +3,7 @@ package com.UI.controllers;
 import com.entity.ServiceEntity;
 import com.entity.ServiceEntity.ServiceEntityProps;
 import com.service.IServicesEntityService;
+import com.utilities.classes.ServicesList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -37,15 +38,13 @@ public class ManageServicesDialogPresenter {
     private ObservableList<String> filterCriteria = FXCollections.observableArrayList("Nazwa", "Symbol PKWIU/PKOB",
             "Jednostka", "Stawka VAT");
     private FilteredList<ServiceEntityProps> filteredList;
-    private ObservableList<ServiceEntityProps> servicesList = FXCollections.observableArrayList();
+    private ServicesList servicesList;
 
     @FXML
     public void initialize() {
-        // TODO: write that in a thread to prevent program freezing
-        for(ServiceEntity serviceEntity : servicesEntityService.findAll())
-        {
-            servicesList.add(serviceEntity.getServiceEntityProps());
-        }
+        servicesList = new ServicesList();
+        Thread thread = new Thread(servicesList);
+        thread.start();
         serviceNameCol.setCellValueFactory(new PropertyValueFactory<>("serviceNameProp"));
         symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbolProp"));
         unitCol.setCellValueFactory(new PropertyValueFactory<>("unitProp"));
@@ -53,7 +52,7 @@ public class ManageServicesDialogPresenter {
         vatCol.setCellValueFactory(new PropertyValueFactory<>("vatProp"));
 
         //initially display all tha data
-        filteredList = new FilteredList<>(servicesList, p -> true);
+        filteredList = new FilteredList<>(servicesList.getServicesList(), p -> true);
         serviceTableView.setItems(filteredList);
         serviceTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         filterComboBox.setItems(filterCriteria);
@@ -126,8 +125,7 @@ public class ManageServicesDialogPresenter {
                     finalResult.ifPresent(c -> {
                         for (ServiceEntityProps props : serviceTableView.getSelectionModel().getSelectedItems())
                         {
-                            servicesList.remove(props);
-                            servicesEntityService.delete(props.getServiceEntity());
+                            servicesList.removeService(props);
                         }
                         //FIXME: the last customer from those that are selected is not being deleted
                     });
@@ -174,8 +172,7 @@ public class ManageServicesDialogPresenter {
             props.setVatProp(vat23RadioButton.isSelected() ? 23 : 8);
 
             if (source.equals(newServiceBtn)) {
-                servicesList.add(props);
-                servicesEntityService.save(props.getServiceEntity());
+                servicesList.addService(props);
             } else {
                 servicesEntityService.update(props.getServiceNameProp(), props.getSymbolProp(), props.getUnitProp(),
                         props.getNetUnitPriceProp(), props.getVatProp(), props.getServiceEntity().getId());
