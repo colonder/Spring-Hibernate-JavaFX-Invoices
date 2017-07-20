@@ -159,7 +159,6 @@ public class ManageServicesDialogPresenter {
         TextField symbolTxtFld = new TextField(props.getSymbolProp());
         TextField unitTxtFld = new TextField(props.getUnitProp());
         TextField netUnitPriceTxtFld = new TextField(props.getNetUnitPriceProp().toString());
-        TextField vatTxtFld = new TextField(String.valueOf(props.getVatProp()));
 
         box.getChildren().addAll(new Label("Nazwa usługi"), serviceNameTxtFld, new Label("Symbol PKWIU/PKOB"),
                 symbolTxtFld, new Label("Jednostka"), unitTxtFld, new Label("Cena jednostkowa netto"),
@@ -172,17 +171,14 @@ public class ManageServicesDialogPresenter {
             props.setSymbolProp(symbolTxtFld.getText());
             props.setUnitProp(unitTxtFld.getText());
             props.setNetUnitPriceProp(new BigDecimal(netUnitPriceTxtFld.getText()));
-            props.setVatProp(Integer.parseInt(vatTxtFld.getText()));
+            props.setVatProp(vat23RadioButton.isSelected() ? 23 : 8);
 
             if (source.equals(newServiceBtn)) {
                 servicesList.add(props);
                 servicesEntityService.save(props.getServiceEntity());
             } else {
-                ServiceEntity tmp = props.getServiceEntity();
-                /*servicesEntityService.update(tmp.getServiceName(), tmp.getFirstName(), tmp.getCompanyName(), tmp.getTaxIdentifier(),
-                        tmp.getAddress(), tmp.getPostalCode(), tmp.getCity(), tmp.getPaymentMethod(), tmp.isIncludeInCount(),
-                        tmp.getAlias(), tmp.getId());*/
-                // TODO: implement, change these methods to values from text fields since @PreUpdate
+                servicesEntityService.update(props.getServiceNameProp(), props.getSymbolProp(), props.getUnitProp(),
+                        props.getNetUnitPriceProp(), props.getVatProp(), props.getServiceEntity().getId());
             }
         }
     }
