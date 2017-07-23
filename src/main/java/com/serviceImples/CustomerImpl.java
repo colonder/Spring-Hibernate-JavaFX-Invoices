@@ -14,13 +14,8 @@ import java.util.List;
 public class CustomerImpl implements ICustomerService {
     @Autowired
     private ICustomerRepository customerRepository;
-
     public List<Customer> findAll() {
         return customerRepository.findAll();
-    }
-
-    public Customer findOne(int id) {
-        return customerRepository.findOne(id);
     }
 
     @Transactional

@@ -23,11 +23,6 @@ public class BoughtServicesImpl implements IBoughtServicesService {
         return boughtServicesRepository.save(boughtServices);
     }
 
-    @Transactional
-    public void delete(int id) {
-        boughtServicesRepository.delete(id);
-    }
-
     public List<BoughtServices> findAll() {
         return boughtServicesRepository.findAll();
     }

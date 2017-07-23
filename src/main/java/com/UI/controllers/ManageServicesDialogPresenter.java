@@ -127,8 +127,11 @@ public class ManageServicesDialogPresenter {
 
                     Optional<ButtonType> finalResult = lastStand.showAndWait();
                     finalResult.ifPresent(c -> {
-                        servicesList.removeAll(serviceTableView.getSelectionModel().getSelectedItems());
-                        //FIXME: the last customer from those that are selected is not being deleted
+                        for(ServiceEntityProps prop : serviceTableView.getSelectionModel().getSelectedItems())
+                        {
+                            servicesList.remove(prop);
+                            servicesEntityService.delete(prop.getServiceEntity());
+                        }
                     });
                 });
             }
@@ -174,6 +177,7 @@ public class ManageServicesDialogPresenter {
 
             if (source.equals(newServiceBtn)) {
                 servicesList.add(props);
+                servicesEntityService.save(props.getServiceEntity());
             } else {
                 servicesEntityService.update(props.getServiceNameProp(), props.getSymbolProp(), props.getUnitProp(),
                         props.getNetUnitPriceProp(), props.getVatProp(), props.getServiceEntity().getId());

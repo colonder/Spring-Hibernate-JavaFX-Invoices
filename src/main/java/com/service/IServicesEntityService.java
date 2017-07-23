@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface IServicesEntityService {
     List<ServiceEntity> findAll();
-    ServiceEntity findOne(int id);
     ServiceEntity save(ServiceEntity serviceEntity);
     void delete(ServiceEntity serviceEntity);
     List<ServiceEntity> findByServiceNameContaining(String string);

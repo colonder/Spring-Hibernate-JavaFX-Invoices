@@ -15,13 +15,8 @@ public class ServiceImpl implements IServicesEntityService {
 
     @Autowired
     private IServiceRepository serviceRepository;
-
     public List<ServiceEntity> findAll() {
         return serviceRepository.findAll();
-    }
-
-    public ServiceEntity findOne(int id) {
-        return serviceRepository.findOne(id);
     }
 
     @Transactional
@@ -40,6 +35,7 @@ public class ServiceImpl implements IServicesEntityService {
     }
 
     @Override
+    @Transactional
     public int update(String serviceName, String symbol, String unit, BigDecimal netPrice, int vat, int id) {
         return serviceRepository.update(serviceName, symbol, unit, netPrice, vat, id);
     }
