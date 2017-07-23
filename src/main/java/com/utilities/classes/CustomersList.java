@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomersList implements Runnable{
+public class CustomersList implements Runnable {
     public static ObservableList<CustomerProps> customerList;
     private static ICustomerService customerService;
 

@@ -3,7 +3,6 @@ package com.UI.controllers;
 import com.entity.ServiceEntity;
 import com.entity.ServiceEntity.ServiceEntityProps;
 import com.service.IServicesEntityService;
-import com.utilities.classes.ServicesList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,16 +15,12 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 @Component
 public class ManageServicesDialogPresenter {
 
     @Autowired
-    IServicesEntityService servicesEntityService;
+    private IServicesEntityService servicesEntityService;
     @FXML ComboBox<String> filterComboBox;
     @FXML TextField filterTextFld;
     @FXML Button filterBtn;
@@ -47,27 +42,12 @@ public class ManageServicesDialogPresenter {
     @FXML
     public void initialize() {
 
-        // FutureTask thread stuff
-        ExecutorService exec = Executors.newCachedThreadPool();
-        Future<ObservableList<ServiceEntityProps>> fut = exec.submit(new ServicesList());
-        while(!fut.isDone())
-        {
-            try
+        new Thread(() -> {
+            for (ServiceEntity serviceEntity : servicesEntityService.findAll())
             {
-                Thread.sleep(500);
+                servicesList.add(serviceEntity.getServiceEntityProps());
             }
-
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if(fut.isDone()) {
-                try {
-                    servicesList = fut.get();
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        }).start();
 
         serviceNameCol.setCellValueFactory(new PropertyValueFactory<>("serviceNameProp"));
         symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbolProp"));

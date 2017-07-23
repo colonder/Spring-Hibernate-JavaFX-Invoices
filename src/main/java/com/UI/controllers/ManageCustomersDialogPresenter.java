@@ -179,6 +179,7 @@ public class ManageCustomersDialogPresenter {
             else
                 noRadioBtn.setSelected(true);
 
+
             if (props.getPaymentProp().name().equals("gotówka"))
                 cashRadioBtn.setSelected(true);
             else
