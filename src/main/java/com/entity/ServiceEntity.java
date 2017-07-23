@@ -45,28 +45,19 @@ public class ServiceEntity {
     {
         createProps();
     }
-
-    public ServiceEntity(String serviceName, String symbol, String unit, BigDecimal netUnitPrice, int vatTaxRate) {
-        this.serviceName = serviceName;
-        this.symbol = symbol;
-        this.unit = unit;
-        this.netUnitPrice = netUnitPrice;
-        this.vatTaxRate = vatTaxRate;
-    }
-
     private void createProps()
     {
         this.serviceEntityProps= new ServiceEntityProps();
     }
 
     @PostLoad
-    private void createEntityProps()
+    private void postLoad()
     {
         createProps();
     }
 
     @PreUpdate
-    private void updateEntityFields()
+    private void preUpdate()
     {
         this.serviceName = this.serviceEntityProps.getServiceNameProp();
         this.symbol = this.serviceEntityProps.getSymbolProp();

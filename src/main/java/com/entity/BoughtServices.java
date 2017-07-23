@@ -76,8 +76,6 @@ public class BoughtServices implements Serializable {
         }
     }
 
-    public BoughtServices() {}
-
     public BoughtServices(Customer customer, ServiceEntity serviceEntity, BigDecimal quantity) {
         this.customer = customer;
         this.serviceEntity = serviceEntity;
