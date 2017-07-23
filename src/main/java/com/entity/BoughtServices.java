@@ -84,6 +84,7 @@ public class BoughtServices implements Serializable {
         this.quantity = quantity;
         this.internalId.customerId = customer.getId();
         this.internalId.serviceId = serviceEntity.getId();
+        createProps();
     }
 
     private void createProps()

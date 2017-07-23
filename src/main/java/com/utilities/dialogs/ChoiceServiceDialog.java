@@ -5,11 +5,11 @@ import com.entity.Customer.CustomerProps;
 import com.entity.ServiceEntity;
 import com.service.IBoughtServicesService;
 import com.service.IServicesEntityService;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,11 +25,10 @@ public class ChoiceServiceDialog {
 
     @Autowired
     private IBoughtServicesService boughtServicesService;
-    private ObservableList<ServiceEntity> servicesList;
+    private ObservableList<ServiceEntity> servicesList = FXCollections.observableArrayList();
 
     public void showDialog(CustomerProps props)
     {
-        servicesList = FXCollections.observableArrayList();
         new Thread(() -> servicesList.addAll(servicesEntityService.findAll())).start();
         Dialog<ArrayList<ServiceEntity>> dialog = new Dialog<>();
         initGUI(dialog);
@@ -55,7 +54,7 @@ public class ChoiceServiceDialog {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         TableColumn<ServiceEntity, String> column = new TableColumn<>("Nazwa usługi");
-        column.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
+        column.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getServiceName()));
         table.getColumns().add(column);
         table.setItems(servicesList);
 

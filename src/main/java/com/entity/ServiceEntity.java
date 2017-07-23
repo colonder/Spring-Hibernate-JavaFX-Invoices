@@ -73,6 +73,10 @@ public class ServiceEntity {
         return serviceEntityProps;
     }
 
+    public String getServiceName() {
+        return serviceName;
+    }
+
     public class ServiceEntityProps
     {
         private SimpleStringProperty serviceNameProp;
