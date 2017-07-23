@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -21,6 +22,8 @@ public class ManageServicesDialogPresenter {
 
     @Autowired
     private IServicesEntityService servicesEntityService;
+    @Autowired
+    private EntityManager entityManager;
     @FXML ComboBox<String> filterComboBox;
     @FXML TextField filterTextFld;
     @FXML Button filterBtn;
@@ -183,5 +186,7 @@ public class ManageServicesDialogPresenter {
                         props.getNetUnitPriceProp(), props.getVatProp(), props.getServiceEntity().getId());
             }
         }
+
+        //TODO: refresh instances of service entity somehow
     }
 }

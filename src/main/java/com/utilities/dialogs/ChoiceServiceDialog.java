@@ -25,45 +25,14 @@ public class ChoiceServiceDialog {
 
     @Autowired
     private IBoughtServicesService boughtServicesService;
+    private ObservableList<ServiceEntity> servicesList;
 
-    public void showDialog(CustomerProps props) {
+    public void showDialog(CustomerProps props)
+    {
+        servicesList = FXCollections.observableArrayList();
+        new Thread(() -> servicesList.addAll(servicesEntityService.findAll())).start();
         Dialog<ArrayList<ServiceEntity>> dialog = new Dialog<>();
-        ButtonType cancelButton = new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE);
-        ButtonType acceptButton = new ButtonType("Dodaj wybrane", ButtonBar.ButtonData.OK_DONE);
-        dialog.setTitle("Wybierz usługę do dodania");
-        dialog.getDialogPane().getButtonTypes().addAll(acceptButton, cancelButton);
-
-        TableView<ServiceEntity> table = new TableView<>();
-        table.setEditable(false);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        TableColumn<ServiceEntity, String> column = new TableColumn<>("Nazwa usługi");
-        column.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
-        table.getColumns().add(column);
-        ObservableList<ServiceEntity> data = FXCollections.observableArrayList();
-        data.addAll(servicesEntityService.findAll());
-        table.setItems(data);
-
-        TextField searchTextBox = new TextField();
-        searchTextBox.setPromptText("Wyszukaj usługę");
-
-        searchTextBox.textProperty().addListener((observable, oldVal, newVal) -> {
-            data.clear();
-            data.addAll(servicesEntityService.findByServiceNameContaining(newVal));
-        });
-
-        VBox vBox = new VBox(searchTextBox, table);
-        vBox.setSpacing(5d);
-        vBox.setPadding(new Insets(5, 5, 5, 5));
-        dialog.getDialogPane().setContent(vBox);
-
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == acceptButton)
-                return new ArrayList<>(table.getSelectionModel().getSelectedItems());
-
-            return null;
-        });
-
+        initGUI(dialog);
         Optional<ArrayList<ServiceEntity>> result = dialog.showAndWait();
         result.ifPresent(list -> {
             for (ServiceEntity service : list) {
@@ -71,8 +40,33 @@ public class ChoiceServiceDialog {
                 boughtServicesService.save(bs);
                 props.addBoughtServicesProps(bs.getBoughtServicesProps());
                 //FIXME: why DB is making PK suddenly 0 and then refuses to add rest of the services?
-                //FIXME: DB constraint check violation (quantity)
             }
+        });
+    }
+
+    private void initGUI(Dialog dialog)
+    {
+        ButtonType cancelButton = new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType acceptButton = new ButtonType("Dodaj wybrane", ButtonBar.ButtonData.OK_DONE);
+        dialog.setTitle("Wybierz usługę do dodania");
+        dialog.getDialogPane().getButtonTypes().addAll(acceptButton, cancelButton);
+        TableView<ServiceEntity> table = new TableView<>();
+        table.setEditable(false);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        TableColumn<ServiceEntity, String> column = new TableColumn<>("Nazwa usługi");
+        column.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
+        table.getColumns().add(column);
+        table.setItems(servicesList);
+
+        VBox vBox = new VBox(table);
+        vBox.setSpacing(5d);
+        vBox.setPadding(new Insets(5, 5, 5, 5));
+        dialog.getDialogPane().setContent(vBox);
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == acceptButton)
+                return new ArrayList<>(table.getSelectionModel().getSelectedItems());
+            return null;
         });
     }
 }

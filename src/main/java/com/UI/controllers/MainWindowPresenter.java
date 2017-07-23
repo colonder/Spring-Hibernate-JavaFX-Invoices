@@ -180,7 +180,7 @@ public class MainWindowPresenter {
         {
             sum = sum.add(service.getTotalVal());
         }
-        sumLabel.setText(sum.toString());
-        sumWordsLabel.setText(CurrencyHandler.convertToWords(sum));
+        sumLabel.setText(CurrencyHandler.formatToCurrency(sum));
+        sumWordsLabel.setText(CurrencyHandler.convertSumToWords(sum));
     }
 }

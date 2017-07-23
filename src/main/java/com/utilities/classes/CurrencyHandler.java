@@ -2,6 +2,7 @@ package com.utilities.classes;
 
 import com.ibm.icu.text.NumberFormat;
 import com.ibm.icu.text.RuleBasedNumberFormat;
+import com.ibm.icu.util.Currency;
 import com.ibm.icu.util.ULocale;
 
 import java.math.BigDecimal;
@@ -13,17 +14,42 @@ import java.math.BigDecimal;
  * ICU has created very good stuff supporting those issues in Java)
  */
 public class CurrencyHandler {
-    // can be easily changed to almost any language that is supported by ICU
+
     private static ULocale locale = new ULocale("pl_PL");
-    //private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
     private static NumberFormat spellOutFormatter = new RuleBasedNumberFormat(locale, RuleBasedNumberFormat.SPELLOUT);
+    private static Currency currency = Currency.getInstance(locale);
 
-    public static String convertToWords(BigDecimal value) {
-
-        // SO EASY! It even supports BigDecimal right out of the box!
-        // Need a little bit of modification
-        return spellOutFormatter.format(value.intValue());
-
-        //FIXME: refine and adjust spelling out
+    static {
+        currencyFormatter.setCurrency(currency);
     }
+
+    public static String formatToCurrency(BigDecimal value)
+    {
+        return currencyFormatter.format(value);
+    }
+
+    public static String convertSumToWords(BigDecimal value) {
+        String cents = value.toString();
+        cents = cents.substring(cents.indexOf(".") + 1, cents.length());
+        String digits = String.valueOf(value.intValue());
+        char character = digits.charAt(digits.length() - 1);
+        String currencySymbolSpellOut;
+        if(character == '1' && digits.length() < 2)
+        {
+            currencySymbolSpellOut = "złoty";
+        }
+        else if(character == '2' || character == '3' || character == '4')
+        {
+            currencySymbolSpellOut = "złote";
+        }
+        else
+        {
+            currencySymbolSpellOut = "złotych";
+        }
+
+        return spellOutFormatter.format(value.intValue()) + " " + currencySymbolSpellOut + " " + cents + "/100";
+    }
+
+
 }

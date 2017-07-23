@@ -30,7 +30,7 @@
                 </includes>
             </resource>
             <resource>
-                <directory>src/test/java</directory>
+                <directory>src/CurrencyDemo/java</directory>
                 <includes>
                     <include>**/*.fxml</include>
                     <include>**/*.css</include>
@@ -86,8 +86,8 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-CurrencyDemo</artifactId>
+            <scope>CurrencyDemo</scope>
         </dependency>
 
         <dependency>
