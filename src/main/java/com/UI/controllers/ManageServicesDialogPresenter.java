@@ -16,6 +16,10 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 @Component
 public class ManageServicesDialogPresenter {
@@ -38,13 +42,33 @@ public class ManageServicesDialogPresenter {
     private ObservableList<String> filterCriteria = FXCollections.observableArrayList("Nazwa", "Symbol PKWIU/PKOB",
             "Jednostka", "Stawka VAT");
     private FilteredList<ServiceEntityProps> filteredList;
-    private ServicesList servicesList;
+    private ObservableList<ServiceEntityProps> servicesList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        servicesList = new ServicesList();
-        Thread thread = new Thread(servicesList);
-        thread.start();
+
+        // FutureTask thread stuff
+        ExecutorService exec = Executors.newCachedThreadPool();
+        Future<ObservableList<ServiceEntityProps>> fut = exec.submit(new ServicesList());
+        while(!fut.isDone())
+        {
+            try
+            {
+                Thread.sleep(500);
+            }
+
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if(fut.isDone()) {
+                try {
+                    servicesList = fut.get();
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         serviceNameCol.setCellValueFactory(new PropertyValueFactory<>("serviceNameProp"));
         symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbolProp"));
         unitCol.setCellValueFactory(new PropertyValueFactory<>("unitProp"));
@@ -52,7 +76,7 @@ public class ManageServicesDialogPresenter {
         vatCol.setCellValueFactory(new PropertyValueFactory<>("vatProp"));
 
         //initially display all tha data
-        filteredList = new FilteredList<>(servicesList.getServicesList(), p -> true);
+        filteredList = new FilteredList<>(servicesList, p -> true);
         serviceTableView.setItems(filteredList);
         serviceTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         filterComboBox.setItems(filterCriteria);
@@ -123,10 +147,7 @@ public class ManageServicesDialogPresenter {
 
                     Optional<ButtonType> finalResult = lastStand.showAndWait();
                     finalResult.ifPresent(c -> {
-                        for (ServiceEntityProps props : serviceTableView.getSelectionModel().getSelectedItems())
-                        {
-                            servicesList.removeService(props);
-                        }
+                        servicesList.removeAll(serviceTableView.getSelectionModel().getSelectedItems());
                         //FIXME: the last customer from those that are selected is not being deleted
                     });
                 });
@@ -172,7 +193,7 @@ public class ManageServicesDialogPresenter {
             props.setVatProp(vat23RadioButton.isSelected() ? 23 : 8);
 
             if (source.equals(newServiceBtn)) {
-                servicesList.addService(props);
+                servicesList.add(props);
             } else {
                 servicesEntityService.update(props.getServiceNameProp(), props.getSymbolProp(), props.getUnitProp(),
                         props.getNetUnitPriceProp(), props.getVatProp(), props.getServiceEntity().getId());

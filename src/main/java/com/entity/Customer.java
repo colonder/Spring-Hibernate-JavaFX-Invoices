@@ -84,103 +84,12 @@ public class Customer {
         this.alias = this.customerProps.getAliasProp();
     }
 
-    //region getters and setters
     public CustomerProps getCustomerProps() {
         return customerProps;
     }
-
-    public void setCustomerProps(CustomerProps customerProps) {
-        this.customerProps = customerProps;
-    }
-
     public int getId() {
         return id;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getTaxIdentifier() {
-        return taxIdentifier;
-    }
-
-    public void setTaxIdentifier(String taxIdentifier) {
-        this.taxIdentifier = taxIdentifier;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public boolean isIncludeInCount() {
-        return includeInCount;
-    }
-
-    public void setIncludeInCount(boolean includeInCount) {
-        this.includeInCount = includeInCount;
-    }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-    //endregion
 
     public class CustomerProps {
         private SimpleStringProperty lastNameProp;
@@ -327,10 +236,6 @@ public class Customer {
 
         public SimpleObjectProperty<PaymentMethod> paymentPropProperty() {
             return paymentProp;
-        }
-
-        public boolean isCountProp() {
-            return countProp.get();
         }
 
         public void setCountProp(boolean countProp) {

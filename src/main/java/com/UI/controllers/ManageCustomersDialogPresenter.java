@@ -20,40 +20,23 @@ import java.util.Optional;
 @Component
 public class ManageCustomersDialogPresenter {
     //region @FXML objects
-    @FXML
-    TableView<CustomerProps> customersListTableView;
-    @FXML
-    TableColumn<CustomerProps, String> lastNameCol;
-    @FXML
-    TableColumn<CustomerProps, String> firstNameCol;
-    @FXML
-    TableColumn<CustomerProps, String> companyNameCol;
-    @FXML
-    TableColumn<CustomerProps, String> IdNumberCol;
-    @FXML
-    TableColumn<CustomerProps, String> addressCol;
-    @FXML
-    TableColumn<CustomerProps, String> postalCodeCol;
-    @FXML
-    TableColumn<CustomerProps, String> cityCol;
-    @FXML
-    TableColumn<CustomerProps, Boolean> considerCountingCol;
-    @FXML
-    TableColumn<CustomerProps, PaymentMethod> paymentMethodCol;
-    @FXML
-    TableColumn<CustomerProps, String> aliasCol;
-    @FXML
-    ComboBox<String> filterComboBox;
-    @FXML
-    TextField filterTextField;
-    @FXML
-    Button filterBtn;
-    @FXML
-    Button newCustomerBtn;
-    @FXML
-    Button editCustomerBtn;
-    @FXML
-    Button removeCustomerBtn;
+    @FXML TableView<CustomerProps> customersListTableView;
+    @FXML TableColumn<CustomerProps, String> lastNameCol;
+    @FXML TableColumn<CustomerProps, String> firstNameCol;
+    @FXML TableColumn<CustomerProps, String> companyNameCol;
+    @FXML TableColumn<CustomerProps, String> IdNumberCol;
+    @FXML TableColumn<CustomerProps, String> addressCol;
+    @FXML TableColumn<CustomerProps, String> postalCodeCol;
+    @FXML TableColumn<CustomerProps, String> cityCol;
+    @FXML TableColumn<CustomerProps, Boolean> considerCountingCol;
+    @FXML TableColumn<CustomerProps, PaymentMethod> paymentMethodCol;
+    @FXML TableColumn<CustomerProps, String> aliasCol;
+    @FXML ComboBox<String> filterComboBox;
+    @FXML TextField filterTextField;
+    @FXML Button filterBtn;
+    @FXML Button newCustomerBtn;
+    @FXML Button editCustomerBtn;
+    @FXML Button removeCustomerBtn;
     @Autowired
     private ICustomerService customerService;
     //endregion
@@ -152,7 +135,6 @@ public class ManageCustomersDialogPresenter {
                 showCustomerWindow(customersListTableView.getSelectionModel().getSelectedItem(), editCustomerBtn);
             }
         });
-
         removeCustomerBtn.setOnAction(event -> {
             if (customersListTableView.getSelectionModel().getSelectedItems().size() > 0) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -197,7 +179,6 @@ public class ManageCustomersDialogPresenter {
             else
                 noRadioBtn.setSelected(true);
 
-
             if (props.getPaymentProp().name().equals("gotówka"))
                 cashRadioBtn.setSelected(true);
             else
@@ -240,10 +221,9 @@ public class ManageCustomersDialogPresenter {
             if (source.equals(newCustomerBtn)) {
                 CustomersList.addCustomer(props);
             } else {
-                customerService.update(lastNameTxtFld.getText(), firstNameTxtFld.getText(), companyTxtField.getText(),
-                        taxIdTxtFld.getText(), addressTxtFld.getText(), postalCodeTxtFld.getText(), cityTxtFld.getText(),
-                        cashRadioBtn.isSelected() ? PaymentMethod.gotówka : PaymentMethod.przelew, yesRadioBtn.isSelected(),
-                        aliasTxtFld.getText(), props.getCustomer().getId());
+                customerService.update(props.getLastNameProp(), props.getFirstNameProp(), props.getCompanyNameProp(),
+                        props.getTaxIdProp(), props.getAddressProp(), props.getPostalCodeProp(), props.getCityProp(),
+                        props.getPaymentProp(), props.getCountProp(), props.getAliasProp(), props.getCustomer().getId());
             }
         }
     }
