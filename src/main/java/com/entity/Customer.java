@@ -59,18 +59,23 @@ public class Customer {
     @Transient
     private CustomerProps customerProps;
 
-    public Customer() { this.customerProps = new CustomerProps(); }
+    public Customer() { createProps(); }
 
     // auto creates properties class for this customer after loading
     @PostLoad
-    private void createEntityProps()
+    private void postLoad()
+    {
+        createProps();
+    }
+
+    private void createProps()
     {
         this.customerProps = new CustomerProps();
     }
 
     // auto update fields just before UPDATE query execution
     @PreUpdate
-    private void updateEntityFields()
+    private void preUpdate()
     {
         this.lastName = this.customerProps.getLastNameProp();
         this.firstName = this.customerProps.getFirstNameProp();
@@ -222,6 +227,10 @@ public class Customer {
             return countProp.get();
         }
 
+        public void setCountProp(boolean countProp) {
+            this.countProp.set(countProp);
+        }
+
         public SimpleBooleanProperty countPropProperty() {
             return countProp;
         }
@@ -236,10 +245,6 @@ public class Customer {
 
         public SimpleObjectProperty<PaymentMethod> paymentPropProperty() {
             return paymentProp;
-        }
-
-        public void setCountProp(boolean countProp) {
-            this.countProp.set(countProp);
         }
 
         public ObservableList<BoughtServicesProps> getBoughtServicesProps() {

@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
@@ -16,7 +15,6 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "wykupione_uslugi")
 @Immutable
-@NoArgsConstructor
 public class BoughtServices implements Serializable {
     @EmbeddedId
     private InternalId internalId = new InternalId();
@@ -78,6 +76,8 @@ public class BoughtServices implements Serializable {
         }
     }
 
+    public BoughtServices() {}
+
     public BoughtServices(Customer customer, ServiceEntity serviceEntity, BigDecimal quantity) {
         this.customer = customer;
         this.serviceEntity = serviceEntity;
@@ -86,14 +86,19 @@ public class BoughtServices implements Serializable {
         this.internalId.serviceId = serviceEntity.getId();
     }
 
-    @PostLoad
-    private void createEntityProps()
+    private void createProps()
     {
         this.boughtServicesProps = new BoughtServicesProps();
     }
 
+    @PostLoad
+    private void postLoad()
+    {
+        createProps();
+    }
+
     @PreUpdate
-    private void updateEntityFields()
+    private void preUpdate()
     {
         this.quantity = this.boughtServicesProps.getQuantityProp();
     }
@@ -102,37 +107,14 @@ public class BoughtServices implements Serializable {
     public BoughtServicesProps getBoughtServicesProps() {
         return boughtServicesProps;
     }
-
-    public void setBoughtServicesProps(BoughtServicesProps boughtServicesProps) {
-        this.boughtServicesProps = boughtServicesProps;
-    }
-
     public InternalId getInternalId() {
         return internalId;
     }
-
-    public BigDecimal getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
-
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public ServiceEntity getServiceEntity() {
-        return serviceEntity;
-    }
-
-    public void setServiceEntity(ServiceEntity serviceEntity) {
-        this.serviceEntity = serviceEntity;
     }
     //endregion
 

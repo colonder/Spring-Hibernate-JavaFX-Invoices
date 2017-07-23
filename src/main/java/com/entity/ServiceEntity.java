@@ -43,7 +43,7 @@ public class ServiceEntity {
 
     public ServiceEntity()
     {
-        this.serviceEntityProps = new ServiceEntityProps();
+        createProps();
     }
 
     public ServiceEntity(String serviceName, String symbol, String unit, BigDecimal netUnitPrice, int vatTaxRate) {
@@ -54,10 +54,15 @@ public class ServiceEntity {
         this.vatTaxRate = vatTaxRate;
     }
 
+    private void createProps()
+    {
+        this.serviceEntityProps= new ServiceEntityProps();
+    }
+
     @PostLoad
     private void createEntityProps()
     {
-        this.serviceEntityProps= new ServiceEntityProps();
+        createProps();
     }
 
     @PreUpdate
@@ -70,59 +75,12 @@ public class ServiceEntity {
         this.vatTaxRate = this.serviceEntityProps.getVatProp();
     }
 
-    //region getters and setters
     public int getId() {
         return id;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public BigDecimal getNetUnitPrice() {
-        return netUnitPrice;
-    }
-
-    public void setNetUnitPrice(BigDecimal netUnitPrice) {
-        this.netUnitPrice = netUnitPrice;
-    }
-
-    public int getVatTaxRate() {
-        return vatTaxRate;
-    }
-
-    public void setVatTaxRate(int vatTaxRate) {
-        this.vatTaxRate = vatTaxRate;
-    }
-
     public ServiceEntityProps getServiceEntityProps() {
         return serviceEntityProps;
     }
-    //endregion
 
     public class ServiceEntityProps
     {
