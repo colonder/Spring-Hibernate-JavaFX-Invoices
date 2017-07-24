@@ -16,8 +16,6 @@ import java.math.BigDecimal;
 @Table(name = "wykupione_uslugi")
 @Immutable
 public class BoughtServices implements Serializable {
-    @EmbeddedId
-    private InternalId internalId = new InternalId();
 
     @NotNull
     @Column(name = "ilosc")
@@ -31,50 +29,13 @@ public class BoughtServices implements Serializable {
     @JoinColumn(name = "usluga_id", insertable = false, updatable = false)
     private ServiceEntity serviceEntity;
 
+    @Id
+    @Column(name = "id", columnDefinition = "serial")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     @Transient
     private BoughtServicesProps boughtServicesProps;
-
-    @Embeddable
-    public static class InternalId implements Serializable {
-        @Column(name = "kontrahent_id")
-        private int customerId;
-
-        @Column(name = "usluga_id")
-        private int serviceId;
-
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "id")
-        private int id;
-
-        public InternalId() {}
-
-        public InternalId(int serviceId, int customerId) {
-            this.serviceId = serviceId;
-            this.customerId = customerId;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            InternalId that = (InternalId) o;
-            if (customerId != that.customerId) return false;
-            if (serviceId != that.serviceId) return false;
-            return id == that.id;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = customerId;
-            result = 31 * result + serviceId;
-            result = 31 * result + id;
-            return result;
-        }
-    }
 
     public BoughtServices(){}
 
@@ -82,8 +43,6 @@ public class BoughtServices implements Serializable {
         this.customer = customer;
         this.serviceEntity = serviceEntity;
         this.quantity = quantity;
-        this.internalId.customerId = customer.getId();
-        this.internalId.serviceId = serviceEntity.getId();
         createProps();
     }
 
@@ -108,14 +67,15 @@ public class BoughtServices implements Serializable {
     public BoughtServicesProps getBoughtServicesProps() {
         return boughtServicesProps;
     }
-    public InternalId getInternalId() {
-        return internalId;
-    }
     public Customer getCustomer() {
         return customer;
     }
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public int getId() {
+        return id;
     }
     //endregion
 
@@ -161,7 +121,6 @@ public class BoughtServices implements Serializable {
             taxVal.set(getValWithoutTax().multiply(BigDecimal.valueOf(getVatProp())).multiply(BigDecimal.valueOf(0.01)).setScale(2, BigDecimal.ROUND_HALF_DOWN));
             totalVal.set(getValWithoutTax().add(getTaxVal()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
         }
-
         //region getters and setters
         public BoughtServices getBoughtService() {
             return BoughtServices.this;

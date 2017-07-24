@@ -1,7 +1,7 @@
 package com.utilities.dialogs;
 
 import com.entity.BoughtServices;
-import com.entity.Customer.CustomerProps;
+import com.entity.Customer;
 import com.entity.ServiceEntity;
 import com.service.IBoughtServicesService;
 import com.service.IServicesEntityService;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Component
@@ -25,20 +24,22 @@ public class ChoiceServiceDialog {
 
     @Autowired
     private IBoughtServicesService boughtServicesService;
-    private ObservableList<ServiceEntity> servicesList = FXCollections.observableArrayList();
+    private ObservableList<ServiceEntity> servicesList;
+    private TableView<ServiceEntity> table;
 
-    public void showDialog(CustomerProps props)
+    public void showDialog(Customer customer)
     {
+        servicesList = FXCollections.observableArrayList();
         new Thread(() -> servicesList.addAll(servicesEntityService.findAll())).start();
-        Dialog<ArrayList<ServiceEntity>> dialog = new Dialog<>();
+        Dialog<ButtonType> dialog = new Dialog<>();
         initGUI(dialog);
-        Optional<ArrayList<ServiceEntity>> result = dialog.showAndWait();
-        result.ifPresent(list -> {
-            for (ServiceEntity service : list) {
-                BoughtServices bs = new BoughtServices(props.getCustomer(), service, BigDecimal.ZERO);
+        Optional<ButtonType> result = dialog.showAndWait();
+        result.ifPresent(c ->
+        {
+            for (ServiceEntity service : table.getSelectionModel().getSelectedItems()) {
+                BoughtServices bs = new BoughtServices(customer, service, BigDecimal.ZERO);
                 boughtServicesService.save(bs);
-                props.addBoughtServicesProps(bs.getBoughtServicesProps());
-                //FIXME: why DB is making PK suddenly 0 and then refuses to add rest of the services?
+                customer.getCustomerProps().addBoughtServicesProps(bs.getBoughtServicesProps());
             }
         });
     }
@@ -49,7 +50,7 @@ public class ChoiceServiceDialog {
         ButtonType acceptButton = new ButtonType("Dodaj wybrane", ButtonBar.ButtonData.OK_DONE);
         dialog.setTitle("Wybierz usługę do dodania");
         dialog.getDialogPane().getButtonTypes().addAll(acceptButton, cancelButton);
-        TableView<ServiceEntity> table = new TableView<>();
+        table = new TableView<>();
         table.setEditable(false);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -62,10 +63,5 @@ public class ChoiceServiceDialog {
         vBox.setSpacing(5d);
         vBox.setPadding(new Insets(5, 5, 5, 5));
         dialog.getDialogPane().setContent(vBox);
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == acceptButton)
-                return new ArrayList<>(table.getSelectionModel().getSelectedItems());
-            return null;
-        });
     }
 }

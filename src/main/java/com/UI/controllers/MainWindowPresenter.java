@@ -58,7 +58,7 @@ public class MainWindowPresenter {
 
     private void configureButtons() {
         serviceAddButton.setOnAction(actionEvent ->
-                choiceServiceDialog.showDialog(customersTableView.getSelectionModel().getSelectedItem()));
+                choiceServiceDialog.showDialog(customersTableView.getSelectionModel().getSelectedItem().getCustomer()));
 
         serviceDeleteButton.setOnAction(actionEvent -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -146,8 +146,7 @@ public class MainWindowPresenter {
             else
             {
                 try {
-                    boughtServicesService.update(event.getNewValue(), event.getRowValue().getBoughtService().
-                            getInternalId().getId());
+                    boughtServicesService.update(event.getNewValue(), event.getRowValue().getBoughtService().getId());
                 } catch (PSQLException e) {
                     e.printStackTrace();
                 }
