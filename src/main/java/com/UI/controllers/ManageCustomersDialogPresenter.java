@@ -20,23 +20,40 @@ import java.util.Optional;
 @Component
 public class ManageCustomersDialogPresenter {
     //region @FXML objects
-    @FXML TableView<CustomerProps> customersListTableView;
-    @FXML TableColumn<CustomerProps, String> lastNameCol;
-    @FXML TableColumn<CustomerProps, String> firstNameCol;
-    @FXML TableColumn<CustomerProps, String> companyNameCol;
-    @FXML TableColumn<CustomerProps, String> IdNumberCol;
-    @FXML TableColumn<CustomerProps, String> addressCol;
-    @FXML TableColumn<CustomerProps, String> postalCodeCol;
-    @FXML TableColumn<CustomerProps, String> cityCol;
-    @FXML TableColumn<CustomerProps, Boolean> considerCountingCol;
-    @FXML TableColumn<CustomerProps, PaymentMethod> paymentMethodCol;
-    @FXML TableColumn<CustomerProps, String> aliasCol;
-    @FXML ComboBox<String> filterComboBox;
-    @FXML TextField filterTextField;
-    @FXML Button filterBtn;
-    @FXML Button newCustomerBtn;
-    @FXML Button editCustomerBtn;
-    @FXML Button removeCustomerBtn;
+    @FXML
+    TableView<CustomerProps> customersListTableView;
+    @FXML
+    TableColumn<CustomerProps, String> lastNameCol;
+    @FXML
+    TableColumn<CustomerProps, String> firstNameCol;
+    @FXML
+    TableColumn<CustomerProps, String> companyNameCol;
+    @FXML
+    TableColumn<CustomerProps, String> IdNumberCol;
+    @FXML
+    TableColumn<CustomerProps, String> addressCol;
+    @FXML
+    TableColumn<CustomerProps, String> postalCodeCol;
+    @FXML
+    TableColumn<CustomerProps, String> cityCol;
+    @FXML
+    TableColumn<CustomerProps, Boolean> considerCountingCol;
+    @FXML
+    TableColumn<CustomerProps, PaymentMethod> paymentMethodCol;
+    @FXML
+    TableColumn<CustomerProps, String> aliasCol;
+    @FXML
+    ComboBox<String> filterComboBox;
+    @FXML
+    TextField filterTextField;
+    @FXML
+    Button filterBtn;
+    @FXML
+    Button newCustomerBtn;
+    @FXML
+    Button editCustomerBtn;
+    @FXML
+    Button removeCustomerBtn;
     @Autowired
     private ICustomerService customerService;
     //endregion

@@ -37,7 +37,8 @@ public class BoughtServices implements Serializable {
     @Transient
     private BoughtServicesProps boughtServicesProps;
 
-    public BoughtServices(){}
+    public BoughtServices() {
+    }
 
     public BoughtServices(Customer customer, ServiceEntity serviceEntity, BigDecimal quantity) {
         this.customer = customer;
@@ -46,20 +47,17 @@ public class BoughtServices implements Serializable {
         createProps();
     }
 
-    private void createProps()
-    {
+    private void createProps() {
         this.boughtServicesProps = new BoughtServicesProps();
     }
 
     @PostLoad
-    private void postLoad()
-    {
+    private void postLoad() {
         createProps();
     }
 
     @PreUpdate
-    private void preUpdate()
-    {
+    private void preUpdate() {
         this.quantity = this.boughtServicesProps.getQuantityProp();
     }
 
@@ -67,9 +65,11 @@ public class BoughtServices implements Serializable {
     public BoughtServicesProps getBoughtServicesProps() {
         return boughtServicesProps;
     }
+
     public Customer getCustomer() {
         return customer;
     }
+
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
@@ -121,6 +121,7 @@ public class BoughtServices implements Serializable {
             taxVal.set(getValWithoutTax().multiply(BigDecimal.valueOf(getVatProp())).multiply(BigDecimal.valueOf(0.01)).setScale(2, BigDecimal.ROUND_HALF_DOWN));
             totalVal.set(getValWithoutTax().add(getTaxVal()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
         }
+
         //region getters and setters
         public BoughtServices getBoughtService() {
             return BoughtServices.this;

@@ -15,6 +15,7 @@ public class ServiceImpl implements IServicesEntityService {
 
     @Autowired
     private IServiceRepository serviceRepository;
+
     public List<ServiceEntity> findAll() {
         return serviceRepository.findAll();
     }

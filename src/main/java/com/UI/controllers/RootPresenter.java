@@ -15,11 +15,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RootPresenter {
-    @FXML private Button settingsBtn;
-    @FXML private Button printBtn;
-    @FXML private Button saveBtn;
-    @FXML private Button manageServicesBtn;
-    @FXML private Button manageCustomersBtn;
+    @FXML
+    private Button settingsBtn;
+    @FXML
+    private Button printBtn;
+    @FXML
+    private Button saveBtn;
+    @FXML
+    private Button manageServicesBtn;
+    @FXML
+    private Button manageCustomersBtn;
 
     @Autowired
     private ManageCustomersDialogView manageCustomersDialog;

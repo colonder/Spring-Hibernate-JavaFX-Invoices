@@ -10,7 +10,10 @@ import java.util.List;
 
 public interface IBoughtServicesService {
     BoughtServices save(BoughtServices boughtServices);
+
     List<BoughtServices> findBoughtServicesByCustomer(Customer customer);
+
     void delete(BoughtServices boughtServices);
+
     int update(BigDecimal value, int id) throws PSQLException, ConstraintViolationException;
 }

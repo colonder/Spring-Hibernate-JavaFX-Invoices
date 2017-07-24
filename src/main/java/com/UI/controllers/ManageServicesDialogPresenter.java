@@ -20,23 +20,34 @@ import java.util.Optional;
 @Component
 public class ManageServicesDialogPresenter {
 
+    @FXML
+    ComboBox<String> filterComboBox;
+    @FXML
+    TextField filterTextFld;
+    @FXML
+    Button filterBtn;
+    @FXML
+    Button newServiceBtn;
+    @FXML
+    Button editServiceBtn;
+    @FXML
+    Button deleteServiceBtn;
+    @FXML
+    TableView<ServiceEntityProps> serviceTableView;
+    @FXML
+    TableColumn<ServiceEntityProps, String> serviceNameCol;
+    @FXML
+    TableColumn<ServiceEntityProps, String> symbolCol;
+    @FXML
+    TableColumn<ServiceEntityProps, String> unitCol;
+    @FXML
+    TableColumn<ServiceEntityProps, BigDecimal> unitPriceCol;
+    @FXML
+    TableColumn<ServiceEntityProps, Integer> vatCol;
     @Autowired
     private IServicesEntityService servicesEntityService;
     @Autowired
     private EntityManager entityManager;
-    @FXML ComboBox<String> filterComboBox;
-    @FXML TextField filterTextFld;
-    @FXML Button filterBtn;
-    @FXML Button newServiceBtn;
-    @FXML Button editServiceBtn;
-    @FXML Button deleteServiceBtn;
-    @FXML TableView<ServiceEntityProps> serviceTableView;
-    @FXML TableColumn<ServiceEntityProps, String> serviceNameCol;
-    @FXML TableColumn<ServiceEntityProps, String> symbolCol;
-    @FXML TableColumn<ServiceEntityProps, String> unitCol;
-    @FXML TableColumn<ServiceEntityProps, BigDecimal> unitPriceCol;
-    @FXML TableColumn<ServiceEntityProps, Integer> vatCol;
-
     private ObservableList<String> filterCriteria = FXCollections.observableArrayList("Nazwa", "Symbol PKWIU/PKOB",
             "Jednostka", "Stawka VAT");
     private FilteredList<ServiceEntityProps> filteredList;
@@ -46,8 +57,7 @@ public class ManageServicesDialogPresenter {
     public void initialize() {
 
         new Thread(() -> {
-            for (ServiceEntity serviceEntity : servicesEntityService.findAll())
-            {
+            for (ServiceEntity serviceEntity : servicesEntityService.findAll()) {
                 servicesList.add(serviceEntity.getServiceEntityProps());
             }
         }).start();
@@ -130,8 +140,7 @@ public class ManageServicesDialogPresenter {
 
                     Optional<ButtonType> finalResult = lastStand.showAndWait();
                     finalResult.ifPresent(c -> {
-                        for(ServiceEntityProps prop : serviceTableView.getSelectionModel().getSelectedItems())
-                        {
+                        for (ServiceEntityProps prop : serviceTableView.getSelectionModel().getSelectedItems()) {
                             servicesList.remove(prop);
                             servicesEntityService.delete(prop.getServiceEntity());
                         }

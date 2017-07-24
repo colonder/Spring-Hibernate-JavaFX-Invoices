@@ -24,8 +24,7 @@ public class CurrencyHandler {
         currencyFormatter.setCurrency(currency);
     }
 
-    public static String formatToCurrency(BigDecimal value)
-    {
+    public static String formatToCurrency(BigDecimal value) {
         return currencyFormatter.format(value);
     }
 
@@ -35,16 +34,11 @@ public class CurrencyHandler {
         String digits = String.valueOf(value.intValue());
         char character = digits.charAt(digits.length() - 1);
         String currencySymbolSpellOut;
-        if(character == '1' && digits.length() < 2)
-        {
+        if (character == '1' && digits.length() < 2) {
             currencySymbolSpellOut = "złoty";
-        }
-        else if(character == '2' || character == '3' || character == '4')
-        {
+        } else if (character == '2' || character == '3' || character == '4') {
             currencySymbolSpellOut = "złote";
-        }
-        else
-        {
+        } else {
             currencySymbolSpellOut = "złotych";
         }
 

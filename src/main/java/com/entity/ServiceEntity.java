@@ -41,24 +41,21 @@ public class ServiceEntity {
 
     //TODO: write a trigger in database preventing from deleting service when any customer is still using it(?)
 
-    public ServiceEntity()
-    {
+    public ServiceEntity() {
         createProps();
     }
-    private void createProps()
-    {
-        this.serviceEntityProps= new ServiceEntityProps();
+
+    private void createProps() {
+        this.serviceEntityProps = new ServiceEntityProps();
     }
 
     @PostLoad
-    private void postLoad()
-    {
+    private void postLoad() {
         createProps();
     }
 
     @PreUpdate
-    private void preUpdate()
-    {
+    private void preUpdate() {
         this.serviceName = this.serviceEntityProps.getServiceNameProp();
         this.symbol = this.serviceEntityProps.getSymbolProp();
         this.unit = this.serviceEntityProps.getUnitProp();
@@ -69,6 +66,7 @@ public class ServiceEntity {
     public int getId() {
         return id;
     }
+
     public ServiceEntityProps getServiceEntityProps() {
         return serviceEntityProps;
     }
@@ -77,16 +75,14 @@ public class ServiceEntity {
         return serviceName;
     }
 
-    public class ServiceEntityProps
-    {
+    public class ServiceEntityProps {
         private SimpleStringProperty serviceNameProp;
         private SimpleStringProperty symbolProp;
         private SimpleStringProperty unitProp;
         private SimpleObjectProperty<BigDecimal> netUnitPriceProp;
         private SimpleIntegerProperty vatProp;
 
-        public ServiceEntityProps()
-        {
+        public ServiceEntityProps() {
             this.serviceNameProp = new SimpleStringProperty(serviceName);
             this.symbolProp = new SimpleStringProperty(symbol);
             this.unitProp = new SimpleStringProperty(unit);
@@ -95,12 +91,11 @@ public class ServiceEntity {
         }
 
         //region getters and setters
-        public ServiceEntity getServiceEntity()
-        {
+        public ServiceEntity getServiceEntity() {
             return ServiceEntity.this;
         }
 
-        public ServiceEntity setServiceEntity(){
+        public ServiceEntity setServiceEntity() {
             return ServiceEntity.this;
         }
 
@@ -108,60 +103,60 @@ public class ServiceEntity {
             return serviceNameProp.get();
         }
 
-        public SimpleStringProperty serviceNamePropProperty() {
-            return serviceNameProp;
-        }
-
         public void setServiceNameProp(String serviceNameProp) {
             this.serviceNameProp.set(serviceNameProp);
+        }
+
+        public SimpleStringProperty serviceNamePropProperty() {
+            return serviceNameProp;
         }
 
         public String getSymbolProp() {
             return symbolProp.get();
         }
 
-        public SimpleStringProperty symbolPropProperty() {
-            return symbolProp;
-        }
-
         public void setSymbolProp(String symbolProp) {
             this.symbolProp.set(symbolProp);
+        }
+
+        public SimpleStringProperty symbolPropProperty() {
+            return symbolProp;
         }
 
         public String getUnitProp() {
             return unitProp.get();
         }
 
-        public SimpleStringProperty unitPropProperty() {
-            return unitProp;
-        }
-
         public void setUnitProp(String unitProp) {
             this.unitProp.set(unitProp);
+        }
+
+        public SimpleStringProperty unitPropProperty() {
+            return unitProp;
         }
 
         public BigDecimal getNetUnitPriceProp() {
             return netUnitPriceProp.get();
         }
 
-        public SimpleObjectProperty<BigDecimal> netUnitPricePropProperty() {
-            return netUnitPriceProp;
-        }
-
         public void setNetUnitPriceProp(BigDecimal netUnitPriceProp) {
             this.netUnitPriceProp.set(netUnitPriceProp);
+        }
+
+        public SimpleObjectProperty<BigDecimal> netUnitPricePropProperty() {
+            return netUnitPriceProp;
         }
 
         public int getVatProp() {
             return vatProp.get();
         }
 
-        public SimpleIntegerProperty vatPropProperty() {
-            return vatProp;
-        }
-
         public void setVatProp(int vatProp) {
             this.vatProp.set(vatProp);
+        }
+
+        public SimpleIntegerProperty vatPropProperty() {
+            return vatProp;
         }
         //endregion
     }

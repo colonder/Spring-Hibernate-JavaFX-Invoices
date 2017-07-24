@@ -59,24 +59,23 @@ public class Customer {
     @Transient
     private CustomerProps customerProps;
 
-    public Customer() { createProps(); }
-
-    // auto creates properties class for this customer after loading
-    @PostLoad
-    private void postLoad()
-    {
+    public Customer() {
         createProps();
     }
 
-    private void createProps()
-    {
+    // auto creates properties class for this customer after loading
+    @PostLoad
+    private void postLoad() {
+        createProps();
+    }
+
+    private void createProps() {
         this.customerProps = new CustomerProps();
     }
 
     // auto update fields just before UPDATE query execution
     @PreUpdate
-    private void preUpdate()
-    {
+    private void preUpdate() {
         this.lastName = this.customerProps.getLastNameProp();
         this.firstName = this.customerProps.getFirstNameProp();
         this.companyName = this.customerProps.getCompanyNameProp();
@@ -92,6 +91,7 @@ public class Customer {
     public CustomerProps getCustomerProps() {
         return customerProps;
     }
+
     public int getId() {
         return id;
     }

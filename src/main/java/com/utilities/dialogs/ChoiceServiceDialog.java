@@ -27,8 +27,7 @@ public class ChoiceServiceDialog {
     private ObservableList<ServiceEntity> servicesList;
     private TableView<ServiceEntity> table;
 
-    public void showDialog(Customer customer)
-    {
+    public void showDialog(Customer customer) {
         servicesList = FXCollections.observableArrayList();
         new Thread(() -> servicesList.addAll(servicesEntityService.findAll())).start();
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -44,8 +43,7 @@ public class ChoiceServiceDialog {
         });
     }
 
-    private void initGUI(Dialog dialog)
-    {
+    private void initGUI(Dialog dialog) {
         ButtonType cancelButton = new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE);
         ButtonType acceptButton = new ButtonType("Dodaj wybrane", ButtonBar.ButtonData.OK_DONE);
         dialog.setTitle("Wybierz usługę do dodania");

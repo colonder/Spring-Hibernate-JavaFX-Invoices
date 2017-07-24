@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="1200.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="500.0" prefWidth="1200.0"
             xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.MainWindowPresenter">
     <children>
         <SplitPane dividerPositions="0.29797979797979796" prefHeight="400.0" prefWidth="1194.0"
@@ -13,7 +13,7 @@
             <items>
                 <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="175.0">
                     <children>
-                        <VBox layoutX="11.0" layoutY="84.0" prefHeight="398.0" prefWidth="175.0"
+                        <VBox layoutX="11.0" layoutY="84.0" prefHeight="498.0" prefWidth="175.0"
                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                               AnchorPane.topAnchor="0.0">
                             <children>
@@ -22,7 +22,7 @@
                                         <Insets bottom="2.0"/>
                                     </VBox.margin>
                                 </TextField>
-                                <TableView fx:id="customersTableView">
+                                <TableView fx:id="customersTableView" prefHeight="472.0" prefWidth="175.0">
                                     <columns>
                                         <TableColumn fx:id="customersCol" prefWidth="174.0" resizable="false"
                                                      text="Kontrahenci"/>
@@ -185,7 +185,7 @@
                                 <AnchorPane>
                                     <children>
                                         <TableView fx:id="boughtServicesTableView" editable="true" layoutX="192.0"
-                                                   layoutY="100.0" prefHeight="18.0" prefWidth="696.0"
+                                                   layoutY="100.0" prefHeight="50.0" prefWidth="696.0"
                                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
