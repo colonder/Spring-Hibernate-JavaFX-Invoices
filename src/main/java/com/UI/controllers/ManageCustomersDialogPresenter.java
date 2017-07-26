@@ -1,7 +1,6 @@
 package com.UI.controllers;
 
 import com.entity.Customer;
-import com.entity.Customer.CustomerProps;
 import com.entity.PaymentMethod;
 import com.service.ICustomerService;
 import com.utilities.classes.CustomersList;
@@ -21,27 +20,27 @@ import java.util.Optional;
 public class ManageCustomersDialogPresenter {
     //region @FXML objects
     @FXML
-    TableView<CustomerProps> customersListTableView;
+    TableView<Customer> customersListTableView;
     @FXML
-    TableColumn<CustomerProps, String> lastNameCol;
+    TableColumn<Customer, String> lastNameCol;
     @FXML
-    TableColumn<CustomerProps, String> firstNameCol;
+    TableColumn<Customer, String> firstNameCol;
     @FXML
-    TableColumn<CustomerProps, String> companyNameCol;
+    TableColumn<Customer, String> companyNameCol;
     @FXML
-    TableColumn<CustomerProps, String> IdNumberCol;
+    TableColumn<Customer, String> IdNumberCol;
     @FXML
-    TableColumn<CustomerProps, String> addressCol;
+    TableColumn<Customer, String> addressCol;
     @FXML
-    TableColumn<CustomerProps, String> postalCodeCol;
+    TableColumn<Customer, String> postalCodeCol;
     @FXML
-    TableColumn<CustomerProps, String> cityCol;
+    TableColumn<Customer, String> cityCol;
     @FXML
-    TableColumn<CustomerProps, Boolean> considerCountingCol;
+    TableColumn<Customer, Boolean> considerCountingCol;
     @FXML
-    TableColumn<CustomerProps, PaymentMethod> paymentMethodCol;
+    TableColumn<Customer, PaymentMethod> paymentMethodCol;
     @FXML
-    TableColumn<CustomerProps, String> aliasCol;
+    TableColumn<Customer, String> aliasCol;
     @FXML
     ComboBox<String> filterComboBox;
     @FXML
@@ -59,7 +58,7 @@ public class ManageCustomersDialogPresenter {
     //endregion
     private ObservableList<String> filterCriteria = FXCollections.observableArrayList("Nazwisko", "Imię",
             "Firma", "NIP/PESEL", "Adres", "Kod pocztowy", "Miasto", "Alias");
-    private FilteredList<CustomerProps> filteredList;
+    private FilteredList<Customer> filteredList;
 
     @FXML
     public void initialize() {
@@ -85,7 +84,7 @@ public class ManageCustomersDialogPresenter {
 
     private void initializeButtons() {
         filterBtn.setOnAction(event -> {
-            filteredList.setPredicate(customerProps -> {
+            filteredList.setPredicate(Customer -> {
                 if (filterTextField.getText().isEmpty())
                     return true;
 
@@ -93,42 +92,42 @@ public class ManageCustomersDialogPresenter {
                     String selected = filterTextField.getText();
                     switch (filterComboBox.getSelectionModel().getSelectedItem()) {
                         case "Nazwisko":
-                            if (customerProps.getLastNameProp().contains(selected))
+                            if (Customer.getLastNameProp().contains(selected))
                                 return true;
                             break;
 
                         case "Imię":
-                            if (customerProps.getFirstNameProp().contains(selected))
+                            if (Customer.getFirstNameProp().contains(selected))
                                 return true;
                             break;
 
                         case "Firma":
-                            if (customerProps.getCompanyNameProp().contains(selected))
+                            if (Customer.getCompanyNameProp().contains(selected))
                                 return true;
                             break;
 
                         case "NIP/PESEL":
-                            if (customerProps.getTaxIdProp().contains(selected))
+                            if (Customer.getTaxIdProp().contains(selected))
                                 return true;
                             break;
 
                         case "Adres":
-                            if (customerProps.getAddressProp().contains(selected))
+                            if (Customer.getAddressProp().contains(selected))
                                 return true;
                             break;
 
                         case "Kod pocztowy":
-                            if (customerProps.getPostalCodeProp().contains(selected))
+                            if (Customer.getPostalCodeProp().contains(selected))
                                 return true;
                             break;
 
                         case "Miasto":
-                            if (customerProps.getCityProp().contains(selected))
+                            if (Customer.getCityProp().contains(selected))
                                 return true;
                             break;
 
                         case "Alias":
-                            if (customerProps.getAliasProp().contains(selected))
+                            if (Customer.getAliasProp().contains(selected))
                                 return true;
                             break;
                     }
@@ -139,7 +138,7 @@ public class ManageCustomersDialogPresenter {
         });
         newCustomerBtn.setOnAction(event -> {
             Customer c = new Customer();
-            showCustomerWindow(c.getCustomerProps(), newCustomerBtn);
+            showCustomerWindow(c, newCustomerBtn);
         });
         editCustomerBtn.setOnAction(event -> {
             if (customersListTableView.getSelectionModel().getSelectedItems().size() != 1) {
@@ -165,8 +164,8 @@ public class ManageCustomersDialogPresenter {
 
                     Optional<ButtonType> finalResult = lastStand.showAndWait();
                     finalResult.ifPresent(c -> {
-                        for (CustomerProps props : customersListTableView.getSelectionModel().getSelectedItems())
-                            CustomersList.removeCustomer(props);
+                        for (Customer customer : customersListTableView.getSelectionModel().getSelectedItems())
+                            CustomersList.removeCustomer(customer);
                         //FIXME: the last customer from those that are selected is not being deleted
                     });
                 });
@@ -174,7 +173,7 @@ public class ManageCustomersDialogPresenter {
         });
     }
 
-    private void showCustomerWindow(CustomerProps props, Button source) {
+    private void showCustomerWindow(Customer customer, Button source) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Edycja kontrahenta");
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -189,15 +188,15 @@ public class ManageCustomersDialogPresenter {
         noRadioBtn.setToggleGroup(countGroup);
         cashRadioBtn.setToggleGroup(paymentGroup);
         bankRadioBtn.setToggleGroup(paymentGroup);
-        yesRadioBtn.setSelected(props.getCountProp());
+        yesRadioBtn.setSelected(customer.getCountProp());
         try {
-            if (props.getCountProp())
+            if (customer.getCountProp())
                 yesRadioBtn.setSelected(true);
             else
                 noRadioBtn.setSelected(true);
 
 
-            if (props.getPaymentProp().name().equals("gotówka"))
+            if (customer.getPaymentProp().name().equals("gotówka"))
                 cashRadioBtn.setSelected(true);
             else
                 bankRadioBtn.setSelected(true);
@@ -206,14 +205,14 @@ public class ManageCustomersDialogPresenter {
             yesRadioBtn.setSelected(true);
         }
 
-        TextField firstNameTxtFld = new TextField(props.getFirstNameProp());
-        TextField lastNameTxtFld = new TextField(props.getLastNameProp());
-        TextField companyTxtField = new TextField(props.getCompanyNameProp());
-        TextField taxIdTxtFld = new TextField(props.getTaxIdProp());
-        TextField addressTxtFld = new TextField(props.getAddressProp());
-        TextField postalCodeTxtFld = new TextField(props.getPostalCodeProp());
-        TextField cityTxtFld = new TextField(props.getCityProp());
-        TextField aliasTxtFld = new TextField(props.getAliasProp());
+        TextField firstNameTxtFld = new TextField(customer.getFirstNameProp());
+        TextField lastNameTxtFld = new TextField(customer.getLastNameProp());
+        TextField companyTxtField = new TextField(customer.getCompanyNameProp());
+        TextField taxIdTxtFld = new TextField(customer.getTaxIdProp());
+        TextField addressTxtFld = new TextField(customer.getAddressProp());
+        TextField postalCodeTxtFld = new TextField(customer.getPostalCodeProp());
+        TextField cityTxtFld = new TextField(customer.getCityProp());
+        TextField aliasTxtFld = new TextField(customer.getAliasProp());
 
         box.getChildren().addAll(new Label("Imię"), firstNameTxtFld, new Label("Nazwisko"), lastNameTxtFld,
                 new Label("Firma"), companyTxtField, new Label("NIP/PESEL"), taxIdTxtFld, new Label("Adres"),
@@ -225,23 +224,23 @@ public class ManageCustomersDialogPresenter {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get().equals(ButtonType.OK)) {
-            props.setTaxIdProp(taxIdTxtFld.getText());
-            props.setPostalCodeProp(postalCodeTxtFld.getText());
-            props.setPaymentProp(cashRadioBtn.isSelected() ? PaymentMethod.gotówka : PaymentMethod.przelew);
-            props.setLastNameProp(lastNameTxtFld.getText());
-            props.setFirstNameProp(firstNameTxtFld.getText());
-            props.setCountProp(yesRadioBtn.isSelected());
-            props.setCompanyNameProp(companyTxtField.getText());
-            props.setCityProp(cityTxtFld.getText());
-            props.setAliasProp(aliasTxtFld.getText());
-            props.setAddressProp(addressTxtFld.getText());
+            customer.setTaxIdProp(taxIdTxtFld.getText());
+            customer.setPostalCodeProp(postalCodeTxtFld.getText());
+            customer.setPaymentProp(cashRadioBtn.isSelected() ? PaymentMethod.gotówka : PaymentMethod.przelew);
+            customer.setLastNameProp(lastNameTxtFld.getText());
+            customer.setFirstNameProp(firstNameTxtFld.getText());
+            customer.setCountProp(yesRadioBtn.isSelected());
+            customer.setCompanyNameProp(companyTxtField.getText());
+            customer.setCityProp(cityTxtFld.getText());
+            customer.setAliasProp(aliasTxtFld.getText());
+            customer.setAddressProp(addressTxtFld.getText());
 
             if (source.equals(newCustomerBtn)) {
-                CustomersList.addCustomer(props);
+                CustomersList.addCustomer(customer);
             } else {
-                customerService.update(props.getLastNameProp(), props.getFirstNameProp(), props.getCompanyNameProp(),
-                        props.getTaxIdProp(), props.getAddressProp(), props.getPostalCodeProp(), props.getCityProp(),
-                        props.getPaymentProp(), props.getCountProp(), props.getAliasProp(), props.getCustomer().getId());
+                customerService.update(customer.getLastNameProp(), customer.getFirstNameProp(), customer.getCompanyNameProp(),
+                        customer.getTaxIdProp(), customer.getAddressProp(), customer.getPostalCodeProp(), customer.getCityProp(),
+                        customer.getPaymentProp(), customer.getCountProp(), customer.getAliasProp(), customer.getId());
             }
         }
     }

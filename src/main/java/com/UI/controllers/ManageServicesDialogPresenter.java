@@ -1,7 +1,6 @@
 package com.UI.controllers;
 
 import com.entity.ServiceEntity;
-import com.entity.ServiceEntity.ServiceEntityProps;
 import com.service.IServicesEntityService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +12,6 @@ import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -33,34 +31,29 @@ public class ManageServicesDialogPresenter {
     @FXML
     Button deleteServiceBtn;
     @FXML
-    TableView<ServiceEntityProps> serviceTableView;
+    TableView<ServiceEntity> serviceTableView;
     @FXML
-    TableColumn<ServiceEntityProps, String> serviceNameCol;
+    TableColumn<ServiceEntity, String> serviceNameCol;
     @FXML
-    TableColumn<ServiceEntityProps, String> symbolCol;
+    TableColumn<ServiceEntity, String> symbolCol;
     @FXML
-    TableColumn<ServiceEntityProps, String> unitCol;
+    TableColumn<ServiceEntity, String> unitCol;
     @FXML
-    TableColumn<ServiceEntityProps, BigDecimal> unitPriceCol;
+    TableColumn<ServiceEntity, BigDecimal> unitPriceCol;
     @FXML
-    TableColumn<ServiceEntityProps, Integer> vatCol;
+    TableColumn<ServiceEntity, Integer> vatCol;
     @Autowired
     private IServicesEntityService servicesEntityService;
-    @Autowired
-    private EntityManager entityManager;
+
     private ObservableList<String> filterCriteria = FXCollections.observableArrayList("Nazwa", "Symbol PKWIU/PKOB",
             "Jednostka", "Stawka VAT");
-    private FilteredList<ServiceEntityProps> filteredList;
-    private ObservableList<ServiceEntityProps> servicesList = FXCollections.observableArrayList();
+    private FilteredList<ServiceEntity> filteredList;
+    private ObservableList<ServiceEntity> servicesList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
 
-        new Thread(() -> {
-            for (ServiceEntity serviceEntity : servicesEntityService.findAll()) {
-                servicesList.add(serviceEntity.getServiceEntityProps());
-            }
-        }).start();
+        new Thread(() -> servicesList.addAll(servicesEntityService.findAll())).start();
 
         serviceNameCol.setCellValueFactory(new PropertyValueFactory<>("serviceNameProp"));
         symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbolProp"));
@@ -113,7 +106,7 @@ public class ManageServicesDialogPresenter {
         });
         newServiceBtn.setOnAction(event -> {
             ServiceEntity c = new ServiceEntity();
-            showServiceWindow(c.getServiceEntityProps(), newServiceBtn);
+            showServiceWindow(c, newServiceBtn);
         });
         editServiceBtn.setOnAction(event -> {
             if (serviceTableView.getSelectionModel().getSelectedItems().size() != 1) {
@@ -140,9 +133,9 @@ public class ManageServicesDialogPresenter {
 
                     Optional<ButtonType> finalResult = lastStand.showAndWait();
                     finalResult.ifPresent(c -> {
-                        for (ServiceEntityProps prop : serviceTableView.getSelectionModel().getSelectedItems()) {
-                            servicesList.remove(prop);
-                            servicesEntityService.delete(prop.getServiceEntity());
+                        for (ServiceEntity serviceEntity : serviceTableView.getSelectionModel().getSelectedItems()) {
+                            servicesList.remove(serviceEntity);
+                            servicesEntityService.delete(serviceEntity);
                         }
                     });
                 });
@@ -150,7 +143,7 @@ public class ManageServicesDialogPresenter {
         });
     }
 
-    private void showServiceWindow(ServiceEntityProps props, Button source) {
+    private void showServiceWindow(ServiceEntity serviceEntity, Button source) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Edycja uslugi");
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -161,7 +154,7 @@ public class ManageServicesDialogPresenter {
         vat23RadioButton.setToggleGroup(vatGroup);
         vat8RadioButton.setToggleGroup(vatGroup);
         try {
-            if (props.getVatProp() == 23)
+            if (serviceEntity.getVatProp() == 23)
                 vat23RadioButton.setSelected(true);
             else
                 vat8RadioButton.setSelected(true);
@@ -169,10 +162,10 @@ public class ManageServicesDialogPresenter {
             vat23RadioButton.setSelected(true); // select default value
         }
 
-        TextField serviceNameTxtFld = new TextField(props.getServiceNameProp());
-        TextField symbolTxtFld = new TextField(props.getSymbolProp());
-        TextField unitTxtFld = new TextField(props.getUnitProp());
-        TextField netUnitPriceTxtFld = new TextField(props.getNetUnitPriceProp().toString());
+        TextField serviceNameTxtFld = new TextField(serviceEntity.getServiceNameProp());
+        TextField symbolTxtFld = new TextField(serviceEntity.getSymbolProp());
+        TextField unitTxtFld = new TextField(serviceEntity.getUnitProp());
+        TextField netUnitPriceTxtFld = new TextField(serviceEntity.getNetUnitPriceProp().toString());
 
         box.getChildren().addAll(new Label("Nazwa usługi"), serviceNameTxtFld, new Label("Symbol PKWIU/PKOB"),
                 symbolTxtFld, new Label("Jednostka"), unitTxtFld, new Label("Cena jednostkowa netto"),
@@ -181,18 +174,19 @@ public class ManageServicesDialogPresenter {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get().equals(ButtonType.OK)) {
-            props.setServiceNameProp(serviceNameTxtFld.getText());
-            props.setSymbolProp(symbolTxtFld.getText());
-            props.setUnitProp(unitTxtFld.getText());
-            props.setNetUnitPriceProp(new BigDecimal(netUnitPriceTxtFld.getText()));
-            props.setVatProp(vat23RadioButton.isSelected() ? 23 : 8);
+            serviceEntity.setServiceNameProp(serviceNameTxtFld.getText());
+            serviceEntity.setSymbolProp(symbolTxtFld.getText());
+            serviceEntity.setUnitProp(unitTxtFld.getText());
+            serviceEntity.setNetUnitPriceProp(new BigDecimal(netUnitPriceTxtFld.getText()));
+            serviceEntity.setVatProp(vat23RadioButton.isSelected() ? 23 : 8);
 
             if (source.equals(newServiceBtn)) {
-                servicesList.add(props);
-                servicesEntityService.save(props.getServiceEntity());
+                servicesList.add(serviceEntity);
+                servicesEntityService.save(serviceEntity);
             } else {
-                servicesEntityService.update(props.getServiceNameProp(), props.getSymbolProp(), props.getUnitProp(),
-                        props.getNetUnitPriceProp(), props.getVatProp(), props.getServiceEntity().getId());
+                servicesEntityService.update(serviceEntity.getServiceNameProp(), serviceEntity.getSymbolProp(),
+                        serviceEntity.getUnitProp(), serviceEntity.getNetUnitPriceProp(), serviceEntity.getVatProp(),
+                        serviceEntity.getId());
             }
         }
 

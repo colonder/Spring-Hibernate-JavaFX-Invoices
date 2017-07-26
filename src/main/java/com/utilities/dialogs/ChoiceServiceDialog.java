@@ -38,7 +38,7 @@ public class ChoiceServiceDialog {
             for (ServiceEntity service : table.getSelectionModel().getSelectedItems()) {
                 BoughtServices bs = new BoughtServices(customer, service, BigDecimal.ZERO);
                 boughtServicesService.save(bs);
-                customer.getCustomerProps().addBoughtServicesProps(bs.getBoughtServicesProps());
+                customer.addBoughtServices(bs);
             }
         });
     }

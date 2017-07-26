@@ -1,5 +1,4 @@
 package com.entity;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -36,9 +35,6 @@ public class ServiceEntity {
     @Column(name = "stawka_vat", nullable = false)
     private int vatTaxRate;
 
-    @Transient
-    private ServiceEntityProps serviceEntityProps;
-
     //TODO: write a trigger in database preventing from deleting service when any customer is still using it(?)
 
     public ServiceEntity() {
@@ -46,7 +42,11 @@ public class ServiceEntity {
     }
 
     private void createProps() {
-        this.serviceEntityProps = new ServiceEntityProps();
+        this.serviceNameProp = new SimpleStringProperty(serviceName);
+        this.symbolProp = new SimpleStringProperty(symbol);
+        this.unitProp = new SimpleStringProperty(unit);
+        this.netUnitPriceProp = new SimpleObjectProperty<>(netUnitPrice);
+        this.vatProp = new SimpleIntegerProperty(vatTaxRate);
     }
 
     @PostLoad
@@ -56,108 +56,124 @@ public class ServiceEntity {
 
     @PreUpdate
     private void preUpdate() {
-        this.serviceName = this.serviceEntityProps.getServiceNameProp();
-        this.symbol = this.serviceEntityProps.getSymbolProp();
-        this.unit = this.serviceEntityProps.getUnitProp();
-        this.netUnitPrice = this.serviceEntityProps.getNetUnitPriceProp();
-        this.vatTaxRate = this.serviceEntityProps.getVatProp();
+        this.serviceName = this.getServiceNameProp();
+        this.symbol = this.getSymbolProp();
+        this.unit = this.getUnitProp();
+        this.netUnitPrice = this.getNetUnitPriceProp();
+        this.vatTaxRate = this.getVatProp();
     }
 
     public int getId() {
         return id;
     }
-
-    public ServiceEntityProps getServiceEntityProps() {
-        return serviceEntityProps;
-    }
-
     public String getServiceName() {
         return serviceName;
     }
 
-    public class ServiceEntityProps {
-        private SimpleStringProperty serviceNameProp;
-        private SimpleStringProperty symbolProp;
-        private SimpleStringProperty unitProp;
-        private SimpleObjectProperty<BigDecimal> netUnitPriceProp;
-        private SimpleIntegerProperty vatProp;
+    @Transient
+    private SimpleStringProperty serviceNameProp;
+    @Transient
+    private SimpleStringProperty symbolProp;
+    @Transient
+    private SimpleStringProperty unitProp;
+    @Transient
+    private SimpleObjectProperty<BigDecimal> netUnitPriceProp;
+    @Transient
+    private SimpleIntegerProperty vatProp;
 
-        public ServiceEntityProps() {
-            this.serviceNameProp = new SimpleStringProperty(serviceName);
-            this.symbolProp = new SimpleStringProperty(symbol);
-            this.unitProp = new SimpleStringProperty(unit);
-            this.netUnitPriceProp = new SimpleObjectProperty<>(netUnitPrice);
-            this.vatProp = new SimpleIntegerProperty(vatTaxRate);
-        }
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
 
-        //region getters and setters
-        public ServiceEntity getServiceEntity() {
-            return ServiceEntity.this;
-        }
+    public String getSymbol() {
+        return symbol;
+    }
 
-        public ServiceEntity setServiceEntity() {
-            return ServiceEntity.this;
-        }
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
 
-        public String getServiceNameProp() {
-            return serviceNameProp.get();
-        }
+    public String getUnit() {
+        return unit;
+    }
 
-        public void setServiceNameProp(String serviceNameProp) {
-            this.serviceNameProp.set(serviceNameProp);
-        }
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 
-        public SimpleStringProperty serviceNamePropProperty() {
-            return serviceNameProp;
-        }
+    public BigDecimal getNetUnitPrice() {
+        return netUnitPrice;
+    }
 
-        public String getSymbolProp() {
-            return symbolProp.get();
-        }
+    public void setNetUnitPrice(BigDecimal netUnitPrice) {
+        this.netUnitPrice = netUnitPrice;
+    }
 
-        public void setSymbolProp(String symbolProp) {
-            this.symbolProp.set(symbolProp);
-        }
+    public int getVatTaxRate() {
+        return vatTaxRate;
+    }
 
-        public SimpleStringProperty symbolPropProperty() {
-            return symbolProp;
-        }
+    public void setVatTaxRate(int vatTaxRate) {
+        this.vatTaxRate = vatTaxRate;
+    }
 
-        public String getUnitProp() {
-            return unitProp.get();
-        }
+    public String getServiceNameProp() {
+        return serviceNameProp.get();
+    }
 
-        public void setUnitProp(String unitProp) {
-            this.unitProp.set(unitProp);
-        }
+    public SimpleStringProperty serviceNamePropProperty() {
+        return serviceNameProp;
+    }
 
-        public SimpleStringProperty unitPropProperty() {
-            return unitProp;
-        }
+    public void setServiceNameProp(String serviceNameProp) {
+        this.serviceNameProp.set(serviceNameProp);
+    }
 
-        public BigDecimal getNetUnitPriceProp() {
-            return netUnitPriceProp.get();
-        }
+    public String getSymbolProp() {
+        return symbolProp.get();
+    }
 
-        public void setNetUnitPriceProp(BigDecimal netUnitPriceProp) {
-            this.netUnitPriceProp.set(netUnitPriceProp);
-        }
+    public SimpleStringProperty symbolPropProperty() {
+        return symbolProp;
+    }
 
-        public SimpleObjectProperty<BigDecimal> netUnitPricePropProperty() {
-            return netUnitPriceProp;
-        }
+    public void setSymbolProp(String symbolProp) {
+        this.symbolProp.set(symbolProp);
+    }
 
-        public int getVatProp() {
-            return vatProp.get();
-        }
+    public String getUnitProp() {
+        return unitProp.get();
+    }
 
-        public void setVatProp(int vatProp) {
-            this.vatProp.set(vatProp);
-        }
+    public SimpleStringProperty unitPropProperty() {
+        return unitProp;
+    }
 
-        public SimpleIntegerProperty vatPropProperty() {
-            return vatProp;
-        }
-        //endregion
+    public void setUnitProp(String unitProp) {
+        this.unitProp.set(unitProp);
+    }
+
+    public BigDecimal getNetUnitPriceProp() {
+        return netUnitPriceProp.get();
+    }
+
+    public SimpleObjectProperty<BigDecimal> netUnitPricePropProperty() {
+        return netUnitPriceProp;
+    }
+
+    public void setNetUnitPriceProp(BigDecimal netUnitPriceProp) {
+        this.netUnitPriceProp.set(netUnitPriceProp);
+    }
+
+    public int getVatProp() {
+        return vatProp.get();
+    }
+
+    public SimpleIntegerProperty vatPropProperty() {
+        return vatProp;
+    }
+
+    public void setVatProp(int vatProp) {
+        this.vatProp.set(vatProp);
     }
 }

@@ -1,7 +1,6 @@
 package com.utilities.classes;
 
 import com.entity.Customer;
-import com.entity.Customer.CustomerProps;
 import com.service.ICustomerService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CustomersList implements Runnable {
-    public static ObservableList<CustomerProps> customerList;
+    public static ObservableList<Customer> customerList;
     private static ICustomerService customerService;
 
     @Autowired
@@ -21,20 +20,18 @@ public class CustomersList implements Runnable {
         thread.start();
     }
 
-    public static void addCustomer(CustomerProps customerProps) {
-        customerService.save(customerProps.getCustomer());
-        customerList.add(customerProps);
+    public static void addCustomer(Customer customer) {
+        customerService.save(customer);
+        customerList.add(customer);
     }
 
-    public static void removeCustomer(CustomerProps customerProps) {
-        customerList.remove(customerProps);
-        customerService.delete(customerProps.getCustomer());
+    public static void removeCustomer(Customer customer) {
+        customerList.remove(customer);
+        customerService.delete(customer);
     }
 
     @Override
     public void run() {
-        for (Customer customer : customerService.findAll()) {
-            customerList.add(customer.getCustomerProps());
-        }
+        customerList.addAll(customerService.findAll());
     }
 }

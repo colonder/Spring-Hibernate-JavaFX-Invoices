@@ -1,7 +1,7 @@
 package com.UI.controllers;
 
-import com.entity.BoughtServices.BoughtServicesProps;
-import com.entity.Customer.CustomerProps;
+import com.entity.BoughtServices;
+import com.entity.Customer;
 import com.service.IBoughtServicesService;
 import com.utilities.classes.CurrencyHandler;
 import com.utilities.classes.CustomersList;
@@ -23,31 +23,31 @@ import java.util.Optional;
 public class MainWindowPresenter {
     //region variables declarations
     @FXML
-    private TableView<BoughtServicesProps> boughtServicesTableView;
+    private TableView<BoughtServices> boughtServicesTableView;
     @FXML
-    private TableColumn<BoughtServicesProps, Number> orderColumn;
+    private TableColumn<BoughtServices, Number> orderColumn;
     @FXML
-    private TableColumn<BoughtServicesProps, String> serviceNameColumn;
+    private TableColumn<BoughtServices, String> serviceNameColumn;
     @FXML
-    private TableColumn<BoughtServicesProps, String> symbolColumn;
+    private TableColumn<BoughtServices, String> symbolColumn;
     @FXML
-    private TableColumn<BoughtServicesProps, String> unitColumn;
+    private TableColumn<BoughtServices, String> unitColumn;
     @FXML
-    private TableColumn<BoughtServicesProps, BigDecimal> quantityColumn;
+    private TableColumn<BoughtServices, BigDecimal> quantityColumn;
     @FXML
-    private TableColumn<BoughtServicesProps, BigDecimal> unitPriceColumn;
+    private TableColumn<BoughtServices, BigDecimal> unitPriceColumn;
     @FXML
-    private TableColumn<BoughtServicesProps, BigDecimal> valWithoutTaxColumn;
+    private TableColumn<BoughtServices, BigDecimal> valWithoutTaxColumn;
     @FXML
-    private TableColumn<BoughtServicesProps, Integer> taxRateColumn;
+    private TableColumn<BoughtServices, Integer> taxRateColumn;
     @FXML
-    private TableColumn<BoughtServicesProps, BigDecimal> taxValColumn;
+    private TableColumn<BoughtServices, BigDecimal> taxValColumn;
     @FXML
-    private TableColumn<BoughtServicesProps, BigDecimal> valWithTaxColumn;
+    private TableColumn<BoughtServices, BigDecimal> valWithTaxColumn;
     @FXML
-    private TableView<CustomerProps> customersTableView;
+    private TableView<Customer> customersTableView;
     @FXML
-    private TableColumn<CustomerProps, String> customersCol;
+    private TableColumn<Customer, String> customersCol;
     @FXML
     private Label contractorNameLabel;
     @FXML
@@ -83,7 +83,7 @@ public class MainWindowPresenter {
 
     private void configureButtons() {
         serviceAddButton.setOnAction(actionEvent ->
-                choiceServiceDialog.showDialog(customersTableView.getSelectionModel().getSelectedItem().getCustomer()));
+                choiceServiceDialog.showDialog(customersTableView.getSelectionModel().getSelectedItem()));
 
         serviceDeleteButton.setOnAction(actionEvent -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -95,9 +95,9 @@ public class MainWindowPresenter {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent()) {
-                for (BoughtServicesProps serviceToDelete : boughtServicesTableView.getSelectionModel().getSelectedItems()) {
-                    customersTableView.getSelectionModel().getSelectedItem().removeBoughtSerbicesProps(serviceToDelete);
-                    boughtServicesService.delete(serviceToDelete.getBoughtService());
+                for (BoughtServices serviceToDelete : boughtServicesTableView.getSelectionModel().getSelectedItems()) {
+                    customersTableView.getSelectionModel().getSelectedItem().removeBoughtSerbices(serviceToDelete);
+                    boughtServicesService.delete(serviceToDelete);
                 }
             }
         });
@@ -118,9 +118,7 @@ public class MainWindowPresenter {
                 cityLabel.setText("");
                 taxIDLabel.setText("");
                 paymentLabel.setText("");
-
                 boughtServicesTableView.getItems().clear();
-
                 sumLabel.setText("");
                 sumWordsLabel.setText("");
             }
@@ -129,7 +127,7 @@ public class MainWindowPresenter {
         customersTableView.getSelectionModel().select(0);
     }
 
-    private void showCustomerDetails(CustomerProps customer) {
+    private void showCustomerDetails(Customer customer) {
         contractorNameLabel.setText(customer.getFirstNameProp() + " " + customer.getLastNameProp());
         companyNameLabel.setText(customer.getCompanyNameProp());
         addressLabel.setText(customer.getAddressProp());
@@ -158,7 +156,7 @@ public class MainWindowPresenter {
                 alert.show();
             } else {
                 try {
-                    boughtServicesService.update(event.getNewValue(), event.getRowValue().getBoughtService().getId());
+                    boughtServicesService.update(event.getNewValue(), event.getRowValue().getId());
                 } catch (PSQLException e) {
                     e.printStackTrace();
                 }
@@ -174,18 +172,17 @@ public class MainWindowPresenter {
         boughtServicesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
-    private void populateBoughtServicesData(CustomerProps customerProps) {
+    private void populateBoughtServicesData(Customer customer) {
         // lazy load (and only once) list of bought services
-        if (customerProps.getBoughtServicesProps().isEmpty()) {
-            boughtServicesService.findBoughtServicesByCustomer(customerProps.getCustomer()).forEach(service ->
-                    customerProps.addBoughtServicesProps(service.getBoughtServicesProps()));
+        if (customer.getBoughtServices().isEmpty()) {
+            boughtServicesService.findBoughtServicesByCustomer(customer).forEach(customer::addBoughtServices);
         }
-        boughtServicesTableView.setItems(customerProps.getBoughtServicesProps());
+        boughtServicesTableView.setItems(customer.getBoughtServices());
     }
 
-    private void sumAll(CustomerProps customerProps) {
+    private void sumAll(Customer customerProps) {
         BigDecimal sum = BigDecimal.ZERO;
-        for (BoughtServicesProps service : customerProps.getBoughtServicesProps()) {
+        for (BoughtServices service : customerProps.getBoughtServices()) {
             sum = sum.add(service.getTotalVal());
         }
         sumLabel.setText(CurrencyHandler.formatToCurrency(sum));
