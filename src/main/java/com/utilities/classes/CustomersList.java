@@ -32,6 +32,7 @@ public class CustomersList implements Runnable {
 
     @Override
     public void run() {
+
         customerList.addAll(customerService.findAll());
     }
 }

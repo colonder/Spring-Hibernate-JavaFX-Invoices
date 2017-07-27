@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "kontrahenci")
@@ -55,6 +57,9 @@ public class Customer {
     @Column(name = "alias", nullable = false)
     private String alias;
 
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private Set<BoughtServices> boughtServicesSet = new HashSet<>();
+
     public Customer() {
         createProps();
     }
@@ -66,6 +71,7 @@ public class Customer {
     }
 
     private void createProps() {
+        this.boughtServices = FXCollections.observableArrayList(boughtServicesSet);
         this.lastNameProp = new SimpleStringProperty(lastName);
         this.firstNameProp = new SimpleStringProperty(firstName);
         this.companyNameProp = new SimpleStringProperty(companyName);
@@ -93,28 +99,17 @@ public class Customer {
         this.alias = this.getAliasProp();
     }
 
-    @Transient
-    private SimpleStringProperty lastNameProp;
-    @Transient
-    private SimpleStringProperty firstNameProp;
-    @Transient
-    private SimpleStringProperty companyNameProp;
-    @Transient
-    private SimpleStringProperty taxIdProp;
-    @Transient
-    private SimpleStringProperty addressProp;
-    @Transient
-    private SimpleStringProperty postalCodeProp;
-    @Transient
-    private SimpleStringProperty cityProp;
-    @Transient
-    private SimpleStringProperty aliasProp;
-    @Transient
-    private SimpleBooleanProperty countProp;
-    @Transient
-    private SimpleObjectProperty<PaymentMethod> paymentProp;
-    @Transient
-    private ObservableList<BoughtServices> boughtServices = FXCollections.observableArrayList();
+    @Transient private SimpleStringProperty lastNameProp;
+    @Transient private SimpleStringProperty firstNameProp;
+    @Transient private SimpleStringProperty companyNameProp;
+    @Transient private SimpleStringProperty taxIdProp;
+    @Transient private SimpleStringProperty addressProp;
+    @Transient private SimpleStringProperty postalCodeProp;
+    @Transient private SimpleStringProperty cityProp;
+    @Transient private SimpleStringProperty aliasProp;
+    @Transient private SimpleBooleanProperty countProp;
+    @Transient private SimpleObjectProperty<PaymentMethod> paymentProp;
+    @Transient private ObservableList<BoughtServices> boughtServices;
 
     public int getId() {
         return id;
@@ -247,6 +242,7 @@ public class Customer {
 
     public void addBoughtServices(BoughtServices service) {
         this.boughtServices.add(service);
+        this.boughtServicesSet.add(service);
     }
 
     public void removeBoughtSerbices(BoughtServices service) {

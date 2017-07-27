@@ -18,30 +18,18 @@ import java.util.Optional;
 @Component
 public class ManageServicesDialogPresenter {
 
-    @FXML
-    ComboBox<String> filterComboBox;
-    @FXML
-    TextField filterTextFld;
-    @FXML
-    Button filterBtn;
-    @FXML
-    Button newServiceBtn;
-    @FXML
-    Button editServiceBtn;
-    @FXML
-    Button deleteServiceBtn;
-    @FXML
-    TableView<ServiceEntity> serviceTableView;
-    @FXML
-    TableColumn<ServiceEntity, String> serviceNameCol;
-    @FXML
-    TableColumn<ServiceEntity, String> symbolCol;
-    @FXML
-    TableColumn<ServiceEntity, String> unitCol;
-    @FXML
-    TableColumn<ServiceEntity, BigDecimal> unitPriceCol;
-    @FXML
-    TableColumn<ServiceEntity, Integer> vatCol;
+    @FXML ComboBox<String> filterComboBox;
+    @FXML TextField filterTextFld;
+    @FXML Button filterBtn;
+    @FXML Button newServiceBtn;
+    @FXML Button editServiceBtn;
+    @FXML Button deleteServiceBtn;
+    @FXML TableView<ServiceEntity> serviceTableView;
+    @FXML TableColumn<ServiceEntity, String> serviceNameCol;
+    @FXML TableColumn<ServiceEntity, String> symbolCol;
+    @FXML TableColumn<ServiceEntity, String> unitCol;
+    @FXML TableColumn<ServiceEntity, BigDecimal> unitPriceCol;
+    @FXML TableColumn<ServiceEntity, Integer> vatCol;
     @Autowired
     private IServicesEntityService servicesEntityService;
 
@@ -100,7 +88,6 @@ public class ManageServicesDialogPresenter {
                             break;
                     }
                 }
-
                 return false;
             });
         });
@@ -189,7 +176,5 @@ public class ManageServicesDialogPresenter {
                         serviceEntity.getId());
             }
         }
-
-        //TODO: refresh instances of service entity somehow
     }
 }

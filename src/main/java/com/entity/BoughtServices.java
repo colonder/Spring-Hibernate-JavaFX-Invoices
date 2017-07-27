@@ -22,11 +22,11 @@ public class BoughtServices implements Serializable {
     private BigDecimal quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "kontrahent_id", insertable = false, updatable = false)
+    @JoinColumn(name = "kontrahent_id", referencedColumnName = "id")
     private Customer customer;
 
-    @ManyToOne//(fetch = FetchType.LAZY) //TODO: comment out for now
-    @JoinColumn(name = "usluga_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usluga_id", referencedColumnName = "id")
     private ServiceEntity serviceEntity;
 
     @Id
@@ -68,7 +68,7 @@ public class BoughtServices implements Serializable {
             valWithoutTax.set(newValue.multiply(getQuantityProp()).setScale(2, BigDecimal.ROUND_HALF_DOWN));
             performCalculations();
         });
-    }
+     }
 
     private void performCalculations() {
         taxVal.set(getValWithoutTax().multiply(BigDecimal.valueOf(getVatProp())).multiply(BigDecimal.valueOf(0.01))
@@ -87,26 +87,17 @@ public class BoughtServices implements Serializable {
     }
 
     // bought service properties
-    @Transient
-    private SimpleObjectProperty<BigDecimal> quantityProp;
-    @Transient
-    private ReadOnlyObjectWrapper<BigDecimal> valWithoutTax;
-    @Transient
-    private ReadOnlyObjectWrapper<BigDecimal> taxVal;
-    @Transient
-    private ReadOnlyObjectWrapper<BigDecimal> totalVal;
+    @Transient private SimpleObjectProperty<BigDecimal> quantityProp;
+    @Transient private ReadOnlyObjectWrapper<BigDecimal> valWithoutTax;
+    @Transient private ReadOnlyObjectWrapper<BigDecimal> taxVal;
+    @Transient private ReadOnlyObjectWrapper<BigDecimal> totalVal;
 
     // service properties
-    @Transient
-    private SimpleStringProperty serviceNameProp;
-    @Transient
-    private SimpleStringProperty symbolProp;
-    @Transient
-    private SimpleStringProperty unitProp;
-    @Transient
-    private SimpleObjectProperty<BigDecimal> netUnitPriceProp;
-    @Transient
-    private SimpleIntegerProperty vatProp;
+    @Transient private SimpleStringProperty serviceNameProp;
+    @Transient private SimpleStringProperty symbolProp;
+    @Transient private SimpleStringProperty unitProp;
+    @Transient private SimpleObjectProperty<BigDecimal> netUnitPriceProp;
+    @Transient private SimpleIntegerProperty vatProp;
 
     //region getters and setters
     public int getId() {

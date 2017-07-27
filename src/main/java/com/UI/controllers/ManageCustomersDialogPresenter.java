@@ -19,40 +19,23 @@ import java.util.Optional;
 @Component
 public class ManageCustomersDialogPresenter {
     //region @FXML objects
-    @FXML
-    TableView<Customer> customersListTableView;
-    @FXML
-    TableColumn<Customer, String> lastNameCol;
-    @FXML
-    TableColumn<Customer, String> firstNameCol;
-    @FXML
-    TableColumn<Customer, String> companyNameCol;
-    @FXML
-    TableColumn<Customer, String> IdNumberCol;
-    @FXML
-    TableColumn<Customer, String> addressCol;
-    @FXML
-    TableColumn<Customer, String> postalCodeCol;
-    @FXML
-    TableColumn<Customer, String> cityCol;
-    @FXML
-    TableColumn<Customer, Boolean> considerCountingCol;
-    @FXML
-    TableColumn<Customer, PaymentMethod> paymentMethodCol;
-    @FXML
-    TableColumn<Customer, String> aliasCol;
-    @FXML
-    ComboBox<String> filterComboBox;
-    @FXML
-    TextField filterTextField;
-    @FXML
-    Button filterBtn;
-    @FXML
-    Button newCustomerBtn;
-    @FXML
-    Button editCustomerBtn;
-    @FXML
-    Button removeCustomerBtn;
+    @FXML TableView<Customer> customersListTableView;
+    @FXML TableColumn<Customer, String> lastNameCol;
+    @FXML TableColumn<Customer, String> firstNameCol;
+    @FXML TableColumn<Customer, String> companyNameCol;
+    @FXML TableColumn<Customer, String> IdNumberCol;
+    @FXML TableColumn<Customer, String> addressCol;
+    @FXML TableColumn<Customer, String> postalCodeCol;
+    @FXML TableColumn<Customer, String> cityCol;
+    @FXML TableColumn<Customer, Boolean> considerCountingCol;
+    @FXML TableColumn<Customer, PaymentMethod> paymentMethodCol;
+    @FXML TableColumn<Customer, String> aliasCol;
+    @FXML ComboBox<String> filterComboBox;
+    @FXML TextField filterTextField;
+    @FXML Button filterBtn;
+    @FXML Button newCustomerBtn;
+    @FXML Button editCustomerBtn;
+    @FXML Button removeCustomerBtn;
     @Autowired
     private ICustomerService customerService;
     //endregion
@@ -238,9 +221,10 @@ public class ManageCustomersDialogPresenter {
             if (source.equals(newCustomerBtn)) {
                 CustomersList.addCustomer(customer);
             } else {
-                customerService.update(customer.getLastNameProp(), customer.getFirstNameProp(), customer.getCompanyNameProp(),
-                        customer.getTaxIdProp(), customer.getAddressProp(), customer.getPostalCodeProp(), customer.getCityProp(),
-                        customer.getPaymentProp(), customer.getCountProp(), customer.getAliasProp(), customer.getId());
+                customerService.update(customer.getLastNameProp(), customer.getFirstNameProp(),
+                        customer.getCompanyNameProp(), customer.getTaxIdProp(), customer.getAddressProp(),
+                        customer.getPostalCodeProp(), customer.getCityProp(), customer.getPaymentProp(),
+                        customer.getCountProp(), customer.getAliasProp(), customer.getId());
             }
         }
     }

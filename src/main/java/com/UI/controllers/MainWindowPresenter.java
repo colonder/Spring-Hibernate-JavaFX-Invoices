@@ -22,52 +22,29 @@ import java.util.Optional;
 @Component
 public class MainWindowPresenter {
     //region variables declarations
-    @FXML
-    private TableView<BoughtServices> boughtServicesTableView;
-    @FXML
-    private TableColumn<BoughtServices, Number> orderColumn;
-    @FXML
-    private TableColumn<BoughtServices, String> serviceNameColumn;
-    @FXML
-    private TableColumn<BoughtServices, String> symbolColumn;
-    @FXML
-    private TableColumn<BoughtServices, String> unitColumn;
-    @FXML
-    private TableColumn<BoughtServices, BigDecimal> quantityColumn;
-    @FXML
-    private TableColumn<BoughtServices, BigDecimal> unitPriceColumn;
-    @FXML
-    private TableColumn<BoughtServices, BigDecimal> valWithoutTaxColumn;
-    @FXML
-    private TableColumn<BoughtServices, Integer> taxRateColumn;
-    @FXML
-    private TableColumn<BoughtServices, BigDecimal> taxValColumn;
-    @FXML
-    private TableColumn<BoughtServices, BigDecimal> valWithTaxColumn;
-    @FXML
-    private TableView<Customer> customersTableView;
-    @FXML
-    private TableColumn<Customer, String> customersCol;
-    @FXML
-    private Label contractorNameLabel;
-    @FXML
-    private Label companyNameLabel;
-    @FXML
-    private Label addressLabel;
-    @FXML
-    private Label cityLabel;
-    @FXML
-    private Label taxIDLabel;
-    @FXML
-    private Label paymentLabel;
-    @FXML
-    private Label sumWordsLabel;
-    @FXML
-    private Label sumLabel;
-    @FXML
-    private Button serviceAddButton;
-    @FXML
-    private Button serviceDeleteButton;
+    @FXML private TableView<BoughtServices> boughtServicesTableView;
+    @FXML private TableColumn<BoughtServices, Number> orderColumn;
+    @FXML private TableColumn<BoughtServices, String> serviceNameColumn;
+    @FXML private TableColumn<BoughtServices, String> symbolColumn;
+    @FXML private TableColumn<BoughtServices, String> unitColumn;
+    @FXML private TableColumn<BoughtServices, BigDecimal> quantityColumn;
+    @FXML private TableColumn<BoughtServices, BigDecimal> unitPriceColumn;
+    @FXML private TableColumn<BoughtServices, BigDecimal> valWithoutTaxColumn;
+    @FXML private TableColumn<BoughtServices, Integer> taxRateColumn;
+    @FXML private TableColumn<BoughtServices, BigDecimal> taxValColumn;
+    @FXML private TableColumn<BoughtServices, BigDecimal> valWithTaxColumn;
+    @FXML private TableView<Customer> customersTableView;
+    @FXML private TableColumn<Customer, String> customersCol;
+    @FXML private Label contractorNameLabel;
+    @FXML private Label companyNameLabel;
+    @FXML private Label addressLabel;
+    @FXML private Label cityLabel;
+    @FXML private Label taxIDLabel;
+    @FXML private Label paymentLabel;
+    @FXML private Label sumWordsLabel;
+    @FXML private Label sumLabel;
+    @FXML private Button serviceAddButton;
+    @FXML private Button serviceDeleteButton;
     @Autowired
     private ChoiceServiceDialog choiceServiceDialog;
     @Autowired
@@ -174,9 +151,9 @@ public class MainWindowPresenter {
 
     private void populateBoughtServicesData(Customer customer) {
         // lazy load (and only once) list of bought services
-        if (customer.getBoughtServices().isEmpty()) {
-            boughtServicesService.findBoughtServicesByCustomer(customer).forEach(customer::addBoughtServices);
-        }
+        //if (customer.getBoughtServices().isEmpty()) {
+        //    boughtServicesService.findBoughtServicesByCustomer(customer).forEach(customer::addBoughtServices);
+        //}
         boughtServicesTableView.setItems(customer.getBoughtServices());
     }
 
