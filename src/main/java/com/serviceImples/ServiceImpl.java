@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -15,6 +16,8 @@ public class ServiceImpl implements IServicesEntityService {
 
     @Autowired
     private IServiceRepository serviceRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     public List<ServiceEntity> findAll() {
         return serviceRepository.findAll();

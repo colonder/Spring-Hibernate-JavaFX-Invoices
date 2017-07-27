@@ -57,7 +57,7 @@ public class Customer {
     @Column(name = "alias", nullable = false)
     private String alias;
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<BoughtServices> boughtServicesSet = new HashSet<>();
 
     public Customer() {

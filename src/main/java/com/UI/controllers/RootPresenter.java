@@ -8,23 +8,22 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class RootPresenter {
-    @FXML
-    private Button settingsBtn;
-    @FXML
-    private Button printBtn;
-    @FXML
-    private Button saveBtn;
-    @FXML
-    private Button manageServicesBtn;
-    @FXML
-    private Button manageCustomersBtn;
+    @FXML private Button settingsBtn;
+    @FXML private Button printBtn;
+    @FXML private Button saveBtn;
+    @FXML private Button manageServicesBtn;
+    @FXML private Button manageCustomersBtn;
+    @FXML private DatePicker datePicker;
 
     @Autowired
     private ManageCustomersDialogView manageCustomersDialog;
@@ -36,6 +35,7 @@ public class RootPresenter {
     public void initialize() {
         manageCustomersBtn.setOnAction(e -> showManagementWindow(manageCustomersDialog, manageCustomersBtn.getText()));
         manageServicesBtn.setOnAction(e -> showManagementWindow(manageServicesDialog, manageServicesBtn.getText()));
+        datePicker.setValue(LocalDate.now());
     }
 
     private void showManagementWindow(AbstractFxmlView view, String windowTitle) {

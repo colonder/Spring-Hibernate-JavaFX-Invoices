@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -32,15 +33,18 @@ public class ManageServicesDialogPresenter {
     @FXML TableColumn<ServiceEntity, Integer> vatCol;
     @Autowired
     private IServicesEntityService servicesEntityService;
+    @Autowired
+    private EntityManager entityManager;
 
-    private ObservableList<String> filterCriteria = FXCollections.observableArrayList("Nazwa", "Symbol PKWIU/PKOB",
-            "Jednostka", "Stawka VAT");
     private FilteredList<ServiceEntity> filteredList;
-    private ObservableList<ServiceEntity> servicesList = FXCollections.observableArrayList();
+    private ObservableList<ServiceEntity> servicesList;
 
     @FXML
     public void initialize() {
 
+        ObservableList<String> filterCriteria = FXCollections.observableArrayList("Nazwa", "Symbol PKWIU/PKOB",
+                "Jednostka", "Stawka VAT");
+        servicesList = FXCollections.observableArrayList();
         new Thread(() -> servicesList.addAll(servicesEntityService.findAll())).start();
 
         serviceNameCol.setCellValueFactory(new PropertyValueFactory<>("serviceNameProp"));
