@@ -1,4 +1,4 @@
-package com.utilities.classes;
+package com.utilities;
 
 import com.ibm.icu.text.NumberFormat;
 import com.ibm.icu.text.RuleBasedNumberFormat;

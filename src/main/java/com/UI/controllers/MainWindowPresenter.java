@@ -3,9 +3,9 @@ package com.UI.controllers;
 import com.entity.BoughtServices;
 import com.entity.Customer;
 import com.service.IBoughtServicesService;
-import com.utilities.classes.CurrencyHandler;
-import com.utilities.classes.CustomersList;
-import com.utilities.dialogs.ChoiceServiceDialog;
+import com.utilities.ChoiceServiceDialog;
+import com.utilities.CurrencyHandler;
+import com.utilities.CustomersList;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -86,8 +86,9 @@ public class MainWindowPresenter {
         customersTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
             try {
                 showCustomerDetails(newVal);
-                populateBoughtServicesData(customersTableView.getSelectionModel().getSelectedItem());
+                boughtServicesTableView.setItems(customersTableView.getSelectionModel().getSelectedItem().getBoughtServices());
                 sumAll(customersTableView.getSelectionModel().getSelectedItem());
+                CustomersList.currentlySelected = customersTableView.getSelectionModel().getSelectedIndex();
             } catch (NullPointerException e) {
                 contractorNameLabel.setText("");
                 companyNameLabel.setText("");
@@ -147,14 +148,6 @@ public class MainWindowPresenter {
         taxValColumn.setCellValueFactory(new PropertyValueFactory<>("taxVal"));
         valWithTaxColumn.setCellValueFactory(new PropertyValueFactory<>("totalVal"));
         boughtServicesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-    }
-
-    private void populateBoughtServicesData(Customer customer) {
-        // lazy load (and only once) list of bought services
-        //if (customer.getBoughtServices().isEmpty()) {
-        //    boughtServicesService.findBoughtServicesByCustomer(customer).forEach(customer::addBoughtServices);
-        //}
-        boughtServicesTableView.setItems(customer.getBoughtServices());
     }
 
     private void sumAll(Customer customerProps) {

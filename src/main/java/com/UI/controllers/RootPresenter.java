@@ -3,6 +3,8 @@ package com.UI.controllers;
 import com.UI.view.AbstractFxmlView;
 import com.UI.view.ManageCustomersDialogView;
 import com.UI.view.ManageServicesDialogView;
+import com.utilities.CustomersList;
+import com.utilities.PDFHandler;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -35,6 +37,14 @@ public class RootPresenter {
     public void initialize() {
         manageCustomersBtn.setOnAction(e -> showManagementWindow(manageCustomersDialog, manageCustomersBtn.getText()));
         manageServicesBtn.setOnAction(e -> showManagementWindow(manageServicesDialog, manageServicesBtn.getText()));
+        printBtn.setOnAction(event -> {
+            PDFHandler handler = new PDFHandler(CustomersList.customerList.get(CustomersList.currentlySelected));
+            handler.printPDF();
+        });
+        saveBtn.setOnAction(event -> {
+            PDFHandler handler = new PDFHandler(CustomersList.customerList.get(CustomersList.currentlySelected));
+            handler.savePDF();
+        });
         datePicker.setValue(LocalDate.now());
     }
 

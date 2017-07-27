@@ -3,7 +3,7 @@ package com.UI.controllers;
 import com.entity.Customer;
 import com.entity.PaymentMethod;
 import com.service.ICustomerService;
-import com.utilities.classes.CustomersList;
+import com.utilities.CustomersList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -33,8 +32,6 @@ public class ManageServicesDialogPresenter {
     @FXML TableColumn<ServiceEntity, Integer> vatCol;
     @Autowired
     private IServicesEntityService servicesEntityService;
-    @Autowired
-    private EntityManager entityManager;
 
     private FilteredList<ServiceEntity> filteredList;
     private ObservableList<ServiceEntity> servicesList;
@@ -180,5 +177,7 @@ public class ManageServicesDialogPresenter {
                         serviceEntity.getId());
             }
         }
+
+        // TODO: make net price in table auto refreshing somehow
     }
 }

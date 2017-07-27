@@ -1,4 +1,4 @@
-package com.utilities.classes;
+package com.utilities;
 
 import com.entity.Customer;
 import com.service.ICustomerService;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class CustomersList implements Runnable {
     public static ObservableList<Customer> customerList;
     private static ICustomerService customerService;
+    public static int currentlySelected;
 
     @Autowired
     public CustomersList(ICustomerService customerService) {
