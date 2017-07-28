@@ -1,7 +1,9 @@
 package com.utilities;
 
 import com.entity.Customer;
+import javafx.print.PrinterJob;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -16,6 +18,7 @@ import java.io.IOException;
 public class PDFHandler
 {
     private PDDocument doc;
+    private VBox root = new VBox(5);
 
     public PDFHandler(Customer customer)
     {
@@ -50,7 +53,16 @@ public class PDFHandler
 
     public void printPDF()
     {
-        //TODO: implement printing
+        PrinterJob job = PrinterJob.createPrinterJob();
+        if (job == null)
+            return;
+        boolean proceed = job.showPrintDialog(new Stage());
+        if (proceed)
+        {
+            boolean printed = job.printPage(root);
+            if (printed)
+                job.endJob();
+        }
     }
 
     public void savePDF()
