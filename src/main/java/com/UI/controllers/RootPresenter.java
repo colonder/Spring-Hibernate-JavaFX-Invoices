@@ -38,11 +38,13 @@ public class RootPresenter {
         manageCustomersBtn.setOnAction(e -> showManagementWindow(manageCustomersDialog, manageCustomersBtn.getText()));
         manageServicesBtn.setOnAction(e -> showManagementWindow(manageServicesDialog, manageServicesBtn.getText()));
         printBtn.setOnAction(event -> {
-            PDFHandler handler = new PDFHandler(CustomersList.customerList.get(CustomersList.currentlySelected));
+            PDFHandler handler = new PDFHandler(CustomersList.customerList.get(CustomersList.currentlySelected),
+                    datePicker.getValue());
             handler.printPDF();
         });
         saveBtn.setOnAction(event -> {
-            PDFHandler handler = new PDFHandler(CustomersList.customerList.get(CustomersList.currentlySelected));
+            PDFHandler handler = new PDFHandler(CustomersList.customerList.get(CustomersList.currentlySelected),
+                    datePicker.getValue());
             handler.savePDF();
         });
         datePicker.setValue(LocalDate.now());
