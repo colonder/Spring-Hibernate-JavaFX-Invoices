@@ -1,6 +1,7 @@
 package com.entity;
 
 import com.entity.enums.InvoiceStatus;
+import com.entity.enums.InvoiceType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -18,6 +19,10 @@ public class Invoice
 
     @Column(name = "invoice_signature")
     private String invoiceSignature;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private InvoiceType type;
 
     @Column(name = "seller")
     private String seller;
@@ -43,6 +48,7 @@ public class Invoice
     @Column(name = "currency")
     private String currency;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private InvoiceStatus status;
 
