@@ -26,6 +26,9 @@ public class Customer {
     @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "personal_id")
+    private int personalId;
+
     @Column(name = "tax_identifier_number")
     private String taxIdentifier;
 
@@ -86,7 +89,7 @@ public class Customer {
     private BigDecimal defaultDiscount;
 
     @Column(name = "default_payment_date_days")
-    private int defaultDueDateInDays;
+    private int defaultPaymentDateDays;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Invoice> boughtProductsSet = new HashSet<>();
