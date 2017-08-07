@@ -85,7 +85,7 @@ public class Customer {
     @Column(name = "default_discount")
     private BigDecimal defaultDiscount;
 
-    @Column(name = "default_due_date_days")
+    @Column(name = "default_payment_date_days")
     private int defaultDueDateInDays;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)

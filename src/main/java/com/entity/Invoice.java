@@ -42,7 +42,8 @@ public class Invoice
     @Column(name = "payment_date")
     private Date paymentDate;
 
-    @Column(name = "payment_deadline")
+    // TODO: check in code for expiration date
+    @Column(name = "payment_expiration")
     private Date paymentDeadline;
 
     @Column(name = "currency")
