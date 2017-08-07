@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface IInvoiceService {
     List<Invoice> findAll();
-    Invoice save(Invoice customer);
-    void delete(Invoice customer);
+    Invoice save(Invoice invoice);
+    void delete(Invoice invoice);
     int update(String seller, BigDecimal paidAmount, PaymentMethod method, Date paymentDate, Date paymentDeadline,
                InvoiceStatus status, Date lastModified, String notes, int id);
     int updateSent(Date sentDate, int id);

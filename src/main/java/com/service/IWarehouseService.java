@@ -8,8 +8,8 @@ import java.util.List;
 public interface IWarehouseService
 {
     List<Warehouse> findAll();
-    Warehouse save(Warehouse customer);
-    void delete(Warehouse customer);
+    Warehouse save(Warehouse warehouse);
+    void delete(Warehouse warehouse);
     int updateAmount(int sold, int available, int id);
     int update(String productCode, Date lastSellDate, int id);
 }
