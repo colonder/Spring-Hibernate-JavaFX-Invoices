@@ -5,7 +5,7 @@ import com.entity.enums.InvoiceType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -43,7 +43,7 @@ public class Invoice
     private Date paymentDate;
 
     // TODO: check in code for expiration date
-    @Column(name = "payment_expiration")
+    @Column(name = "payment_expiration_date")
     private Date paymentDeadline;
 
     @Column(name = "currency")
@@ -59,8 +59,8 @@ public class Invoice
     @Column(name = "last_modified")
     private Date lastModified;
 
-    @Column(name = "send_date")
-    private Date sendDate;
+    @Column(name = "sent_date")
+    private Date sentDate;
 
     @Column(name = "notes")
     private String notes;
