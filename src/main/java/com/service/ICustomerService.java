@@ -1,7 +1,7 @@
 package com.service;
 
 import com.entity.Customer;
-import com.entity.PaymentMethod;
+import com.entity.enums.PaymentMethod;
 
 import java.util.List;
 

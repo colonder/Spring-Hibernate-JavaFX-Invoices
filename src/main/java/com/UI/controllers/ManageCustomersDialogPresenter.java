@@ -1,7 +1,7 @@
 package com.UI.controllers;
 
 import com.entity.Customer;
-import com.entity.PaymentMethod;
+import com.entity.enums.PaymentMethod;
 import com.service.ICustomerService;
 import com.utilities.CustomersList;
 import javafx.collections.FXCollections;

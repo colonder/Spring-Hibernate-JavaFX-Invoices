@@ -1,7 +1,7 @@
 package com.serviceImples;
 
 import com.entity.Customer;
-import com.entity.PaymentMethod;
+import com.entity.enums.PaymentMethod;
 import com.repositories.ICustomerRepository;
 import com.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
