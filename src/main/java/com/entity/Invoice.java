@@ -17,16 +17,17 @@ public class Invoice
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "invoice_signature")
-    private String invoiceSignature;
+    @Column(name = "invoice_number")
+    private String invoiceNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type")
+    @Column(name = "invoice_type")
     private InvoiceType type;
 
     @Column(name = "seller")
     private String seller;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "issue_date")
     private Date issueDate;
 
@@ -39,10 +40,12 @@ public class Invoice
     @Column(name = "payment_method")
     private String paymentMethod;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "payment_date")
     private Date paymentDate;
 
     // TODO: check in code for expiration date
+    @Temporal(TemporalType.DATE)
     @Column(name = "payment_expiration_date")
     private Date paymentDeadline;
 
@@ -53,12 +56,15 @@ public class Invoice
     @Column(name = "status")
     private InvoiceStatus status;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "creation_date")
     private Date creationDate;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "last_modified")
     private Date lastModified;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "sent_date")
     private Date sentDate;
 

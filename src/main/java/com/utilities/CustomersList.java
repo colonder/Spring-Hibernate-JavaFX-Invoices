@@ -1,15 +1,10 @@
 package com.utilities;
 
-import com.entity.Customer;
-import com.service.ICustomerService;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomersList implements Runnable {
-    public static ObservableList<Customer> customerList;
+public class CustomersList {//implements Runnable {
+    /*public static ObservableList<Customer> customerList;
     private static ICustomerService customerService;
     public static int currentlySelected;
 
@@ -33,7 +28,6 @@ public class CustomersList implements Runnable {
 
     @Override
     public void run() {
-
         customerList.addAll(customerService.findAll());
-    }
+    }*/
 }

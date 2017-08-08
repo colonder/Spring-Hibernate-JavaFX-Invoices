@@ -60,9 +60,11 @@ public class Customer {
     @Column(name = "default_payment_method")
     private PaymentMethod defaultPaymentMethod;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "creation_date")
     private Date creationDate;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "last_purchase_date")
     private Date lastPurchaseDate;
 

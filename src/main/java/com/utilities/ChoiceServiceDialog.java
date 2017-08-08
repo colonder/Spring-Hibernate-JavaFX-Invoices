@@ -1,25 +1,10 @@
 package com.utilities;
 
-import com.entity.BoughtServices;
-import com.entity.Customer;
-import com.entity.ServiceEntity;
-import com.service.IBoughtServicesService;
-import com.service.IServicesEntityService;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
-import java.util.Optional;
 
 @Component
 public class ChoiceServiceDialog {
-    @Autowired
+    /*@Autowired
     private IServicesEntityService servicesEntityService;
 
     @Autowired
@@ -61,5 +46,5 @@ public class ChoiceServiceDialog {
         vBox.setSpacing(5d);
         vBox.setPadding(new Insets(5, 5, 5, 5));
         dialog.getDialogPane().setContent(vBox);
-    }
+    }*/
 }
