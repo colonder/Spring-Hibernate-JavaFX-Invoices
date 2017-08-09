@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.RootPresenter">
    <top>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="41.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <FlowPane prefHeight="41.0" prefWidth="770.0">
+                  <FlowPane prefHeight="44.0" prefWidth="787.0">
                      <children>
                         <Button fx:id="homeBtn" mnemonicParsing="false" text="Home">
                            <font>
@@ -38,7 +32,7 @@
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="/icons/document.png" />
+                                    <Image url="/icons/invoice.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -67,7 +61,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="warehouseBtn" mnemonicParsing="false" text="Warehouse">
+                        <Button fx:id="warehouseBtn1" layoutX="494.0" layoutY="10.0" mnemonicParsing="false" text="Warehouse">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -75,6 +69,18 @@
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="/icons/warehouse.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="warehouseBtn" mnemonicParsing="false" text="Charts">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="/icons/statistics.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -105,9 +111,6 @@
          </children>
       </AnchorPane>
    </top>
-   <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
-   </left>
    <bottom>
       <FlowPane prefHeight="30.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </bottom>
