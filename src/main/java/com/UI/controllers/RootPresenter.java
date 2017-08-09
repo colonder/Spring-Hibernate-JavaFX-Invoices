@@ -2,7 +2,6 @@ package com.UI.controllers;
 
 import com.UI.view.HomeView;
 import com.UI.view.InvoicesView;
-import com.UI.view.RootView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class RootPresenter {
 
-    @Autowired private RootView rootView;
     @Autowired private HomeView homeView;
     @Autowired private InvoicesView invoicesView;
 
