@@ -1,4 +1,7 @@
 package com.UI.view;
 
-public class HomeView {
+import org.springframework.stereotype.Component;
+
+@Component
+public class HomeView extends AbstractFxmlView {
 }

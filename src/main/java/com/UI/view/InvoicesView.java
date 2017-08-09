@@ -1,4 +1,7 @@
 package com.UI.view;
 
-public class InvoicesView {
+import org.springframework.stereotype.Component;
+
+@Component
+public class InvoicesView extends AbstractFxmlView {
 }
