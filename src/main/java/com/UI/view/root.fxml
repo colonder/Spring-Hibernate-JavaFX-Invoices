@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.RootPresenter">
@@ -17,73 +16,31 @@
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="/icons/home.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
                         <Button fx:id="invoicesBtn" mnemonicParsing="false" text="Invoices">
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="/icons/invoice.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
                         <Button fx:id="customersBtn" mnemonicParsing="false" text="Customers">
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="/icons/customer.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
                         <Button fx:id="productsBtn" mnemonicParsing="false" text="Products">
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="/icons/product.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
                         <Button fx:id="warehouseBtn1" layoutX="494.0" layoutY="10.0" mnemonicParsing="false" text="Warehouse">
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="/icons/warehouse.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
                         <Button fx:id="warehouseBtn" mnemonicParsing="false" text="Charts">
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="/icons/statistics.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
                      </children>
                   </FlowPane>
@@ -96,13 +53,6 @@
                            <FlowPane.margin>
                               <Insets />
                            </FlowPane.margin>
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="/icons/settings.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
                      </children>
                   </FlowPane>

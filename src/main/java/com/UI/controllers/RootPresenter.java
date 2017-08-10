@@ -32,5 +32,17 @@ public class RootPresenter {
             BorderPane parent = (BorderPane) invoicesBtn.getScene().getRoot();
             parent.setCenter(invoicesView.getView());
         });
+
+        customersBtn.setOnAction(event -> {
+
+        });
+
+        productsBtn.setOnAction(event -> {
+
+        });
+
+        warehouseBtn.setOnAction(event -> {
+
+        });
     }
 }
