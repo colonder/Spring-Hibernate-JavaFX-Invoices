@@ -6,12 +6,14 @@ import com.entity.enums.PaymentMethod;
 import com.repositories.ICustomerRepository;
 import com.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class CustomerServImp implements ICustomerService {
     @Autowired
     private ICustomerRepository customerRepository;

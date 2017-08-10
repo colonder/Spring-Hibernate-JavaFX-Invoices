@@ -6,12 +6,14 @@ import com.entity.enums.PaymentMethod;
 import com.repositories.IInvoiceRepository;
 import com.service.IInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class InvoiceServImp implements IInvoiceService {
     @Autowired
     private IInvoiceRepository invoiceRepository;
@@ -45,5 +47,10 @@ public class InvoiceServImp implements IInvoiceService {
     @Transactional
     public int updateSent(Date sentDate, int id) {
         return invoiceRepository.updateSent(sentDate, id);
+    }
+
+    @Override
+    public BigDecimal sumByPeriod(Date date) {
+        return invoiceRepository.sumByPeriod(date);
     }
 }

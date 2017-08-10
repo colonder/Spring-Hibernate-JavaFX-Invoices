@@ -15,4 +15,5 @@ public interface IInvoiceService {
     int update(String seller, BigDecimal paidAmount, PaymentMethod method, Date paymentDate, Date paymentDeadline,
                InvoiceStatus status, Date lastModified, String notes, int id);
     int updateSent(Date sentDate, int id);
+    BigDecimal sumByPeriod(Date date);
 }

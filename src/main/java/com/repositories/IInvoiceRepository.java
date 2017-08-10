@@ -22,4 +22,7 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
     @Modifying
     @Query("UPDATE Invoice i SET i.sentDate =?1 where i.id =?2")
     int updateSent(Date sentDate, int id);
+
+    @Query("SELECT SUM(i.charge) FROM Invoice i WHERE i.issueDate <= ?1")
+    BigDecimal sumByPeriod(Date date);
 }

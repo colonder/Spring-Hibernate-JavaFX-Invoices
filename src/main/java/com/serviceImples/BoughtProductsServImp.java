@@ -4,12 +4,14 @@ import com.entity.BoughtProducts;
 import com.repositories.IBoughtProductsRepository;
 import com.service.IBoughtProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class BoughtProductsServImp implements IBoughtProductsService {
     @Autowired
     private IBoughtProductsRepository boughtProductsRepository;

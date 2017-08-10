@@ -146,7 +146,7 @@
          <center>
             <FlowPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="280.0" text="Standard Invoice">
+                  <Button fx:id="standardBtn" alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="280.0" text="Standard Invoice">
                      <FlowPane.margin>
                         <Insets left="10.0" right="10.0" />
                      </FlowPane.margin>
@@ -154,7 +154,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="280.0" text="Pro-forma Invoice">
+                  <Button fx:id="proFormaBtn" alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="280.0" text="Pro-forma Invoice">
                      <FlowPane.margin>
                         <Insets left="10.0" right="10.0" />
                      </FlowPane.margin>
@@ -162,7 +162,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="280.0" text="Corrective Invoice">
+                  <Button fx:id="correctiveBtn" alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="280.0" text="Corrective Invoice">
                      <FlowPane.margin>
                         <Insets left="10.0" right="10.0" />
                      </FlowPane.margin>
@@ -170,7 +170,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="280.0" text="Expenses">
+                  <Button fx:id="expensesBtn" alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="280.0" text="Expenses">
                      <FlowPane.margin>
                         <Insets left="10.0" right="10.0" />
                      </FlowPane.margin>
