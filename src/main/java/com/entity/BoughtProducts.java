@@ -2,7 +2,7 @@ package com.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "bought_products")
@@ -25,7 +25,7 @@ public class BoughtProducts {
     private BigDecimal grossValue;
 
     @Column(name = "sell_date", nullable = false)
-    private Date sellDate;
+    private LocalDate sellDate;
 
     @ManyToOne
     @JoinColumn(name = "invoice_id", referencedColumnName = "id")

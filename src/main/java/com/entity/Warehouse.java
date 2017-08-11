@@ -1,7 +1,7 @@
 package com.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "warehouse")
@@ -22,8 +22,8 @@ public class Warehouse {
     private String productCode;
 
     @Column(name = "creation_date", nullable = false)
-    private Date creationDate;
+    private LocalDate creationDate;
 
     @Column(name = "last_sell_date", nullable = true)
-    private Date lastSellDate;
+    private LocalDate lastSellDate;
 }

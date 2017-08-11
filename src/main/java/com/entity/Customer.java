@@ -5,7 +5,7 @@ import com.entity.enums.PaymentMethod;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -60,13 +60,11 @@ public class Customer {
     @Column(name = "default_payment_method")
     private PaymentMethod defaultPaymentMethod;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "creation_date")
-    private Date creationDate;
+    private LocalDate creationDate;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "last_purchase_date")
-    private Date lastPurchaseDate;
+    private LocalDate lastPurchaseDate;
 
     @Column(name = "country")
     private String country;
