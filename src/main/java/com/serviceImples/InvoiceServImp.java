@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -37,20 +37,30 @@ public class InvoiceServImp implements IInvoiceService {
 
     @Override
     @Transactional
-    public int update(String seller, BigDecimal paidAmount, PaymentMethod method, Date paymentDate,
-                      Date paymentDeadline, InvoiceStatus status, Date lastModified, String notes, int id) {
+    public int update(String seller, BigDecimal paidAmount, PaymentMethod method, LocalDate paymentDate,
+                      LocalDate paymentDeadline, InvoiceStatus status, LocalDate lastModified, String notes, int id) {
         return invoiceRepository.update(seller, paidAmount, method, paymentDate, paymentDeadline, status, lastModified,
                 notes, id);
     }
 
     @Override
     @Transactional
-    public int updateSent(Date sentDate, int id) {
+    public int updateSent(LocalDate sentDate, int id) {
         return invoiceRepository.updateSent(sentDate, id);
     }
 
     @Override
-    public BigDecimal sumByPeriod(Date date) {
-        return invoiceRepository.sumByPeriod(date);
+    public BigDecimal sumByDay(LocalDate date) {
+        return invoiceRepository.sumByDay(date);
+    }
+
+    @Override
+    public BigDecimal sumByMonth(LocalDate date) {
+        return invoiceRepository.sumByMonth(date);
+    }
+
+    @Override
+    public BigDecimal sumByYear(LocalDate date) {
+        return invoiceRepository.sumByYear(date);
     }
 }
