@@ -6,6 +6,7 @@ import com.entity.enums.PaymentMethod;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -23,12 +24,6 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
     @Query("UPDATE Invoice i SET i.sentDate =?1 where i.id =?2")
     int updateSent(LocalDate sentDate, int id);
 
-    @Query("SELECT SUM(i.charge) FROM Invoice i WHERE EXTRACT(DAY FROM issued_date) =?1")
-    BigDecimal sumByDay(LocalDate date);
-
-    @Query("SELECT SUM(i.charge) FROM Invoice i WHERE EXTRACT(MONTH FROM issued_date) =?1")
-    BigDecimal sumByMonth(LocalDate date);
-
-    @Query("SELECT SUM(i.charge) FROM Invoice i WHERE EXTRACT(YEAR FROM issued_date) =?1")
-    BigDecimal sumByYear(LocalDate date);
+    @Query("SELECT SUM(i.charge) FROM Invoice i WHERE i.paymentDate BETWEEN :startDate AND :endDate")
+    BigDecimal sumByPeriod(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

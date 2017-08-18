@@ -50,17 +50,7 @@ public class InvoiceServImp implements IInvoiceService {
     }
 
     @Override
-    public BigDecimal sumByDay(LocalDate date) {
-        return invoiceRepository.sumByDay(date);
-    }
-
-    @Override
-    public BigDecimal sumByMonth(LocalDate date) {
-        return invoiceRepository.sumByMonth(date);
-    }
-
-    @Override
-    public BigDecimal sumByYear(LocalDate date) {
-        return invoiceRepository.sumByYear(date);
+    public BigDecimal sumByPeriod(LocalDate startDate, LocalDate endDate) {
+        return invoiceRepository.sumByPeriod(startDate, endDate);
     }
 }
