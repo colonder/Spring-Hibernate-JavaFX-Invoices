@@ -28,6 +28,7 @@ public class Main extends AbstractJavaFxApplicationSupport {
         stage.setScene(new Scene(pane));
         stage.setResizable(false);
         stage.centerOnScreen();
+        stage.setResizable(true);
         stage.show();
     }
 }
