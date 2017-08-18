@@ -40,7 +40,18 @@ public class HomePresenter {
         correctiveBtn.setOnAction(event -> openView(correctiveBtn, invoicesView));
         expensesBtn.setOnAction(event -> openView(expensesBtn, invoicesView));
 
-        initLabels();
+        initRevenueLabels();
+        initSalesLabels();
+    }
+
+    private void initSalesLabels()
+    {
+        LocalDate today = LocalDate.now();
+
+        todaySalesLabel.setText(String.valueOf(invoiceService.countAllByPaymentDateBetween(today, today)));
+        lastSevenDaysLabel.setText(String.valueOf(invoiceService.countAllByPaymentDateBetween(today.minusDays(7), today)));
+        curMonthSalesLabel.setText(String.valueOf(invoiceService.countAllByPaymentDateBetween(today.withDayOfMonth(1), today)));
+        curYearSalesLabel.setText(String.valueOf(invoiceService.countAllByPaymentDateBetween(today.withDayOfYear(1), today)));
     }
 
     private void openView(Button button, AbstractFxmlView view)
@@ -49,7 +60,7 @@ public class HomePresenter {
         parent.setCenter(view.getView());
     }
 
-    private void initLabels()
+    private void initRevenueLabels()
     {
         LocalDate today = LocalDate.now();
 

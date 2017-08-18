@@ -26,4 +26,6 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
 
     @Query("SELECT SUM(i.charge) FROM Invoice i WHERE i.paymentDate BETWEEN :startDate AND :endDate")
     BigDecimal sumByPeriod(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+    int countAllByPaymentDateBetween(LocalDate startDate, LocalDate endDate);
 }

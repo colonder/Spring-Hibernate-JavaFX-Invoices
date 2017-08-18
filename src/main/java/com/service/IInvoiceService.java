@@ -16,4 +16,5 @@ public interface IInvoiceService {
                InvoiceStatus status, LocalDate lastModified, String notes, int id);
     int updateSent(LocalDate sentDate, int id);
     BigDecimal sumByPeriod(LocalDate startDate, LocalDate endDate);
+    int countAllByPaymentDateBetween(LocalDate startDate, LocalDate endDate);
 }

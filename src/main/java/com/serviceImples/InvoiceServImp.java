@@ -53,4 +53,9 @@ public class InvoiceServImp implements IInvoiceService {
     public BigDecimal sumByPeriod(LocalDate startDate, LocalDate endDate) {
         return invoiceRepository.sumByPeriod(startDate, endDate);
     }
+
+    @Override
+    public int countAllByPaymentDateBetween(LocalDate startDate, LocalDate endDate) {
+        return invoiceRepository.countAllByPaymentDateBetween(startDate, endDate);
+    }
 }
