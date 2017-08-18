@@ -3,6 +3,5 @@ package com.UI.controllers;
 import org.springframework.stereotype.Component;
 
 @Component
-public class InvoicesPresenter {
-
+public class CustomersPresenter {
 }
