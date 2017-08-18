@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane prefHeight="570.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.InvoicesPresenter">
    <children>
       <BorderPane layoutX="133.0" layoutY="49.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <VBox BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Button">
+                  <Button alignment="TOP_LEFT" mnemonicParsing="false" text="New invoice">
                      <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
+                        <Insets bottom="5.0" top="15.0" />
                      </VBox.margin>
                   </Button>
-                  <Label text="Label">
+                  <Label text="Search phrase">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
-                  <TextField>
+                  <TextField promptText="Number or word">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
@@ -29,6 +32,9 @@
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
                   <ComboBox prefWidth="150.0">
                      <VBox.margin>
@@ -39,6 +45,9 @@
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
                   <ComboBox prefWidth="150.0">
                      <VBox.margin>
@@ -49,6 +58,9 @@
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
                   <ComboBox prefWidth="150.0">
                      <VBox.margin>
@@ -59,15 +71,18 @@
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
                   <ComboBox prefWidth="150.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <Button mnemonicParsing="false" text="Button">
+                  <Button mnemonicParsing="false" text="Search">
                      <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
+                        <Insets bottom="5.0" top="15.0" />
                      </VBox.margin>
                   </Button>
                </children>

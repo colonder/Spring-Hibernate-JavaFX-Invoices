@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class RootPresenter {
 
-    @Autowired private RootView rootView;
     @Autowired private HomeView homeView;
     @Autowired private InvoicesView invoicesView;
     @Autowired private CustomersView customersView;
@@ -26,30 +25,16 @@ public class RootPresenter {
     @FXML
     public void initialize()
     {
-        homeBtn.setOnAction(event ->
-        {
-            BorderPane pane = (BorderPane) homeBtn.getScene().getRoot();
-            pane.setCenter(homeView.getView());
-        });
+        homeBtn.setOnAction(event -> openView(homeBtn, homeView));
+        invoicesBtn.setOnAction(event -> openView(invoicesBtn, invoicesView));
+        customersBtn.setOnAction(event -> openView(customersBtn, customersView));
+        productsBtn.setOnAction(event -> openView(productsBtn, productsView));
+        warehouseBtn.setOnAction(event -> openView(warehouseBtn, warehouseView));
+    }
 
-        invoicesBtn.setOnAction(event -> {
-            BorderPane pane = (BorderPane) invoicesBtn.getScene().getRoot();
-            pane.setCenter(invoicesView.getView());
-        });
-
-        customersBtn.setOnAction(event -> {
-            BorderPane pane = (BorderPane) customersBtn.getScene().getRoot();
-            pane.setCenter(customersView.getView());
-        });
-
-        productsBtn.setOnAction(event -> {
-            BorderPane pane = (BorderPane) productsBtn.getScene().getRoot();
-            pane.setCenter(productsView.getView());
-        });
-
-        warehouseBtn.setOnAction(event -> {
-            BorderPane pane = (BorderPane) warehouseBtn.getScene().getRoot();
-            pane.setCenter(warehouseView.getView());
-        });
+    private void openView(Button button, AbstractFxmlView view)
+    {
+        BorderPane parent = (BorderPane) button.getScene().getRoot();
+        parent.setCenter(view.getView());
     }
 }
