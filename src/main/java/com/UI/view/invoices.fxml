@@ -10,7 +10,7 @@
          <left>
             <VBox BorderPane.alignment="CENTER">
                <children>
-                  <Button alignment="TOP_LEFT" mnemonicParsing="false" text="New invoice">
+                  <Button fx:id="newInvoiceBtn" alignment="TOP_LEFT" mnemonicParsing="false" text="New invoice">
                      <VBox.margin>
                         <Insets bottom="5.0" top="15.0" />
                      </VBox.margin>
@@ -23,7 +23,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField promptText="Number or word">
+                  <TextField fx:id="phraseTxtFld" promptText="Number or word">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
@@ -36,7 +36,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox prefWidth="150.0">
+                  <ComboBox fx:id="invoiceTypeComboBox" prefWidth="150.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
@@ -49,7 +49,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox prefWidth="150.0">
+                  <ComboBox fx:id="periodComboBox" prefWidth="150.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
@@ -62,7 +62,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox prefWidth="150.0">
+                  <ComboBox fx:id="statusComboBox" prefWidth="150.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
@@ -75,12 +75,12 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox prefWidth="150.0">
+                  <ComboBox fx:id="paymentComboBox" prefWidth="150.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <Button mnemonicParsing="false" text="Search">
+                  <Button fx:id="searchBtn" mnemonicParsing="false" text="Search">
                      <VBox.margin>
                         <Insets bottom="5.0" top="15.0" />
                      </VBox.margin>
