@@ -47,4 +47,6 @@ public class InvoicesPresenter {
         paymentComboBox.setItems(payment);
         paymentComboBox.getSelectionModel().select(0);
     }
+
+
 }
