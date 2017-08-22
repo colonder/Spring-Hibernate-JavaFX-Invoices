@@ -20,9 +20,7 @@
 	country varchar(30) not null,
 	client_type varchar(20) not null default 'company',
 	company_special_number int,
-	bank_name varchar(40),
 	default_currency varchar(3),
-	bank_account_number int,
 	default_discount numeric(3,2) default 0.00 check(default_discount >= 0.00),
 	default_payment_date_days int check(default_payment_date_days >= 0.00)
 );

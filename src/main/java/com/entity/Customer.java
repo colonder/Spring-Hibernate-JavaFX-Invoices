@@ -76,14 +76,8 @@ public class Customer {
     @Column(name = "company_special_number") // regon
     private int companySpecialNumber;
 
-    @Column(name = "bank_name")
-    private String bankName;
-
     @Column(name = "default_currency")
     private String defaultCurrency;
-
-    @Column(name = "bank_account_number")
-    private int bankAccountNumber;
 
     @Column(name = "default_discount")
     private BigDecimal defaultDiscount;
