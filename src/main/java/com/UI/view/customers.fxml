@@ -1,9 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.UI.controllers.CustomersPresenter"
-            prefHeight="400.0" prefWidth="600.0">
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.CustomersPresenter">
+   <children>
+      <BorderPane layoutX="160.0" layoutY="125.0" prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="addCustomerBtn" alignment="TOP_LEFT" mnemonicParsing="false" text="Add customer">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Label text="Search phrase">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="phraseTxtFld" promptText="Number or word">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Customer type">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="customerTypeComboBox" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <Label text="Tags">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="tagTxtArea" prefHeight="90.0" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextArea>
+                  <Label text="Filter variant">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="filterComboBox" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <Button fx:id="searchBtn" mnemonicParsing="false" text="Search">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="15.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </VBox>
+         </left>
+         <center>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane>
+                     <children>
+                        <Label text="Customers" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <MenuButton layoutX="917.0" layoutY="18.0" mnemonicParsing="false" text="Column visibility" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="18.0">
+                           <items>
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                           </items>
+                        </MenuButton>
+                     </children>
+                  </AnchorPane>
+                  <ScrollPane prefHeight="590.0">
+                     <content>
+                        <TableView minHeight="-Infinity" minWidth="1030.0" prefHeight="580.0" tableMenuButtonVisible="true">
+                           <columns>
+                              <TableColumn editable="false" prefWidth="150.0" text="Alias" />
+                              <TableColumn prefWidth="150.0" text="Last name" />
+                              <TableColumn prefWidth="150.0" text="First name" />
+                              <TableColumn prefWidth="150.0" text="Personal ID" />
+                              <TableColumn prefWidth="150.0" text="Tax ID" />
+                              <TableColumn prefWidth="150.0" text="Email" />
+                              <TableColumn prefWidth="150.0" text="Address" />
+                              <TableColumn prefWidth="150.0" text="Postal code" />
+                              <TableColumn prefWidth="150.0" text="City" />
+                              <TableColumn prefWidth="150.0" text="Telephone" />
+                              <TableColumn prefWidth="150.0" text="Cell phone" />
+                              <TableColumn prefWidth="150.0" text="Fax" />
+                              <TableColumn prefWidth="150.0" text="Company special number" />
+                              <TableColumn prefWidth="150.0" text="Tag" />
+                              <TableColumn prefWidth="150.0" text="Default payment&#10;      menthod" />
+                              <TableColumn prefWidth="150.0" text="Creation date" />
+                              <TableColumn prefWidth="150.0" text="Last purchase date" />
+                              <TableColumn prefWidth="150.0" text="Country" />
+                              <TableColumn prefWidth="150.0" text="Default currency" />
+                              <TableColumn prefWidth="150.0" text="Default discount" />
+                              <TableColumn prefWidth="150.0" text="Default payment&#10;    date in days" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
 </AnchorPane>
