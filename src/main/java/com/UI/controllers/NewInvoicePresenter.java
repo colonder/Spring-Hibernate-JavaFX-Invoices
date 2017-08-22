@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class NewInvoicePresenter {
 
     @FXML private Button addItemBtn;
-    @FXML private Button removeItemBtn;
+    @FXML private Button removeItem0Btn;
     @FXML private GridPane itemsGridPane;
 
     @FXML

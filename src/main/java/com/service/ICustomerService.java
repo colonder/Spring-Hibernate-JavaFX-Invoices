@@ -15,7 +15,7 @@ public interface ICustomerService {
     int update(String alias, String lastName, String firstName, int personalId, String taxIdentifier, String email,
                String address, String postalCode, String city, int telephone, int cellPhone, int fax, String tag,
                PaymentMethod defaultPaymentMethod, String country, ClientType type, int companySpecialNumber,
-               String bankName, String defaultCurrency, int bankAccountNumber, BigDecimal defaultDiscount,
+               String defaultCurrency, BigDecimal defaultDiscount,
                Date defaultPaymentDateDays, int id);
     int updateNewPurchase(Date lastPurchaseDate, int id);
 }
