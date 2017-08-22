@@ -1,7 +1,7 @@
 package com.UI.controllers;
 
 import com.UI.view.AbstractFxmlView;
-import com.UI.view.InvoicesView;
+import com.UI.view.NewInvoiceView;
 import com.service.IInvoiceService;
 import com.utilities.CurrencyHandler;
 import javafx.fxml.FXML;
@@ -29,16 +29,16 @@ public class HomePresenter {
     @FXML private Button correctiveBtn;
     @FXML private Button expensesBtn;
 
-    @Autowired private InvoicesView invoicesView;
+    @Autowired private NewInvoiceView newInvoiceView;
     @Autowired private IInvoiceService invoiceService;
 
     @FXML
     public void initialize()
     {
-        standardBtn.setOnAction(event -> openView(standardBtn, invoicesView));
-        proFormaBtn.setOnAction(event -> openView(proFormaBtn, invoicesView));
-        correctiveBtn.setOnAction(event -> openView(correctiveBtn, invoicesView));
-        expensesBtn.setOnAction(event -> openView(expensesBtn, invoicesView));
+        standardBtn.setOnAction(event -> openView(standardBtn, newInvoiceView));
+        proFormaBtn.setOnAction(event -> openView(proFormaBtn, newInvoiceView));
+        correctiveBtn.setOnAction(event -> openView(correctiveBtn, newInvoiceView));
+        expensesBtn.setOnAction(event -> openView(expensesBtn, newInvoiceView));
 
         initRevenueLabels();
         initSalesLabels();

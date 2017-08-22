@@ -1,0 +1,7 @@
+.removeButton {
+    -fx-background-color: firebrick;
+}
+
+.addButton {
+    -fx-background-color: forestgreen;
+}
