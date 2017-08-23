@@ -122,24 +122,24 @@
                               <TableColumn fx:id="aliasCol" editable="false" prefWidth="150.0" text="Alias" />
                               <TableColumn fx:id="lastNameCol" prefWidth="150.0" text="Last name" />
                               <TableColumn fx:id="firstNameCol" prefWidth="150.0" text="First name" />
-                              <TableColumn fx:id="personalIdCol" prefWidth="150.0" text="Personal ID" />
+                              <TableColumn fx:id="personalIdCol" prefWidth="150.0" text="Personal ID" visible="false" />
                               <TableColumn fx:id="taxIdCol" prefWidth="150.0" text="Tax ID" />
-                              <TableColumn fx:id="emailCol" prefWidth="150.0" text="Email" />
+                              <TableColumn fx:id="emailCol" prefWidth="150.0" text="Email" visible="false" />
                               <TableColumn fx:id="addressCol" prefWidth="150.0" text="Address" />
                               <TableColumn fx:id="postalCodeCol" prefWidth="150.0" text="Postal code" />
                               <TableColumn fx:id="cityCol" prefWidth="150.0" text="City" />
-                              <TableColumn fx:id="telephoneCol" prefWidth="150.0" text="Telephone" />
-                              <TableColumn fx:id="cellphoneCol" prefWidth="150.0" text="Cell phone" />
-                              <TableColumn fx:id="faxCol" prefWidth="150.0" text="Fax" />
-                              <TableColumn fx:id="companyNumCol" prefWidth="150.0" text="Company special number" />
-                              <TableColumn fx:id="tagCol" prefWidth="150.0" text="Tag" />
-                              <TableColumn fx:id="paymentCol" prefWidth="150.0" text="Default payment&#10;      menthod" />
-                              <TableColumn fx:id="creationDateCol" prefWidth="150.0" text="Creation date" />
-                              <TableColumn fx:id="purchaseCol" prefWidth="150.0" text="Last purchase date" />
-                              <TableColumn fx:id="countryCol" prefWidth="150.0" text="Country" />
-                              <TableColumn fx:id="currencyCol" prefWidth="150.0" text="Default currency" />
-                              <TableColumn fx:id="discountCol" prefWidth="150.0" text="Default discount" />
-                              <TableColumn fx:id="paymentDateCol" prefWidth="150.0" text="Default payment&#10;    date in days" />
+                              <TableColumn fx:id="telephoneCol" prefWidth="150.0" text="Telephone" visible="false" />
+                              <TableColumn fx:id="cellphoneCol" prefWidth="150.0" text="Cell phone" visible="false" />
+                              <TableColumn fx:id="faxCol" prefWidth="150.0" text="Fax" visible="false" />
+                              <TableColumn fx:id="companyNumCol" prefWidth="150.0" text="Company special number" visible="false" />
+                              <TableColumn fx:id="tagCol" prefWidth="150.0" text="Tag" visible="false" />
+                              <TableColumn fx:id="paymentCol" prefWidth="150.0" text="Default payment&#10;      menthod" visible="false" />
+                              <TableColumn fx:id="creationDateCol" prefWidth="150.0" text="Creation date" visible="false" />
+                              <TableColumn fx:id="purchaseCol" prefWidth="150.0" text="Last purchase date" visible="false" />
+                              <TableColumn fx:id="countryCol" prefWidth="150.0" text="Country" visible="false" />
+                              <TableColumn fx:id="currencyCol" prefWidth="150.0" text="Default currency" visible="false" />
+                              <TableColumn fx:id="discountCol" prefWidth="150.0" text="Default discount" visible="false" />
+                              <TableColumn fx:id="paymentDateCol" prefWidth="150.0" text="Default payment&#10;    date in days" visible="false" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
