@@ -94,6 +94,81 @@
                </padding>
             </VBox>
          </left>
+         <center>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane>
+                     <children>
+                        <Label text="Income / " AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <MenuButton layoutX="917.0" layoutY="18.0" mnemonicParsing="false" text="Column visibility" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="18.0">
+                           <items>
+                              <CheckMenuItem fx:id="numberCheckMenuItem" mnemonicParsing="false" selected="true" text="Number" />
+                              <CheckMenuItem fx:id="netValCheckMenuItem" mnemonicParsing="false" selected="true" text="Net value" />
+                              <CheckMenuItem fx:id="taxValCheckMenuItem" mnemonicParsing="false" text="Tax value" />
+                              <CheckMenuItem fx:id="grossValCheckMenuItem" mnemonicParsing="false" selected="true" text="Gross value" />
+                              <CheckMenuItem fx:id="sellerCheckMenuItem" mnemonicParsing="false" text="Seller" />
+                              <CheckMenuItem fx:id="buyerCheckMenuItem" mnemonicParsing="false" selected="true" text="Buyer" />
+                              <CheckMenuItem fx:id="emailCheckMenuItem" mnemonicParsing="false" text="Email" />
+                              <CheckMenuItem fx:id="saleDateCheckMenuItem" mnemonicParsing="false" text="Sale date" />
+                              <CheckMenuItem fx:id="issueDateCheckMenuItem" mnemonicParsing="false" text="Issue date" />
+                              <CheckMenuItem fx:id="paidAmountCheckMenuItem" mnemonicParsing="false" text="Paid amount" />
+                              <CheckMenuItem fx:id="paymentMethodCheckMenuItem" mnemonicParsing="false" text="Payment method" />
+                              <CheckMenuItem fx:id="paidDateCheckMenuItem" mnemonicParsing="false" selected="true" text="Paid date" />
+                              <CheckMenuItem fx:id="paymentDateCheckMenuItem" mnemonicParsing="false" text="Payment date" />
+                              <CheckMenuItem fx:id="statusCheckMenuItem" mnemonicParsing="false" selected="true" text="Status" />
+                              <CheckMenuItem fx:id="telephoneCheckMenuItem" mnemonicParsing="false" text="Telephone" />
+                              <CheckMenuItem fx:id="countryCheckMenuItem" mnemonicParsing="false" text="Country" />
+                              <CheckMenuItem fx:id="creationDateCheckMenuItem" mnemonicParsing="false" text="Creation date" />
+                              <CheckMenuItem fx:id="lastModifiedCheckMenuItem" mnemonicParsing="false" text="Last modified" />
+                              <CheckMenuItem fx:id="sentDateCheckMenuItem" mnemonicParsing="false" text="Sent date" />
+                              <CheckMenuItem fx:id="remarksCheckMenuItem" mnemonicParsing="false" text="Remarks" />
+                           </items>
+                        </MenuButton>
+                        <Label layoutX="116.0" layoutY="15.0" text="All" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="15.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <ScrollPane prefHeight="590.0">
+                     <content>
+                        <TableView minHeight="-Infinity" minWidth="1030.0" prefHeight="510.0">
+                           <columns>
+                              <TableColumn fx:id="numberCol" editable="false" prefWidth="150.0" text="Number" />
+                              <TableColumn fx:id="netValCol" editable="false" prefWidth="150.0" text="Net value" />
+                              <TableColumn fx:id="taxValCol" editable="false" prefWidth="150.0" text="Tax value" visible="false" />
+                              <TableColumn fx:id="grossValCol" editable="false" prefWidth="150.0" text="Gross value" />
+                              <TableColumn fx:id="sellerCol" editable="false" prefWidth="150.0" text="Seller" visible="false" />
+                              <TableColumn fx:id="buyerCol" editable="false" prefWidth="150.0" text="Buyer" />
+                              <TableColumn fx:id="emailCol" editable="false" prefWidth="150.0" text="Customer's email" visible="false" />
+                              <TableColumn fx:id="saleDateCol" editable="false" prefWidth="150.0" text="Sale date" visible="false" />
+                              <TableColumn fx:id="issueDateCol" editable="false" prefWidth="150.0" text="Issue date" visible="false" />
+                              <TableColumn fx:id="paidAmountCol" editable="false" prefWidth="150.0" text="Paid amount" visible="false" />
+                              <TableColumn fx:id="paymentCol" editable="false" prefWidth="150.0" text="Payment method" visible="false" />
+                              <TableColumn fx:id="paidDateCol" editable="false" prefWidth="150.0" text="Paid date" />
+                              <TableColumn fx:id="paymentDateCol" editable="false" prefWidth="150.0" text="Payment date" visible="false" />
+                              <TableColumn fx:id="statusCol" editable="false" prefWidth="150.0" text="Status" />
+                              <TableColumn fx:id="telephoneCol" editable="false" prefWidth="150.0" text="Customer's&#10; telephone" visible="false" />
+                              <TableColumn fx:id="countryCol" editable="false" prefWidth="150.0" text="Country" visible="false" />
+                              <TableColumn fx:id="creationDateCol" editable="false" prefWidth="150.0" text="Creation date" visible="false" />
+                              <TableColumn fx:id="lastModifiedCol" editable="false" prefWidth="150.0" text="Last modified" visible="false" />
+                              <TableColumn fx:id="sentDateCol" editable="false" prefWidth="150.0" text="Sent date" visible="false" />
+                              <TableColumn fx:id="remarksCol" editable="false" prefWidth="300.0" text="Remarks" visible="false" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>
