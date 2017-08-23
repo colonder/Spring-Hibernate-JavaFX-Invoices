@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckMenuItem?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.CustomersPresenter">
    <children>
       <BorderPane layoutX="160.0" layoutY="125.0" prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -102,34 +90,34 @@
                         </Label>
                         <MenuButton layoutX="917.0" layoutY="18.0" mnemonicParsing="false" text="Column visibility" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="18.0">
                            <items>
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                              <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <CheckMenuItem fx:id="aliasCheckMenuItem" mnemonicParsing="false" selected="true" text="Alias" />
+                              <CheckMenuItem fx:id="lastNameCheckMenuItem" mnemonicParsing="false" selected="true" text="Last name" />
+                              <CheckMenuItem fx:id="firstNameCheckMenuItem" mnemonicParsing="false" selected="true" text="First name" />
+                              <CheckMenuItem fx:id="personalIdCheckMenuItem" mnemonicParsing="false" text="Personal ID" />
+                              <CheckMenuItem fx:id="taxIdCheckMenuItem" mnemonicParsing="false" selected="true" text="Tax ID" />
+                              <CheckMenuItem fx:id="emailCheckMenuItem" mnemonicParsing="false" text="Email" />
+                              <CheckMenuItem fx:id="addressCheckMenuItem" mnemonicParsing="false" selected="true" text="Address" />
+                              <CheckMenuItem fx:id="postalCodeCheckMenuItem" mnemonicParsing="false" selected="true" text="Postal code" />
+                              <CheckMenuItem fx:id="cityCheckMenuItem" mnemonicParsing="false" selected="true" text="City" />
+                              <CheckMenuItem fx:id="telephoneCheckMenuItem" mnemonicParsing="false" text="Telephone" />
+                              <CheckMenuItem fx:id="cellphoneCheckMenuItem" mnemonicParsing="false" text="Cell phone" />
+                              <CheckMenuItem fx:id="faxCheckMenuItem" mnemonicParsing="false" text="Fax" />
+                              <CheckMenuItem fx:id="companyNumCheckMenuItem" mnemonicParsing="false" text="Company special number" />
+                              <CheckMenuItem fx:id="tagCheckMenuItem" mnemonicParsing="false" text="Tag" />
+                              <CheckMenuItem fx:id="paymentCheckMenuItem" mnemonicParsing="false" text="Default payment method" />
+                              <CheckMenuItem fx:id="creationDateCheckMenuItem" mnemonicParsing="false" text="Creation date" />
+                              <CheckMenuItem fx:id="lastPurchaseCheckMenuItem" mnemonicParsing="false" text="Last purchase date" />
+                              <CheckMenuItem fx:id="countryCheckMenuItem" mnemonicParsing="false" text="Country" />
+                              <CheckMenuItem fx:id="currencyCheckMenuItem" mnemonicParsing="false" text="Default currency" />
+                              <CheckMenuItem fx:id="discountCheckMenuItem" mnemonicParsing="false" text="Default discount" />
+                              <CheckMenuItem fx:id="paymentDateCheckMenuItem" mnemonicParsing="false" text="Default pyament date in days" />
                            </items>
                         </MenuButton>
                      </children>
                   </AnchorPane>
                   <ScrollPane prefHeight="590.0">
                      <content>
-                        <TableView minHeight="-Infinity" minWidth="1030.0" prefHeight="580.0" tableMenuButtonVisible="true">
+                        <TableView minHeight="-Infinity" minWidth="1030.0" prefHeight="580.0">
                            <columns>
                               <TableColumn editable="false" prefWidth="150.0" text="Alias" />
                               <TableColumn prefWidth="150.0" text="Last name" />
