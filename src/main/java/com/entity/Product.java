@@ -20,8 +20,8 @@ public class Product {
     @Column(name = "tax_rate", nullable = false)
     private BigDecimal taxRate;
 
-    @Column(name = "online_sell", nullable = false)
-    private boolean onlineSell;
+    @Column(name = "online_sale", nullable = false)
+    private boolean onlineSale;
 
     @Column(name = "is_service", nullable = false)
     private boolean isService;

@@ -24,6 +24,6 @@ public class Warehouse {
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
 
-    @Column(name = "last_sell_date", nullable = true)
-    private LocalDate lastSellDate;
+    @Column(name = "last_sale_date", nullable = true)
+    private LocalDate lastSaleDate;
 }

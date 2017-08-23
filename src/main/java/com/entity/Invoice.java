@@ -30,8 +30,14 @@ public class Invoice
     @Column(name = "issue_date")
     private LocalDate issueDate;
 
-    @Column(name = "charge")
-    private BigDecimal charge;
+    @Column(name = "net_value")
+    private BigDecimal netValue;
+
+    @Column(name = "tax_value")
+    private BigDecimal taxValue;
+
+    @Column(name = "gross_value")
+    private BigDecimal grossValue;
 
     @Column(name = "paid_amount")
     private BigDecimal paidAmount;
@@ -39,12 +45,12 @@ public class Invoice
     @Column(name = "payment_method")
     private String paymentMethod;
 
-    @Column(name = "payment_date")
-    private LocalDate paymentDate;
+    @Column(name = "paid_date")
+    private LocalDate paidDate;
 
     // TODO: check in code for expiration date
-    @Column(name = "payment_expiration_date")
-    private LocalDate paymentDeadline;
+    @Column(name = "payment_date")
+    private LocalDate paymentDate;
 
     @Column(name = "currency")
     private String currency;
@@ -55,6 +61,9 @@ public class Invoice
 
     @Column(name = "creation_date")
     private LocalDate creationDate;
+
+    @Column(name = "sale_date")
+    private LocalDate saleDate;
 
     @Column(name = "last_modified")
     private LocalDate lastModified;

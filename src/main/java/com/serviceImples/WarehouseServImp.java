@@ -35,7 +35,7 @@ public class WarehouseServImp implements IWarehouseService {
     }
 
     @Override
-    public int update(String productCode, Date lastSellDate, int id) {
-        return warehouseRepository.update(productCode, lastSellDate, id);
+    public int update(String productCode, Date lastSaleDate, int id) {
+        return warehouseRepository.update(productCode, lastSaleDate, id);
     }
 }

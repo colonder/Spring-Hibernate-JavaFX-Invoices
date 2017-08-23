@@ -35,7 +35,7 @@ public class Customer {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "street_house_no")
+    @Column(name = "address")
     private String address;
 
     @Column(name = "postal_code")

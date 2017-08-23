@@ -37,9 +37,9 @@ public class InvoiceServImp implements IInvoiceService {
 
     @Override
     @Transactional
-    public int update(String seller, BigDecimal paidAmount, PaymentMethod method, LocalDate paymentDate,
-                      LocalDate paymentDeadline, InvoiceStatus status, LocalDate lastModified, String notes, int id) {
-        return invoiceRepository.update(seller, paidAmount, method, paymentDate, paymentDeadline, status, lastModified,
+    public int update(String seller, BigDecimal paidAmount, PaymentMethod method, LocalDate paidDate,
+                      LocalDate paymentDate, InvoiceStatus status, LocalDate lastModified, String notes, int id) {
+        return invoiceRepository.update(seller, paidAmount, method, paidDate, paymentDate, status, lastModified,
                 notes, id);
     }
 

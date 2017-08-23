@@ -15,16 +15,16 @@ import java.util.List;
 public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
     List<Invoice> findAll();
     @Modifying
-    @Query("UPDATE Invoice i SET i.seller =?1, i.paidAmount =?2, i.paymentMethod=?3, i.paymentDate=?4, " +
-            "i.paymentDeadline =?5, i.status =?6, i.lastModified =?7, i.notes =?8 WHERE i.id =?9")
-    int update(String seller, BigDecimal paidAmount, PaymentMethod method, LocalDate paymentDate, LocalDate paymentDeadline,
+    @Query("UPDATE Invoice i SET i.seller =?1, i.paidAmount =?2, i.paymentMethod=?3, i.paidDate=?4, " +
+            "i.paymentDate =?5, i.status =?6, i.lastModified =?7, i.notes =?8 WHERE i.id =?9")
+    int update(String seller, BigDecimal paidAmount, PaymentMethod method, LocalDate paidDate, LocalDate paymentDate,
                InvoiceStatus status, LocalDate lastModified, String notes, int id);
 
     @Modifying
     @Query("UPDATE Invoice i SET i.sentDate =?1 where i.id =?2")
     int updateSent(LocalDate sentDate, int id);
 
-    @Query("SELECT SUM(i.charge) FROM Invoice i WHERE i.paymentDate BETWEEN :startDate AND :endDate")
+    @Query("SELECT SUM(i.grossValue) FROM Invoice i WHERE i.paidDate BETWEEN :startDate AND :endDate")
     BigDecimal sumByPeriod(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     int countAllByPaymentDateBetween(LocalDate startDate, LocalDate endDate);

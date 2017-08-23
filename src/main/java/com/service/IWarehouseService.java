@@ -11,5 +11,5 @@ public interface IWarehouseService
     Warehouse save(Warehouse warehouse);
     void delete(Warehouse warehouse);
     int updateAmount(int sold, int available, int id);
-    int update(String productCode, Date lastSellDate, int id);
+    int update(String productCode, Date lastSaleDate, int id);
 }

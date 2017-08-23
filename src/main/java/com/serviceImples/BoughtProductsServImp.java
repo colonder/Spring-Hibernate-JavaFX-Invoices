@@ -35,7 +35,7 @@ public class BoughtProductsServImp implements IBoughtProductsService {
 
     @Override
     @Transactional
-    public int update(BigDecimal quantity, BigDecimal netValue, BigDecimal taxValue, BigDecimal grossValue, Date sellDate, int id) {
-        return boughtProductsRepository.update(quantity, netValue, taxValue, grossValue, sellDate, id);
+    public int update(BigDecimal quantity, BigDecimal netValue, BigDecimal taxValue, BigDecimal grossValue, Date saleDate, int id) {
+        return boughtProductsRepository.update(quantity, netValue, taxValue, grossValue, saleDate, id);
     }
 }

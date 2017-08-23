@@ -24,8 +24,8 @@ public class BoughtProducts {
     @Column(name = "gross_value", nullable = false)
     private BigDecimal grossValue;
 
-    @Column(name = "sell_date", nullable = false)
-    private LocalDate sellDate;
+    @Column(name = "sale_date", nullable = false)
+    private LocalDate saleDate;
 
     @ManyToOne
     @JoinColumn(name = "invoice_id", referencedColumnName = "id")

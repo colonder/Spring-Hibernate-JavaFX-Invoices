@@ -30,8 +30,8 @@ public class ProductServImp implements IProductService {
     }
 
     @Override
-    public int update(String productName, BigDecimal netPrice, BigDecimal taxRate, boolean onlineSell,
+    public int update(String productName, BigDecimal netPrice, BigDecimal taxRate, boolean onlineSale,
                       boolean isService, boolean isActive, int id) {
-        return productRepository.update(productName, netPrice, taxRate, onlineSell, isService, isActive, id);
+        return productRepository.update(productName, netPrice, taxRate, onlineSale, isService, isActive, id);
     }
 }

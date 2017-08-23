@@ -7,7 +7,7 @@
 	personal_id int unique not null,
 	tax_identifier_number varchar(20) unique not null,
 	email varchar(30) unique,
-	street_house_no varchar(100),
+	address varchar(100),
 	postal_code varchar(6),
 	city varchar(30),
 	telephone int unique,
@@ -18,7 +18,7 @@
 	creation_date date not null default CURRENT_DATE,
 	last_purchase_date date,
 	country varchar(30) not null,
-	client_type varchar(20) not null default 'company',
+	client_type varchar(20) not null default 'person',
 	company_special_number int,
 	default_currency varchar(3),
 	default_discount numeric(3,2) default 0.00 check(default_discount >= 0.00),
@@ -33,11 +33,14 @@ create table issued_invoices
 	invoice_type varchar(15) not null default 'ordinary',
 	seller varchar(40) not null,
 	issue_date date not null,
-	charge numeric(7,2) not null check(charge > 0.00),
+	sale_date date not null,
+	net_value numeric(7,2) not null check(net_value > 0.00),
+	tax_value numeric(7,2) not null check(tax_value > 0.00),
+	gross_value numeric(7,2) not null check(gross_value > 0.00),
 	paid_amount numeric(7,2) check(paid_amount > 0.00),
 	payment_method varchar(15) not null,
-	payment_date date not null,
-	payment_expiration_date date check(payment_expiration_date >= CURRENT_DATE),
+	paid_date date,
+	payment_date date not null check(payment_date >= CURRENT_DATE),
 	currency varchar(3) not null,
 	status varchar(10) not null,
 	creation_date date not null,
@@ -53,7 +56,7 @@ create table warehouse
 	available int not null default 0,
 	product_code varchar(20) default null,
 	creation_date date not null default CURRENT_DATE,
-	last_sell_date date
+	last_sale_date date
 );
 
 create table products
@@ -62,7 +65,7 @@ create table products
 	product_name varchar(80) not null,
 	net_price numeric(7,2) not null check(net_price > 0.00),
 	tax_rate numeric(3,2) not null check(tax_rate > 0.00),
-	online_sell boolean not null default '0',
+	online_sale boolean not null default '0',
 	is_service boolean not null default '0',
 	is_active boolean not null default '1',
 	warehouse_item_id int references warehouse(id)
@@ -77,5 +80,5 @@ create table bought_products
 	gross_value numeric(7,2) not null check(gross_value > 0.00),	
 	invoice_id int references issued_invoices(id),
 	product_id int references products(id),
-	sell_date date not null
+	sale_date date not null
 );
