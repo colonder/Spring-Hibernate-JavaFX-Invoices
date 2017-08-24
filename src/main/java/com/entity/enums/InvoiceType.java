@@ -1,5 +1,11 @@
 package com.entity.enums;
 
-public enum InvoiceType {
-    ordinary, pro_forma, corrective
+public class InvoiceType {
+
+    public static final String[] TYPE;
+
+    static
+    {
+        TYPE = new String[]{"ordinary", "pro_forma", "corrective"};
+    }
 }
