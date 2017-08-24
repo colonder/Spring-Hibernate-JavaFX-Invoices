@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IWarehouseRepository extends JpaRepository<Warehouse, Integer>
@@ -18,5 +18,5 @@ public interface IWarehouseRepository extends JpaRepository<Warehouse, Integer>
 
     @Modifying
     @Query("UPDATE Warehouse w SET w.productCode =?1, w.lastSaleDate =?3 WHERE w.id =?4")
-    int update(String productCode, Date lastSaleDate, int id);
+    int update(String productCode, LocalDate lastSaleDate, int id);
 }

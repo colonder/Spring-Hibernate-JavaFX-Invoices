@@ -1,8 +1,5 @@
 package com.entity;
 
-import com.entity.enums.ClientType;
-import com.entity.enums.PaymentMethod;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -56,9 +53,8 @@ public class Customer {
     @Column(name = "tag")
     private String tag;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "default_payment_method")
-    private PaymentMethod defaultPaymentMethod;
+    private String defaultPaymentMethod;
 
     @Column(name = "creation_date")
     private LocalDate creationDate;
@@ -69,9 +65,8 @@ public class Customer {
     @Column(name = "country")
     private String country;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "client_type")
-    private ClientType clientType;
+    private String customerType;
 
     @Column(name = "company_special_number") // regon
     private int companySpecialNumber;

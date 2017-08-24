@@ -6,7 +6,7 @@ import com.service.IWarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -35,7 +35,7 @@ public class WarehouseServImp implements IWarehouseService {
     }
 
     @Override
-    public int update(String productCode, Date lastSaleDate, int id) {
+    public int update(String productCode, LocalDate lastSaleDate, int id) {
         return warehouseRepository.update(productCode, lastSaleDate, id);
     }
 }

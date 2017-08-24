@@ -1,8 +1,6 @@
 package com.serviceImples;
 
 import com.entity.Invoice;
-import com.entity.enums.InvoiceStatus;
-import com.entity.enums.PaymentMethod;
 import com.repositories.IInvoiceRepository;
 import com.service.IInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +21,11 @@ public class InvoiceServImp implements IInvoiceService {
         return invoiceRepository.findAll();
     }
 
+//    @Override
+//    public List<Invoice> findAllByTypeEquals(InvoiceType type) {
+//        return invoiceRepository.findAllByTypeEquals(type);
+//    }
+
     @Override
     @Transactional
     public Invoice save(Invoice invoice) {
@@ -37,8 +40,8 @@ public class InvoiceServImp implements IInvoiceService {
 
     @Override
     @Transactional
-    public int update(String seller, BigDecimal paidAmount, PaymentMethod method, LocalDate paidDate,
-                      LocalDate paymentDate, InvoiceStatus status, LocalDate lastModified, String notes, int id) {
+    public int update(String seller, BigDecimal paidAmount, String method, LocalDate paidDate,
+                      LocalDate paymentDate, String status, LocalDate lastModified, String notes, int id) {
         return invoiceRepository.update(seller, paidAmount, method, paidDate, paymentDate, status, lastModified,
                 notes, id);
     }
@@ -55,7 +58,14 @@ public class InvoiceServImp implements IInvoiceService {
     }
 
     @Override
-    public int countAllByPaymentDateBetween(LocalDate startDate, LocalDate endDate) {
-        return invoiceRepository.countAllByPaymentDateBetween(startDate, endDate);
+    public int countAllByPaidDateBetween(LocalDate startDate, LocalDate endDate) {
+        return invoiceRepository.countAllByPaidDateBetween(startDate, endDate);
+    }
+
+    @Override
+    public List<Invoice> findAllByTypeIsLikeAndIssueDateIsAfterAndStatusIsLikeAndPaymentMethodIsLike(
+            String type, LocalDate issueDate, String status, String paymentMethod) {
+        return invoiceRepository.findAllByTypeIsLikeAndIssueDateIsAfterAndStatusIsLikeAndPaymentMethodIsLike(
+                type, issueDate, status, paymentMethod);
     }
 }

@@ -1,8 +1,5 @@
 package com.entity;
 
-import com.entity.enums.InvoiceStatus;
-import com.entity.enums.InvoiceType;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,9 +17,8 @@ public class Invoice
     @Column(name = "invoice_number")
     private String invoiceNumber;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "invoice_type")
-    private InvoiceType type;
+    private String type;
 
     @Column(name = "seller")
     private String seller;
@@ -55,9 +51,8 @@ public class Invoice
     @Column(name = "currency")
     private String currency;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private InvoiceStatus status;
+    private String status;
 
     @Column(name = "creation_date")
     private LocalDate creationDate;
