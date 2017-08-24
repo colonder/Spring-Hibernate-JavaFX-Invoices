@@ -63,9 +63,9 @@ public class InvoiceServImp implements IInvoiceService {
     }
 
     @Override
-    public List<Invoice> findAllByTypeIsLikeAndIssueDateIsAfterAndStatusIsLikeAndPaymentMethodIsLike(
-            String type, LocalDate issueDate, String status, String paymentMethod) {
-        return invoiceRepository.findAllByTypeIsLikeAndIssueDateIsAfterAndStatusIsLikeAndPaymentMethodIsLike(
-                type, issueDate, status, paymentMethod);
+    public List<Invoice> findAllByTypeIsLikeAndIssueDateIsBetweenAndStatusIsLikeAndPaymentMethodIsLike(
+            String type, LocalDate startDate, LocalDate endDate, String status, String paymentMethod) {
+        return invoiceRepository.findAllByTypeIsLikeAndIssueDateIsBetweenAndStatusIsLikeAndPaymentMethodIsLike(
+                type, startDate, endDate, status, paymentMethod);
     }
 }

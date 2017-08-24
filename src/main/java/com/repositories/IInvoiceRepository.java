@@ -12,8 +12,8 @@ import java.util.List;
 
 public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
     List<Invoice> findAll();
-    List<Invoice> findAllByTypeIsLikeAndIssueDateIsAfterAndStatusIsLikeAndPaymentMethodIsLike(
-            String type, LocalDate issueDate, String status, String paymentMethod);
+    List<Invoice> findAllByTypeIsLikeAndIssueDateIsBetweenAndStatusIsLikeAndPaymentMethodIsLike(
+            String type, LocalDate startDate, LocalDate endDate, String status, String paymentMethod);
     @Modifying
     @Query("UPDATE Invoice i SET i.seller =?1, i.paidAmount =?2, i.paymentMethod=?3, i.paidDate=?4, " +
             "i.paymentDate =?5, i.status =?6, i.lastModified =?7, i.notes =?8 WHERE i.id =?9")

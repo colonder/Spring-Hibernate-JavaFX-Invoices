@@ -16,6 +16,6 @@ public interface IInvoiceService {
     int updateSent(LocalDate sentDate, int id);
     BigDecimal sumByPeriod(LocalDate startDate, LocalDate endDate);
     int countAllByPaidDateBetween(LocalDate startDate, LocalDate endDate);
-    List<Invoice> findAllByTypeIsLikeAndIssueDateIsAfterAndStatusIsLikeAndPaymentMethodIsLike(
-            String type, LocalDate issueDate, String status, String paymentMethod);
+    List<Invoice> findAllByTypeIsLikeAndIssueDateIsBetweenAndStatusIsLikeAndPaymentMethodIsLike(
+            String type, LocalDate startDate, LocalDate endDate, String status, String paymentMethod);
 }
