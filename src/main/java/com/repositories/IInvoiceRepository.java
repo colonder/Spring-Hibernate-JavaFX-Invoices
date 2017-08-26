@@ -2,18 +2,18 @@ package com.repositories;
 
 import com.entity.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
-public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
-    List<Invoice> findAll();
-    List<Invoice> findAllByTypeIsLikeAndIssueDateIsBetweenAndStatusIsLikeAndPaymentMethodIsLike(
-            String type, LocalDate startDate, LocalDate endDate, String status, String paymentMethod);
+@Repository
+public interface IInvoiceRepository extends JpaRepository<Invoice, Integer>, JpaSpecificationExecutor<Invoice> {
+
     @Modifying
     @Query("UPDATE Invoice i SET i.seller =?1, i.paidAmount =?2, i.paymentMethod=?3, i.paidDate=?4, " +
             "i.paymentDate =?5, i.status =?6, i.lastModified =?7, i.notes =?8 WHERE i.id =?9")

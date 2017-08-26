@@ -48,10 +48,10 @@ public class HomePresenter {
     {
         LocalDate today = LocalDate.now();
 
-        todaySalesLabel.setText(String.valueOf(invoiceService.countAllByPaymentDateBetween(today, today)));
-        lastSevenDaysLabel.setText(String.valueOf(invoiceService.countAllByPaymentDateBetween(today.minusDays(7), today)));
-        curMonthSalesLabel.setText(String.valueOf(invoiceService.countAllByPaymentDateBetween(today.withDayOfMonth(1), today)));
-        curYearSalesLabel.setText(String.valueOf(invoiceService.countAllByPaymentDateBetween(today.withDayOfYear(1), today)));
+        todaySalesLabel.setText(String.valueOf(invoiceService.countAllByPaidDateBetween(today, today)));
+        lastSevenDaysLabel.setText(String.valueOf(invoiceService.countAllByPaidDateBetween(today.minusDays(7), today)));
+        curMonthSalesLabel.setText(String.valueOf(invoiceService.countAllByPaidDateBetween(today.withDayOfMonth(1), today)));
+        curYearSalesLabel.setText(String.valueOf(invoiceService.countAllByPaidDateBetween(today.withDayOfYear(1), today)));
     }
 
     private void openView(Button button, AbstractFxmlView view)

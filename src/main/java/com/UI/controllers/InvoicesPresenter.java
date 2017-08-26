@@ -1,28 +1,113 @@
 package com.UI.controllers;
 
+import com.entity.Invoice;
+import com.entity.contant_arrays.InvoiceStatus;
+import com.entity.contant_arrays.InvoiceType;
+import com.entity.contant_arrays.PaymentMethod;
+import com.service.IInvoiceService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Component
 public class InvoicesPresenter {
 
-    @FXML private Button newInvoiceBtn;
+    private static final LocalDate[] startDates;
     @FXML private TextField phraseTxtFld;
     @FXML private ComboBox<String> invoiceTypeComboBox;
     @FXML private ComboBox<String> periodComboBox;
     @FXML private ComboBox<String> statusComboBox;
     @FXML private ComboBox<String> paymentComboBox;
     @FXML private Button searchBtn;
+    private static final LocalDate[] endDates;
+
+    static
+    {
+        LocalDate today = LocalDate.now();
+        LocalDate previousMonth = today.minusMonths(1);
+        LocalDate previousYear = today.minusYears(1);
+
+        startDates = new LocalDate[]{
+                previousYear.withDayOfMonth(1), // last 12 months beginning
+                today.withDayOfMonth(1), // current month beginning
+                previousMonth.withDayOfMonth(1), // last month beginning
+                today.withDayOfYear(1), // current year beginning
+                previousYear.withDayOfYear(1), // last year beginning
+                null // all
+        };
+
+        endDates = new LocalDate[]{
+                previousMonth.withDayOfMonth(previousMonth.lengthOfMonth()), // last 12 months end
+                today, // current month end
+                previousMonth.withDayOfMonth(previousMonth.lengthOfMonth()), // last month end
+                today, // current year end
+                previousYear.withDayOfYear(previousYear.lengthOfYear()), // last year end
+                null // all
+        };
+    }
+
+    //region FXML fields
+    @FXML private Button newInvoiceBtn;
+    @FXML private Label selectedTypeLabel;
+    @FXML private CheckMenuItem numberCheckMenuItem;
+    @FXML private CheckMenuItem netValCheckMenuItem;
+    @FXML private CheckMenuItem taxValCheckMenuItem;
+    @FXML private CheckMenuItem grossValCheckMenuItem;
+    @FXML private CheckMenuItem sellerCheckMenuItem;
+    @FXML private CheckMenuItem buyerCheckMenuItem;
+    @FXML private CheckMenuItem emailCheckMenuItem;
+    @FXML private CheckMenuItem saleDateCheckMenuItem;
+    @FXML private CheckMenuItem issueDateCheckMenuItem;
+    @FXML private CheckMenuItem paidAmountCheckMenuItem;
+    @FXML private CheckMenuItem paymentMethodCheckMenuItem;
+    @FXML private CheckMenuItem paidDateCheckMenuItem;
+    @FXML private CheckMenuItem paymentDateCheckMenuItem;
+    @FXML private CheckMenuItem statusCheckMenuItem;
+    @FXML private CheckMenuItem telephoneCheckMenuItem;
+    @FXML private CheckMenuItem countryCheckMenuItem;
+    @FXML private CheckMenuItem creationDateCheckMenuItem;
+    @FXML private CheckMenuItem lastModifiedCheckMenuItem;
+    @FXML private CheckMenuItem sentDateCheckMenuItem;
+    @FXML private CheckMenuItem remarksCheckMenuItem;
+    @FXML private TableColumn<Invoice, String> numberCol;
+    @FXML private TableColumn<Invoice, BigDecimal> netValCol;
+    @FXML private TableColumn<Invoice, BigDecimal> taxValCol;
+    @FXML private TableColumn<Invoice, BigDecimal> grossValCol;
+    @FXML private TableColumn<Invoice, String> sellerCol;
+    @FXML private TableColumn<Invoice, String> buyerCol;
+    @FXML private TableColumn<Invoice, String> emailCol;
+    @FXML private TableColumn<Invoice, LocalDate> saleDateCol;
+    @FXML private TableColumn<Invoice, LocalDate> issueDateCol;
+    @FXML private TableColumn<Invoice, BigDecimal> paidAmountCol;
+    @FXML private TableColumn<Invoice, String> paymentCol;
+    @FXML private TableColumn<Invoice, LocalDate> paidDateCol;
+    @FXML private TableColumn<Invoice, LocalDate> paymentDateCol;
+    @FXML private TableColumn<Invoice, String> statusCol;
+    @FXML private TableColumn<Invoice, String> telephoneCol;
+    @FXML private TableColumn<Invoice, String> countryCol;
+    @FXML private TableColumn<Invoice, LocalDate> creationDateCol;
+    //endregion
+    @FXML private TableColumn<Invoice, LocalDate> lastModifiedCol;
+    @FXML private TableColumn<Invoice, LocalDate> sentDateCol;
+    @FXML private TableColumn<Invoice, String> remarksCol;
+    @Autowired
+    private IInvoiceService invoiceService;
+    private ObservableList<Invoice> listOfInvoices;
 
     @FXML
     public void initialize()
     {
         initializeComboBoxes();
+        initializeMenuItems();
+        listOfInvoices = FXCollections.observableArrayList();
+        setSearching();
     }
 
     private void initializeComboBoxes()
@@ -40,6 +125,7 @@ public class InvoicesPresenter {
 
         invoiceTypeComboBox.setItems(type);
         invoiceTypeComboBox.getSelectionModel().select(0);
+        invoiceTypeComboBox.setOnAction(event -> selectedTypeLabel.setText(invoiceTypeComboBox.getSelectionModel().getSelectedItem()));
         periodComboBox.setItems(period);
         periodComboBox.getSelectionModel().select(0);
         statusComboBox.setItems(status);
@@ -48,5 +134,73 @@ public class InvoicesPresenter {
         paymentComboBox.getSelectionModel().select(0);
     }
 
+    private void initializeMenuItems()
+    {
+        numberCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                numberCol.setVisible(newValue));
+        netValCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                netValCol.setVisible(newValue));
+        taxValCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                taxValCol.setVisible(newValue));
+        grossValCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                grossValCol.setVisible(newValue));
+        sellerCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                sellerCol.setVisible(newValue));
+        buyerCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                buyerCol.setVisible(newValue));
+        emailCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                emailCol.setVisible(newValue));
+        saleDateCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                saleDateCol.setVisible(newValue));
+        issueDateCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                issueDateCol.setVisible(newValue));
+        paidAmountCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                paidAmountCol.setVisible(newValue));
+        paymentMethodCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                paymentCol.setVisible(newValue));
+        paidDateCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                paidDateCol.setVisible(newValue));
+        paymentDateCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                paymentDateCol.setVisible(newValue));
+        statusCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                statusCol.setVisible(newValue));
+        telephoneCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                telephoneCol.setVisible(newValue));
+        countryCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                countryCol.setVisible(newValue));
+        creationDateCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                creationDateCol.setVisible(newValue));
+        lastModifiedCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                lastModifiedCol.setVisible(newValue));
+        sentDateCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                sentDateCol.setVisible(newValue));
+        remarksCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                remarksCol.setVisible(newValue));
+    }
 
+    private void setSearching()
+    {
+        phraseTxtFld.setOnKeyPressed(event -> {
+            if (!phraseTxtFld.getText().isEmpty() && event.getCode().equals(KeyCode.ENTER))
+            {
+                search();
+            }
+        });
+
+        searchBtn.setOnAction(event -> search());
+    }
+
+    private void search()
+    {
+        // decided to use final arrays instead of enums to be able to easily query values by index, without using
+        // enum's values() which returns copied values array anyway and each time values() is called
+
+        listOfInvoices.setAll(invoiceService.findAll(
+                InvoiceType.TYPE[invoiceTypeComboBox.getSelectionModel().getSelectedIndex()],
+                startDates[periodComboBox.getSelectionModel().getSelectedIndex()],
+                endDates[periodComboBox.getSelectionModel().getSelectedIndex()],
+                InvoiceStatus.STATUS[statusComboBox.getSelectionModel().getSelectedIndex()],
+                PaymentMethod.METHOD[paymentComboBox.getSelectionModel().getSelectedIndex()]
+        ));
+    }
 }

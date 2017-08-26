@@ -128,7 +128,7 @@
                               <CheckMenuItem fx:id="remarksCheckMenuItem" mnemonicParsing="false" text="Remarks" />
                            </items>
                         </MenuButton>
-                        <Label layoutX="116.0" layoutY="15.0" text="All" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="15.0">
+                        <Label fx:id="selectedTypeLabel" layoutX="116.0" layoutY="15.0" text="All" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="15.0">
                            <font>
                               <Font size="24.0" />
                            </font>

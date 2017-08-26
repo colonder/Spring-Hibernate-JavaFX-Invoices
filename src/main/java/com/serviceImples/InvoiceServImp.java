@@ -11,20 +11,22 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.entity.InvoiceSpecifications.*;
+import static org.springframework.data.jpa.domain.Specifications.where;
+
 @Service
 public class InvoiceServImp implements IInvoiceService {
     @Autowired
     private IInvoiceRepository invoiceRepository;
 
     @Override
-    public List<Invoice> findAll() {
-        return invoiceRepository.findAll();
+    public List<Invoice> findAll(String documentType, LocalDate startDate, LocalDate endDate, String status,
+                                 String paymentMethod) {
+        return invoiceRepository.findAll(where(withDocumentType(documentType))
+                .and(betweenPeriod(startDate, endDate))
+                .and(withStatus(status))
+                .and(withPaymentMethod(paymentMethod)));
     }
-
-//    @Override
-//    public List<Invoice> findAllByTypeEquals(InvoiceType type) {
-//        return invoiceRepository.findAllByTypeEquals(type);
-//    }
 
     @Override
     @Transactional
@@ -62,10 +64,4 @@ public class InvoiceServImp implements IInvoiceService {
         return invoiceRepository.countAllByPaidDateBetween(startDate, endDate);
     }
 
-    @Override
-    public List<Invoice> findAllByTypeIsLikeAndIssueDateIsBetweenAndStatusIsLikeAndPaymentMethodIsLike(
-            String type, LocalDate startDate, LocalDate endDate, String status, String paymentMethod) {
-        return invoiceRepository.findAllByTypeIsLikeAndIssueDateIsBetweenAndStatusIsLikeAndPaymentMethodIsLike(
-                type, startDate, endDate, status, paymentMethod);
-    }
 }

@@ -7,8 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface IInvoiceService {
-    List<Invoice> findAll();
-    //List<Invoice> findAllByTypeEquals(InvoiceType type);
+    List<Invoice> findAll(String documentType, LocalDate startDate, LocalDate endDate, String status,
+                          String paymentMethod);
     Invoice save(Invoice invoice);
     void delete(Invoice invoice);
     int update(String seller, BigDecimal paidAmount, String method, LocalDate paidDate, LocalDate paymentDate,
@@ -16,6 +16,4 @@ public interface IInvoiceService {
     int updateSent(LocalDate sentDate, int id);
     BigDecimal sumByPeriod(LocalDate startDate, LocalDate endDate);
     int countAllByPaidDateBetween(LocalDate startDate, LocalDate endDate);
-    List<Invoice> findAllByTypeIsLikeAndIssueDateIsBetweenAndStatusIsLikeAndPaymentMethodIsLike(
-            String type, LocalDate startDate, LocalDate endDate, String status, String paymentMethod);
 }
