@@ -1,4 +1,4 @@
-package com.entity.enums;
+package com.entity.contant_arrays;
 
 public class CustomerType
 {
