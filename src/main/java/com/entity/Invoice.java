@@ -1,5 +1,8 @@
 package com.entity;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -75,4 +78,22 @@ public class Invoice extends BaseAbstractEntity
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
+
+    @Transient private SimpleStringProperty numberProp;
+    @Transient private SimpleStringProperty sellerProp;
+    @Transient private SimpleStringProperty issueDateProp;
+    @Transient private SimpleObjectProperty<BigDecimal> netValProp;
+    @Transient private SimpleObjectProperty<BigDecimal> taxValProp;
+    @Transient private SimpleObjectProperty<BigDecimal> grossValProp;
+    @Transient private SimpleObjectProperty<BigDecimal> paidAmountProp;
+    @Transient private SimpleStringProperty paymentMethodProp;
+    @Transient private SimpleStringProperty paidDateProp;
+    @Transient private SimpleStringProperty paymentDateProp;
+    @Transient private SimpleStringProperty currencyProp;
+    @Transient private SimpleStringProperty statusProp;
+    @Transient private SimpleStringProperty creationDateProp;
+    @Transient private SimpleStringProperty saleDateProp;
+    @Transient private SimpleStringProperty lastModifiedProp;
+    @Transient private SimpleStringProperty sentDateProp;
+    @Transient private SimpleStringProperty notesProp;
 }

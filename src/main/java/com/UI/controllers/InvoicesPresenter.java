@@ -60,18 +60,18 @@ public class InvoicesPresenter {
     @FXML private TableColumn<Invoice, String> sellerCol;
     @FXML private TableColumn<Customer, String> buyerCol;
     @FXML private TableColumn<Customer, String> emailCol;
-    @FXML private TableColumn<Invoice, LocalDate> saleDateCol;
-    @FXML private TableColumn<Invoice, LocalDate> issueDateCol;
+    @FXML private TableColumn<Invoice, String> saleDateCol;
+    @FXML private TableColumn<Invoice, String> issueDateCol;
     @FXML private TableColumn<Invoice, BigDecimal> paidAmountCol;
     @FXML private TableColumn<Invoice, String> paymentCol;
-    @FXML private TableColumn<Invoice, LocalDate> paidDateCol;
-    @FXML private TableColumn<Invoice, LocalDate> paymentDateCol;
+    @FXML private TableColumn<Invoice, String> paidDateCol;
+    @FXML private TableColumn<Invoice, String> paymentDateCol;
     @FXML private TableColumn<Invoice, String> statusCol;
     @FXML private TableColumn<Customer, String> telephoneCol;
     @FXML private TableColumn<Customer, String> countryCol;
-    @FXML private TableColumn<Invoice, LocalDate> creationDateCol;
-    @FXML private TableColumn<Invoice, LocalDate> lastModifiedCol;
-    @FXML private TableColumn<Invoice, LocalDate> sentDateCol;
+    @FXML private TableColumn<Invoice, String> creationDateCol;
+    @FXML private TableColumn<Invoice, String> lastModifiedCol;
+    @FXML private TableColumn<Invoice, String> sentDateCol;
     @FXML private TableColumn<Invoice, String> remarksCol;
     //endregion
 
