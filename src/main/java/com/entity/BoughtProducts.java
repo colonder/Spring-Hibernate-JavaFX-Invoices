@@ -6,7 +6,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "bought_products")
-public class BoughtProducts {
+public class BoughtProducts extends BaseAbstractEntity
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

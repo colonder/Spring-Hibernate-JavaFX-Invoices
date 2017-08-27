@@ -1,5 +1,7 @@
 package com.UI.controllers;
 
+import com.entity.BaseAbstractEntity;
+import com.entity.Customer;
 import com.entity.Invoice;
 import com.entity.contant_arrays.InvoiceStatus;
 import com.entity.contant_arrays.InvoiceType;
@@ -20,13 +22,58 @@ import java.time.LocalDate;
 public class InvoicesPresenter {
 
     private static final LocalDate[] startDates;
+    private static final LocalDate[] endDates;
+    //region FXML fields
     @FXML private TextField phraseTxtFld;
     @FXML private ComboBox<String> invoiceTypeComboBox;
     @FXML private ComboBox<String> periodComboBox;
     @FXML private ComboBox<String> statusComboBox;
     @FXML private ComboBox<String> paymentComboBox;
     @FXML private Button searchBtn;
-    private static final LocalDate[] endDates;
+    @FXML private Button newInvoiceBtn;
+    @FXML private Label selectedTypeLabel;
+    @FXML private CheckMenuItem numberCheckMenuItem;
+    @FXML private CheckMenuItem netValCheckMenuItem;
+    @FXML private CheckMenuItem taxValCheckMenuItem;
+    @FXML private CheckMenuItem grossValCheckMenuItem;
+    @FXML private CheckMenuItem sellerCheckMenuItem;
+    @FXML private CheckMenuItem buyerCheckMenuItem;
+    @FXML private CheckMenuItem emailCheckMenuItem;
+    @FXML private CheckMenuItem saleDateCheckMenuItem;
+    @FXML private CheckMenuItem issueDateCheckMenuItem;
+    @FXML private CheckMenuItem paidAmountCheckMenuItem;
+    @FXML private CheckMenuItem paymentMethodCheckMenuItem;
+    @FXML private CheckMenuItem paidDateCheckMenuItem;
+    @FXML private CheckMenuItem paymentDateCheckMenuItem;
+    @FXML private CheckMenuItem statusCheckMenuItem;
+    @FXML private CheckMenuItem telephoneCheckMenuItem;
+    @FXML private CheckMenuItem countryCheckMenuItem;
+    @FXML private CheckMenuItem creationDateCheckMenuItem;
+    @FXML private CheckMenuItem lastModifiedCheckMenuItem;
+    @FXML private CheckMenuItem sentDateCheckMenuItem;
+    @FXML private CheckMenuItem remarksCheckMenuItem;
+    @FXML private TableView<BaseAbstractEntity> tableView;
+    @FXML private TableColumn<Invoice, String> numberCol;
+    @FXML private TableColumn<Invoice, BigDecimal> netValCol;
+    @FXML private TableColumn<Invoice, BigDecimal> taxValCol;
+    @FXML private TableColumn<Invoice, BigDecimal> grossValCol;
+    @FXML private TableColumn<Invoice, String> sellerCol;
+    @FXML private TableColumn<Customer, String> buyerCol;
+    @FXML private TableColumn<Customer, String> emailCol;
+    @FXML private TableColumn<Invoice, LocalDate> saleDateCol;
+    @FXML private TableColumn<Invoice, LocalDate> issueDateCol;
+    @FXML private TableColumn<Invoice, BigDecimal> paidAmountCol;
+    @FXML private TableColumn<Invoice, String> paymentCol;
+    @FXML private TableColumn<Invoice, LocalDate> paidDateCol;
+    @FXML private TableColumn<Invoice, LocalDate> paymentDateCol;
+    @FXML private TableColumn<Invoice, String> statusCol;
+    @FXML private TableColumn<Customer, String> telephoneCol;
+    @FXML private TableColumn<Customer, String> countryCol;
+    @FXML private TableColumn<Invoice, LocalDate> creationDateCol;
+    @FXML private TableColumn<Invoice, LocalDate> lastModifiedCol;
+    @FXML private TableColumn<Invoice, LocalDate> sentDateCol;
+    @FXML private TableColumn<Invoice, String> remarksCol;
+    //endregion
 
     static
     {
@@ -53,53 +100,9 @@ public class InvoicesPresenter {
         };
     }
 
-    //region FXML fields
-    @FXML private Button newInvoiceBtn;
-    @FXML private Label selectedTypeLabel;
-    @FXML private CheckMenuItem numberCheckMenuItem;
-    @FXML private CheckMenuItem netValCheckMenuItem;
-    @FXML private CheckMenuItem taxValCheckMenuItem;
-    @FXML private CheckMenuItem grossValCheckMenuItem;
-    @FXML private CheckMenuItem sellerCheckMenuItem;
-    @FXML private CheckMenuItem buyerCheckMenuItem;
-    @FXML private CheckMenuItem emailCheckMenuItem;
-    @FXML private CheckMenuItem saleDateCheckMenuItem;
-    @FXML private CheckMenuItem issueDateCheckMenuItem;
-    @FXML private CheckMenuItem paidAmountCheckMenuItem;
-    @FXML private CheckMenuItem paymentMethodCheckMenuItem;
-    @FXML private CheckMenuItem paidDateCheckMenuItem;
-    @FXML private CheckMenuItem paymentDateCheckMenuItem;
-    @FXML private CheckMenuItem statusCheckMenuItem;
-    @FXML private CheckMenuItem telephoneCheckMenuItem;
-    @FXML private CheckMenuItem countryCheckMenuItem;
-    @FXML private CheckMenuItem creationDateCheckMenuItem;
-    @FXML private CheckMenuItem lastModifiedCheckMenuItem;
-    @FXML private CheckMenuItem sentDateCheckMenuItem;
-    @FXML private CheckMenuItem remarksCheckMenuItem;
-    @FXML private TableColumn<Invoice, String> numberCol;
-    @FXML private TableColumn<Invoice, BigDecimal> netValCol;
-    @FXML private TableColumn<Invoice, BigDecimal> taxValCol;
-    @FXML private TableColumn<Invoice, BigDecimal> grossValCol;
-    @FXML private TableColumn<Invoice, String> sellerCol;
-    @FXML private TableColumn<Invoice, String> buyerCol;
-    @FXML private TableColumn<Invoice, String> emailCol;
-    @FXML private TableColumn<Invoice, LocalDate> saleDateCol;
-    @FXML private TableColumn<Invoice, LocalDate> issueDateCol;
-    @FXML private TableColumn<Invoice, BigDecimal> paidAmountCol;
-    @FXML private TableColumn<Invoice, String> paymentCol;
-    @FXML private TableColumn<Invoice, LocalDate> paidDateCol;
-    @FXML private TableColumn<Invoice, LocalDate> paymentDateCol;
-    @FXML private TableColumn<Invoice, String> statusCol;
-    @FXML private TableColumn<Invoice, String> telephoneCol;
-    @FXML private TableColumn<Invoice, String> countryCol;
-    @FXML private TableColumn<Invoice, LocalDate> creationDateCol;
-    //endregion
-    @FXML private TableColumn<Invoice, LocalDate> lastModifiedCol;
-    @FXML private TableColumn<Invoice, LocalDate> sentDateCol;
-    @FXML private TableColumn<Invoice, String> remarksCol;
     @Autowired
     private IInvoiceService invoiceService;
-    private ObservableList<Invoice> listOfInvoices;
+    private ObservableList<BaseAbstractEntity> listOfInvoices;
 
     @FXML
     public void initialize()
@@ -107,7 +110,13 @@ public class InvoicesPresenter {
         initializeComboBoxes();
         initializeMenuItems();
         listOfInvoices = FXCollections.observableArrayList();
+        tableView.setItems(listOfInvoices);
         setSearching();
+        initializeColumns();
+    }
+
+    private void initializeColumns() {
+
     }
 
     private void initializeComboBoxes()

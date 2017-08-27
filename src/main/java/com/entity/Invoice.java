@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "issued_invoices")
-public class Invoice
+public class Invoice extends BaseAbstractEntity
 {
     @Id
     @Column(name = "id", nullable = false)

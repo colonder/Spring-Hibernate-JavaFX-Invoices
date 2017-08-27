@@ -137,7 +137,7 @@
                   </AnchorPane>
                   <ScrollPane prefHeight="590.0">
                      <content>
-                        <TableView minHeight="-Infinity" minWidth="1030.0" prefHeight="510.0">
+                        <TableView fx:id="tableView" minHeight="-Infinity" minWidth="1030.0" prefHeight="510.0">
                            <columns>
                               <TableColumn fx:id="numberCol" editable="false" prefWidth="150.0" text="Number" />
                               <TableColumn fx:id="netValCol" editable="false" prefWidth="150.0" text="Net value" />
