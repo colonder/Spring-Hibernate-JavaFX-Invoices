@@ -1,9 +1,9 @@
 package com.UI.controllers;
 
 import com.UI.view.*;
+import com.utilities.ViewSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,16 +25,10 @@ public class RootPresenter {
     @FXML
     public void initialize()
     {
-        homeBtn.setOnAction(event -> openView(homeBtn, homeView));
-        invoicesBtn.setOnAction(event -> openView(invoicesBtn, invoicesView));
-        customersBtn.setOnAction(event -> openView(customersBtn, customersView));
-        productsBtn.setOnAction(event -> openView(productsBtn, productsView));
-        warehouseBtn.setOnAction(event -> openView(warehouseBtn, warehouseView));
-    }
-
-    private void openView(Button button, AbstractFxmlView view)
-    {
-        BorderPane parent = (BorderPane) button.getScene().getRoot();
-        parent.setCenter(view.getView());
+        homeBtn.setOnAction(event -> ViewSwitcher.openView(homeBtn, homeView));
+        invoicesBtn.setOnAction(event -> ViewSwitcher.openView(invoicesBtn, invoicesView));
+        customersBtn.setOnAction(event -> ViewSwitcher.openView(customersBtn, customersView));
+        productsBtn.setOnAction(event -> ViewSwitcher.openView(productsBtn, productsView));
+        warehouseBtn.setOnAction(event -> ViewSwitcher.openView(warehouseBtn, warehouseView));
     }
 }

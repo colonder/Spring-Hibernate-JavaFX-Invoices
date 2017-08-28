@@ -1,13 +1,12 @@
 package com.UI.controllers;
 
-import com.UI.view.AbstractFxmlView;
 import com.UI.view.NewInvoiceView;
 import com.service.IInvoiceService;
 import com.utilities.CurrencyHandler;
+import com.utilities.ViewSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,10 +34,10 @@ public class HomePresenter {
     @FXML
     public void initialize()
     {
-        standardBtn.setOnAction(event -> openView(standardBtn, newInvoiceView));
-        proFormaBtn.setOnAction(event -> openView(proFormaBtn, newInvoiceView));
-        correctiveBtn.setOnAction(event -> openView(correctiveBtn, newInvoiceView));
-        expensesBtn.setOnAction(event -> openView(expensesBtn, newInvoiceView));
+        standardBtn.setOnAction(event -> ViewSwitcher.openView(standardBtn, newInvoiceView));
+        proFormaBtn.setOnAction(event -> ViewSwitcher.openView(proFormaBtn, newInvoiceView));
+        correctiveBtn.setOnAction(event -> ViewSwitcher.openView(correctiveBtn, newInvoiceView));
+        expensesBtn.setOnAction(event -> ViewSwitcher.openView(expensesBtn, newInvoiceView));
 
         initRevenueLabels();
         initSalesLabels();
@@ -52,12 +51,6 @@ public class HomePresenter {
         lastSevenDaysLabel.setText(String.valueOf(invoiceService.countAllByPaidDateBetween(today.minusDays(7), today)));
         curMonthSalesLabel.setText(String.valueOf(invoiceService.countAllByPaidDateBetween(today.withDayOfMonth(1), today)));
         curYearSalesLabel.setText(String.valueOf(invoiceService.countAllByPaidDateBetween(today.withDayOfYear(1), today)));
-    }
-
-    private void openView(Button button, AbstractFxmlView view)
-    {
-        BorderPane parent = (BorderPane) button.getScene().getRoot();
-        parent.setCenter(view.getView());
     }
 
     private void initRevenueLabels()

@@ -1,5 +1,6 @@
 package com.UI.controllers;
 
+import com.UI.view.NewInvoiceView;
 import com.entity.BaseAbstractEntity;
 import com.entity.Customer;
 import com.entity.Invoice;
@@ -7,6 +8,8 @@ import com.entity.contant_arrays.InvoiceStatus;
 import com.entity.contant_arrays.InvoiceType;
 import com.entity.contant_arrays.PaymentMethod;
 import com.service.IInvoiceService;
+import com.utilities.ViewSwitcher;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -106,6 +109,8 @@ public class InvoicesPresenter {
 
     @Autowired
     private IInvoiceService invoiceService;
+    @Autowired
+    private NewInvoiceView newInvoiceView;
     private ObservableList<BaseAbstractEntity> listOfInvoices;
 
     @FXML
@@ -117,9 +122,12 @@ public class InvoicesPresenter {
         tableView.setItems(listOfInvoices);
         setSearching();
         initializeColumns();
+        newInvoiceBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceBtn, newInvoiceView));
     }
 
     private void initializeColumns() {
+        orderCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(tableView.getItems()
+                .indexOf(param.getValue()) + 1));
         numberCol.setCellValueFactory(new PropertyValueFactory<>("invoiceNumber"));
         netValCol.setCellValueFactory(new PropertyValueFactory<>("netValue"));
         taxValCol.setCellValueFactory(new PropertyValueFactory<>("taxValue"));
