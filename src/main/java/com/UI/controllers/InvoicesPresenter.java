@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -53,12 +54,15 @@ public class InvoicesPresenter {
     @FXML private CheckMenuItem sentDateCheckMenuItem;
     @FXML private CheckMenuItem remarksCheckMenuItem;
     @FXML private TableView<BaseAbstractEntity> tableView;
+    @FXML private TableColumn<BaseAbstractEntity, Number> orderCol;
     @FXML private TableColumn<Invoice, String> numberCol;
     @FXML private TableColumn<Invoice, BigDecimal> netValCol;
     @FXML private TableColumn<Invoice, BigDecimal> taxValCol;
     @FXML private TableColumn<Invoice, BigDecimal> grossValCol;
     @FXML private TableColumn<Invoice, String> sellerCol;
     @FXML private TableColumn<Customer, String> buyerCol;
+    @FXML private TableColumn<Customer, String> lastNameCol;
+    @FXML private TableColumn<Customer, String> firstNameCol;
     @FXML private TableColumn<Customer, String> emailCol;
     @FXML private TableColumn<Invoice, String> saleDateCol;
     @FXML private TableColumn<Invoice, String> issueDateCol;
@@ -116,7 +120,27 @@ public class InvoicesPresenter {
     }
 
     private void initializeColumns() {
-
+        numberCol.setCellValueFactory(new PropertyValueFactory<>("invoiceNumber"));
+        netValCol.setCellValueFactory(new PropertyValueFactory<>("netValue"));
+        taxValCol.setCellValueFactory(new PropertyValueFactory<>("taxValue"));
+        grossValCol.setCellValueFactory(new PropertyValueFactory<>("grossValue"));
+        sellerCol.setCellValueFactory(new PropertyValueFactory<>("seller"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        saleDateCol.setCellValueFactory(new PropertyValueFactory<>("saleDate"));
+        issueDateCol.setCellValueFactory(new PropertyValueFactory<>("issueDate"));
+        paidAmountCol.setCellValueFactory(new PropertyValueFactory<>("paidAmount"));
+        paymentCol.setCellValueFactory(new PropertyValueFactory<>("paymentMethod"));
+        paidDateCol.setCellValueFactory(new PropertyValueFactory<>("paidDate"));
+        paymentDateCol.setCellValueFactory(new PropertyValueFactory<>("paymentDate"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+        telephoneCol.setCellValueFactory(new PropertyValueFactory<>("telephone"));
+        countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
+        creationDateCol.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
+        lastModifiedCol.setCellValueFactory(new PropertyValueFactory<>("lastModified"));
+        sentDateCol.setCellValueFactory(new PropertyValueFactory<>("sentDate"));
+        remarksCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
     }
 
     private void initializeComboBoxes()

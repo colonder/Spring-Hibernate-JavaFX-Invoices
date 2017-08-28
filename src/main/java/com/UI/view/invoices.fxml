@@ -139,12 +139,17 @@
                      <content>
                         <TableView fx:id="tableView" minHeight="-Infinity" minWidth="1030.0" prefHeight="510.0">
                            <columns>
+                              <TableColumn fx:id="orderCol" maxWidth="1800.0" prefWidth="120.0" text="No" />
                               <TableColumn fx:id="numberCol" editable="false" prefWidth="150.0" text="Number" />
                               <TableColumn fx:id="netValCol" editable="false" prefWidth="150.0" text="Net value" />
                               <TableColumn fx:id="taxValCol" editable="false" prefWidth="150.0" text="Tax value" visible="false" />
                               <TableColumn fx:id="grossValCol" editable="false" prefWidth="150.0" text="Gross value" />
                               <TableColumn fx:id="sellerCol" editable="false" prefWidth="150.0" text="Seller" visible="false" />
-                              <TableColumn fx:id="buyerCol" editable="false" prefWidth="150.0" text="Buyer" />
+                              <TableColumn fx:id="buyerCol" editable="false" prefWidth="150.0" text="Buyer">
+                                 <columns>
+                                    <TableColumn fx:id="lastNameCol" prefWidth="75.0" text="Last name" />
+                                    <TableColumn fx:id="firstNameCol" prefWidth="75.0" text="First name" />
+                                 </columns></TableColumn>
                               <TableColumn fx:id="emailCol" editable="false" prefWidth="150.0" text="Customer's email" visible="false" />
                               <TableColumn fx:id="saleDateCol" editable="false" prefWidth="150.0" text="Sale date" visible="false" />
                               <TableColumn fx:id="issueDateCol" editable="false" prefWidth="150.0" text="Issue date" visible="false" />
