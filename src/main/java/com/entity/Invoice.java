@@ -75,4 +75,88 @@ public class Invoice extends BaseAbstractEntity
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getSeller() {
+        return seller;
+    }
+
+    public LocalDate getIssueDate() {
+        return issueDate;
+    }
+
+    public BigDecimal getNetValue() {
+        return netValue;
+    }
+
+    public BigDecimal getTaxValue() {
+        return taxValue;
+    }
+
+    public BigDecimal getGrossValue() {
+        return grossValue;
+    }
+
+    public BigDecimal getPaidAmount() {
+        return paidAmount;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public LocalDate getPaidDate() {
+        return paidDate;
+    }
+
+    public LocalDate getPaymentDate() {
+        return paymentDate;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public LocalDate getSaleDate() {
+        return saleDate;
+    }
+
+    public LocalDate getLastModified() {
+        return lastModified;
+    }
+
+    public LocalDate getSentDate() {
+        return sentDate;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public Set<BoughtProducts> getBoughtProductsById() {
+        return boughtProductsById;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
 }

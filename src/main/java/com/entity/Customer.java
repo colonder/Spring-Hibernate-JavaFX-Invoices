@@ -85,4 +85,100 @@ public class Customer extends BaseAbstractEntity
     private Set<Invoice> boughtProductsSet = new HashSet<>();
 
     public Customer() {}
+
+    public int getId() {
+        return id;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public long getPersonalId() {
+        return personalId;
+    }
+
+    public String getTaxIdentifier() {
+        return taxIdentifier;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public int getTelephone() {
+        return telephone;
+    }
+
+    public int getCellPhone() {
+        return cellPhone;
+    }
+
+    public int getFax() {
+        return fax;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public String getDefaultPaymentMethod() {
+        return defaultPaymentMethod;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public LocalDate getLastPurchaseDate() {
+        return lastPurchaseDate;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCustomerType() {
+        return customerType;
+    }
+
+    public int getCompanySpecialNumber() {
+        return companySpecialNumber;
+    }
+
+    public String getDefaultCurrency() {
+        return defaultCurrency;
+    }
+
+    public BigDecimal getDefaultDiscount() {
+        return defaultDiscount;
+    }
+
+    public int getDefaultPaymentDateDays() {
+        return defaultPaymentDateDays;
+    }
+
+    public Set<Invoice> getBoughtProductsSet() {
+        return boughtProductsSet;
+    }
 }

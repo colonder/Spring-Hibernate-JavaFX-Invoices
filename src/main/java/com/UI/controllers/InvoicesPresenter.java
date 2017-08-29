@@ -1,8 +1,6 @@
 package com.UI.controllers;
 
 import com.UI.view.NewInvoiceView;
-import com.entity.BaseAbstractEntity;
-import com.entity.Customer;
 import com.entity.Invoice;
 import com.entity.contant_arrays.InvoiceStatus;
 import com.entity.contant_arrays.InvoiceType;
@@ -10,6 +8,7 @@ import com.entity.contant_arrays.PaymentMethod;
 import com.service.IInvoiceService;
 import com.utilities.ViewSwitcher;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -56,17 +55,17 @@ public class InvoicesPresenter {
     @FXML private CheckMenuItem lastModifiedCheckMenuItem;
     @FXML private CheckMenuItem sentDateCheckMenuItem;
     @FXML private CheckMenuItem remarksCheckMenuItem;
-    @FXML private TableView<BaseAbstractEntity> tableView;
-    @FXML private TableColumn<BaseAbstractEntity, Number> orderCol;
+    @FXML private TableView<Invoice> tableView;
+    @FXML private TableColumn<Invoice, Number> orderCol;
     @FXML private TableColumn<Invoice, String> numberCol;
     @FXML private TableColumn<Invoice, BigDecimal> netValCol;
     @FXML private TableColumn<Invoice, BigDecimal> taxValCol;
     @FXML private TableColumn<Invoice, BigDecimal> grossValCol;
     @FXML private TableColumn<Invoice, String> sellerCol;
-    @FXML private TableColumn<Customer, String> buyerCol;
-    @FXML private TableColumn<Customer, String> lastNameCol;
-    @FXML private TableColumn<Customer, String> firstNameCol;
-    @FXML private TableColumn<Customer, String> emailCol;
+    @FXML private TableColumn<Invoice, String> buyerCol;
+    @FXML private TableColumn<Invoice, String> lastNameCol;
+    @FXML private TableColumn<Invoice, String> firstNameCol;
+    @FXML private TableColumn<Invoice, String> emailCol;
     @FXML private TableColumn<Invoice, String> saleDateCol;
     @FXML private TableColumn<Invoice, String> issueDateCol;
     @FXML private TableColumn<Invoice, BigDecimal> paidAmountCol;
@@ -74,8 +73,8 @@ public class InvoicesPresenter {
     @FXML private TableColumn<Invoice, String> paidDateCol;
     @FXML private TableColumn<Invoice, String> paymentDateCol;
     @FXML private TableColumn<Invoice, String> statusCol;
-    @FXML private TableColumn<Customer, String> telephoneCol;
-    @FXML private TableColumn<Customer, String> countryCol;
+    @FXML private TableColumn<Invoice, Integer> telephoneCol;
+    @FXML private TableColumn<Invoice, String> countryCol;
     @FXML private TableColumn<Invoice, String> creationDateCol;
     @FXML private TableColumn<Invoice, String> lastModifiedCol;
     @FXML private TableColumn<Invoice, String> sentDateCol;
@@ -111,7 +110,7 @@ public class InvoicesPresenter {
     private IInvoiceService invoiceService;
     @Autowired
     private NewInvoiceView newInvoiceView;
-    private ObservableList<BaseAbstractEntity> listOfInvoices;
+    private ObservableList<Invoice> listOfInvoices;
 
     @FXML
     public void initialize()
@@ -133,9 +132,9 @@ public class InvoicesPresenter {
         taxValCol.setCellValueFactory(new PropertyValueFactory<>("taxValue"));
         grossValCol.setCellValueFactory(new PropertyValueFactory<>("grossValue"));
         sellerCol.setCellValueFactory(new PropertyValueFactory<>("seller"));
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        lastNameCol.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().getCustomer().getLastName()));
+        firstNameCol.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().getCustomer().getFirstName()));
+        emailCol.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().getCustomer().getEmail()));
         saleDateCol.setCellValueFactory(new PropertyValueFactory<>("saleDate"));
         issueDateCol.setCellValueFactory(new PropertyValueFactory<>("issueDate"));
         paidAmountCol.setCellValueFactory(new PropertyValueFactory<>("paidAmount"));
@@ -143,8 +142,8 @@ public class InvoicesPresenter {
         paidDateCol.setCellValueFactory(new PropertyValueFactory<>("paidDate"));
         paymentDateCol.setCellValueFactory(new PropertyValueFactory<>("paymentDate"));
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
-        telephoneCol.setCellValueFactory(new PropertyValueFactory<>("telephone"));
-        countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
+        telephoneCol.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getCustomer().getTelephone()));
+        countryCol.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().getCustomer().getCountry()));
         creationDateCol.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
         lastModifiedCol.setCellValueFactory(new PropertyValueFactory<>("lastModified"));
         sentDateCol.setCellValueFactory(new PropertyValueFactory<>("sentDate"));
