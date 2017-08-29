@@ -64,7 +64,7 @@ create table products
 	id serial primary key,
 	product_name varchar(80) not null,
 	net_price numeric(7,2) not null check(net_price > 0.00),
-	tax_rate numeric(3,2) not null check(tax_rate > 0.00),
+	tax_rate numeric(4,2) not null check(tax_rate > 0.00),
 	online_sale boolean not null default '0',
 	is_service boolean not null default '0',
 	is_active boolean not null default '1',
