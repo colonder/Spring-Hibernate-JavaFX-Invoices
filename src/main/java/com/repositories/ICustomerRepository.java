@@ -20,7 +20,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             " c.fax =?13, c.tag =?14, c.defaultPaymentMethod =?15, c.country =?16, c.customerType =?17, " +
             "c.companySpecialNumber =?18, c.defaultCurrency =?20, c.defaultDiscount =?21, c.defaultPaymentDateDays =?22" +
             " WHERE c.id =?23")
-    int update(String alias, String lastName, String firstName, int personalId, String taxIdentifier, String email,
+    int update(String alias, String lastName, String firstName, long personalId, String taxIdentifier, String email,
                String address, String postalCode, String city, int telephone, int cellPhone, int fax, String tag,
                String defaultPaymentMethod, String country, String type, int companySpecialNumber,
                String defaultCurrency, BigDecimal defaultDiscount,

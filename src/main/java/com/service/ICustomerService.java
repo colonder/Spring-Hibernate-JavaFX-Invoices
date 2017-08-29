@@ -10,7 +10,7 @@ public interface ICustomerService {
     List<Customer> findAll();
     Customer save(Customer customer);
     void delete(Customer customer);
-    int update(String alias, String lastName, String firstName, int personalId, String taxIdentifier, String email,
+    int update(String alias, String lastName, String firstName, long personalId, String taxIdentifier, String email,
                String address, String postalCode, String city, int telephone, int cellPhone, int fax, String tag,
                String defaultPaymentMethod, String country, String type, int companySpecialNumber,
                String defaultCurrency, BigDecimal defaultDiscount,

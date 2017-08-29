@@ -36,7 +36,7 @@ public class CustomerServImp implements ICustomerService {
 
     @Override
     @Transactional
-    public int update(String alias, String lastName, String firstName, int personalId, String taxIdentifier,
+    public int update(String alias, String lastName, String firstName, long personalId, String taxIdentifier,
                       String email, String address, String postalCode, String city, int telephone, int cellPhone,
                       int fax, String tag, String defaultPaymentMethod, String country, String type,
                       int companySpecialNumber, String defaultCurrency, BigDecimal defaultDiscount,

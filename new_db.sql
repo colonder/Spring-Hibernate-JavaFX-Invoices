@@ -4,7 +4,7 @@
 	alias varchar(20) unique,
 	last_name varchar(80),
 	first_name varchar(30),
-	personal_id int unique not null,
+	personal_id bigint unique not null,
 	tax_identifier_number varchar(20) unique not null,
 	email varchar(30) unique,
 	address varchar(100),

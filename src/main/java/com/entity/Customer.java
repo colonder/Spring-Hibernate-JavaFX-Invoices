@@ -25,7 +25,7 @@ public class Customer extends BaseAbstractEntity
     private String firstName;
 
     @Column(name = "personal_id")
-    private int personalId;
+    private long personalId;
 
     @Column(name = "tax_identifier_number")
     private String taxIdentifier;
