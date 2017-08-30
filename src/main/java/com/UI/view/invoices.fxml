@@ -104,35 +104,41 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <MenuButton layoutX="917.0" layoutY="18.0" mnemonicParsing="false" text="Column visibility" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="18.0">
-                           <items>
-                              <CheckMenuItem fx:id="numberCheckMenuItem" mnemonicParsing="false" selected="true" text="Number" />
-                              <CheckMenuItem fx:id="netValCheckMenuItem" mnemonicParsing="false" selected="true" text="Net value" />
-                              <CheckMenuItem fx:id="taxValCheckMenuItem" mnemonicParsing="false" text="Tax value" />
-                              <CheckMenuItem fx:id="grossValCheckMenuItem" mnemonicParsing="false" selected="true" text="Gross value" />
-                              <CheckMenuItem fx:id="sellerCheckMenuItem" mnemonicParsing="false" text="Seller" />
-                              <CheckMenuItem fx:id="buyerCheckMenuItem" mnemonicParsing="false" selected="true" text="Buyer" />
-                              <CheckMenuItem fx:id="emailCheckMenuItem" mnemonicParsing="false" text="Email" />
-                              <CheckMenuItem fx:id="saleDateCheckMenuItem" mnemonicParsing="false" text="Sale date" />
-                              <CheckMenuItem fx:id="issueDateCheckMenuItem" mnemonicParsing="false" text="Issue date" />
-                              <CheckMenuItem fx:id="paidAmountCheckMenuItem" mnemonicParsing="false" text="Paid amount" />
-                              <CheckMenuItem fx:id="paymentMethodCheckMenuItem" mnemonicParsing="false" text="Payment method" />
-                              <CheckMenuItem fx:id="paidDateCheckMenuItem" mnemonicParsing="false" selected="true" text="Paid date" />
-                              <CheckMenuItem fx:id="paymentDateCheckMenuItem" mnemonicParsing="false" text="Payment date" />
-                              <CheckMenuItem fx:id="statusCheckMenuItem" mnemonicParsing="false" selected="true" text="Status" />
-                              <CheckMenuItem fx:id="telephoneCheckMenuItem" mnemonicParsing="false" text="Telephone" />
-                              <CheckMenuItem fx:id="countryCheckMenuItem" mnemonicParsing="false" text="Country" />
-                              <CheckMenuItem fx:id="creationDateCheckMenuItem" mnemonicParsing="false" text="Creation date" />
-                              <CheckMenuItem fx:id="lastModifiedCheckMenuItem" mnemonicParsing="false" text="Last modified" />
-                              <CheckMenuItem fx:id="sentDateCheckMenuItem" mnemonicParsing="false" text="Sent date" />
-                              <CheckMenuItem fx:id="remarksCheckMenuItem" mnemonicParsing="false" text="Remarks" />
-                           </items>
-                        </MenuButton>
                         <Label fx:id="selectedTypeLabel" layoutX="116.0" layoutY="15.0" text="All" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="15.0">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
+                        <ButtonBar layoutX="452.0" layoutY="6.0" prefHeight="48.0" prefWidth="564.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="6.0">
+                          <buttons>
+                              <Button fx:id="editBtn" mnemonicParsing="false" text="Edit selected" />
+                            <Button fx:id="deleteBtn" mnemonicParsing="false" text="Delete selected" />
+                              <MenuButton mnemonicParsing="false" text="Column visibility">
+                                 <items>
+                                    <CheckMenuItem fx:id="numberCheckMenuItem" mnemonicParsing="false" selected="true" text="Number" />
+                                    <CheckMenuItem fx:id="netValCheckMenuItem" mnemonicParsing="false" selected="true" text="Net value" />
+                                    <CheckMenuItem fx:id="taxValCheckMenuItem" mnemonicParsing="false" text="Tax value" />
+                                    <CheckMenuItem fx:id="grossValCheckMenuItem" mnemonicParsing="false" selected="true" text="Gross value" />
+                                    <CheckMenuItem fx:id="sellerCheckMenuItem" mnemonicParsing="false" text="Seller" />
+                                    <CheckMenuItem fx:id="buyerCheckMenuItem" mnemonicParsing="false" selected="true" text="Buyer" />
+                                    <CheckMenuItem fx:id="emailCheckMenuItem" mnemonicParsing="false" text="Email" />
+                                    <CheckMenuItem fx:id="saleDateCheckMenuItem" mnemonicParsing="false" text="Sale date" />
+                                    <CheckMenuItem fx:id="issueDateCheckMenuItem" mnemonicParsing="false" text="Issue date" />
+                                    <CheckMenuItem fx:id="paidAmountCheckMenuItem" mnemonicParsing="false" text="Paid amount" />
+                                    <CheckMenuItem fx:id="paymentMethodCheckMenuItem" mnemonicParsing="false" text="Payment method" />
+                                    <CheckMenuItem fx:id="paidDateCheckMenuItem" mnemonicParsing="false" selected="true" text="Paid date" />
+                                    <CheckMenuItem fx:id="paymentDateCheckMenuItem" mnemonicParsing="false" text="Payment date" />
+                                    <CheckMenuItem fx:id="statusCheckMenuItem" mnemonicParsing="false" selected="true" text="Status" />
+                                    <CheckMenuItem fx:id="telephoneCheckMenuItem" mnemonicParsing="false" text="Telephone" />
+                                    <CheckMenuItem fx:id="countryCheckMenuItem" mnemonicParsing="false" text="Country" />
+                                    <CheckMenuItem fx:id="creationDateCheckMenuItem" mnemonicParsing="false" text="Creation date" />
+                                    <CheckMenuItem fx:id="lastModifiedCheckMenuItem" mnemonicParsing="false" text="Last modified" />
+                                    <CheckMenuItem fx:id="sentDateCheckMenuItem" mnemonicParsing="false" text="Sent date" />
+                                    <CheckMenuItem fx:id="remarksCheckMenuItem" mnemonicParsing="false" text="Remarks" />
+                                 </items>
+                              </MenuButton>
+                          </buttons>
+                        </ButtonBar>
                      </children>
                   </AnchorPane>
                   <ScrollPane prefHeight="590.0">

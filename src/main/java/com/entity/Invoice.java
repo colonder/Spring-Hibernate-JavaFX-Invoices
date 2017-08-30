@@ -69,7 +69,7 @@ public class Invoice extends BaseAbstractEntity
     @Column(name = "notes")
     private String notes;
 
-    @OneToMany(mappedBy = "invoice")
+    @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY)
     private Set<BoughtProducts> boughtProductsById;
 
     @ManyToOne

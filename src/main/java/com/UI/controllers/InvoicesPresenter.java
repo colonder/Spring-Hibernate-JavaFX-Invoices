@@ -34,6 +34,8 @@ public class InvoicesPresenter {
     @FXML private ComboBox<String> paymentComboBox;
     @FXML private Button searchBtn;
     @FXML private Button newInvoiceBtn;
+    @FXML private Button editBtn;
+    @FXML private Button deleteBtn;
     @FXML private Label selectedTypeLabel;
     @FXML private CheckMenuItem numberCheckMenuItem;
     @FXML private CheckMenuItem netValCheckMenuItem;
@@ -121,7 +123,13 @@ public class InvoicesPresenter {
         tableView.setItems(listOfInvoices);
         setSearching();
         initializeColumns();
+        initializeButtons();
+    }
+
+    private void initializeButtons()
+    {
         newInvoiceBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceBtn, newInvoiceView));
+        editBtn.setOnAction(event -> ViewSwitcher.openView(editBtn, newInvoiceView)); // TODO: pass invoice parameters
     }
 
     private void initializeColumns() {
