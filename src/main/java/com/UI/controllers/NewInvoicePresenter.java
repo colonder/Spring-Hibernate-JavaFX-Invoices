@@ -1,12 +1,13 @@
 package com.UI.controllers;
 
+import com.entity.BaseAbstractEntity;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NewInvoicePresenter {
+public class NewInvoicePresenter extends AbstractInitializableController{
 
     @FXML private Button addItemBtn;
     @FXML private Button removeItem0Btn;
@@ -18,5 +19,10 @@ public class NewInvoicePresenter {
         addItemBtn.setOnAction(event -> {
 
         });
+    }
+
+    @Override
+    public void initializeFields(BaseAbstractEntity entity) {
+
     }
 }
