@@ -1,6 +1,7 @@
 package com.utilities;
 
-import com.UI.controllers.AbstractInitializableController;
+import com.UI.controllers.IInitializableFromEntity;
+import com.UI.controllers.IRefreshable;
 import com.UI.view.AbstractFxmlView;
 import com.entity.BaseAbstractEntity;
 import javafx.scene.control.Button;
@@ -13,11 +14,19 @@ public class ViewSwitcher {
         parent.setCenter(view.getView());
     }
 
-    public static void openView(Button button, AbstractFxmlView view, BaseAbstractEntity entity)
+    public static void openAndInitialize(Button button, AbstractFxmlView view, BaseAbstractEntity entity)
     {
         BorderPane parent = (BorderPane) button.getScene().getRoot();
-        AbstractInitializableController controller = (AbstractInitializableController) view.getPresenter();
+        IInitializableFromEntity controller = (IInitializableFromEntity) view.getPresenter();
         controller.initializeFields(entity);
+        parent.setCenter(view.getView());
+    }
+
+    public static void openAndInitialize(Button button, AbstractFxmlView view)
+    {
+        BorderPane parent = (BorderPane) button.getScene().getRoot();
+        IRefreshable controller = (IRefreshable) view.getPresenter();
+        controller.refresh();
         parent.setCenter(view.getView());
     }
 }

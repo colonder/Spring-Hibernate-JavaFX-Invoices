@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Component
-public class HomePresenter {
+public class HomePresenter implements IRefreshable {
     @FXML private Label todayRevenueLabel;
     @FXML private Label lastSevenDaysRevenueLabel;
     @FXML private Label curMonthRevenueLabel;
@@ -38,9 +38,7 @@ public class HomePresenter {
         proFormaBtn.setOnAction(event -> ViewSwitcher.openView(proFormaBtn, newInvoiceView));
         correctiveBtn.setOnAction(event -> ViewSwitcher.openView(correctiveBtn, newInvoiceView));
         expensesBtn.setOnAction(event -> ViewSwitcher.openView(expensesBtn, newInvoiceView));
-
-        initRevenueLabels();
-        initSalesLabels();
+        refresh();
     }
 
     private void initSalesLabels()
@@ -83,5 +81,11 @@ public class HomePresenter {
         } catch (NullPointerException e) {
             curYearRevenueLabel.setText(CurrencyHandler.formatToCurrency(BigDecimal.ZERO));
         }
+    }
+
+    @Override
+    public void refresh() {
+        initRevenueLabels();
+        initSalesLabels();
     }
 }

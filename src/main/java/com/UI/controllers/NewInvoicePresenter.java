@@ -7,7 +7,7 @@ import javafx.scene.layout.GridPane;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NewInvoicePresenter extends AbstractInitializableController{
+public class NewInvoicePresenter implements IInitializableFromEntity {
 
     @FXML private Button addItemBtn;
     @FXML private Button removeItem0Btn;

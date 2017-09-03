@@ -25,7 +25,7 @@ public class RootPresenter {
     @FXML
     public void initialize()
     {
-        homeBtn.setOnAction(event -> ViewSwitcher.openView(homeBtn, homeView));
+        homeBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(homeBtn, homeView));
         invoicesBtn.setOnAction(event -> ViewSwitcher.openView(invoicesBtn, invoicesView));
         customersBtn.setOnAction(event -> ViewSwitcher.openView(customersBtn, customersView));
         productsBtn.setOnAction(event -> ViewSwitcher.openView(productsBtn, productsView));

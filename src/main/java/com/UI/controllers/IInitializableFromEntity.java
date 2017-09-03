@@ -2,6 +2,6 @@ package com.UI.controllers;
 
 import com.entity.BaseAbstractEntity;
 
-public interface IInitializable {
+public interface IInitializableFromEntity {
     void initializeFields(BaseAbstractEntity entity);
 }
