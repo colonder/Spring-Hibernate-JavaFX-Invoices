@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Component
 public class InvoicesPresenter {
@@ -132,6 +133,22 @@ public class InvoicesPresenter {
         editBtn.setOnAction(event -> {
             Invoice invoiceToEdit = tableView.getSelectionModel().getSelectedItem();
             ViewSwitcher.openView(newInvoiceBtn, newInvoiceView, invoiceToEdit);
+        });
+        deleteBtn.setOnAction(event -> {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Invoices deletion");
+            alert.setHeaderText("Are you sure you want to delete selected invoices?");
+            ButtonType okBtn = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType noBtn = new ButtonType("No", ButtonBar.ButtonData.NO);
+            alert.getButtonTypes().setAll(okBtn, noBtn);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                for (Invoice invoice : tableView.getSelectionModel().getSelectedItems()) {
+                    invoiceService.delete(invoice);
+                }
+            }
         });
     }
 
