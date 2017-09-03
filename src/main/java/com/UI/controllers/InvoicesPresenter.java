@@ -127,7 +127,8 @@ public class InvoicesPresenter {
         initializeButtons();
     }
 
-    private void initializeButtons() {
+    private void initializeButtons()
+    {
         newInvoiceBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceBtn, newInvoiceView));
         editBtn.setOnAction(event -> {
             Invoice invoiceToEdit = tableView.getSelectionModel().getSelectedItem();
@@ -141,11 +142,12 @@ public class InvoicesPresenter {
 
             Optional<ButtonType> result = alert.showAndWait();
             result.ifPresent(choice -> {
-                for (Invoice invoice : tableView.getSelectionModel().getSelectedItems()) {
-                    invoiceService.delete(invoice);
+                if(choice.equals(ButtonType.OK)) {
+                    for (Invoice invoice : tableView.getSelectionModel().getSelectedItems()) {
+                        invoiceService.delete(invoice);
+                    }
                 }
             });
-
         });
     }
 
