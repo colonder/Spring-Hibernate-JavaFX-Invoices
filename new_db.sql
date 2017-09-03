@@ -78,7 +78,7 @@ create table bought_products
 	net_value numeric(7,2) not null check(net_value > 0.00),
 	tax_value numeric(7,2) not null check(tax_value > 0.00),
 	gross_value numeric(7,2) not null check(gross_value > 0.00),	
-	invoice_id int references issued_invoices(id),
+	invoice_id int references issued_invoices(id) on delete cascade,
 	product_id int references products(id),
 	sale_date date not null
 );

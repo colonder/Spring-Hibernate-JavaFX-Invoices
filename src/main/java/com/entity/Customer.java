@@ -82,7 +82,7 @@ public class Customer extends BaseAbstractEntity
     private int defaultPaymentDateDays;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    private Set<Invoice> boughtProductsSet = new HashSet<>();
+    private Set<Invoice> invoiceHashSet = new HashSet<>();
 
     public Customer() {}
 
@@ -178,7 +178,7 @@ public class Customer extends BaseAbstractEntity
         return defaultPaymentDateDays;
     }
 
-    public Set<Invoice> getBoughtProductsSet() {
-        return boughtProductsSet;
+    public Set<Invoice> getInvoiceHashSet() {
+        return invoiceHashSet;
     }
 }

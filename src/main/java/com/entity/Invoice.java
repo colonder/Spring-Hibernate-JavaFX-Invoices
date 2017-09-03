@@ -69,8 +69,8 @@ public class Invoice extends BaseAbstractEntity
     @Column(name = "notes")
     private String notes;
 
-    @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY)
-    private Set<BoughtProducts> boughtProductsById;
+    @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Set<BoughtProducts> boughtProductsSet;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
@@ -152,8 +152,8 @@ public class Invoice extends BaseAbstractEntity
         return notes;
     }
 
-    public Set<BoughtProducts> getBoughtProductsById() {
-        return boughtProductsById;
+    public Set<BoughtProducts> getBoughtProductsSet() {
+        return boughtProductsSet;
     }
 
     public Customer getCustomer() {
