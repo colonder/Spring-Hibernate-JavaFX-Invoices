@@ -127,8 +127,7 @@ public class InvoicesPresenter {
         initializeButtons();
     }
 
-    private void initializeButtons()
-    {
+    private void initializeButtons() {
         newInvoiceBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceBtn, newInvoiceView));
         editBtn.setOnAction(event -> {
             Invoice invoiceToEdit = tableView.getSelectionModel().getSelectedItem();
@@ -139,16 +138,14 @@ public class InvoicesPresenter {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Invoices deletion");
             alert.setHeaderText("Are you sure you want to delete selected invoices?");
-            ButtonType okBtn = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-            ButtonType noBtn = new ButtonType("No", ButtonBar.ButtonData.NO);
-            alert.getButtonTypes().setAll(okBtn, noBtn);
 
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent()) {
+            result.ifPresent(choice -> {
                 for (Invoice invoice : tableView.getSelectionModel().getSelectedItems()) {
                     invoiceService.delete(invoice);
                 }
-            }
+            });
+
         });
     }
 
