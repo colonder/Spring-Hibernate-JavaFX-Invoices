@@ -1,10 +1,17 @@
 package com.UI.controllers;
 
 import com.entity.BaseAbstractEntity;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
+import java.util.Locale;
 
 @Component
 public class NewInvoicePresenter implements IInitializableFromEntity {
@@ -63,19 +70,40 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
         initOptions();
     }
 
-    private void initOptions() {
-    }
-
-    private void initProductsPane() {
-    }
-
-    private void initBuyer() {
+    private void initComboBoxes() {
+        ObservableList<String> typeList = FXCollections.observableArrayList("Ordinary", "Pro forma", "Corrective");
+        ObservableList<String> paymentMethodList = FXCollections.observableArrayList("Cash", "Bank transfer",
+                "Credit card", "Check", "Cash on delivery", "Paypal");
+        ObservableList<String> statusList = FXCollections.observableArrayList("Issued", "Paid",
+                "Partially paid", "Rejected", "Unpaid", "Paid after deadline",
+                "Unpaid expired");
+        ObservableList<String> languages = FXCollections.observableArrayList(Locale.getISOLanguages());
+        List<String> currencyOptions = new ArrayList<>(Currency.getAvailableCurrencies().size());
+        Currency.getAvailableCurrencies().forEach(currency -> currencyOptions.add(String.format("%s, %s",
+                currency.getDisplayName(), currency.getCurrencyCode())));
+        ObservableList<String> currencies = FXCollections.observableArrayList(currencyOptions);
+        typeComboBox.setItems(typeList);
+        typeComboBox.getSelectionModel().select(0);
+        paymentMethodComboBox.setItems(paymentMethodList);
+        paymentMethodComboBox.getSelectionModel().select(0);
+        statusComboBox.setItems(statusList);
+        statusComboBox.getSelectionModel().select(0);
+        currencyComboBox.setItems(currencies);
+        //currencyComboBox.getSelectionModel().select();
+        languageComboBox.setItems(languages);
+        languageComboBox.getSelectionModel().select("pl");
     }
 
     private void initSeller() {
     }
 
-    private void initComboBoxes() {
+    private void initBuyer() {
+    }
+
+    private void initProductsPane() {
+    }
+
+    private void initOptions() {
     }
 
     @Override

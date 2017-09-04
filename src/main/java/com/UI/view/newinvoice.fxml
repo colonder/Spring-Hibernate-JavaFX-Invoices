@@ -443,7 +443,7 @@
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label fx:id="grossVal0Label" text="Label" GridPane.columnIndex="9" GridPane.rowIndex="1">
+                              <Label text="Label" GridPane.columnIndex="9" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -454,7 +454,7 @@
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label fx:id="netVal0Label" text="Label" GridPane.columnIndex="8" GridPane.rowIndex="1">
+                              <Label text="Label" GridPane.columnIndex="8" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -465,12 +465,12 @@
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <ComboBox fx:id="taxRate0ComboBox" prefWidth="150.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                              <ComboBox prefWidth="150.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets left="5.0" right="5.0" />
                                  </GridPane.margin>
                               </ComboBox>
-                              <Label fx:id="netPrice0Label" text="Label" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                              <Label text="Label" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets left="5.0" right="5.0" />
                                  </GridPane.margin>
@@ -481,17 +481,17 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="unit0TxtFld" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                              <ComboBox prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets left="5.0" right="5.0" />
                                  </GridPane.margin>
                               </ComboBox>
-                              <TextField fx:id="amount0TxtFld" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets left="5.0" right="5.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <TextField fx:id="productName0TxtFld" GridPane.columnSpan="4" GridPane.rowIndex="1">
+                              <TextField GridPane.columnSpan="4" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets right="5.0" />
                                  </GridPane.margin>
@@ -682,7 +682,7 @@
                               </Label>
                            </children>
                         </GridPane>
-                        <TitledPane expanded="false" text="Additional options">
+                        <TitledPane fx:id="optionsTitledPane" expanded="false" text="Additional options">
                           <content>
                             <AnchorPane>
                                  <children>
@@ -730,7 +730,7 @@
                                              </font>
                                           </Label>
                                           <ComboBox fx:id="calculateTotalComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                          <TextField GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                          <TextField fx:id="labelTxtFld" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets left="5.0" />
                                              </GridPane.margin>

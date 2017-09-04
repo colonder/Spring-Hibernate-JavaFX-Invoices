@@ -179,16 +179,15 @@ public class InvoicesPresenter {
 
     private void initializeComboBoxes()
     {
-        ObservableList<String> type = FXCollections.observableArrayList();
-        ObservableList<String> period = FXCollections.observableArrayList();
-        ObservableList<String> status = FXCollections.observableArrayList();
-        ObservableList<String> payment = FXCollections.observableArrayList();
-
-        type.addAll("All", "Ordinary", "Pro forma", "Corrective");
-        period.addAll("Last 12 months", "Current month", "Last month", "Current year", "Last year", "All");
-        status.addAll("All", "Issued", "Paid", "Partially paid", "Rejected", "Unpaid", "Paid after deadline",
+        ObservableList<String> type = FXCollections.observableArrayList("All", "Ordinary", "Pro forma",
+                "Corrective");
+        ObservableList<String> period = FXCollections.observableArrayList("Last 12 months", "Current month",
+                "Last month", "Current year", "Last year", "All");
+        ObservableList<String> status = FXCollections.observableArrayList("All", "Issued", "Paid",
+                "Partially paid", "Rejected", "Unpaid", "Paid after deadline",
                 "Unpaid expired");
-        payment.addAll("All", "Cash", "Bank transfer", "Credit card", "Check", "Cash on delivery", "Paypal");
+        ObservableList<String> payment = FXCollections.observableArrayList("All", "Cash", "Bank transfer",
+                "Credit card", "Check", "Cash on delivery", "Paypal");
 
         invoiceTypeComboBox.setItems(type);
         invoiceTypeComboBox.getSelectionModel().select(0);
