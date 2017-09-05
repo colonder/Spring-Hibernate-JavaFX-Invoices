@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.NewInvoicePresenter">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="2000.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.NewInvoicePresenter">
    <children>
       <ScrollPane layoutX="181.0" layoutY="105.0" prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -637,7 +637,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" text="Payment date" GridPane.columnIndex="1">
+                              <Label alignment="CENTER" text="Payment date in days" GridPane.columnIndex="1">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>

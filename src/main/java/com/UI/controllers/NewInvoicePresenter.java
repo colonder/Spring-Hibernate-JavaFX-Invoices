@@ -8,9 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Currency;
-import java.util.List;
 import java.util.Locale;
 
 @Component
@@ -43,8 +41,14 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     @FXML private ComboBox<String> countryComboBox;
     @FXML private Button addItemBtn;
     @FXML private GridPane itemsGridPane;
+    @FXML private Label totalNetValLabel;
+    @FXML private Label totalTaxValLabel;
+    @FXML private Label taxCurrencyLabel;
+    @FXML private Label totalGrossValLabel;
+    @FXML private Label grossCurrencyLabel;
+    @FXML private ComboBox<String> invoiceCurrencyComboBox;
     @FXML private ComboBox<String> paymentMethodComboBox;
-    @FXML private ComboBox<String> paymentDateComboBox;
+    @FXML private ComboBox<Integer> paymentDateComboBox;
     @FXML private ComboBox<String> statusComboBox;
     @FXML private TextField paidAmountTxtFld;
     @FXML private TextField issuerNameTxtFld;
@@ -77,11 +81,19 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
         ObservableList<String> statusList = FXCollections.observableArrayList("Issued", "Paid",
                 "Partially paid", "Rejected", "Unpaid", "Paid after deadline",
                 "Unpaid expired");
-        ObservableList<String> languages = FXCollections.observableArrayList(Locale.getISOLanguages());
-        List<String> currencyOptions = new ArrayList<>(Currency.getAvailableCurrencies().size());
-        Currency.getAvailableCurrencies().forEach(currency -> currencyOptions.add(String.format("%s, %s",
-                currency.getDisplayName(), currency.getCurrencyCode())));
-        ObservableList<String> currencies = FXCollections.observableArrayList(currencyOptions);
+        ObservableList<String> languages = FXCollections.observableArrayList();
+        ObservableList<String> countries = FXCollections.observableArrayList();
+        for (Locale locale : Locale.getAvailableLocales())
+        {
+            countries.add(locale.getDisplayCountry());
+            languages.add(locale.getDisplayLanguage());
+        }
+        ObservableList<String> currencies = FXCollections.observableArrayList();
+        ObservableList<String> currencyCodes = FXCollections.observableArrayList();
+        Currency.getAvailableCurrencies().forEach(currency -> {
+            currencies.add(String.format("%s, %s", currency.getDisplayName(), currency.getCurrencyCode()));
+            currencyCodes.add(currency.getCurrencyCode());
+        });
         typeComboBox.setItems(typeList);
         typeComboBox.getSelectionModel().select(0);
         paymentMethodComboBox.setItems(paymentMethodList);
@@ -89,9 +101,30 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
         statusComboBox.setItems(statusList);
         statusComboBox.getSelectionModel().select(0);
         currencyComboBox.setItems(currencies);
-        //currencyComboBox.getSelectionModel().select();
+        Locale defaultLocale = Locale.getDefault();
+        Currency defaultCurr = Currency.getInstance(defaultLocale);
+        currencyComboBox.getSelectionModel().select(currencies.indexOf(String.format("%s, %s",
+                defaultCurr.getDisplayName(), defaultCurr.getCurrencyCode())));
+        invoiceCurrencyComboBox.setItems(currencyCodes);
+        invoiceCurrencyComboBox.getSelectionModel().select(currencies.indexOf(String.format("%s, %s",
+                defaultCurr.getDisplayName(), defaultCurr.getCurrencyCode())));
         languageComboBox.setItems(languages);
-        languageComboBox.getSelectionModel().select("pl");
+        languageComboBox.getSelectionModel().select(defaultLocale.getDisplayLanguage());
+        paymentDateComboBox.setItems(FXCollections.observableArrayList(1, 3, 5, 7, 14, 21, 30, 45, 60, 75, 90));
+        paymentDateComboBox.getSelectionModel().select(0);
+        calculateValsComboBox.setItems(FXCollections.observableArrayList("Total value",
+                "Unit value (consistent with cash register)"));
+        calculateValsComboBox.getSelectionModel().select(0);
+        calculateTotalComboBox.setItems(FXCollections.observableArrayList(
+                "Sum of all values from all records (preserves gross and net value)",
+                "Sum of the gross values and calculate net and tax values (preserves gross value, consistent with cash register)",
+                "Sum of the net values and calculate gross and tax values (preserves gross value)"));
+        calculateTotalComboBox.getSelectionModel().select(0);
+        showUnitPriceComboBox.setItems(FXCollections.observableArrayList("Net value",
+                "Gross value (consistent with cash register)"));
+        showUnitPriceComboBox.getSelectionModel().select(0);
+        countryComboBox.setItems(countries);
+        countryComboBox.getSelectionModel().select(defaultLocale.getDisplayCountry());
     }
 
     private void initSeller() {
