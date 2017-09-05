@@ -1,4 +1,4 @@
-package com.entity.contant_arrays;
+package com.contant_arrays;
 
 public class InvoiceType {
 
