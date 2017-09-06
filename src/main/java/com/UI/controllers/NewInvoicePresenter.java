@@ -1,16 +1,22 @@
 package com.UI.controllers;
 
 import com.entity.BaseAbstractEntity;
+import com.entity.Customer;
+import com.service.ICustomerService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Optional;
 
 @Component
 public class NewInvoicePresenter implements IInitializableFromEntity {
@@ -66,14 +72,59 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     @FXML private Button saveBtn;
     //endregion
 
+    @Autowired
+    private ICustomerService customerService;
+
     @FXML
     public void initialize()
     {
+        initButtons();
         initComboBoxes();
         initSeller();
         initBuyer();
         initProductsPane();
         initOptions();
+    }
+
+    private void initButtons() {
+        loadFromDatabaseBtn.setOnAction(event -> openSelectCustomerDialog());
+    }
+
+    private void openSelectCustomerDialog() {
+        Dialog<Customer> dialog = new Dialog<>();
+        dialog.setTitle("Choose a customer");
+        dialog.setHeaderText("Select a customer from the database");
+        ButtonType selectBtnType = new ButtonType("Select", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelBtnType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(selectBtnType, cancelBtnType);
+        dialog.setGraphic(new ImageView(this.getClass().getResource("/images/icons8-Checked User Male-96.png").toString()));
+
+        // create table view and columns
+        TableView<Customer> tableView = new TableView<>();
+        TableColumn<Customer, String> aliasCol = new TableColumn<>("Alias");
+        TableColumn<Customer, String> lastNameCol = new TableColumn<>("Last name");
+        TableColumn<Customer, String> firstName = new TableColumn<>("First name");
+        TableColumn<Customer, String> companyName = new TableColumn<>("Company name");
+        TableColumn<Customer, String> taxIdentifierCol = new TableColumn<>("Tax identifier number");
+        aliasCol.setCellValueFactory(new PropertyValueFactory<>("alias"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        companyName.setCellValueFactory(new PropertyValueFactory<>("companyName"));
+        taxIdentifierCol.setCellValueFactory(new PropertyValueFactory<>("taxIdentifier"));
+        tableView.getColumns().addAll(aliasCol, lastNameCol, firstName, companyName, taxIdentifierCol);
+        tableView.setItems(FXCollections.observableArrayList(customerService.findAll()));
+        dialog.getDialogPane().setContent(tableView);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == selectBtnType)
+            {
+                return tableView.getSelectionModel().getSelectedItem();
+            }
+            return null;
+        });
+
+        Optional<Customer> result = dialog.showAndWait();
+        result.ifPresent(this::setBuyerFields);
     }
 
     private void initComboBoxes() {
@@ -137,6 +188,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     }
 
     private void initSeller() {
+
     }
 
     private void initBuyer() {
@@ -153,5 +205,8 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
 
     }
 
+    private void setBuyerFields(Customer customer)
+    {
 
+    }
 }
