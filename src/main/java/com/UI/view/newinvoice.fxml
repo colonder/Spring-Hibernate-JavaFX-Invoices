@@ -503,17 +503,17 @@
                                  <graphic>
                                     <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../resources/images/Plus.png" />
+                                          <Image url="/images/Plus.png" />
                                        </image></ImageView>
                                  </graphic>
                                  <GridPane.margin>
                                     <Insets left="15.0" top="10.0" />
                                  </GridPane.margin></Button>
-                              <Button fx:id="removeItem0Btn" mnemonicParsing="false" styleClass="removeButton" stylesheets="@css/new-invoice-stylesheet.css" GridPane.columnIndex="10" GridPane.rowIndex="1">
+                              <Button mnemonicParsing="false" styleClass="removeButton" stylesheets="@css/new-invoice-stylesheet.css" GridPane.columnIndex="10" GridPane.rowIndex="1">
                                  <graphic>
                                     <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../resources/images/cross.png" />
+                                          <Image url="/images/cross.png" />
                                        </image>
                                     </ImageView>
                                  </graphic></Button>
