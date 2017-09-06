@@ -18,7 +18,7 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "alias")
     private String alias;
 
-    @Column(name = "copmpany_name")
+    @Column(name = "company_name")
     private String companyName;
 
     @Column(name = "last_name")

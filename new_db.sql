@@ -1,4 +1,11 @@
-﻿create table customer
+﻿drop table if exists bought_products;
+drop table if exists issued_invoices;
+drop table if exists customer;
+drop table if exists products;
+drop table if exists warehouse;
+
+
+create table customer
 (
 	id serial primary key,
 	alias varchar(20) unique,
