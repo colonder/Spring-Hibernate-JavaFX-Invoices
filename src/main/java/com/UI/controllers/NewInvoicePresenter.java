@@ -6,13 +6,16 @@ import com.service.ICustomerService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.awt.event.ActionEvent;
 import java.util.Comparator;
 import java.util.Currency;
 import java.util.Locale;
@@ -85,8 +88,61 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
         initOptions();
     }
 
+    @FXML
+    private void removeProduct(ActionEvent event)
+    {
+
+    }
+
     private void initButtons() {
         loadFromDatabaseBtn.setOnAction(event -> openSelectCustomerDialog());
+        addItemBtn.setOnAction(event -> addNewEmptyRow());
+    }
+
+    private void addNewEmptyRow()
+    {
+        TextField productName = new TextField();
+        TextField amount = new TextField();
+        ComboBox<String> unit = new ComboBox<>();
+        unit.setPrefWidth(150);
+        Label netPrice = new Label();
+        ComboBox<String> taxRate = new ComboBox<>();
+        taxRate.setPrefWidth(150);
+        Label netValue = new Label();
+        Label grossValue = new Label();
+        GridPane.setMargin(productName, new Insets(0, 0, 0, 0));
+        GridPane.setColumnSpan(productName, 4);
+        GridPane.setMargin(amount, new Insets(0, 5, 0, 5));
+        GridPane.setMargin(unit, new Insets(0, 5, 0, 5));
+        GridPane.setMargin(netPrice, new Insets(0, 5, 0, 5));
+        GridPane.setMargin(taxRate, new Insets(0, 5, 0, 5));
+        GridPane.setMargin(netValue, new Insets(0, 5, 0, 5));
+        GridPane.setMargin(grossValue, new Insets(0, 5, 0, 5));
+        Button removeItem = new Button();
+        removeItem.getStylesheets().add("css/new-invoice-stylesheet.css");
+        removeItem.getStyleClass().add("productButton"); // FIXME: button is not loading css
+
+        int lastRow = findLastRowIndex();
+        itemsGridPane.add(productName, 0, lastRow);
+        itemsGridPane.add(amount, 4, lastRow);
+        itemsGridPane.add(unit, 5, lastRow);
+        itemsGridPane.add(netPrice, 6, lastRow);
+        itemsGridPane.add(taxRate, 7, lastRow);
+        itemsGridPane.add(netValue, 8, lastRow);
+        itemsGridPane.add(grossValue, 9, lastRow);
+        itemsGridPane.add(removeItem, 10, lastRow);
+        GridPane.setRowIndex(addItemBtn, lastRow+1);
+    }
+
+    private int findLastRowIndex()
+    {
+        return itemsGridPane.getChildren().stream().mapToInt(n -> {
+            Integer row = GridPane.getRowIndex(n);
+            Integer rowSpan = GridPane.getRowSpan(n);
+
+            // default values are 0 / 1 respecively
+            return (row == null ? 0 : row) + (rowSpan == null ? 0 : rowSpan - 1);
+        }).max().orElse(-1);
     }
 
     private void openSelectCustomerDialog() {
@@ -113,6 +169,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
         tableView.getColumns().addAll(aliasCol, lastNameCol, firstName, companyName, taxIdentifierCol);
         tableView.setItems(FXCollections.observableArrayList(customerService.findAll()));
         dialog.getDialogPane().setContent(tableView);
+        dialog.getDialogPane().setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == selectBtnType)
@@ -202,6 +259,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     }
 
     private void initProductsPane() {
+
     }
 
     private void initOptions() {

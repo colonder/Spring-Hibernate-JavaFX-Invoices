@@ -2,10 +2,10 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import java.lang.String?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.NewInvoicePresenter">
    <children>
       <ScrollPane layoutX="181.0" layoutY="105.0" prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -92,6 +92,7 @@
                            </GridPane.margin>
                         </DatePicker>
                         <Separator prefWidth="200.0" GridPane.columnSpan="5" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </top>
@@ -499,21 +500,25 @@
                                     <Insets />
                                  </opaqueInsets>
                               </TextField>
-                              <Button fx:id="addItemBtn" mnemonicParsing="false" styleClass="addButton" stylesheets="@css/new-invoice-stylesheet.css" GridPane.rowIndex="2">
+                              <Button fx:id="addItemBtn" mnemonicParsing="false" stylesheets="@css/new-invoice-stylesheet.css" GridPane.rowIndex="2">
                                  <graphic>
-                                    <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="/images/Plus.png" />
+                                          <Image url="/images/icons8-plus-32.png" />
                                        </image></ImageView>
                                  </graphic>
                                  <GridPane.margin>
                                     <Insets left="15.0" top="10.0" />
-                                 </GridPane.margin></Button>
-                              <Button mnemonicParsing="false" styleClass="removeButton" stylesheets="@css/new-invoice-stylesheet.css" GridPane.columnIndex="10" GridPane.rowIndex="1">
+                                 </GridPane.margin>
+                                 <styleClass>
+                                    <String fx:value="productButton" />
+                                    <String fx:value="addButton" />
+                                 </styleClass></Button>
+                              <Button mnemonicParsing="false" styleClass="productButton" stylesheets="@css/new-invoice-stylesheet.css" GridPane.columnIndex="10" GridPane.rowIndex="1">
                                  <graphic>
-                                    <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="/images/cross.png" />
+                                          <Image url="/images/icons8-Anuluj-32.png" />
                                        </image>
                                     </ImageView>
                                  </graphic></Button>

@@ -1,7 +1,15 @@
 .removeButton {
-    -fx-background-color: firebrick;
+    -fx-background-color: red;
 }
 
 .addButton {
     -fx-background-color: forestgreen;
+}
+
+.productButton {
+    -fx-background-radius: 32px;
+    -fx-min-height: 32px;
+    -fx-max-height: 32px;
+    -fx-min-width: 32px;
+    -fx-max-width: 32px;
 }
