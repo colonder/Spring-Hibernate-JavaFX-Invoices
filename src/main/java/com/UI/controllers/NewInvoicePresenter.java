@@ -63,6 +63,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     @FXML private TextField paidDateTxtFld;
     @FXML private ComboBox<String> calculateTotalComboBox;
     @FXML private TextField labelTxtFld;
+    @FXML private Button saveBtn;
     //endregion
 
     @FXML
