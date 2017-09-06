@@ -18,6 +18,9 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "alias")
     private String alias;
 
+    @Column(name = "copmpany_name")
+    private String companyName;
+
     @Column(name = "last_name")
     private String lastName;
 
@@ -92,6 +95,10 @@ public class Customer extends BaseAbstractEntity
 
     public String getAlias() {
         return alias;
+    }
+
+    public String getCompanyName() {
+        return companyName;
     }
 
     public String getLastName() {

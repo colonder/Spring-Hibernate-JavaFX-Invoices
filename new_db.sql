@@ -2,6 +2,7 @@
 (
 	id serial primary key,
 	alias varchar(20) unique,
+	company_name varchar(70),
 	last_name varchar(80),
 	first_name varchar(30),
 	personal_id bigint unique not null,
