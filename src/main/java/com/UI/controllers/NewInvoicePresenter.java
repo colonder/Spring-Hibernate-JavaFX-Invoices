@@ -80,8 +80,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     {
         initButtons();
         initComboBoxes();
-        initSeller();
-        initBuyer();
+        initSellerFields();
         initProductsPane();
         initOptions();
     }
@@ -124,7 +123,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
         });
 
         Optional<Customer> result = dialog.showAndWait();
-        result.ifPresent(this::setBuyerFields);
+        result.ifPresent(this::initBuyerFields);
     }
 
     private void initComboBoxes() {
@@ -187,11 +186,19 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
         countryComboBox.getSelectionModel().select(defaultLocale.getDisplayCountry());
     }
 
-    private void initSeller() {
+    private void initSellerFields() {
 
     }
 
-    private void initBuyer() {
+    private void initBuyerFields(Customer customer) {
+        buyerTxtFld.setText(String.format("%s %s", customer.getFirstName(), customer.getLastName()));
+        buyerTaxIdTxtFld.setText(customer.getTaxIdentifier());
+        buyerAddressTxtFld.setText(customer.getAddress());
+        buyerPostalCodeTxtFld.setText(customer.getPostalCode());
+        buyerCityTxtFld.setText(customer.getCity());
+        buyerEmailTxtFld.setText(customer.getEmail());
+        buyerPhoneTxtFld.setText(String.valueOf(customer.getCellPhone()));
+        countryComboBox.getSelectionModel().select(customer.getCountry());
     }
 
     private void initProductsPane() {
@@ -202,11 +209,6 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
 
     @Override
     public void initializeFields(BaseAbstractEntity entity) {
-
-    }
-
-    private void setBuyerFields(Customer customer)
-    {
 
     }
 }
