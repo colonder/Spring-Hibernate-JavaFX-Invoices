@@ -15,6 +15,9 @@ public class Product extends BaseAbstractEntity
     @Column(name = "product_name", nullable = false)
     private String productName;
 
+    @Column(name = "symbol")
+    private String symbol;
+
     @Column(name = "net_price", nullable = false)
     private BigDecimal netPrice;
 
