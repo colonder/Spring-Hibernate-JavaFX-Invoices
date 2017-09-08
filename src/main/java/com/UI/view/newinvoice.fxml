@@ -2,10 +2,10 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import java.lang.String?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.NewInvoicePresenter">
    <children>
       <ScrollPane layoutX="181.0" layoutY="105.0" prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -364,169 +364,40 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="1119.0" layoutY="12.0" mnemonicParsing="false" text="Add discount" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0" />
-                              <Button layoutX="1067.0" layoutY="12.0" mnemonicParsing="false" text="Add symbol" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="10.0" />
+                              <Button layoutX="1119.0" layoutY="12.0" mnemonicParsing="false" text="Add discount" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
                            </children>
                         </AnchorPane>
-                        <GridPane fx:id="itemsGridPane">
-                          <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label text="Product name">
-                                 <GridPane.margin>
-                                    <Insets />
-                                 </GridPane.margin>
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Gross value" GridPane.columnIndex="9">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Net value" GridPane.columnIndex="8">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Tax rate" GridPane.columnIndex="7">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Net price" GridPane.columnIndex="6">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Unit" GridPane.columnIndex="5">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Amount" GridPane.columnIndex="4">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Label" GridPane.columnIndex="9" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets left="5.0" right="5.0" />
-                                 </GridPane.margin>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Label" GridPane.columnIndex="8" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets left="5.0" right="5.0" />
-                                 </GridPane.margin>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <ComboBox prefWidth="150.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" right="5.0" />
-                                 </GridPane.margin>
-                              </ComboBox>
-                              <Label text="Label" GridPane.columnIndex="6" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" right="5.0" />
-                                 </GridPane.margin>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <ComboBox prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" right="5.0" />
-                                 </GridPane.margin>
-                              </ComboBox>
-                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" right="5.0" />
-                                 </GridPane.margin>
-                              </TextField>
-                              <TextField GridPane.columnSpan="4" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets right="5.0" />
-                                 </GridPane.margin>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </TextField>
-                              <Button fx:id="addItemBtn" mnemonicParsing="false" stylesheets="@css/new-invoice-stylesheet.css" GridPane.rowIndex="2">
-                                 <graphic>
-                                    <ImageView pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="/images/icons8-plus-32.png" />
-                                       </image></ImageView>
-                                 </graphic>
-                                 <GridPane.margin>
-                                    <Insets left="15.0" top="10.0" />
-                                 </GridPane.margin>
-                                 <styleClass>
-                                    <String fx:value="productButton" />
-                                    <String fx:value="addButton" />
-                                 </styleClass></Button>
-                              <Button mnemonicParsing="false" styleClass="productButton" stylesheets="@css/new-invoice-stylesheet.css" GridPane.columnIndex="10" GridPane.rowIndex="1">
-                                 <graphic>
-                                    <ImageView pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="/images/icons8-Anuluj-32.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></Button>
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="20.0" right="14.0" top="10.0" />
-                           </padding>
-                        </GridPane>
+                        <TableView fx:id="productTableView" prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn fx:id="nameCol" editable="false" maxWidth="15000.0" prefWidth="150.0" sortable="false" text="Product name" />
+                            <TableColumn fx:id="symbolCol" editable="false" minWidth="0.0" prefWidth="286.0" sortable="false" text="Symbol" />
+                              <TableColumn fx:id="amountCol" prefWidth="75.0" sortable="false" text="Amount" />
+                              <TableColumn fx:id="unitCol" editable="false" prefWidth="75.0" sortable="false" text="Unit" />
+                              <TableColumn fx:id="netPriceCol" editable="false" prefWidth="75.0" sortable="false" text="Net price" />
+                              <TableColumn fx:id="taxRateCol" editable="false" prefWidth="75.0" sortable="false" text="Tax rate" />
+                              <TableColumn fx:id="netValCol" editable="false" prefWidth="75.0" sortable="false" text="Net value" />
+                              <TableColumn fx:id="discountCol" prefWidth="75.0" sortable="false" text="Discount" visible="false" />
+                              <TableColumn fx:id="grossValCol" editable="false" prefWidth="75.0" sortable="false" text="Gross value" />
+                          </columns>
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" top="10.0" />
+                           </VBox.margin>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Button fx:id="addItemBtn" mnemonicParsing="false" styleClass="addProductButton" stylesheets="@css/new-invoice-stylesheet.css">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="/images/icons8-plus-32.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets left="20.0" top="10.0" />
+                           </VBox.margin>
+                        </Button>
                         <HBox alignment="TOP_RIGHT">
                            <children>
                               <GridPane>
@@ -593,8 +464,11 @@
                               </GridPane>
                            </children>
                            <padding>
-                              <Insets right="14.0" top="15.0" />
+                              <Insets right="14.0" top="10.0" />
                            </padding>
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin>
                         </HBox>
                         <GridPane>
                           <columnConstraints>
@@ -617,7 +491,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <VBox.margin>
-                              <Insets left="20.0" right="14.0" top="20.0" />
+                              <Insets left="20.0" right="20.0" />
                            </VBox.margin>
                            <children>
                               <TextField fx:id="paidAmountTxtFld" GridPane.columnIndex="5" GridPane.rowIndex="1" />
@@ -751,7 +625,7 @@
                               </AnchorPane>
                           </content>
                            <VBox.margin>
-                              <Insets top="20.0" />
+                              <Insets left="20.0" right="20.0" />
                            </VBox.margin>
                            <font>
                               <Font size="14.0" />
