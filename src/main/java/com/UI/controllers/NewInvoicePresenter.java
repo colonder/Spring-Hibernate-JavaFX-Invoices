@@ -2,6 +2,7 @@ package com.UI.controllers;
 
 import com.entity.BaseAbstractEntity;
 import com.entity.Customer;
+import com.entity.Product;
 import com.service.ICustomerService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.scene.layout.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Currency;
 import java.util.Locale;
@@ -47,8 +49,19 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     @FXML private TextField buyerEmailTxtFld;
     @FXML private TextField buyerPhoneTxtFld;
     @FXML private ComboBox<String> countryComboBox;
+    @FXML private CheckBox discountChckBox;
     @FXML private Button addItemBtn;
     @FXML private Label totalNetValLabel;
+    @FXML private TableView<Product> productTableView;
+    @FXML private TableColumn<Product, String> nameCol;
+    @FXML private TableColumn<Product, String> symbolCol;
+    @FXML private TableColumn<Product, BigDecimal> amountCol;
+    @FXML private TableColumn<Product, String> unitCol;
+    @FXML private TableColumn<Product, BigDecimal> netPriceCol;
+    @FXML private TableColumn<Product, BigDecimal> taxRateCol;
+    @FXML private TableColumn<Product, BigDecimal> netValCol;
+    @FXML private TableColumn<Product, BigDecimal> discountCol;
+    @FXML private TableColumn<Product, BigDecimal> grossValCol;
     @FXML private Label totalTaxValLabel;
     @FXML private Label taxCurrencyLabel;
     @FXML private Label totalGrossValLabel;

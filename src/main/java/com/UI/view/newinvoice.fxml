@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.NewInvoicePresenter">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="1500.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.NewInvoicePresenter">
    <children>
       <ScrollPane layoutX="181.0" layoutY="105.0" prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -364,7 +364,14 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="1119.0" layoutY="12.0" mnemonicParsing="false" text="Add discount" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
+                              <CheckBox fx:id="discountChckBox" layoutX="992.0" layoutY="12.0" mnemonicParsing="false" text="Discount" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="5.0" />
+                                 </padding>
+                              </CheckBox>
                            </children>
                         </AnchorPane>
                         <TableView fx:id="productTableView" prefHeight="200.0" prefWidth="200.0">
@@ -373,10 +380,10 @@
                             <TableColumn fx:id="symbolCol" editable="false" minWidth="0.0" prefWidth="286.0" sortable="false" text="Symbol" />
                               <TableColumn fx:id="amountCol" prefWidth="75.0" sortable="false" text="Amount" />
                               <TableColumn fx:id="unitCol" editable="false" prefWidth="75.0" sortable="false" text="Unit" />
-                              <TableColumn fx:id="netPriceCol" editable="false" prefWidth="75.0" sortable="false" text="Net price" />
-                              <TableColumn fx:id="taxRateCol" editable="false" prefWidth="75.0" sortable="false" text="Tax rate" />
+                              <TableColumn fx:id="netPriceCol" editable="false" prefWidth="75.0" sortable="false" text="CPU" />
+                              <TableColumn fx:id="taxRateCol" editable="false" prefWidth="75.0" sortable="false" text="VAT rate" />
                               <TableColumn fx:id="netValCol" editable="false" prefWidth="75.0" sortable="false" text="Net value" />
-                              <TableColumn fx:id="discountCol" prefWidth="75.0" sortable="false" text="Discount" visible="false" />
+                              <TableColumn fx:id="discountCol" prefWidth="75.0" sortable="false" text="Discount %" />
                               <TableColumn fx:id="grossValCol" editable="false" prefWidth="75.0" sortable="false" text="Gross value" />
                           </columns>
                            <VBox.margin>
@@ -412,7 +419,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                   <RowConstraints minHeight="10.0" prefHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                                     <RowConstraints minHeight="10.0" prefHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
@@ -424,7 +431,7 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label text="Total tax value" GridPane.rowIndex="2">
+                                    <Label text="Total VAT value" GridPane.rowIndex="2">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -434,27 +441,27 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="totalNetValLabel" text="Label" GridPane.columnIndex="2">
+                                    <Label fx:id="totalNetValLabel" text="0.00" GridPane.columnIndex="2">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="totalTaxValLabel" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                    <Label fx:id="totalTaxValLabel" text="0.00" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="totalGrossValLabel" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                    <Label fx:id="totalGrossValLabel" text="0.00" GridPane.columnIndex="2" GridPane.rowIndex="4">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="taxCurrencyLabel" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                    <Label fx:id="taxCurrencyLabel" text="0.00" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="grossCurrencyLabel" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                    <Label fx:id="grossCurrencyLabel" text="0.00" GridPane.columnIndex="3" GridPane.rowIndex="4">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
