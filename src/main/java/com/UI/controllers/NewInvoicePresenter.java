@@ -1,12 +1,14 @@
 package com.UI.controllers;
 
 import com.entity.BaseAbstractEntity;
+import com.entity.BoughtProducts;
 import com.entity.Customer;
 import com.entity.Product;
 import com.service.ICustomerService;
+import com.service.IProductService;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Currency;
 import java.util.Locale;
@@ -40,7 +43,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     @FXML private TextField sellerEmailTxtFld;
     @FXML private TextField sellerPhoneTxtFld;
     @FXML private TextField sellerFaxTxtFld;
-    @FXML private Button loadFromDatabaseBtn;
+    @FXML private Button buyerFromDatabaseBtn;
     @FXML private TextField buyerTxtFld;
     @FXML private TextField buyerTaxIdTxtFld;
     @FXML private TextField buyerAddressTxtFld;
@@ -52,16 +55,17 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     @FXML private CheckBox discountChckBox;
     @FXML private Button addItemBtn;
     @FXML private Label totalNetValLabel;
-    @FXML private TableView<Product> productTableView;
-    @FXML private TableColumn<Product, String> nameCol;
-    @FXML private TableColumn<Product, String> symbolCol;
-    @FXML private TableColumn<Product, BigDecimal> amountCol;
-    @FXML private TableColumn<Product, String> unitCol;
-    @FXML private TableColumn<Product, BigDecimal> netPriceCol;
-    @FXML private TableColumn<Product, BigDecimal> taxRateCol;
-    @FXML private TableColumn<Product, BigDecimal> netValCol;
-    @FXML private TableColumn<Product, BigDecimal> discountCol;
-    @FXML private TableColumn<Product, BigDecimal> grossValCol;
+    @FXML private TableView<BoughtProducts> productTableView;
+    @FXML private TableColumn<BoughtProducts, String> nameCol;
+    @FXML private TableColumn<BoughtProducts, String> symbolCol;
+    @FXML private TableColumn<BoughtProducts, BigDecimal> quantityCol;
+    @FXML private TableColumn<BoughtProducts, String> unitCol;
+    @FXML private TableColumn<BoughtProducts, BigDecimal> netPriceCol;
+    @FXML private TableColumn<BoughtProducts, BigDecimal> taxRateCol;
+    @FXML private TableColumn<BoughtProducts, BigDecimal> netValCol;
+    @FXML private TableColumn<BoughtProducts, BigDecimal> discountCol;
+    @FXML private TableColumn<BoughtProducts, BigDecimal> grossValCol;
+    @FXML private TableColumn<BoughtProducts, BoughtProducts> removeCol;
     @FXML private Label totalTaxValLabel;
     @FXML private Label taxCurrencyLabel;
     @FXML private Label totalGrossValLabel;
@@ -87,6 +91,9 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
 
     @Autowired
     private ICustomerService customerService;
+    @Autowired
+    private IProductService productService;
+    private ObservableList<BoughtProducts> productsList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize()
@@ -94,23 +101,59 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
         initButtons();
         initComboBoxes();
         initSellerFields();
-        initProductsPane();
+        initProductsTable();
         initOptions();
-    }
-
-    @FXML
-    private void removeProduct(ActionEvent event)
-    {
-
+        discountChckBox.selectedProperty().addListener((observable, oldValue, newValue) ->
+                discountCol.setVisible(newValue));
     }
 
     private void initButtons() {
-        loadFromDatabaseBtn.setOnAction(event -> openSelectCustomerDialog());
+        buyerFromDatabaseBtn.setOnAction(event -> openSelectCustomerDialog());
+        addItemBtn.setOnAction(event -> openSelectProductDialog());
     }
 
-    private void addNewEmptyRow()
-    {
+    private void openSelectProductDialog() {
+        Dialog<Product> dialog = new Dialog<>();
+        dialog.setTitle("Choose a product");
+        dialog.setHeaderText("Select a product from the database");
+        ButtonType selectBtnType = new ButtonType("Select", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelBtnType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(selectBtnType, cancelBtnType);
+        dialog.setGraphic(new ImageView(this.getClass().getResource("/images/icons8-Product-96.png")
+                .toString()));
 
+        // create table view and columns
+        TableView<Product> tableView = new TableView<>();
+        TableColumn<Product, String> nameCol = new TableColumn<>("Product name");
+        TableColumn<Product, String> symbolCol = new TableColumn<>("Symbol");
+        TableColumn<Product, String> unitCol = new TableColumn<>("Unit");
+        TableColumn<Product, BigDecimal> cpuCol = new TableColumn<>("CPU");
+        TableColumn<Product, BigDecimal> vatRateCol = new TableColumn<>("VAT rate");
+        TableColumn<Product, Boolean> onlineCol = new TableColumn<>("Online sale");
+        TableColumn<Product, Boolean> serviceCol = new TableColumn<>("Is service");
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
+        unitCol.setCellValueFactory(new PropertyValueFactory<>("unit"));
+        cpuCol.setCellValueFactory(new PropertyValueFactory<>("netPrice"));
+        vatRateCol.setCellValueFactory(new PropertyValueFactory<>("taxRate"));
+        onlineCol.setCellValueFactory(new PropertyValueFactory<>("onlineSale"));
+        serviceCol.setCellValueFactory(new PropertyValueFactory<>("isService"));
+        tableView.getColumns().addAll(nameCol, symbolCol, unitCol, cpuCol, vatRateCol, onlineCol, serviceCol);
+        tableView.setItems(FXCollections.observableArrayList(productService.findAllByIsActiveTrue()));
+        dialog.getDialogPane().setContent(tableView);
+        dialog.getDialogPane().setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == selectBtnType)
+            {
+                return tableView.getSelectionModel().getSelectedItem();
+            }
+            return null;
+        });
+
+        Optional<Product> result = dialog.showAndWait();
+        result.ifPresent(product -> productsList.add(new BoughtProducts(product.getProductName(), product.getSymbol(),
+                product.getNetPrice(), product.getTaxRate(), 0, 0, LocalDate.now())));
     }
 
     private void openSelectCustomerDialog() {
@@ -226,8 +269,42 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
         countryComboBox.getSelectionModel().select(customer.getCountry());
     }
 
-    private void initProductsPane() {
+    private void initProductsTable() {
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
+        unitCol.setCellValueFactory(new PropertyValueFactory<>("unit"));
+        netPriceCol.setCellValueFactory(new PropertyValueFactory<>("priceProp"));
+        taxRateCol.setCellValueFactory(new PropertyValueFactory<>("taxRateProp"));
+        removeCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        removeCol.setCellFactory(param -> new TableCell<BoughtProducts, BoughtProducts>(){
+            private Button removeButton = new Button("", new ImageView(this.getClass()
+                    .getResource("/images/icons8-Minus-24.png").toString()));
 
+            @Override
+            protected void updateItem(BoughtProducts product, boolean empty)
+            {
+                super.updateItem(product, empty);
+
+                if (product == null)
+                {
+                    setGraphic(null);
+                    return;
+                }
+
+                setGraphic(removeButton);
+                removeButton.setOnAction(event -> productsList.remove(product));
+                removeButton.getStylesheets().add("com/UI/view/css/new-invoice-stylesheet.css");
+                removeButton.getStyleClass().add("removeProductButton");
+            }
+        });
+
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
+        quantityCol.setOnEditCommit(event -> event.getTableView().getItems().get(event.getTablePosition().getRow())
+                .setQuantityProp(event.getNewValue().intValue()));
+        netValCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
+        grossValCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
+        productTableView.setItems(productsList);
+        // FIXME: quantity and discount columns are not editable despite setting that in the fxml
     }
 
     private void initOptions() {

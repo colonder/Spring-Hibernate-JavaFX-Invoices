@@ -349,7 +349,7 @@
                                     <Insets left="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Button fx:id="loadFromDatabaseBtn" mnemonicParsing="false" text="Load from database" GridPane.columnIndex="6" />
+                              <Button fx:id="buyerFromDatabaseBtn" mnemonicParsing="false" text="Load from database" GridPane.columnIndex="6" />
                            </children>
                         </GridPane>
                         <Separator prefWidth="200.0">
@@ -374,17 +374,18 @@
                               </CheckBox>
                            </children>
                         </AnchorPane>
-                        <TableView fx:id="productTableView" prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="productTableView" editable="true" prefHeight="200.0" prefWidth="200.0">
                           <columns>
-                            <TableColumn fx:id="nameCol" editable="false" maxWidth="15000.0" prefWidth="150.0" sortable="false" text="Product name" />
-                            <TableColumn fx:id="symbolCol" editable="false" minWidth="0.0" prefWidth="286.0" sortable="false" text="Symbol" />
-                              <TableColumn fx:id="amountCol" prefWidth="75.0" sortable="false" text="Amount" />
-                              <TableColumn fx:id="unitCol" editable="false" prefWidth="75.0" sortable="false" text="Unit" />
-                              <TableColumn fx:id="netPriceCol" editable="false" prefWidth="75.0" sortable="false" text="CPU" />
-                              <TableColumn fx:id="taxRateCol" editable="false" prefWidth="75.0" sortable="false" text="VAT rate" />
-                              <TableColumn fx:id="netValCol" editable="false" prefWidth="75.0" sortable="false" text="Net value" />
-                              <TableColumn fx:id="discountCol" prefWidth="75.0" sortable="false" text="Discount %" />
-                              <TableColumn fx:id="grossValCol" editable="false" prefWidth="75.0" sortable="false" text="Gross value" />
+                            <TableColumn fx:id="nameCol" editable="false" maxWidth="15000.0" prefWidth="150.0" text="Product name" />
+                            <TableColumn fx:id="symbolCol" editable="false" minWidth="0.0" prefWidth="286.0" text="Symbol" />
+                              <TableColumn fx:id="quantityCol" prefWidth="75.0" text="Amount" />
+                              <TableColumn fx:id="unitCol" editable="false" prefWidth="75.0" text="Unit" />
+                              <TableColumn fx:id="netPriceCol" editable="false" prefWidth="75.0" text="CPU" />
+                              <TableColumn fx:id="taxRateCol" editable="false" prefWidth="75.0" text="VAT rate" />
+                              <TableColumn fx:id="netValCol" editable="false" prefWidth="75.0" text="Net value" />
+                              <TableColumn fx:id="discountCol" prefWidth="75.0" sortable="false" text="Discount %" visible="false" />
+                              <TableColumn fx:id="grossValCol" editable="false" prefWidth="75.0" text="Gross value" />
+                              <TableColumn fx:id="removeCol" editable="false" maxWidth="2150.0" prefWidth="75.0" sortable="false" text="Remove" />
                           </columns>
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" top="10.0" />
