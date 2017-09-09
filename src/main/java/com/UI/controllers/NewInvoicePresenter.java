@@ -12,8 +12,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import javafx.util.converter.IntegerStringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -58,12 +60,12 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     @FXML private TableView<BoughtProducts> productTableView;
     @FXML private TableColumn<BoughtProducts, String> nameCol;
     @FXML private TableColumn<BoughtProducts, String> symbolCol;
-    @FXML private TableColumn<BoughtProducts, BigDecimal> quantityCol;
+    @FXML private TableColumn<BoughtProducts, Integer> quantityCol;
     @FXML private TableColumn<BoughtProducts, String> unitCol;
     @FXML private TableColumn<BoughtProducts, BigDecimal> netPriceCol;
     @FXML private TableColumn<BoughtProducts, BigDecimal> taxRateCol;
     @FXML private TableColumn<BoughtProducts, BigDecimal> netValCol;
-    @FXML private TableColumn<BoughtProducts, BigDecimal> discountCol;
+    @FXML private TableColumn<BoughtProducts, Integer> discountCol;
     @FXML private TableColumn<BoughtProducts, BigDecimal> grossValCol;
     @FXML private TableColumn<BoughtProducts, BoughtProducts> removeCol;
     @FXML private Label totalTaxValLabel;
@@ -153,7 +155,8 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
 
         Optional<Product> result = dialog.showAndWait();
         result.ifPresent(product -> productsList.add(new BoughtProducts(product.getProductName(), product.getSymbol(),
-                product.getNetPrice(), product.getTaxRate(), 0, 0, LocalDate.now())));
+                product.getUnit(), product.getNetPrice(), product.getTaxRate(), 0, 0,
+                LocalDate.now())));
     }
 
     private void openSelectCustomerDialog() {
@@ -299,12 +302,16 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
         });
 
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
+        quantityCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         quantityCol.setOnEditCommit(event -> event.getTableView().getItems().get(event.getTablePosition().getRow())
-                .setQuantityProp(event.getNewValue().intValue()));
+                .setQuantityProp(event.getNewValue()));
         netValCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
+        discountCol.setCellValueFactory(new PropertyValueFactory<>("discountProp"));
+        discountCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        discountCol.setOnEditCommit(event -> event.getTableView().getItems().get(event.getTablePosition().getRow())
+                .setDiscountProp(event.getNewValue()));
         grossValCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
         productTableView.setItems(productsList);
-        // FIXME: quantity and discount columns are not editable despite setting that in the fxml
     }
 
     private void initOptions() {

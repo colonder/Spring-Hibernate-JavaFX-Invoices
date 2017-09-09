@@ -59,13 +59,15 @@ public class BoughtProducts extends BaseAbstractEntity
     @Transient private SimpleObjectProperty<BigDecimal> netValProp;
     @Transient private SimpleObjectProperty<BigDecimal> taxValProp;
     @Transient private SimpleIntegerProperty discountProp;
+    @Transient private SimpleObjectProperty<BigDecimal> unmodifiedGrossValProp;
     @Transient private SimpleObjectProperty<BigDecimal> grossValProp;
 
-    public BoughtProducts(String productName, String symbol, BigDecimal price, BigDecimal taxRate,
+    public BoughtProducts(String productName, String symbol, String unit, BigDecimal price, BigDecimal taxRate,
                           int discountPercents, int quantity, LocalDate saleDate)
     {
         this.productName = productName;
         this.symbol = symbol;
+        this.unit = unit;
         this.price = price;
         this.taxRate = taxRate;
         this.discountPercents = discountPercents;
@@ -77,27 +79,32 @@ public class BoughtProducts extends BaseAbstractEntity
         this.quantityProp = new SimpleIntegerProperty(quantity);
         this.taxRateProp = new SimpleObjectProperty<>(taxRate);
         this.discountProp = new SimpleIntegerProperty(discountPercents);
+        this.netValProp = new SimpleObjectProperty<>(netValue);
+        this.taxValProp = new SimpleObjectProperty<>(taxValue);
+        this.unmodifiedGrossValProp = new SimpleObjectProperty<>(grossValue);
+        this.grossValProp = new SimpleObjectProperty<>(grossValue);
         this.quantityProp.addListener((observable, oldValue, newValue) -> {
             this.setNetValProp(this.getPriceProp().multiply(new BigDecimal(newValue.intValue())).setScale(2,
                     BigDecimal.ROUND_HALF_DOWN));
-            this.setTaxValProp(this.getNetValProp().multiply(this.getTaxRateProp())
+            this.setTaxValProp(this.getNetValProp().multiply(this.getTaxRateProp().divide(BigDecimal.valueOf(100)))
                     .setScale(2, BigDecimal.ROUND_HALF_DOWN));
-            this.setGrossValProp(this.getNetValProp().add(this.getTaxValProp())
+            this.setUnmodifiedGrossValProp(this.getNetValProp().add(this.getTaxValProp())
                     .setScale(2, BigDecimal.ROUND_HALF_DOWN));
+            this.setGrossValProp(this.getUnmodifiedGrossValProp());
 
             if (this.getDiscountProp() > 0)
             {
-                this.computeGrossVal();
+                this.computeDiscount();
             }
         });
 
-        this.discountProp.addListener((observable, oldValue, newValue) -> computeGrossVal());
+        this.discountProp.addListener((observable, oldValue, newValue) -> computeDiscount());
     }
 
-    private void computeGrossVal()
+    private void computeDiscount()
     {
-        this.setGrossValProp(this.getGrossValProp().subtract(this.getGrossValProp()
-                .multiply(new BigDecimal(this.getDiscountProp())).setScale(2,
+        this.setGrossValProp(this.getUnmodifiedGrossValProp().subtract(this.getGrossValProp()
+                .multiply(new BigDecimal(this.getDiscountProp()).divide(BigDecimal.valueOf(100))).setScale(2,
                         BigDecimal.ROUND_HALF_DOWN)));
     }
 
@@ -286,5 +293,17 @@ public class BoughtProducts extends BaseAbstractEntity
 
     public SimpleObjectProperty<BigDecimal> grossValPropProperty() {
         return grossValProp;
+    }
+
+    public BigDecimal getUnmodifiedGrossValProp() {
+        return unmodifiedGrossValProp.get();
+    }
+
+    public void setUnmodifiedGrossValProp(BigDecimal unmodifiedGrossValProp) {
+        this.unmodifiedGrossValProp.set(unmodifiedGrossValProp);
+    }
+
+    public SimpleObjectProperty<BigDecimal> unmodifiedGrossValPropProperty() {
+        return unmodifiedGrossValProp;
     }
 }
