@@ -108,6 +108,7 @@ public class BoughtProducts extends BaseAbstractEntity
                         BigDecimal.ROUND_HALF_DOWN)));
     }
 
+    //region getters and setters
     public String getProductName() {
         return productName;
     }
@@ -306,4 +307,5 @@ public class BoughtProducts extends BaseAbstractEntity
     public SimpleObjectProperty<BigDecimal> unmodifiedGrossValPropProperty() {
         return unmodifiedGrossValProp;
     }
+    //endregion
 }

@@ -258,7 +258,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     }
 
     private void initSellerFields() {
-
+        // TODO: load from external settings
     }
 
     private void initBuyerFields(Customer customer) {
@@ -319,6 +319,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
 
     @Override
     public void initializeFields(BaseAbstractEntity entity) {
-
+        // TODO: initialize fields with data of a buyer
+        // TODO: initialize products table of a particular invoice
     }
 }
