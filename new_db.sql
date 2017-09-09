@@ -44,6 +44,7 @@ create table issued_invoices
 	sale_date date not null,
 	net_value numeric(7,2) not null check(net_value > 0.00),
 	tax_value numeric(7,2) not null check(tax_value > 0.00),
+	discount_value numeric(7,2),
 	gross_value numeric(7,2) not null check(gross_value > 0.00),
 	paid_amount numeric(7,2) check(paid_amount > 0.00),
 	payment_method varchar(15) not null,
@@ -72,6 +73,7 @@ create table products
 	id serial primary key,
 	product_name varchar(80) not null,
 	symbol varchar(10),
+	unit varchar(10) not null,
 	net_price numeric(7,2) not null check(net_price > 0.00),
 	tax_rate numeric(4,2) not null check(tax_rate > 0.00),
 	online_sale boolean not null default '0',
@@ -83,11 +85,16 @@ create table products
 create table bought_products
 (
 	id serial primary key,
+	product_name varchar(80) not null,
+	symbol varchar(10),
+	unit varchar(10) not null,
+	price numeric(7,2) not null,
+	tax_rate numeric(4,2) not null,
 	quantity int not null default 0 check(quantity >= 0),
 	net_value numeric(7,2) not null check(net_value > 0.00),
 	tax_value numeric(7,2) not null check(tax_value > 0.00),
+	discount_percents int,
 	gross_value numeric(7,2) not null check(gross_value > 0.00),	
 	invoice_id int references issued_invoices(id) on delete cascade,
-	product_id int references products(id),
 	sale_date date not null
 );
