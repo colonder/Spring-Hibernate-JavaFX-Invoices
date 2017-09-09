@@ -18,6 +18,9 @@ public class Product extends BaseAbstractEntity
     @Column(name = "symbol")
     private String symbol;
 
+    @Column(name = "unit")
+    private String unit;
+
     @Column(name = "net_price", nullable = false)
     private BigDecimal netPrice;
 
@@ -36,4 +39,76 @@ public class Product extends BaseAbstractEntity
     @ManyToOne
     @JoinColumn(name = "warehouse_item_id", referencedColumnName = "id")
     private Warehouse warehouse;
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public BigDecimal getNetPrice() {
+        return netPrice;
+    }
+
+    public void setNetPrice(BigDecimal netPrice) {
+        this.netPrice = netPrice;
+    }
+
+    public BigDecimal getTaxRate() {
+        return taxRate;
+    }
+
+    public void setTaxRate(BigDecimal taxRate) {
+        this.taxRate = taxRate;
+    }
+
+    public boolean isOnlineSale() {
+        return onlineSale;
+    }
+
+    public void setOnlineSale(boolean onlineSale) {
+        this.onlineSale = onlineSale;
+    }
+
+    public boolean isService() {
+        return isService;
+    }
+
+    public void setService(boolean service) {
+        isService = service;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
 }

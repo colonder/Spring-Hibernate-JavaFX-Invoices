@@ -15,8 +15,8 @@ public class ProductServImp implements IProductService {
     private IProductRepository productRepository;
 
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public List<Product> findAllByIsActiveTrue() {
+        return productRepository.findAllByIsActiveTrue();
     }
 
     @Override

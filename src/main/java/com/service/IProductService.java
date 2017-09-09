@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IProductService
 {
-    List<Product> findAll();
+    List<Product> findAllByIsActiveTrue();
     Product save(Product product);
     void delete(Product product);
     int update(String productName, BigDecimal netPrice, BigDecimal taxRate, boolean onlineSale, boolean isService,

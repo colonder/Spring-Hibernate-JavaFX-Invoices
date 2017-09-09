@@ -32,6 +32,9 @@ public class Invoice extends BaseAbstractEntity
     @Column(name = "tax_value")
     private BigDecimal taxValue;
 
+    @Column(name = "discount_value")
+    private BigDecimal discountValue;
+
     @Column(name = "gross_value")
     private BigDecimal grossValue;
 
@@ -102,6 +105,10 @@ public class Invoice extends BaseAbstractEntity
 
     public BigDecimal getTaxValue() {
         return taxValue;
+    }
+
+    public BigDecimal getDiscountValue() {
+        return discountValue;
     }
 
     public BigDecimal getGrossValue() {

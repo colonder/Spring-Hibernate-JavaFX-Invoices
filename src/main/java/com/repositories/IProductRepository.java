@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Integer>
 {
-    List<Product> findAll();
+    List<Product> findAllByIsActiveTrue();
 
     @Modifying
     @Query("UPDATE Product p SET p.productName =?1, p.netPrice =?2, p.taxRate =?3, p.onlineSale =?4, p.isService =?5," +
