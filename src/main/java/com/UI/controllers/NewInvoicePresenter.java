@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Currency;
 import java.util.Locale;
@@ -95,18 +94,18 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     private ICustomerService customerService;
     @Autowired
     private IProductService productService;
-    private ObservableList<BoughtProducts> productsList = FXCollections.observableArrayList();
+    private ObservableList<BoughtProducts> productsList;
 
     @FXML
     public void initialize()
     {
+        productsList = FXCollections.observableArrayList();
         initButtons();
         initComboBoxes();
         initSellerFields();
         initProductsTable();
+        initValueLabels();
         initOptions();
-        discountChckBox.selectedProperty().addListener((observable, oldValue, newValue) ->
-                discountCol.setVisible(newValue));
     }
 
     private void initButtons() {
@@ -154,9 +153,25 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
         });
 
         Optional<Product> result = dialog.showAndWait();
-        result.ifPresent(product -> productsList.add(new BoughtProducts(product.getProductName(), product.getSymbol(),
-                product.getUnit(), product.getNetPrice(), product.getTaxRate(), 0, 0,
-                LocalDate.now())));
+        result.ifPresent(product -> {
+
+                BoughtProducts boughtProduct = new BoughtProducts(product.getProductName(), product.getSymbol(),
+                        product.getUnit(), product.getNetPrice(), product.getTaxRate(), 0);
+
+                if (productsList.contains(boughtProduct))
+                {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Error in adding product");
+                    alert.setHeaderText("Selected product is already on the list");
+                    alert.setContentText("It seems that selected product is already on the products lit. Please, " +
+                            "modify existing one instead of adding a new one.");
+
+                    alert.showAndWait();
+                    return;
+                }
+
+                productsList.add(boughtProduct);
+        });
     }
 
     private void openSelectCustomerDialog() {
@@ -258,7 +273,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     }
 
     private void initSellerFields() {
-        // TODO: load from external settings
+        // TODO: load from settings table in the database
     }
 
     private void initBuyerFields(Customer customer) {
@@ -303,15 +318,29 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
 
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
         quantityCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        quantityCol.setOnEditCommit(event -> event.getTableView().getItems().get(event.getTablePosition().getRow())
-                .setQuantityProp(event.getNewValue()));
+        quantityCol.setOnEditCommit(event -> {
+
+            // TODO: check if typed quantity does not exceed quantity available at the warehouse
+
+            event.getTableView().getItems().get(event.getTablePosition().getRow())
+                    .setQuantityProp(event.getNewValue());
+
+        });
         netValCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
         discountCol.setCellValueFactory(new PropertyValueFactory<>("discountProp"));
         discountCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        discountCol.setOnEditCommit(event -> event.getTableView().getItems().get(event.getTablePosition().getRow())
-                .setDiscountProp(event.getNewValue()));
+        discountCol.setOnEditCommit(event -> {
+            event.getTableView().getItems().get(event.getTablePosition().getRow())
+                    .setDiscountProp(event.getNewValue());
+        });
         grossValCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
         productTableView.setItems(productsList);
+        discountChckBox.selectedProperty().addListener((observable, oldValue, newValue) ->
+                discountCol.setVisible(newValue));
+    }
+
+    private void initValueLabels() {
+
     }
 
     private void initOptions() {
