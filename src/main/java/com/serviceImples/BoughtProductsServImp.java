@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -35,7 +34,7 @@ public class BoughtProductsServImp implements IBoughtProductsService {
 
     @Override
     @Transactional
-    public int update(BigDecimal quantity, BigDecimal netValue, BigDecimal taxValue, BigDecimal grossValue, LocalDate saleDate, int id) {
-        return boughtProductsRepository.update(quantity, netValue, taxValue, grossValue, saleDate, id);
+    public int update(BigDecimal quantity, BigDecimal netValue, BigDecimal taxValue, BigDecimal grossValue, int id) {
+        return boughtProductsRepository.update(quantity, netValue, taxValue, grossValue, id);
     }
 }

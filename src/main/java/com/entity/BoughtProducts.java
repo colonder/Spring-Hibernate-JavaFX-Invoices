@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleObjectProperty;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "bought_products")
@@ -46,9 +45,6 @@ public class BoughtProducts extends BaseAbstractEntity
     @Column(name = "gross_value", nullable = false)
     private BigDecimal grossValue;
 
-    @Column(name = "sale_date", nullable = false)
-    private LocalDate saleDate;
-
     @ManyToOne
     @JoinColumn(name = "invoice_id", referencedColumnName = "id")
     private Invoice invoice;
@@ -63,7 +59,7 @@ public class BoughtProducts extends BaseAbstractEntity
     @Transient private SimpleObjectProperty<BigDecimal> grossValProp;
 
     public BoughtProducts(String productName, String symbol, String unit, BigDecimal price, BigDecimal taxRate,
-                          int discountPercents, int quantity, LocalDate saleDate)
+                          int discountPercents)
     {
         this.productName = productName;
         this.symbol = symbol;
@@ -71,8 +67,6 @@ public class BoughtProducts extends BaseAbstractEntity
         this.price = price;
         this.taxRate = taxRate;
         this.discountPercents = discountPercents;
-        this.quantity = quantity;
-        this.saleDate = saleDate;
 
         this.priceProp = new SimpleObjectProperty<>(price);
         this.taxRateProp = new SimpleObjectProperty<>(taxRate);
@@ -187,14 +181,6 @@ public class BoughtProducts extends BaseAbstractEntity
 
     private void setGrossValue(BigDecimal grossValue) {
         this.grossValue = grossValue;
-    }
-
-    public LocalDate getSaleDate() {
-        return saleDate;
-    }
-
-    public void setSaleDate(LocalDate saleDate) {
-        this.saleDate = saleDate;
     }
 
     public Invoice getInvoice() {
