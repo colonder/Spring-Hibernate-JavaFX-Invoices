@@ -34,10 +34,10 @@ public class HomePresenter implements IRefreshable {
     @FXML
     public void initialize()
     {
-        standardBtn.setOnAction(event -> ViewSwitcher.openView(standardBtn, newInvoiceView));
-        proFormaBtn.setOnAction(event -> ViewSwitcher.openView(proFormaBtn, newInvoiceView));
-        correctiveBtn.setOnAction(event -> ViewSwitcher.openView(correctiveBtn, newInvoiceView));
-        expensesBtn.setOnAction(event -> ViewSwitcher.openView(expensesBtn, newInvoiceView));
+        standardBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceView));
+        proFormaBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceView));
+        correctiveBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceView));
+        expensesBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceView));
         refresh();
     }
 

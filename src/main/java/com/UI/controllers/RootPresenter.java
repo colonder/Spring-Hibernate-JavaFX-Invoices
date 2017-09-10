@@ -25,10 +25,10 @@ public class RootPresenter {
     @FXML
     public void initialize()
     {
-        homeBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(homeBtn, homeView));
-        invoicesBtn.setOnAction(event -> ViewSwitcher.openView(invoicesBtn, invoicesView));
-        customersBtn.setOnAction(event -> ViewSwitcher.openView(customersBtn, customersView));
-        productsBtn.setOnAction(event -> ViewSwitcher.openView(productsBtn, productsView));
-        warehouseBtn.setOnAction(event -> ViewSwitcher.openView(warehouseBtn, warehouseView));
+        homeBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(homeView));
+        invoicesBtn.setOnAction(event -> ViewSwitcher.openView(invoicesView));
+        customersBtn.setOnAction(event -> ViewSwitcher.openView(customersView));
+        productsBtn.setOnAction(event -> ViewSwitcher.openView(productsView));
+        warehouseBtn.setOnAction(event -> ViewSwitcher.openView(warehouseView));
     }
 }

@@ -90,16 +90,13 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     @FXML private Button saveBtn;
     //endregion
 
-    @Autowired
-    private ICustomerService customerService;
-    @Autowired
-    private IProductService productService;
+    @Autowired private ICustomerService customerService;
+    @Autowired private IProductService productService;
     private ObservableList<BoughtProducts> productsList;
 
     @FXML
     public void initialize()
     {
-        productsList = FXCollections.observableArrayList();
         initButtons();
         initComboBoxes();
         initSellerFields();
@@ -330,10 +327,14 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
         discountCol.setCellValueFactory(new PropertyValueFactory<>("discountProp"));
         discountCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         discountCol.setOnEditCommit(event -> {
+
+            // TODO: check if typed quantity does not exceed quantity available at the warehouse
+
             event.getTableView().getItems().get(event.getTablePosition().getRow())
                     .setDiscountProp(event.getNewValue());
         });
         grossValCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
+
         productTableView.setItems(productsList);
         discountChckBox.selectedProperty().addListener((observable, oldValue, newValue) ->
                 discountCol.setVisible(newValue));

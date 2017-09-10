@@ -15,6 +15,7 @@ public class Main extends AbstractJavaFxApplicationSupport {
 
     @Autowired private RootView rootView;
     @Autowired private HomeView homeView;
+    public static BorderPane rootPane;
 
     public static void main(String[] args) {
         launchApp(Main.class, args);
@@ -23,9 +24,9 @@ public class Main extends AbstractJavaFxApplicationSupport {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("Simple invoices");
-        BorderPane pane = (BorderPane) rootView.getView();
-        pane.setCenter(homeView.getView());
-        stage.setScene(new Scene(pane));
+        rootPane = (BorderPane) rootView.getView();
+        rootPane.setCenter(homeView.getView());
+        stage.setScene(new Scene(rootPane));
         stage.setResizable(false);
         stage.centerOnScreen();
         stage.setResizable(true);

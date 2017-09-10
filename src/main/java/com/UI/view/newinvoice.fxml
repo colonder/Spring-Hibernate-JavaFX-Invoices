@@ -457,12 +457,12 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="taxCurrencyLabel" text="0.00" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                    <Label fx:id="taxCurrencyLabel" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="grossCurrencyLabel" text="0.00" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                    <Label fx:id="grossCurrencyLabel" GridPane.columnIndex="3" GridPane.rowIndex="4">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

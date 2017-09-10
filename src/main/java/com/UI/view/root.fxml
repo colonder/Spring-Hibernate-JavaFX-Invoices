@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane minHeight="650.0" minWidth="1200.0" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.RootPresenter">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="rootPane" minHeight="650.0" minWidth="1200.0" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.RootPresenter">
    <top>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
