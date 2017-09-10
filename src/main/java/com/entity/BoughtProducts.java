@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "bought_products")
@@ -93,6 +94,27 @@ public class BoughtProducts extends BaseAbstractEntity
         });
 
         this.discountProp.addListener((observable, oldValue, newValue) -> computeDiscount());
+    }
+
+    // two bought products are the same if their name, symbol, unit, CPU, discount and VAT rate are the same
+    // similarity of two bought products is not dependable on quantity or any other field
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BoughtProducts that = (BoughtProducts) o;
+        return id == that.id &&
+                discountPercents == that.discountPercents &&
+                Objects.equals(productName, that.productName) &&
+                Objects.equals(symbol, that.symbol) &&
+                Objects.equals(unit, that.unit) &&
+                Objects.equals(price, that.price) &&
+                Objects.equals(taxRate, that.taxRate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, productName, symbol, unit, price, taxRate, discountPercents);
     }
 
     private void computeDiscount()
