@@ -129,10 +129,10 @@ public class InvoicesPresenter {
 
     private void initializeButtons()
     {
-        newInvoiceBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceBtn, newInvoiceView));
+        newInvoiceBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceView));
         editBtn.setOnAction(event -> {
             Invoice invoiceToEdit = tableView.getSelectionModel().getSelectedItem();
-            ViewSwitcher.openAndInitialize(newInvoiceBtn, newInvoiceView, invoiceToEdit);
+            ViewSwitcher.openAndInitialize(newInvoiceView, invoiceToEdit);
         });
         deleteBtn.setOnAction(event -> {
 

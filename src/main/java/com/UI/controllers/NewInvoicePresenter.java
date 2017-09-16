@@ -1,8 +1,8 @@
 package com.UI.controllers;
 
-import com.entity.BaseAbstractEntity;
 import com.entity.BoughtProducts;
 import com.entity.Customer;
+import com.entity.Invoice;
 import com.entity.Product;
 import com.service.ICustomerService;
 import com.service.IProductService;
@@ -26,7 +26,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 @Component
-public class NewInvoicePresenter implements IInitializableFromEntity {
+public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
 
     //region FXML fields
     @FXML private ComboBox<String> typeComboBox;
@@ -348,7 +348,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity {
     }
 
     @Override
-    public void initializeFields(BaseAbstractEntity entity) {
+    public void initializeFields(Invoice entity) {
         // TODO: initialize fields with data of a buyer
         // TODO: initialize products table of a particular invoice
     }

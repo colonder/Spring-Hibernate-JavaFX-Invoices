@@ -12,6 +12,7 @@ public class ViewSwitcher {
         Main.rootPane.setCenter(view.getView());
     }
 
+    @SuppressWarnings("unchecked")
     public static void openAndInitialize(AbstractFxmlView view, BaseAbstractEntity entity)
     {
         IInitializableFromEntity controller = (IInitializableFromEntity) view.getPresenter();
