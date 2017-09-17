@@ -97,6 +97,8 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     @FXML
     public void initialize()
     {
+        if (productsList == null)
+            productsList = FXCollections.observableArrayList();
         initButtons();
         initComboBoxes();
         initSellerFields();

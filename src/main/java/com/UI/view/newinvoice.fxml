@@ -569,7 +569,7 @@
                               </Label>
                            </children>
                         </GridPane>
-                        <TitledPane fx:id="optionsTitledPane" expanded="false" text="Additional options">
+                        <TitledPane fx:id="optionsTitledPane" text="Additional options">
                           <content>
                             <AnchorPane>
                                  <children>
@@ -594,18 +594,29 @@
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Show unit price as" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                          <Label text="Show unit price as" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
+                                             <GridPane.margin>
+                                                <Insets left="5.0" />
+                                             </GridPane.margin>
                                           </Label>
                                           <Label text="Paid date">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="calculateValsComboBox" prefWidth="150.0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-                                          <ComboBox fx:id="showUnitPriceComboBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <ComboBox fx:id="calculateValsComboBox" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="showUnitPriceComboBox" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                             <GridPane.margin>
+                                                <Insets left="5.0" />
+                                             </GridPane.margin>
+                                          </ComboBox>
                                           <TextField fx:id="paidDateTxtFld" GridPane.columnSpan="2" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets right="5.0" />
@@ -616,7 +627,11 @@
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="calculateTotalComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <ComboBox fx:id="calculateTotalComboBox" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin>
+                                          </ComboBox>
                                           <TextField fx:id="labelTxtFld" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets left="5.0" />
