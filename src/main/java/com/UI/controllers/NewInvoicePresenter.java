@@ -55,7 +55,6 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     @FXML private ComboBox<String> countryComboBox;
     @FXML private CheckBox discountChckBox;
     @FXML private Button addItemBtn;
-    @FXML private Label totalNetValLabel;
     @FXML private TableView<BoughtProducts> productTableView;
     @FXML private TableColumn<BoughtProducts, String> nameCol;
     @FXML private TableColumn<BoughtProducts, String> symbolCol;
@@ -67,6 +66,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     @FXML private TableColumn<BoughtProducts, Integer> discountCol;
     @FXML private TableColumn<BoughtProducts, BigDecimal> grossValCol;
     @FXML private TableColumn<BoughtProducts, BoughtProducts> removeCol;
+    @FXML private Label totalNetValLabel;
     @FXML private Label totalTaxValLabel;
     @FXML private Label taxCurrencyLabel;
     @FXML private Label totalGrossValLabel;
@@ -252,6 +252,10 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                 defaultCurr.getDisplayName(), defaultCurr.getCurrencyCode()));
         invoiceCurrencyComboBox.setItems(currencyCodes);
         invoiceCurrencyComboBox.getSelectionModel().select(defaultCurr.getCurrencyCode());
+        invoiceCurrencyComboBox.setOnAction(event -> {
+            grossCurrencyLabel.setText(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
+            taxCurrencyLabel.setText(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
+        });
         languageComboBox.setItems(languages);
         languageComboBox.getSelectionModel().select(defaultLocale.getDisplayLanguage());
         paymentDateComboBox.setItems(FXCollections.observableArrayList(1, 3, 5, 7, 14, 21, 30, 45, 60, 75, 90));
@@ -343,7 +347,23 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     }
 
     private void initValueLabels() {
+        totalNetValLabel.setText(sum(BoughtProducts::getNetValProp));
+        totalTaxValLabel.setText(sum(BoughtProducts::getTaxValProp));
+        totalGrossValLabel.setText(sum(BoughtProducts::getGrossValProp));
+        taxCurrencyLabel.setText(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
+        grossCurrencyLabel.setText(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
+    }
 
+    private String sum(Summbale field)
+    {
+        BigDecimal netVal = BigDecimal.ZERO;
+
+        for (BoughtProducts product : productsList)
+        {
+            netVal = netVal.add(field.getValueFrom(product));
+        }
+
+        return netVal.toString();
     }
 
     private void initOptions() {
