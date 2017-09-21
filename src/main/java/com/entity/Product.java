@@ -24,8 +24,8 @@ public class Product extends BaseAbstractEntity
     @Column(name = "net_price", nullable = false)
     private BigDecimal netPrice;
 
-    @Column(name = "tax_rate", nullable = false)
-    private BigDecimal taxRate;
+    @Column(name = "vat_rate", nullable = false)
+    private BigDecimal vatRate;
 
     @Column(name = "online_sale", nullable = false)
     private boolean onlineSale;
@@ -72,12 +72,12 @@ public class Product extends BaseAbstractEntity
         this.netPrice = netPrice;
     }
 
-    public BigDecimal getTaxRate() {
-        return taxRate;
+    public BigDecimal getVatRate() {
+        return vatRate;
     }
 
-    public void setTaxRate(BigDecimal taxRate) {
-        this.taxRate = taxRate;
+    public void setVatRate(BigDecimal vatRate) {
+        this.vatRate = vatRate;
     }
 
     public boolean isOnlineSale() {

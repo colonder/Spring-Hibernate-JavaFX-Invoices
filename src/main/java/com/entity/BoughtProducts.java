@@ -28,8 +28,8 @@ public class BoughtProducts extends BaseAbstractEntity
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "tax_rate", nullable = false)
-    private BigDecimal taxRate;
+    @Column(name = "vat_rate", nullable = false)
+    private BigDecimal vatRate;
 
     @Column(name = "discount_percents")
     private int discountPercents;
@@ -40,8 +40,8 @@ public class BoughtProducts extends BaseAbstractEntity
     @Column(name = "net_value", nullable = false)
     private BigDecimal netValue;
 
-    @Column(name = "tax_value", nullable = false)
-    private BigDecimal taxValue;
+    @Column(name = "vat_value", nullable = false)
+    private BigDecimal vatValue;
 
     @Column(name = "gross_value", nullable = false)
     private BigDecimal grossValue;
@@ -59,23 +59,23 @@ public class BoughtProducts extends BaseAbstractEntity
     @Transient private SimpleObjectProperty<BigDecimal> unmodifiedGrossValProp;
     @Transient private SimpleObjectProperty<BigDecimal> grossValProp;
 
-    public BoughtProducts(String productName, String symbol, String unit, BigDecimal price, BigDecimal taxRate,
+    public BoughtProducts(String productName, String symbol, String unit, BigDecimal price, BigDecimal vatRate,
                           int discountPercents)
     {
         this.productName = productName;
         this.symbol = symbol;
         this.unit = unit;
         this.price = price;
-        this.taxRate = taxRate;
+        this.vatRate = vatRate;
         this.discountPercents = discountPercents;
 
         this.priceProp = new SimpleObjectProperty<>(price);
-        this.taxRateProp = new SimpleObjectProperty<>(taxRate);
+        this.taxRateProp = new SimpleObjectProperty<>(vatRate);
         this.quantityProp = new SimpleIntegerProperty(quantity);
-        this.taxRateProp = new SimpleObjectProperty<>(taxRate);
+        this.taxRateProp = new SimpleObjectProperty<>(vatRate);
         this.discountProp = new SimpleIntegerProperty(discountPercents);
         this.netValProp = new SimpleObjectProperty<>(netValue);
-        this.taxValProp = new SimpleObjectProperty<>(taxValue);
+        this.taxValProp = new SimpleObjectProperty<>(vatValue);
         this.unmodifiedGrossValProp = new SimpleObjectProperty<>(grossValue);
         this.grossValProp = new SimpleObjectProperty<>(grossValue);
         this.quantityProp.addListener((observable, oldValue, newValue) -> {
@@ -109,12 +109,12 @@ public class BoughtProducts extends BaseAbstractEntity
                 Objects.equals(symbol, that.symbol) &&
                 Objects.equals(unit, that.unit) &&
                 Objects.equals(price, that.price) &&
-                Objects.equals(taxRate, that.taxRate);
+                Objects.equals(vatRate, that.vatRate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productName, symbol, unit, price, taxRate, discountPercents);
+        return Objects.hash(id, productName, symbol, unit, price, vatRate, discountPercents);
     }
 
     private void computeDiscount()
@@ -157,12 +157,12 @@ public class BoughtProducts extends BaseAbstractEntity
         this.price = price;
     }
 
-    public BigDecimal getTaxRate() {
-        return taxRate;
+    public BigDecimal getVatRate() {
+        return vatRate;
     }
 
-    private void setTaxRate(BigDecimal taxRate) {
-        this.taxRate = taxRate;
+    private void setVatRate(BigDecimal vatRate) {
+        this.vatRate = vatRate;
     }
 
     public int getDiscountPercents() {
@@ -189,12 +189,12 @@ public class BoughtProducts extends BaseAbstractEntity
         this.netValue = netValue;
     }
 
-    public BigDecimal getTaxValue() {
-        return taxValue;
+    public BigDecimal getVatValue() {
+        return vatValue;
     }
 
-    private void setTaxValue(BigDecimal taxValue) {
-        this.taxValue = taxValue;
+    private void setVatValue(BigDecimal vatValue) {
+        this.vatValue = vatValue;
     }
 
     public BigDecimal getGrossValue() {
@@ -232,7 +232,7 @@ public class BoughtProducts extends BaseAbstractEntity
 
     public void setTaxRateProp(BigDecimal taxRateProp) {
         this.taxRateProp.set(taxRateProp);
-        this.setTaxRate(taxRateProp);
+        this.setVatRate(taxRateProp);
     }
 
     public SimpleObjectProperty<BigDecimal> taxRatePropProperty() {
@@ -271,7 +271,7 @@ public class BoughtProducts extends BaseAbstractEntity
 
     public void setTaxValProp(BigDecimal taxValProp) {
         this.taxValProp.set(taxValProp);
-        this.setTaxValue(taxValProp);
+        this.setVatValue(taxValProp);
     }
 
     public SimpleObjectProperty<BigDecimal> taxValPropProperty() {

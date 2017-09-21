@@ -10,5 +10,5 @@ public interface IBoughtProductsService
     List<BoughtProducts> findAll();
     BoughtProducts save(BoughtProducts product);
     void delete(BoughtProducts product);
-    int update(BigDecimal quantity, BigDecimal netValue, BigDecimal taxValue, BigDecimal grossValue, int id);
+    int update(BigDecimal quantity, BigDecimal netValue, BigDecimal vatValue, BigDecimal grossValue, int id);
 }

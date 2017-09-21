@@ -11,6 +11,6 @@ import java.math.BigDecimal;
 @Repository
 public interface IBoughtProductsRepository extends JpaRepository<BoughtProducts, Integer> {
     @Modifying
-    @Query("UPDATE BoughtProducts b SET b.quantity =?1, b.netValue =?2, b.taxValue =?3, b.grossValue =?4 WHERE b.id =?5")
-    int update(BigDecimal quantity, BigDecimal netValue, BigDecimal taxValue, BigDecimal grossValue, int id);
+    @Query("UPDATE BoughtProducts b SET b.quantity =?1, b.netValue =?2, b.vatValue =?3, b.grossValue =?4 WHERE b.id =?5")
+    int update(BigDecimal quantity, BigDecimal netValue, BigDecimal vatValue, BigDecimal grossValue, int id);
 }

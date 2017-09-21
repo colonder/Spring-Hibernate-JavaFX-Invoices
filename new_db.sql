@@ -3,7 +3,32 @@ drop table if exists issued_invoices;
 drop table if exists customer;
 drop table if exists products;
 drop table if exists warehouse;
+drop table if exists sellers;
+drop table if exists settings;
 
+create table sellers
+(
+	id serial primary key,
+	alias varchar(20) unique,
+	last_name varchar(80) not null,
+	first_name varchar(30) not null,
+	tax_identifier_number varchar(20) unique not null,
+	address varchar(100),
+	postal_code varchar(6),
+	city varchar(30),
+	account_number varchar(31),
+	bank varchar(50),
+	country varchar(30),
+	email varchar(30) unique,
+	cell_phone int unique,
+	fax_number int unique
+);
+
+create table settings
+(
+	default_currency varchar(3),
+	default_vat_rate numeric(3,2) default 0.00 check(default_vat_rate >= 0.00)
+);
 
 create table customer
 (
@@ -25,7 +50,7 @@ create table customer
 	default_payment_method varchar(15),
 	creation_date date not null default CURRENT_DATE,
 	last_purchase_date date,
-	country varchar(30) not null,
+	country varchar(30),
 	client_type varchar(20) not null default 'person',
 	company_special_number int,
 	default_discount numeric(3,2) default 0.00 check(default_discount >= 0.00),
@@ -42,7 +67,7 @@ create table issued_invoices
 	issue_date date not null,
 	sale_date date not null,
 	net_value numeric(7,2) not null check(net_value > 0.00),
-	tax_value numeric(7,2) not null check(tax_value > 0.00),
+	vat_value numeric(7,2) not null check(vat_value > 0.00),
 	discount_value numeric(7,2),
 	gross_value numeric(7,2) not null check(gross_value > 0.00),
 	paid_amount numeric(7,2) check(paid_amount > 0.00),
@@ -74,7 +99,7 @@ create table products
 	symbol varchar(10),
 	unit varchar(10) not null,
 	net_price numeric(7,2) not null check(net_price > 0.00),
-	tax_rate numeric(4,2) not null check(tax_rate > 0.00),
+	vat_rate numeric(4,2) not null check(vat_rate > 0.00),
 	online_sale boolean not null default '0',
 	is_service boolean not null default '0',
 	is_active boolean not null default '1',
@@ -88,10 +113,10 @@ create table bought_products
 	symbol varchar(10),
 	unit varchar(10) not null,
 	price numeric(7,2) not null,
-	tax_rate numeric(4,2) not null,
+	vat_rate numeric(4,2) not null,
 	quantity int not null default 0 check(quantity >= 0),
 	net_value numeric(7,2) not null check(net_value > 0.00),
-	tax_value numeric(7,2) not null check(tax_value > 0.00),
+	vat_value numeric(7,2) not null check(vat_value > 0.00),
 	discount_percents int,
 	gross_value numeric(7,2) not null check(gross_value > 0.00),	
 	invoice_id int references issued_invoices(id) on delete cascade

@@ -10,6 +10,6 @@ public interface IProductService
     List<Product> findAllByIsActiveTrue();
     Product save(Product product);
     void delete(Product product);
-    int update(String productName, BigDecimal netPrice, BigDecimal taxRate, boolean onlineSale, boolean isService,
+    int update(String productName, BigDecimal netPrice, BigDecimal vatRate, boolean onlineSale, boolean isService,
                boolean isActive, int id);
 }

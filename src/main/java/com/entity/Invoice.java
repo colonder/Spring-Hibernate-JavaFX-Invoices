@@ -26,17 +26,14 @@ public class Invoice extends BaseAbstractEntity
     @Enumerated(EnumType.STRING)
     private InvoiceType type;
 
-    @Column(name = "seller")
-    private String seller;
-
     @Column(name = "issue_date")
     private LocalDate issueDate;
 
     @Column(name = "net_value")
     private BigDecimal netValue;
 
-    @Column(name = "tax_value")
-    private BigDecimal taxValue;
+    @Column(name = "vat_value")
+    private BigDecimal vatValue;
 
     @Column(name = "discount_value")
     private BigDecimal discountValue;
@@ -87,6 +84,10 @@ public class Invoice extends BaseAbstractEntity
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "seller_id", referencedColumnName = "id")
+    private Seller seller;
+
     public Invoice()
     {
         // TODO: initialize invoice number from set policy
@@ -95,7 +96,7 @@ public class Invoice extends BaseAbstractEntity
         this.saleDate = LocalDate.now();
         this.lastModified = LocalDate.now();
         this.netValue = BigDecimal.ZERO;
-        this.taxValue = BigDecimal.ZERO;
+        this.vatValue = BigDecimal.ZERO;
         this.discountValue = BigDecimal.ZERO;
         this.grossValue = BigDecimal.ZERO;
         this.paidAmount = BigDecimal.ZERO;
@@ -120,7 +121,7 @@ public class Invoice extends BaseAbstractEntity
         return type;
     }
 
-    public String getSeller() {
+    public Seller getSeller() {
         return seller;
     }
 
@@ -132,8 +133,8 @@ public class Invoice extends BaseAbstractEntity
         return netValue;
     }
 
-    public BigDecimal getTaxValue() {
-        return taxValue;
+    public BigDecimal getVatValue() {
+        return vatValue;
     }
 
     public BigDecimal getDiscountValue() {

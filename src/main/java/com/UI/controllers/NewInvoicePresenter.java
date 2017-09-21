@@ -160,7 +160,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         result.ifPresent(product -> {
 
                 BoughtProducts boughtProduct = new BoughtProducts(product.getProductName(), product.getSymbol(),
-                        product.getUnit(), product.getNetPrice(), product.getTaxRate(), 0);
+                        product.getUnit(), product.getNetPrice(), product.getVatRate(), 0);
 
                 if (productsList.contains(boughtProduct))
                 {
