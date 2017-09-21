@@ -1,5 +1,8 @@
 package com.UI.controllers;
 
+import com.contant_arrays.InvoiceStatus;
+import com.contant_arrays.InvoiceType;
+import com.contant_arrays.PaymentMethod;
 import com.entity.BoughtProducts;
 import com.entity.Customer;
 import com.entity.Invoice;
@@ -94,11 +97,14 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     @Autowired private IProductService productService;
     private ObservableList<BoughtProducts> productsList;
 
+    // FIXME: the productsList is always null, because before it is referenced to particular invoice bouhgt products
+    // in the initializeFields() method the initialize() is being called, and methods within it, setting up all fields
+    // see productsList as null
+    // TODO: manually set controller and call appropriate version of it(?)
+
     @FXML
     public void initialize()
     {
-        if (productsList == null)
-            productsList = FXCollections.observableArrayList();
         initButtons();
         initComboBoxes();
         initSellerFields();
@@ -139,7 +145,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         onlineCol.setCellValueFactory(new PropertyValueFactory<>("onlineSale"));
         serviceCol.setCellValueFactory(new PropertyValueFactory<>("isService"));
         tableView.getColumns().addAll(nameCol, symbolCol, unitCol, cpuCol, vatRateCol, onlineCol, serviceCol);
-        tableView.setItems(FXCollections.observableArrayList(productService.findAllByIsActiveTrue()));
+        tableView.getItems().setAll(productService.findAllByIsActiveTrue());
         dialog.getDialogPane().setContent(tableView);
         dialog.getDialogPane().setPrefHeight(Region.USE_COMPUTED_SIZE);
 
@@ -195,7 +201,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         companyName.setCellValueFactory(new PropertyValueFactory<>("companyName"));
         taxIdentifierCol.setCellValueFactory(new PropertyValueFactory<>("taxIdentifier"));
         tableView.getColumns().addAll(aliasCol, lastNameCol, firstName, companyName, taxIdentifierCol);
-        tableView.setItems(FXCollections.observableArrayList(customerService.findAll()));
+        tableView.getItems().setAll(customerService.findAll());
         dialog.getDialogPane().setContent(tableView);
         dialog.getDialogPane().setPrefHeight(Region.USE_COMPUTED_SIZE);
 
@@ -212,12 +218,6 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     }
 
     private void initComboBoxes() {
-        ObservableList<String> typeList = FXCollections.observableArrayList("Ordinary", "Pro forma", "Corrective");
-        ObservableList<String> paymentMethodList = FXCollections.observableArrayList("Cash", "Bank transfer",
-                "Credit card", "Check", "Cash on delivery", "Paypal");
-        ObservableList<String> statusList = FXCollections.observableArrayList("Issued", "Paid",
-                "Partially paid", "Rejected", "Unpaid", "Paid after deadline",
-                "Unpaid expired");
         ObservableList<String> languages = FXCollections.observableArrayList();
         ObservableList<String> countries = FXCollections.observableArrayList();
         for (Locale locale : Locale.getAvailableLocales())
@@ -239,11 +239,11 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         countries.sort(comparator);
         currencies.sort(comparator);
         currencyCodes.sort(comparator);
-        typeComboBox.setItems(typeList);
+        typeComboBox.getItems().setAll(InvoiceType.typeMap.keySet());
         typeComboBox.getSelectionModel().select(0);
-        paymentMethodComboBox.setItems(paymentMethodList);
+        paymentMethodComboBox.getItems().setAll(PaymentMethod.paymentMap.keySet());
         paymentMethodComboBox.getSelectionModel().select(0);
-        statusComboBox.setItems(statusList);
+        statusComboBox.getItems().setAll(InvoiceStatus.statusMap.keySet());
         statusComboBox.getSelectionModel().select(0);
         currencyComboBox.setItems(currencies);
         Locale defaultLocale = Locale.getDefault();
@@ -258,18 +258,18 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         });
         languageComboBox.setItems(languages);
         languageComboBox.getSelectionModel().select(defaultLocale.getDisplayLanguage());
-        paymentDateComboBox.setItems(FXCollections.observableArrayList(1, 3, 5, 7, 14, 21, 30, 45, 60, 75, 90));
+        paymentDateComboBox.getItems().setAll(1, 3, 5, 7, 14, 21, 30, 45, 60, 75, 90);
         paymentDateComboBox.getSelectionModel().select(0);
-        calculateValsComboBox.setItems(FXCollections.observableArrayList("Total value",
-                "Unit value (consistent with cash register)"));
+        calculateValsComboBox.getItems().setAll("Total value",
+                "Unit value (consistent with cash register)");
         calculateValsComboBox.getSelectionModel().select(0);
-        calculateTotalComboBox.setItems(FXCollections.observableArrayList(
+        calculateTotalComboBox.getItems().setAll(
                 "Sum of all values from all records (preserves gross and net value)",
                 "Sum of the gross values and calculate net and tax values (preserves gross value, consistent with cash register)",
-                "Sum of the net values and calculate gross and tax values (preserves gross value)"));
+                "Sum of the net values and calculate gross and tax values (preserves gross value)");
         calculateTotalComboBox.getSelectionModel().select(0);
-        showUnitPriceComboBox.setItems(FXCollections.observableArrayList("Net value",
-                "Gross value (consistent with cash register)"));
+        showUnitPriceComboBox.getItems().setAll("Net value",
+                "Gross value (consistent with cash register)");
         showUnitPriceComboBox.getSelectionModel().select(0);
         countryComboBox.setItems(countries);
         countryComboBox.getSelectionModel().select(defaultLocale.getDisplayCountry());
@@ -371,7 +371,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
 
     @Override
     public void initializeFields(Invoice entity) {
+        productsList = FXCollections.observableArrayList(entity.getBoughtProductsSet());
         // TODO: initialize fields with data of a buyer
-        // TODO: initialize products table of a particular invoice
     }
 }

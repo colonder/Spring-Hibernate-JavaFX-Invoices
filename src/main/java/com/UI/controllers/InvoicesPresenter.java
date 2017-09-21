@@ -179,24 +179,16 @@ public class InvoicesPresenter {
 
     private void initializeComboBoxes()
     {
-        ObservableList<String> type = FXCollections.observableArrayList("All", "Ordinary", "Pro forma",
-                "Corrective");
-        ObservableList<String> period = FXCollections.observableArrayList("Last 12 months", "Current month",
-                "Last month", "Current year", "Last year", "All");
-        ObservableList<String> status = FXCollections.observableArrayList("All", "Issued", "Paid",
-                "Partially paid", "Rejected", "Unpaid", "Paid after deadline",
-                "Unpaid expired");
-        ObservableList<String> payment = FXCollections.observableArrayList("All", "Cash", "Bank transfer",
-                "Credit card", "Check", "Cash on delivery", "Paypal");
-
-        invoiceTypeComboBox.setItems(type);
+        invoiceTypeComboBox.getItems().setAll(InvoiceType.typeMap.keySet());
         invoiceTypeComboBox.getSelectionModel().select(0);
-        invoiceTypeComboBox.setOnAction(event -> selectedTypeLabel.setText(invoiceTypeComboBox.getSelectionModel().getSelectedItem()));
-        periodComboBox.setItems(period);
+        invoiceTypeComboBox.setOnAction(event -> selectedTypeLabel.setText(invoiceTypeComboBox.getSelectionModel()
+                .getSelectedItem()));
+        periodComboBox.getItems().setAll("Last 12 months", "Current month", "Last month", "Current year", "Last year",
+                "All");
         periodComboBox.getSelectionModel().select(0);
-        statusComboBox.setItems(status);
+        statusComboBox.getItems().setAll(InvoiceStatus.statusMap.keySet());
         statusComboBox.getSelectionModel().select(0);
-        paymentComboBox.setItems(payment);
+        paymentComboBox.getItems().setAll(PaymentMethod.paymentMap.keySet());
         paymentComboBox.getSelectionModel().select(0);
     }
 
@@ -258,15 +250,12 @@ public class InvoicesPresenter {
 
     private void search()
     {
-        // decided to use final arrays instead of enums to be able to easily query values by index, without using
-        // enum's values() which returns copied values array anyway and each time values() is called
-
         listOfInvoices.setAll(invoiceService.findAll(
-                InvoiceType.TYPE[invoiceTypeComboBox.getSelectionModel().getSelectedIndex()],
+                InvoiceType.typeMap.get(invoiceTypeComboBox.getSelectionModel().getSelectedItem()),
                 startDates[periodComboBox.getSelectionModel().getSelectedIndex()],
                 endDates[periodComboBox.getSelectionModel().getSelectedIndex()],
-                InvoiceStatus.STATUS[statusComboBox.getSelectionModel().getSelectedIndex()],
-                PaymentMethod.METHOD[paymentComboBox.getSelectionModel().getSelectedIndex()]
+                InvoiceStatus.statusMap.get(statusComboBox.getSelectionModel().getSelectedItem()),
+                PaymentMethod.paymentMap.get(paymentComboBox.getSelectionModel().getSelectedItem())
         ));
     }
 }
