@@ -2,6 +2,8 @@ package com.utilities;
 
 public class PDFHandler
 {
+    // TODO: implement later
+
     /*private GridPane root;
 
     public PDFHandler(Customer customer, LocalDate date)

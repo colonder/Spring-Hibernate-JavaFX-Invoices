@@ -1,9 +1,6 @@
 package com.UI.controllers;
 
-import com.entity.BoughtProducts;
-import com.entity.Customer;
-import com.entity.Invoice;
-import com.entity.Product;
+import com.entity.*;
 import com.enums.InvoiceStatus;
 import com.enums.InvoiceType;
 import com.enums.PaymentMethod;
@@ -97,17 +94,11 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     @Autowired private IProductService productService;
     private ObservableList<BoughtProducts> productsList;
 
-    // FIXME: the productsList is always null, because before it is referenced to particular invoice bouhgt products
-    // in the initializeFields() method the initialize() is being called, and methods within it, setting up all fields
-    // see productsList as null
-    // TODO: manually set controller and call appropriate version of it(?)
-
     @FXML
     public void initialize()
     {
         initButtons();
         initComboBoxes();
-        initSellerFields();
         initProductsTable();
         initOptions();
     }
@@ -260,8 +251,8 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         countryComboBox.setItems(countries);
     }
 
-    private void initSellerFields() {
-        // TODO: load from settings table in the database
+    private void initSellerFields(Seller seller) {
+        // TODO: implement
     }
 
     private void initBuyerFields(Customer customer) {
@@ -372,5 +363,9 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         //currencyComboBox.getSelectionModel().select();
         //languageComboBox.getSelectionModel().select();
         initValueLabels();
+        if (invoice.getCustomer() != null && invoice.getSeller() != null) {
+            initBuyerFields(invoice.getCustomer());
+            initSellerFields(invoice.getSeller());
+        }
     }
 }

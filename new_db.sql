@@ -26,6 +26,7 @@ create table sellers
 
 create table settings
 (
+	id serial primary key,
 	default_currency varchar(3),
 	default_vat_rate numeric(3,2) default 0.00 check(default_vat_rate >= 0.00)
 );
@@ -63,7 +64,7 @@ create table issued_invoices
 	customer_id int references customer(id),
 	invoice_number varchar(20) not null,
 	invoice_type varchar(15) not null default 'ordinary',
-	seller varchar(40) not null,
+	seller_id int references sellers(id),
 	issue_date date not null,
 	sale_date date not null,
 	net_value numeric(7,2) not null check(net_value > 0.00),
