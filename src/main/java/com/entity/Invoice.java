@@ -91,14 +91,14 @@ public class Invoice extends BaseAbstractEntity
     {
         // TODO: initialize invoice number from set policy
         this.issueDate = LocalDate.now();
+        this.creationDate = LocalDate.now();
+        this.saleDate = LocalDate.now();
+        this.lastModified = LocalDate.now();
         this.netValue = BigDecimal.ZERO;
         this.taxValue = BigDecimal.ZERO;
         this.discountValue = BigDecimal.ZERO;
         this.grossValue = BigDecimal.ZERO;
         this.paidAmount = BigDecimal.ZERO;
-        this.creationDate = LocalDate.now();
-        this.saleDate = LocalDate.now();
-        this.lastModified = LocalDate.now();
         boughtProductsSet = new HashSet<>();
     }
 

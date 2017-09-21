@@ -365,6 +365,8 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         paymentMethodComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(invoice.getPaymentMethod()));
         paymentDateComboBox.getSelectionModel().select(0);
         invoiceCurrencyComboBox.getSelectionModel().select(invoice.getCurrency());
+        issueDatePicker.setValue(invoice.getIssueDate());
+        saleDatePicker.setValue(invoice.getSaleDate());
 
         // TODO: load these two fields from settings
         //currencyComboBox.getSelectionModel().select();
