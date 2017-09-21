@@ -1,11 +1,20 @@
 package com.contant_arrays;
 
-public class InvoiceType {
+import java.util.HashMap;
 
-    public static final String[] TYPE;
+public enum InvoiceType {
+
+    ORDINARY, PROFORMA, CORRECTIVE, EXPENSE;
+
+    public static final HashMap<String, InvoiceType> typeMap;
 
     static
     {
-        TYPE = new String[]{null, "ordinary", "pro_forma", "corrective"};
+        typeMap = new HashMap<>();
+        typeMap.put("All", null);
+        typeMap.put("Ordinary", ORDINARY);
+        typeMap.put("Pro forma", PROFORMA);
+        typeMap.put("Corrective", CORRECTIVE);
+        typeMap.put("Expense", EXPENSE);
     }
 }

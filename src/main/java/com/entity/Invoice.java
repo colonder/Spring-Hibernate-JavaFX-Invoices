@@ -1,8 +1,12 @@
 package com.entity;
 
+import com.contant_arrays.InvoiceStatus;
+import com.contant_arrays.InvoiceType;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,7 +22,8 @@ public class Invoice extends BaseAbstractEntity
     private String invoiceNumber;
 
     @Column(name = "invoice_type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private InvoiceType type;
 
     @Column(name = "seller")
     private String seller;
@@ -55,7 +60,8 @@ public class Invoice extends BaseAbstractEntity
     private String currency;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private InvoiceStatus status;
 
     @Column(name = "creation_date")
     private LocalDate creationDate;
@@ -72,12 +78,33 @@ public class Invoice extends BaseAbstractEntity
     @Column(name = "notes")
     private String notes;
 
-    @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BoughtProducts> boughtProductsSet;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
+
+    public Invoice()
+    {
+        // TODO: initialize invoice number from set policy
+        this.issueDate = LocalDate.now();
+        this.netValue = BigDecimal.ZERO;
+        this.taxValue = BigDecimal.ZERO;
+        this.discountValue = BigDecimal.ZERO;
+        this.grossValue = BigDecimal.ZERO;
+        this.paidAmount = BigDecimal.ZERO;
+        this.creationDate = LocalDate.now();
+        this.saleDate = LocalDate.now();
+        this.lastModified = LocalDate.now();
+        boughtProductsSet = new HashSet<>();
+    }
+
+    public Invoice(InvoiceType type)
+    {
+        this();
+        this.type = type;
+    }
 
     public int getId() {
         return id;
@@ -87,7 +114,7 @@ public class Invoice extends BaseAbstractEntity
         return invoiceNumber;
     }
 
-    public String getType() {
+    public InvoiceType getType() {
         return type;
     }
 
@@ -135,7 +162,7 @@ public class Invoice extends BaseAbstractEntity
         return currency;
     }
 
-    public String getStatus() {
+    public InvoiceStatus getStatus() {
         return status;
     }
 

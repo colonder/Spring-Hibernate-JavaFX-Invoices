@@ -1,11 +1,17 @@
 package com.contant_arrays;
 
-public class CustomerType
-{
-    public static final String[] CUSTOMER_TYPE;
+import java.util.HashMap;
 
-    static
-    {
-        CUSTOMER_TYPE = new String[]{"company", "person"};
+public enum CustomerType
+{
+    COMPANY, PERSON;
+
+    public static final HashMap<String, CustomerType> customerMap;
+
+    static{
+        customerMap = new HashMap<>();
+        customerMap.put("All", null);
+        customerMap.put("Company", COMPANY);
+        customerMap.put("Person", PERSON);
     }
 }

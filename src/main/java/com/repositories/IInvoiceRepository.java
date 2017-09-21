@@ -1,5 +1,6 @@
 package com.repositories;
 
+import com.contant_arrays.InvoiceStatus;
 import com.entity.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -18,7 +19,7 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer>, Jpa
     @Query("UPDATE Invoice i SET i.seller =?1, i.paidAmount =?2, i.paymentMethod=?3, i.paidDate=?4, " +
             "i.paymentDate =?5, i.status =?6, i.lastModified =?7, i.notes =?8 WHERE i.id =?9")
     int update(String seller, BigDecimal paidAmount, String method, LocalDate paidDate, LocalDate paymentDate,
-               String status, LocalDate lastModified, String notes, int id);
+               InvoiceStatus status, LocalDate lastModified, String notes, int id);
 
     @Modifying
     @Query("UPDATE Invoice i SET i.sentDate =?1 where i.id =?2")

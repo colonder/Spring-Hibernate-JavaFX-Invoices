@@ -1,5 +1,8 @@
 package com.serviceImples;
 
+import com.contant_arrays.InvoiceStatus;
+import com.contant_arrays.InvoiceType;
+import com.contant_arrays.PaymentMethod;
 import com.entity.Invoice;
 import com.repositories.IInvoiceRepository;
 import com.service.IInvoiceService;
@@ -20,8 +23,8 @@ public class InvoiceServImp implements IInvoiceService {
     private IInvoiceRepository invoiceRepository;
 
     @Override
-    public List<Invoice> findAll(String documentType, LocalDate startDate, LocalDate endDate, String status,
-                                 String paymentMethod) {
+    public List<Invoice> findAll(InvoiceType documentType, LocalDate startDate, LocalDate endDate, InvoiceStatus status,
+                                 PaymentMethod paymentMethod) {
         return invoiceRepository.findAll(where(withDocumentType(documentType))
                 .and(betweenPeriod(startDate, endDate))
                 .and(withStatus(status))
@@ -43,7 +46,7 @@ public class InvoiceServImp implements IInvoiceService {
     @Override
     @Transactional
     public int update(String seller, BigDecimal paidAmount, String method, LocalDate paidDate,
-                      LocalDate paymentDate, String status, LocalDate lastModified, String notes, int id) {
+                      LocalDate paymentDate, InvoiceStatus status, LocalDate lastModified, String notes, int id) {
         return invoiceRepository.update(seller, paidAmount, method, paidDate, paymentDate, status, lastModified,
                 notes, id);
     }
