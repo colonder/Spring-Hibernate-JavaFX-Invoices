@@ -39,12 +39,10 @@ public class CustomerServImp implements ICustomerService {
     public int update(String alias, String lastName, String firstName, long personalId, String taxIdentifier,
                       String email, String address, String postalCode, String city, int telephone, int cellPhone,
                       int fax, String tag, String defaultPaymentMethod, String country, String type,
-                      int companySpecialNumber, String defaultCurrency, BigDecimal defaultDiscount,
-                      LocalDate defaultPaymentDateDays, int id) {
+                      int companySpecialNumber, BigDecimal defaultDiscount, LocalDate defaultPaymentDateDays, int id) {
         return customerRepository.update(alias, lastName, firstName, personalId, taxIdentifier, email, address,
                 postalCode, city, telephone, cellPhone, fax, tag, defaultPaymentMethod, country, type,
-                companySpecialNumber, defaultCurrency, defaultDiscount,
-                defaultPaymentDateDays, id);
+                companySpecialNumber, defaultDiscount, defaultPaymentDateDays, id);
     }
 
     @Override

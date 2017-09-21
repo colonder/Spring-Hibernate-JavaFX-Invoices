@@ -75,9 +75,6 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "company_special_number") // regon
     private int companySpecialNumber;
 
-    @Column(name = "default_currency")
-    private String defaultCurrency;
-
     @Column(name = "default_discount")
     private BigDecimal defaultDiscount;
 
@@ -171,10 +168,6 @@ public class Customer extends BaseAbstractEntity
 
     public int getCompanySpecialNumber() {
         return companySpecialNumber;
-    }
-
-    public String getDefaultCurrency() {
-        return defaultCurrency;
     }
 
     public BigDecimal getDefaultDiscount() {

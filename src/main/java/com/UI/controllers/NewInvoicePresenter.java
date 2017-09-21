@@ -273,8 +273,6 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         buyerEmailTxtFld.setText(customer.getEmail());
         buyerPhoneTxtFld.setText(String.valueOf(customer.getCellPhone()));
         countryComboBox.getSelectionModel().select(customer.getCountry());
-        currencyComboBox.getSelectionModel().select(customer.getDefaultCurrency());
-        //languageComboBox.getSelectionModel().select(customer.getLanguage());
     }
 
     private void initProductsTable() {
@@ -367,6 +365,10 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         paymentMethodComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(invoice.getPaymentMethod()));
         paymentDateComboBox.getSelectionModel().select(0);
         invoiceCurrencyComboBox.getSelectionModel().select(invoice.getCurrency());
+
+        // TODO: load these two fields from settings
+        //currencyComboBox.getSelectionModel().select();
+        //languageComboBox.getSelectionModel().select();
         initValueLabels();
     }
 }
