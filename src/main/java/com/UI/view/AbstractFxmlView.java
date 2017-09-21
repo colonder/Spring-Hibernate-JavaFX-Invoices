@@ -18,15 +18,13 @@ package com.UI.view;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
-import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,7 +44,7 @@ import static java.util.ResourceBundle.getBundle;
  *
  * @author Thomas Darimont
  */
-public abstract class AbstractFxmlView implements ApplicationContextAware {
+public abstract class AbstractFxmlView {
 
     protected ObjectProperty<Object> presenterProperty;
     protected FXMLLoader fxmlLoader;
@@ -54,6 +52,7 @@ public abstract class AbstractFxmlView implements ApplicationContextAware {
 
     protected URL resource;
 
+    @Autowired
     private ApplicationContext applicationContext;
 
     public AbstractFxmlView() {
@@ -70,16 +69,6 @@ public abstract class AbstractFxmlView implements ApplicationContextAware {
         }
 
         return clazz.substring(0, clazz.lastIndexOf("view"));
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-
-        if (this.applicationContext != null) {
-            return;
-        }
-
-        this.applicationContext = applicationContext;
     }
 
     private Object createControllerForType(Class<?> type) {
@@ -186,9 +175,7 @@ public abstract class AbstractFxmlView implements ApplicationContextAware {
      */
     public void getPresenter(Consumer<Object> presenterConsumer) {
 
-        this.presenterProperty.addListener((ObservableValue<? extends Object> o, Object oldValue, Object newValue) -> {
-            presenterConsumer.accept(newValue);
-        });
+        this.presenterProperty.addListener((o, oldValue, newValue) -> presenterConsumer.accept(newValue));
     }
 
     /**
