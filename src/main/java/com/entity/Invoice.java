@@ -2,6 +2,7 @@ package com.entity;
 
 import com.enums.InvoiceStatus;
 import com.enums.InvoiceType;
+import com.enums.PaymentMethod;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -47,7 +48,8 @@ public class Invoice extends BaseAbstractEntity
     private BigDecimal paidAmount;
 
     @Column(name = "payment_method")
-    private String paymentMethod;
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
 
     @Column(name = "paid_date")
     private LocalDate paidDate;
@@ -146,7 +148,7 @@ public class Invoice extends BaseAbstractEntity
         return paidAmount;
     }
 
-    public String getPaymentMethod() {
+    public PaymentMethod getPaymentMethod() {
         return paymentMethod;
     }
 

@@ -109,7 +109,6 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         initComboBoxes();
         initSellerFields();
         initProductsTable();
-        initValueLabels();
         initOptions();
     }
 
@@ -240,39 +239,25 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         currencies.sort(comparator);
         currencyCodes.sort(comparator);
         typeComboBox.getItems().setAll(InvoiceType.typeMap.keySet());
-        typeComboBox.getSelectionModel().select(0);
         paymentMethodComboBox.getItems().setAll(PaymentMethod.paymentMap.keySet());
-        paymentMethodComboBox.getSelectionModel().select(0);
         statusComboBox.getItems().setAll(InvoiceStatus.statusMap.keySet());
-        statusComboBox.getSelectionModel().select(0);
         currencyComboBox.setItems(currencies);
-        Locale defaultLocale = Locale.getDefault();
-        Currency defaultCurr = Currency.getInstance(defaultLocale);
-        currencyComboBox.getSelectionModel().select(String.format("%s, %s",
-                defaultCurr.getDisplayName(), defaultCurr.getCurrencyCode()));
         invoiceCurrencyComboBox.setItems(currencyCodes);
-        invoiceCurrencyComboBox.getSelectionModel().select(defaultCurr.getCurrencyCode());
         invoiceCurrencyComboBox.setOnAction(event -> {
             grossCurrencyLabel.setText(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
             taxCurrencyLabel.setText(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
         });
         languageComboBox.setItems(languages);
-        languageComboBox.getSelectionModel().select(defaultLocale.getDisplayLanguage());
         paymentDateComboBox.getItems().setAll(1, 3, 5, 7, 14, 21, 30, 45, 60, 75, 90);
-        paymentDateComboBox.getSelectionModel().select(0);
         calculateValsComboBox.getItems().setAll("Total value",
                 "Unit value (consistent with cash register)");
-        calculateValsComboBox.getSelectionModel().select(0);
         calculateTotalComboBox.getItems().setAll(
                 "Sum of all values from all records (preserves gross and net value)",
                 "Sum of the gross values and calculate net and tax values (preserves gross value, consistent with cash register)",
                 "Sum of the net values and calculate gross and tax values (preserves gross value)");
-        calculateTotalComboBox.getSelectionModel().select(0);
         showUnitPriceComboBox.getItems().setAll("Net value",
                 "Gross value (consistent with cash register)");
-        showUnitPriceComboBox.getSelectionModel().select(0);
         countryComboBox.setItems(countries);
-        countryComboBox.getSelectionModel().select(defaultLocale.getDisplayCountry());
     }
 
     private void initSellerFields() {
@@ -288,6 +273,8 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         buyerEmailTxtFld.setText(customer.getEmail());
         buyerPhoneTxtFld.setText(String.valueOf(customer.getCellPhone()));
         countryComboBox.getSelectionModel().select(customer.getCountry());
+        currencyComboBox.getSelectionModel().select(customer.getDefaultCurrency());
+        //languageComboBox.getSelectionModel().select(customer.getLanguage());
     }
 
     private void initProductsTable() {
@@ -346,7 +333,6 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                 discountCol.setVisible(newValue));
     }
 
-    // TODO: move summing values to initializeFields
     private void initValueLabels() {
         totalNetValLabel.setText(sum(BoughtProducts::getNetValProp));
         totalTaxValLabel.setText(sum(BoughtProducts::getTaxValProp));
@@ -368,11 +354,19 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     }
 
     private void initOptions() {
+        calculateValsComboBox.getSelectionModel().select(0);
+        calculateTotalComboBox.getSelectionModel().select(0);
+        showUnitPriceComboBox.getSelectionModel().select(0);
     }
 
     @Override
-    public void initializeFields(Invoice entity) {
-        productsList = FXCollections.observableArrayList(entity.getBoughtProductsSet());
-        // TODO: initialize fields with data of a buyer
+    public void initializeFields(Invoice invoice) {
+        productsList = FXCollections.observableArrayList(invoice.getBoughtProductsSet());
+        statusComboBox.getSelectionModel().select(InvoiceStatus.statusMap.inverse().get(invoice.getStatus()));
+        typeComboBox.getSelectionModel().select(InvoiceType.typeMap.inverse().get(invoice.getType()));
+        paymentMethodComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(invoice.getPaymentMethod()));
+        paymentDateComboBox.getSelectionModel().select(0);
+        invoiceCurrencyComboBox.getSelectionModel().select(invoice.getCurrency());
+        initValueLabels();
     }
 }
