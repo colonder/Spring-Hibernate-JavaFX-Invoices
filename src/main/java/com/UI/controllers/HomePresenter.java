@@ -1,6 +1,8 @@
 package com.UI.controllers;
 
 import com.UI.view.NewInvoiceView;
+import com.contant_arrays.InvoiceType;
+import com.entity.Invoice;
 import com.service.IInvoiceService;
 import com.utilities.CurrencyHandler;
 import com.utilities.ViewSwitcher;
@@ -34,10 +36,11 @@ public class HomePresenter implements IRefreshable {
     @FXML
     public void initialize()
     {
-        standardBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceView));
-        proFormaBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceView));
-        correctiveBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceView));
-        expensesBtn.setOnAction(event -> ViewSwitcher.openView(newInvoiceView));
+        // FIXME: NullPointerException, because initializeFields is being called after initialize (productsList is null)
+        standardBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newInvoiceView, new Invoice(InvoiceType.ORDINARY)));
+        proFormaBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newInvoiceView, new Invoice(InvoiceType.PROFORMA)));
+        correctiveBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newInvoiceView, new Invoice(InvoiceType.CORRECTIVE)));
+        expensesBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newInvoiceView, new Invoice(InvoiceType.EXPENSE)));
         refresh();
     }
 
