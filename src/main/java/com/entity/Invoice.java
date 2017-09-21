@@ -1,7 +1,7 @@
 package com.entity;
 
-import com.contant_arrays.InvoiceStatus;
-import com.contant_arrays.InvoiceType;
+import com.enums.InvoiceStatus;
+import com.enums.InvoiceType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

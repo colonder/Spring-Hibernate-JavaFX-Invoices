@@ -1,8 +1,8 @@
 package com.entity;
 
-import com.contant_arrays.InvoiceStatus;
-import com.contant_arrays.InvoiceType;
-import com.contant_arrays.PaymentMethod;
+import com.enums.InvoiceStatus;
+import com.enums.InvoiceType;
+import com.enums.PaymentMethod;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;

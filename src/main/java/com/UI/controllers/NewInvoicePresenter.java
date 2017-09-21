@@ -1,12 +1,12 @@
 package com.UI.controllers;
 
-import com.contant_arrays.InvoiceStatus;
-import com.contant_arrays.InvoiceType;
-import com.contant_arrays.PaymentMethod;
 import com.entity.BoughtProducts;
 import com.entity.Customer;
 import com.entity.Invoice;
 import com.entity.Product;
+import com.enums.InvoiceStatus;
+import com.enums.InvoiceType;
+import com.enums.PaymentMethod;
 import com.service.ICustomerService;
 import com.service.IProductService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -346,6 +346,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                 discountCol.setVisible(newValue));
     }
 
+    // TODO: move summing values to initializeFields
     private void initValueLabels() {
         totalNetValLabel.setText(sum(BoughtProducts::getNetValProp));
         totalTaxValLabel.setText(sum(BoughtProducts::getTaxValProp));

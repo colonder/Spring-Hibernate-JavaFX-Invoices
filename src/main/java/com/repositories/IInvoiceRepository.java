@@ -1,7 +1,7 @@
 package com.repositories;
 
-import com.contant_arrays.InvoiceStatus;
 import com.entity.Invoice;
+import com.enums.InvoiceStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;

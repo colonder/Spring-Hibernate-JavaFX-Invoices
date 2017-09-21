@@ -1,8 +1,8 @@
 package com.UI.controllers;
 
 import com.UI.view.NewInvoiceView;
-import com.contant_arrays.InvoiceType;
 import com.entity.Invoice;
+import com.enums.InvoiceType;
 import com.service.IInvoiceService;
 import com.utilities.CurrencyHandler;
 import com.utilities.ViewSwitcher;

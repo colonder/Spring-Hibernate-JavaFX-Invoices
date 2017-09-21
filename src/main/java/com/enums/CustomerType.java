@@ -1,4 +1,4 @@
-package com.contant_arrays;
+package com.enums;
 
 import java.util.HashMap;
 

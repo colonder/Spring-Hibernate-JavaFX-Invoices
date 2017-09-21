@@ -1,9 +1,9 @@
 package com.serviceImples;
 
-import com.contant_arrays.InvoiceStatus;
-import com.contant_arrays.InvoiceType;
-import com.contant_arrays.PaymentMethod;
 import com.entity.Invoice;
+import com.enums.InvoiceStatus;
+import com.enums.InvoiceType;
+import com.enums.PaymentMethod;
 import com.repositories.IInvoiceRepository;
 import com.service.IInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;

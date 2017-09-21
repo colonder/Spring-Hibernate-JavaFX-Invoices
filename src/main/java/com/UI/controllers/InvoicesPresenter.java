@@ -1,10 +1,10 @@
 package com.UI.controllers;
 
 import com.UI.view.NewInvoiceView;
-import com.contant_arrays.InvoiceStatus;
-import com.contant_arrays.InvoiceType;
-import com.contant_arrays.PaymentMethod;
 import com.entity.Invoice;
+import com.enums.InvoiceStatus;
+import com.enums.InvoiceType;
+import com.enums.PaymentMethod;
 import com.service.IInvoiceService;
 import com.utilities.ViewSwitcher;
 import javafx.beans.property.ReadOnlyObjectWrapper;
