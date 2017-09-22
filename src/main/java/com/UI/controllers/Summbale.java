@@ -1,10 +1,10 @@
 package com.UI.controllers;
 
-import com.entity.BoughtProducts;
+import com.entity.BoughtProduct;
 
 import java.math.BigDecimal;
 
 @FunctionalInterface
 public interface Summbale {
-    BigDecimal getValueFrom(BoughtProducts product);
+    BigDecimal getValueFrom(BoughtProduct product);
 }

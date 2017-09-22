@@ -55,17 +55,17 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     @FXML private ComboBox<String> countryComboBox;
     @FXML private CheckBox discountChckBox;
     @FXML private Button addItemBtn;
-    @FXML private TableView<BoughtProducts> productTableView;
-    @FXML private TableColumn<BoughtProducts, String> nameCol;
-    @FXML private TableColumn<BoughtProducts, String> symbolCol;
-    @FXML private TableColumn<BoughtProducts, Integer> quantityCol;
-    @FXML private TableColumn<BoughtProducts, String> unitCol;
-    @FXML private TableColumn<BoughtProducts, BigDecimal> netPriceCol;
-    @FXML private TableColumn<BoughtProducts, BigDecimal> taxRateCol;
-    @FXML private TableColumn<BoughtProducts, BigDecimal> netValCol;
-    @FXML private TableColumn<BoughtProducts, Integer> discountCol;
-    @FXML private TableColumn<BoughtProducts, BigDecimal> grossValCol;
-    @FXML private TableColumn<BoughtProducts, BoughtProducts> removeCol;
+    @FXML private TableView<BoughtProduct> productTableView;
+    @FXML private TableColumn<BoughtProduct, String> nameCol;
+    @FXML private TableColumn<BoughtProduct, String> symbolCol;
+    @FXML private TableColumn<BoughtProduct, Integer> quantityCol;
+    @FXML private TableColumn<BoughtProduct, String> unitCol;
+    @FXML private TableColumn<BoughtProduct, BigDecimal> netPriceCol;
+    @FXML private TableColumn<BoughtProduct, BigDecimal> taxRateCol;
+    @FXML private TableColumn<BoughtProduct, BigDecimal> netValCol;
+    @FXML private TableColumn<BoughtProduct, Integer> discountCol;
+    @FXML private TableColumn<BoughtProduct, BigDecimal> grossValCol;
+    @FXML private TableColumn<BoughtProduct, BoughtProduct> removeCol;
     @FXML private Label totalNetValLabel;
     @FXML private Label totalTaxValLabel;
     @FXML private Label taxCurrencyLabel;
@@ -87,12 +87,11 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     @FXML private TextField paidDateTxtFld;
     @FXML private ComboBox<String> calculateTotalComboBox;
     @FXML private TextField labelTxtFld;
-    @FXML private Button saveBtn;
     //endregion
 
     @Autowired private ICustomerService customerService;
     @Autowired private IProductService productService;
-    private ObservableList<BoughtProducts> productsList;
+    private ObservableList<BoughtProduct> productsList;
 
     @FXML
     public void initialize()
@@ -150,7 +149,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         Optional<Product> result = dialog.showAndWait();
         result.ifPresent(product -> {
 
-                BoughtProducts boughtProduct = new BoughtProducts(product.getProductName(), product.getSymbol(),
+                BoughtProduct boughtProduct = new BoughtProduct(product.getProductName(), product.getSymbol(),
                         product.getUnit(), product.getNetPrice(), product.getVatRate(), 0);
 
                 if (productsList.contains(boughtProduct))
@@ -273,12 +272,12 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         netPriceCol.setCellValueFactory(new PropertyValueFactory<>("priceProp"));
         taxRateCol.setCellValueFactory(new PropertyValueFactory<>("taxRateProp"));
         removeCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        removeCol.setCellFactory(param -> new TableCell<BoughtProducts, BoughtProducts>(){
+        removeCol.setCellFactory(param -> new TableCell<BoughtProduct, BoughtProduct>(){
             private Button removeButton = new Button("", new ImageView(this.getClass()
                     .getResource("/images/icons8-Minus-24.png").toString()));
 
             @Override
-            protected void updateItem(BoughtProducts product, boolean empty)
+            protected void updateItem(BoughtProduct product, boolean empty)
             {
                 super.updateItem(product, empty);
 
@@ -323,9 +322,9 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     }
 
     private void initValueLabels() {
-        totalNetValLabel.setText(sum(BoughtProducts::getNetValProp));
-        totalTaxValLabel.setText(sum(BoughtProducts::getTaxValProp));
-        totalGrossValLabel.setText(sum(BoughtProducts::getGrossValProp));
+        totalNetValLabel.setText(sum(BoughtProduct::getNetValProp));
+        totalTaxValLabel.setText(sum(BoughtProduct::getTaxValProp));
+        totalGrossValLabel.setText(sum(BoughtProduct::getGrossValProp));
         taxCurrencyLabel.setText(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
         grossCurrencyLabel.setText(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
     }
@@ -334,7 +333,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     {
         BigDecimal netVal = BigDecimal.ZERO;
 
-        for (BoughtProducts product : productsList)
+        for (BoughtProduct product : productsList)
         {
             netVal = netVal.add(field.getValueFrom(product));
         }
@@ -350,7 +349,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
 
     @Override
     public void initializeFields(Invoice invoice) {
-        productsList = FXCollections.observableArrayList(invoice.getBoughtProductsSet());
+        productsList = FXCollections.observableArrayList(invoice.getBoughtProductSet());
         statusComboBox.getSelectionModel().select(InvoiceStatus.statusMap.inverse().get(invoice.getStatus()));
         typeComboBox.getSelectionModel().select(InvoiceType.typeMap.inverse().get(invoice.getType()));
         paymentMethodComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(invoice.getPaymentMethod()));

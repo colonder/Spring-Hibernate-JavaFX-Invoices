@@ -19,12 +19,15 @@ public class Warehouse extends BaseAbstractEntity
     @Column(name = "available", nullable = false)
     private int available;
 
-    @Column(name = "product_code", nullable = true)
+    @Column(name = "product_code")
     private String productCode;
 
-    @Column(name = "creation_date", nullable = false)
+    @Column(name = "creation_date", nullable = false, updatable = false)
     private LocalDate creationDate;
 
-    @Column(name = "last_sale_date", nullable = true)
+    @Column(name = "last_modified", nullable = false)
+    private LocalDate lastModified;
+
+    @Column(name = "last_sale_date")
     private LocalDate lastSaleDate;
 }

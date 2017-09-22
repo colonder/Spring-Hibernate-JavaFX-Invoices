@@ -20,8 +20,10 @@ create table sellers
 	bank varchar(50),
 	country varchar(30),
 	email varchar(30) unique,
-	cell_phone int unique,
-	fax_number int unique
+	telephone int unique,
+	fax_number int unique,
+	creation_date date not null default CURRENT_DATE,
+	last_modified date not null default CURRENT_DATE
 );
 
 create table settings
@@ -52,10 +54,11 @@ create table customer
 	creation_date date not null default CURRENT_DATE,
 	last_purchase_date date,
 	country varchar(30),
-	client_type varchar(20) not null default 'person',
+	customer_type varchar(20) not null default 'person',
 	company_special_number int,
 	default_discount numeric(3,2) default 0.00 check(default_discount >= 0.00),
-	default_payment_date_days int check(default_payment_date_days >= 0.00)
+	default_payment_date_days int check(default_payment_date_days >= 0.00),
+	last_modified date not null default CURRENT_DATE
 );
 
 create table issued_invoices
@@ -90,7 +93,8 @@ create table warehouse
 	available int not null default 0,
 	product_code varchar(20) default null,
 	creation_date date not null default CURRENT_DATE,
-	last_sale_date date
+	last_modified date not null default CURRENT_DATE,
+	last_sale_date date	
 );
 
 create table products
@@ -104,7 +108,9 @@ create table products
 	online_sale boolean not null default '0',
 	is_service boolean not null default '0',
 	is_active boolean not null default '1',
-	warehouse_item_id int references warehouse(id)
+	warehouse_item_id int references warehouse(id),
+	creation_date date not null default CURRENT_DATE,
+	last_modified date not null default CURRENT_DATE
 );
 
 create table bought_products

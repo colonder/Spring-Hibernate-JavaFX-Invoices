@@ -60,8 +60,11 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "default_payment_method")
     private String defaultPaymentMethod;
 
-    @Column(name = "creation_date")
+    @Column(name = "creation_date", updatable = false, nullable = false)
     private LocalDate creationDate;
+
+    @Column(name = "last_modified")
+    private LocalDate lastModified;
 
     @Column(name = "last_purchase_date")
     private LocalDate lastPurchaseDate;
@@ -69,7 +72,7 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "country")
     private String country;
 
-    @Column(name = "client_type")
+    @Column(name = "customer_type")
     private String customerType;
 
     @Column(name = "company_special_number") // regon
@@ -152,6 +155,10 @@ public class Customer extends BaseAbstractEntity
 
     public LocalDate getCreationDate() {
         return creationDate;
+    }
+
+    public LocalDate getLastModified() {
+        return lastModified;
     }
 
     public LocalDate getLastPurchaseDate() {

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "bought_products")
-public class BoughtProducts extends BaseAbstractEntity
+public class BoughtProduct extends BaseAbstractEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,8 +59,8 @@ public class BoughtProducts extends BaseAbstractEntity
     @Transient private SimpleObjectProperty<BigDecimal> unmodifiedGrossValProp;
     @Transient private SimpleObjectProperty<BigDecimal> grossValProp;
 
-    public BoughtProducts(String productName, String symbol, String unit, BigDecimal price, BigDecimal vatRate,
-                          int discountPercents)
+    public BoughtProduct(String productName, String symbol, String unit, BigDecimal price, BigDecimal vatRate,
+                         int discountPercents)
     {
         this.productName = productName;
         this.symbol = symbol;
@@ -102,7 +102,7 @@ public class BoughtProducts extends BaseAbstractEntity
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BoughtProducts that = (BoughtProducts) o;
+        BoughtProduct that = (BoughtProduct) o;
         return id == that.id &&
                 discountPercents == that.discountPercents &&
                 Objects.equals(productName, that.productName) &&

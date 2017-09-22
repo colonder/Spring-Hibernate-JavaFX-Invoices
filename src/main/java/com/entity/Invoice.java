@@ -62,7 +62,7 @@ public class Invoice extends BaseAbstractEntity
     @Enumerated(EnumType.STRING)
     private InvoiceStatus status;
 
-    @Column(name = "creation_date")
+    @Column(name = "creation_date", updatable = false, nullable = false)
     private LocalDate creationDate;
 
     @Column(name = "sale_date")
@@ -78,7 +78,7 @@ public class Invoice extends BaseAbstractEntity
     private String notes;
 
     @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<BoughtProducts> boughtProductsSet;
+    private Set<BoughtProduct> boughtProductSet;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
@@ -100,7 +100,7 @@ public class Invoice extends BaseAbstractEntity
         this.discountValue = BigDecimal.ZERO;
         this.grossValue = BigDecimal.ZERO;
         this.paidAmount = BigDecimal.ZERO;
-        boughtProductsSet = new HashSet<>();
+        boughtProductSet = new HashSet<>();
     }
 
     public Invoice(InvoiceType type)
@@ -189,8 +189,8 @@ public class Invoice extends BaseAbstractEntity
         return notes;
     }
 
-    public Set<BoughtProducts> getBoughtProductsSet() {
-        return boughtProductsSet;
+    public Set<BoughtProduct> getBoughtProductSet() {
+        return boughtProductSet;
     }
 
     public Customer getCustomer() {

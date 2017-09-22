@@ -2,6 +2,7 @@ package com.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "products")
@@ -35,6 +36,12 @@ public class Product extends BaseAbstractEntity
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
+
+    @Column(name = "creation_date", nullable = false, updatable = false)
+    private LocalDate creationDate;
+
+    @Column(name = "last_modified", nullable = false)
+    private LocalDate lastModified;
 
     @ManyToOne
     @JoinColumn(name = "warehouse_item_id", referencedColumnName = "id")
