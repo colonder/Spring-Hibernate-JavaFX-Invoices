@@ -1,13 +1,12 @@
 package com.serviceImples;
 
-import com.entity.BoughtProducts;
+import com.entity.BoughtProduct;
 import com.repositories.IBoughtProductsRepository;
 import com.service.IBoughtProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -16,25 +15,19 @@ public class BoughtProductsServImp implements IBoughtProductsService {
     private IBoughtProductsRepository boughtProductsRepository;
 
     @Override
-    public List<BoughtProducts> findAll() {
+    public List<BoughtProduct> findAll() {
         return boughtProductsRepository.findAll();
     }
 
     @Override
     @Transactional
-    public BoughtProducts save(BoughtProducts product) {
+    public BoughtProduct save(BoughtProduct product) {
         return boughtProductsRepository.save(product);
     }
 
     @Override
     @Transactional
-    public void delete(BoughtProducts product) {
+    public void delete(BoughtProduct product) {
         boughtProductsRepository.delete(product);
-    }
-
-    @Override
-    @Transactional
-    public int update(BigDecimal quantity, BigDecimal vatValue, BigDecimal taxValue, BigDecimal grossValue, int id) {
-        return boughtProductsRepository.update(quantity, vatValue, taxValue, grossValue, id);
     }
 }

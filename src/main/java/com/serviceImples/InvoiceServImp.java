@@ -44,21 +44,6 @@ public class InvoiceServImp implements IInvoiceService {
     }
 
     @Override
-    @Transactional
-    public int update(InvoiceType type, BigDecimal netVal, BigDecimal vatVal, BigDecimal discountVal, BigDecimal grossVal,
-                      BigDecimal paidAmount, PaymentMethod method, LocalDate paidDate, LocalDate paymentDate,
-                      InvoiceStatus status, LocalDate lastModified, String notes, int id) {
-        return invoiceRepository.update(type, netVal, vatVal, discountVal, grossVal, paidAmount, method, paidDate,
-                paymentDate, status, lastModified, notes, id);
-    }
-
-    @Override
-    @Transactional
-    public int updateSent(LocalDate sentDate, int id) {
-        return invoiceRepository.updateSent(sentDate, id);
-    }
-
-    @Override
     public BigDecimal sumByPeriod(LocalDate startDate, LocalDate endDate) {
         return invoiceRepository.sumByPeriod(startDate, endDate);
     }

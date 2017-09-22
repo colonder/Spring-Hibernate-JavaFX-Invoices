@@ -6,7 +6,6 @@ import com.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -27,11 +26,5 @@ public class ProductServImp implements IProductService {
     @Override
     public void delete(Product product) {
         productRepository.delete(product);
-    }
-
-    @Override
-    public int update(String productName, BigDecimal netPrice, BigDecimal vatRate, boolean onlineSale,
-                      boolean isService, boolean isActive, int id) {
-        return productRepository.update(productName, netPrice, vatRate, onlineSale, isService, isActive, id);
     }
 }

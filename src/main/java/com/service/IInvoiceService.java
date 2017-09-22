@@ -14,10 +14,6 @@ public interface IInvoiceService {
                           PaymentMethod paymentMethod);
     Invoice save(Invoice invoice);
     void delete(Invoice invoice);
-    int update(InvoiceType type, BigDecimal netVal, BigDecimal vatVal, BigDecimal discountVal, BigDecimal grossVal,
-               BigDecimal paidAmount, PaymentMethod method, LocalDate paidDate, LocalDate paymentDate,
-               InvoiceStatus status, LocalDate lastModified, String notes, int id);
-    int updateSent(LocalDate sentDate, int id);
     BigDecimal sumByPeriod(LocalDate startDate, LocalDate endDate);
     int countAllByPaidDateBetween(LocalDate startDate, LocalDate endDate);
 }
