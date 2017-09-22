@@ -21,6 +21,9 @@ public class Settings {
     @Column(name = "default_vat_rate")
     private BigDecimal defaultVatRate;
 
+    @Column(name = "default_language")
+    private String defaultLanguage;
+
     public Settings(){}
 
     public int getId() {
@@ -41,5 +44,13 @@ public class Settings {
 
     public void setDefaultVatRate(BigDecimal defaultVatRate) {
         this.defaultVatRate = defaultVatRate;
+    }
+
+    public String getDefaultLanguage() {
+        return defaultLanguage;
+    }
+
+    public void setDefaultLanguage(String defaultLanguage) {
+        this.defaultLanguage = defaultLanguage;
     }
 }

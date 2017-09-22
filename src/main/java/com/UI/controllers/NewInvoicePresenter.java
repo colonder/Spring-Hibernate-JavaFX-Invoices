@@ -359,8 +359,8 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         saleDatePicker.setValue(invoice.getSaleDate());
 
         // TODO: load these two fields from settings
-        //currencyComboBox.getSelectionModel().select();
-        //languageComboBox.getSelectionModel().select();
+        //currencyComboBox.getSelectionModel().select(settings.getDefaultCurrency());
+        //languageComboBox.getSelectionModel().select(settings.getDefaultLanguage());
         initValueLabels();
         if (invoice.getCustomer() != null && invoice.getSeller() != null) {
             initBuyerFields(invoice.getCustomer());

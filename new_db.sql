@@ -30,7 +30,8 @@ create table settings
 (
 	id serial primary key,
 	default_currency varchar(3),
-	default_vat_rate numeric(3,2) default 0.00 check(default_vat_rate >= 0.00)
+	default_vat_rate numeric(3,2) default 0.00 check(default_vat_rate >= 0.00),
+	default_language varchar(30)
 );
 
 create table customer
