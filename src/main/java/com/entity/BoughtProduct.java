@@ -2,6 +2,7 @@ package com.entity;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "bought_products")
+@DynamicUpdate
 public class BoughtProduct extends BaseAbstractEntity
 {
     @Id

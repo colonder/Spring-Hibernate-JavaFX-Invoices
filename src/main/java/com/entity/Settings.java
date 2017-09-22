@@ -1,10 +1,13 @@
 package com.entity;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "settings")
+@DynamicUpdate
 public class Settings {
 
     @Id

@@ -1,10 +1,13 @@
 package com.entity;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "warehouse")
+@DynamicUpdate
 public class Warehouse extends BaseAbstractEntity
 {
     @Id

@@ -1,11 +1,14 @@
 package com.entity;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "products")
+@DynamicUpdate
 public class Product extends BaseAbstractEntity
 {
     @Id

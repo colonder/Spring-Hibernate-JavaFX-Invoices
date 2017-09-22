@@ -3,6 +3,7 @@ package com.entity;
 import com.enums.InvoiceStatus;
 import com.enums.InvoiceType;
 import com.enums.PaymentMethod;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "issued_invoices")
+@DynamicUpdate
 public class Invoice extends BaseAbstractEntity
 {
     @Id
