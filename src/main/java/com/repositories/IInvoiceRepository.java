@@ -12,7 +12,6 @@ import java.time.LocalDate;
 
 @Repository
 public interface IInvoiceRepository extends JpaRepository<Invoice, Integer>, JpaSpecificationExecutor<Invoice> {
-
     @Query("SELECT SUM(i.grossValue) FROM Invoice i WHERE i.paidDate BETWEEN :startDate AND :endDate")
     BigDecimal sumByPeriod(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
