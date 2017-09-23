@@ -61,7 +61,4 @@
          </children>
       </AnchorPane>
    </top>
-   <bottom>
-      <FlowPane prefHeight="30.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </bottom>
 </BorderPane>

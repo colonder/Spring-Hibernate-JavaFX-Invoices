@@ -4,11 +4,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.HomePresenter">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.HomePresenter">
    <children>
-      <BorderPane layoutX="66.0" layoutY="89.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <GridPane BorderPane.alignment="CENTER">
+      <VBox prefHeight="570.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <GridPane>
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -134,13 +134,8 @@
                   </FlowPane>
                   <Separator prefHeight="3.0" prefWidth="580.0" GridPane.columnSpan="4" GridPane.rowIndex="2" />
                </children>
-               <BorderPane.margin>
-                  <Insets top="20.0" />
-               </BorderPane.margin>
             </GridPane>
-         </top>
-         <center>
-            <FlowPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <FlowPane>
                <children>
                   <Button fx:id="standardBtn" alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="280.0" text="Standard Invoice">
                      <FlowPane.margin>
@@ -175,11 +170,8 @@
                      </font>
                   </Button>
                </children>
-               <BorderPane.margin>
-                  <Insets top="15.0" />
-               </BorderPane.margin>
             </FlowPane>
-         </center>
-      </BorderPane>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

@@ -6,99 +6,96 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="1500.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.NewInvoicePresenter">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.NewInvoicePresenter">
    <children>
-      <ScrollPane layoutX="181.0" layoutY="105.0" prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <content>
-            <BorderPane prefWidth="1185.0">
-               <top>
-                  <GridPane BorderPane.alignment="CENTER">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane>
+               <content>
+                  <VBox prefWidth="1185.0">
                      <children>
-                        <Label text="Type">
-                           <GridPane.margin>
-                              <Insets left="20.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label text="Number" GridPane.columnIndex="1">
-                           <GridPane.margin>
-                              <Insets left="20.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label text="Issue date" GridPane.columnIndex="2">
-                           <GridPane.margin>
-                              <Insets left="20.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label text="Issue location" GridPane.columnIndex="3">
-                           <GridPane.margin>
-                              <Insets left="20.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label text="Sale date" GridPane.columnIndex="4">
-                           <GridPane.margin>
-                              <Insets left="20.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="typeComboBox" prefWidth="200.0" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                        </ComboBox>
-                        <TextField fx:id="numberTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                        </TextField>
-                        <DatePicker fx:id="issueDatePicker" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                        </DatePicker>
-                        <TextField fx:id="locationTxtFld" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                        </TextField>
-                        <DatePicker fx:id="saleDatePicker" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                        </DatePicker>
-                        <Separator prefWidth="200.0" GridPane.columnSpan="5" GridPane.rowIndex="2" />
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                     </children>
-                  </GridPane>
-               </top>
-               <center>
-                  <VBox BorderPane.alignment="CENTER">
-                     <children>
+                        <GridPane>
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Type">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Number" GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Issue date" GridPane.columnIndex="2">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Issue location" GridPane.columnIndex="3">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Sale date" GridPane.columnIndex="4">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="typeComboBox" prefWidth="200.0" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </ComboBox>
+                              <TextField fx:id="numberTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <DatePicker fx:id="issueDatePicker" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </DatePicker>
+                              <TextField fx:id="locationTxtFld" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <DatePicker fx:id="saleDatePicker" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </DatePicker>
+                              <Separator prefWidth="200.0" GridPane.columnSpan="5" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
                         <GridPane prefHeight="370.0" prefWidth="1185.0">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -126,7 +123,7 @@
                            <children>
                               <Label text="Seller" textFill="#000000a4">
                                  <GridPane.margin>
-                                    <Insets left="20.0" />
+                                    <Insets />
                                  </GridPane.margin>
                                  <font>
                                     <Font name="System Bold Italic" size="18.0" />
@@ -134,12 +131,12 @@
                               </Label>
                               <TextField fx:id="sellerTxtFld" GridPane.columnSpan="3" GridPane.rowIndex="1">
                                  <GridPane.margin>
-                                    <Insets left="20.0" />
+                                    <Insets />
                                  </GridPane.margin>
                               </TextField>
                               <Label text="Tax identifier number" GridPane.rowIndex="2">
                                  <GridPane.margin>
-                                    <Insets left="20.0" />
+                                    <Insets />
                                  </GridPane.margin>
                                  <font>
                                     <Font name="System Bold" size="14.0" />
@@ -147,12 +144,12 @@
                               </Label>
                               <TextField fx:id="sellerTaxIdTxtFld" GridPane.columnSpan="2" GridPane.rowIndex="3">
                                  <GridPane.margin>
-                                    <Insets left="20.0" />
+                                    <Insets />
                                  </GridPane.margin>
                               </TextField>
                               <Label text="Address" GridPane.rowIndex="4">
                                  <GridPane.margin>
-                                    <Insets left="20.0" />
+                                    <Insets />
                                  </GridPane.margin>
                                  <font>
                                     <Font name="System Bold" size="14.0" />
@@ -160,12 +157,12 @@
                               </Label>
                               <TextField fx:id="sellerAddressTxtFld" GridPane.columnSpan="3" GridPane.rowIndex="5">
                                  <GridPane.margin>
-                                    <Insets left="20.0" />
+                                    <Insets />
                                  </GridPane.margin>
                               </TextField>
                               <Label text="Postal code" GridPane.rowIndex="6">
                                  <GridPane.margin>
-                                    <Insets left="20.0" />
+                                    <Insets />
                                  </GridPane.margin>
                                  <font>
                                     <Font name="System Bold" size="14.0" />
@@ -181,7 +178,7 @@
                               </Label>
                               <TextField fx:id="sellerPostalCodeTxtFld" GridPane.rowIndex="7">
                                  <GridPane.margin>
-                                    <Insets left="20.0" right="5.0" />
+                                    <Insets right="5.0" />
                                  </GridPane.margin>
                               </TextField>
                               <TextField fx:id="sellerCityTxtFld" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
@@ -191,7 +188,7 @@
                               </TextField>
                               <TextField fx:id="accountTxtFld" GridPane.columnSpan="2" GridPane.rowIndex="9">
                                  <GridPane.margin>
-                                    <Insets left="20.0" right="5.0" />
+                                    <Insets right="5.0" />
                                  </GridPane.margin>
                               </TextField>
                               <TextField fx:id="bankTxtFld" GridPane.columnIndex="2" GridPane.rowIndex="9">
@@ -201,7 +198,7 @@
                               </TextField>
                               <Label text="Account" GridPane.rowIndex="8">
                                  <GridPane.margin>
-                                    <Insets left="20.0" />
+                                    <Insets />
                                  </GridPane.margin>
                                  <font>
                                     <Font name="System Bold" size="14.0" />
@@ -225,13 +222,13 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <GridPane.margin>
-                                    <Insets right="20.0" />
+                                    <Insets />
                                  </GridPane.margin>
                               </TextField>
                               <TextField fx:id="buyerTaxIdTxtFld" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                               <TextField fx:id="buyerAddressTxtFld" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="5">
                                  <GridPane.margin>
-                                    <Insets right="20.0" />
+                                    <Insets />
                                  </GridPane.margin>
                               </TextField>
                               <TextField fx:id="buyerPostalCodeTxtFld" GridPane.columnIndex="4" GridPane.rowIndex="7">
@@ -241,7 +238,7 @@
                               </TextField>
                               <TextField fx:id="buyerCityTxtFld" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="7">
                                  <GridPane.margin>
-                                    <Insets left="5.0" right="20.0" />
+                                    <Insets />
                                  </GridPane.margin>
                               </TextField>
                               <Label text="Tax identifier number" GridPane.columnIndex="4" GridPane.rowIndex="2">
@@ -303,7 +300,7 @@
                               </AnchorPane>
                               <TextField fx:id="sellerEmailTxtFld" GridPane.rowIndex="11">
                                  <GridPane.margin>
-                                    <Insets left="20.0" right="5.0" />
+                                    <Insets />
                                  </GridPane.margin>
                               </TextField>
                               <TextField fx:id="sellerPhoneTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="11">
@@ -324,7 +321,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <GridPane.margin>
-                                    <Insets left="20.0" />
+                                    <Insets />
                                  </GridPane.margin>
                               </Label>
                               <Label text="Phone" GridPane.columnIndex="1" GridPane.rowIndex="10">
@@ -359,12 +356,12 @@
                         </Separator>
                         <AnchorPane>
                            <children>
-                              <Label layoutX="14.0" layoutY="14.0" text="Bought products" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
+                              <Label layoutX="14.0" layoutY="14.0" text="Bought products" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <CheckBox fx:id="discountChckBox" layoutX="992.0" layoutY="12.0" mnemonicParsing="false" text="Discount" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                              <CheckBox fx:id="discountChckBox" layoutX="992.0" layoutY="12.0" mnemonicParsing="false" text="Discount" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -388,7 +385,7 @@
                               <TableColumn fx:id="removeCol" editable="false" maxWidth="2150.0" prefWidth="75.0" sortable="false" text="Remove" />
                           </columns>
                            <VBox.margin>
-                              <Insets left="20.0" right="20.0" top="10.0" />
+                              <Insets top="10.0" />
                            </VBox.margin>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -403,7 +400,7 @@
                               </ImageView>
                            </graphic>
                            <VBox.margin>
-                              <Insets left="20.0" top="10.0" />
+                              <Insets top="10.0" />
                            </VBox.margin>
                         </Button>
                         <HBox alignment="TOP_RIGHT">
@@ -499,7 +496,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <VBox.margin>
-                              <Insets left="20.0" right="20.0" />
+                              <Insets />
                            </VBox.margin>
                            <children>
                               <TextField fx:id="paidAmountTxtFld" GridPane.columnIndex="5" GridPane.rowIndex="1" />
@@ -632,33 +629,37 @@
                               </AnchorPane>
                           </content>
                            <VBox.margin>
-                              <Insets left="20.0" right="20.0" top="10.0" />
+                              <Insets top="10.0" />
                            </VBox.margin>
                            <font>
                               <Font size="14.0" />
                            </font>
                         </TitledPane>
                      </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
                   </VBox>
-               </center>
-               <bottom>
-                  <VBox BorderPane.alignment="CENTER">
-                     <children>
-                        <Separator prefWidth="200.0">
-                           <VBox.margin>
-                              <Insets bottom="10.0" top="10.0" />
-                           </VBox.margin>
-                        </Separator>
-                        <Button fx:id="saveBtn" mnemonicParsing="false" text="Save">
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-               </bottom>
-            </BorderPane>
-         </content>
-      </ScrollPane>
+               </content>
+            </ScrollPane>
+            <VBox>
+               <children>
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <Button fx:id="saveBtn" mnemonicParsing="false" text="Save">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
