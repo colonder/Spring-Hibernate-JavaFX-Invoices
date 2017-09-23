@@ -357,6 +357,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         invoiceCurrencyComboBox.getSelectionModel().select(invoice.getCurrency());
         issueDatePicker.setValue(invoice.getIssueDate());
         saleDatePicker.setValue(invoice.getSaleDate());
+        locationTxtFld.setText(invoice.getLocation());
 
         // TODO: load these two fields from settings
         //currencyComboBox.getSelectionModel().select(settings.getDefaultCurrency());

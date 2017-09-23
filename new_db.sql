@@ -71,6 +71,7 @@ create table issued_invoices
 	seller_id int references sellers(id),
 	issue_date date not null,
 	sale_date date not null,
+	location varchar(100) not null,
 	net_value numeric(7,2) not null check(net_value > 0.00),
 	vat_value numeric(7,2) not null check(vat_value > 0.00),
 	discount_value numeric(7,2),

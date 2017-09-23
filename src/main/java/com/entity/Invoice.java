@@ -70,6 +70,9 @@ public class Invoice extends BaseAbstractEntity
     @Column(name = "sale_date")
     private LocalDate saleDate;
 
+    @Column(name = "location")
+    private String location;
+
     @Column(name = "last_modified")
     private LocalDate lastModified;
 
@@ -197,5 +200,9 @@ public class Invoice extends BaseAbstractEntity
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    public String getLocation() {
+        return location;
     }
 }
