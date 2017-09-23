@@ -241,7 +241,16 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     }
 
     private void initSellerFields(Seller seller) {
-        // TODO: implement
+        sellerTxtFld.setText(String.format("%s %s", seller.getFirstName(), seller.getLastName()));
+        sellerTaxIdTxtFld.setText(seller.getTaxIdentifier());
+        sellerAddressTxtFld.setText(seller.getAddress());
+        sellerPostalCodeTxtFld.setText(seller.getPostalCode());
+        sellerCityTxtFld.setText(seller.getCity());
+        accountTxtFld.setText(seller.getAccountNum());
+        bankTxtFld.setText(seller.getBank());
+        sellerEmailTxtFld.setText(seller.getEmail());
+        sellerPhoneTxtFld.setText(String.valueOf(seller.getTelephone()));
+        sellerFaxTxtFld.setText(String.valueOf(seller.getFax()));
     }
 
     private void initBuyerFields(Customer customer) {
