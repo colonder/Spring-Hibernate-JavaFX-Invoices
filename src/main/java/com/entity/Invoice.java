@@ -85,6 +85,7 @@ public class Invoice extends BaseAbstractEntity
     @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BoughtProduct> boughtProductSet;
 
+    // TODO: add cascade types
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
@@ -205,5 +206,13 @@ public class Invoice extends BaseAbstractEntity
 
     public String getLocation() {
         return location;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 }

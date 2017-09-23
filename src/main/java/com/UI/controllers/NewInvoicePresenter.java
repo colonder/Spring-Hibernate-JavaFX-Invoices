@@ -5,6 +5,7 @@ import com.enums.InvoiceStatus;
 import com.enums.InvoiceType;
 import com.enums.PaymentMethod;
 import com.service.ICustomerService;
+import com.service.IInvoiceService;
 import com.service.IProductService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -85,11 +86,16 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     @FXML private ComboBox<String> showUnitPriceComboBox;
     @FXML private DatePicker paidDatePicker;
     @FXML private ComboBox<String> calculateTotalComboBox;
+    @FXML private Button saveBtn;
     //endregion
 
     @Autowired private ICustomerService customerService;
     @Autowired private IProductService productService;
+    @Autowired private IInvoiceService invoiceService;
     private ObservableList<BoughtProduct> productsList;
+    private Invoice invoice;
+    private Seller seller;
+    private Customer customer;
 
     @FXML
     public void initialize()
@@ -103,6 +109,14 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     private void initButtons() {
         buyerFromDatabaseBtn.setOnAction(event -> openSelectCustomerDialog());
         addItemBtn.setOnAction(event -> openSelectProductDialog());
+        saveBtn.setOnAction(event -> {
+            // TODO: add persisting the rest of the invoice stuff
+            this.invoice.getBoughtProductSet().clear();
+            this.invoice.getBoughtProductSet().addAll(productsList);
+            this.invoice.setCustomer(this.customer);
+            this.invoice.setSeller(this.seller);
+            invoiceService.save(this.invoice);
+        });
     }
 
     private void openSelectProductDialog() {
@@ -201,7 +215,10 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         });
 
         Optional<Customer> result = dialog.showAndWait();
-        result.ifPresent(this::initBuyerFields);
+        result.ifPresent(selectedCustomer -> {
+            this.customer = selectedCustomer;
+            initBuyerFields(selectedCustomer);
+        });
     }
 
     private void initComboBoxes() {
@@ -359,6 +376,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
 
     @Override
     public void initializeFields(Invoice invoice) {
+        this.invoice = invoice;
         productsList = FXCollections.observableArrayList(invoice.getBoughtProductSet());
         statusComboBox.getSelectionModel().select(InvoiceStatus.statusMap.inverse().get(invoice.getStatus()));
         typeComboBox.getSelectionModel().select(InvoiceType.typeMap.inverse().get(invoice.getType()));
@@ -378,8 +396,10 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         //languageComboBox.getSelectionModel().select(settings.getDefaultLanguage());
         initValueLabels();
         if (invoice.getCustomer() != null && invoice.getSeller() != null) {
-            initBuyerFields(invoice.getCustomer());
-            initSellerFields(invoice.getSeller());
+            this.seller = invoice.getSeller();
+            this.customer = invoice.getCustomer();
+            initBuyerFields(this.customer);
+            initSellerFields(this.seller);
         }
     }
 }
