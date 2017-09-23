@@ -253,6 +253,9 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         buyerEmailTxtFld.setText(customer.getEmail());
         buyerPhoneTxtFld.setText(String.valueOf(customer.getCellPhone()));
         countryComboBox.getSelectionModel().select(customer.getCountry());
+        paymentMethodComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(customer
+                .getDefaultPaymentMethod()));
+        paymentDateComboBox.getSelectionModel().select(customer.getDefaultPaymentDateDays());
     }
 
     private void initProductsTable() {
@@ -351,13 +354,15 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         statusComboBox.getSelectionModel().select(InvoiceStatus.statusMap.inverse().get(invoice.getStatus()));
         typeComboBox.getSelectionModel().select(InvoiceType.typeMap.inverse().get(invoice.getType()));
         paymentMethodComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(invoice.getPaymentMethod()));
-        paymentDateComboBox.getSelectionModel().select(0);
+        paymentDateComboBox.getSelectionModel().select(invoice.getPaymentDateDays());
         invoiceCurrencyComboBox.getSelectionModel().select(invoice.getCurrency());
         issueDatePicker.setValue(invoice.getIssueDate());
         saleDatePicker.setValue(invoice.getSaleDate());
         locationTxtFld.setText(invoice.getLocation());
         remarksTextArea.setText(invoice.getRemarks());
         paidDatePicker.setValue(invoice.getPaidDate());
+        paidAmountTxtFld.setText(invoice.getPaidAmount().toString());
+        numberTxtFld.setText(invoice.getInvoiceNumber());
 
         // TODO: load these two fields from settings
         //currencyComboBox.getSelectionModel().select(settings.getDefaultCurrency());

@@ -1,5 +1,7 @@
 package com.entity;
 
+import com.enums.CustomerType;
+import com.enums.PaymentMethod;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -60,8 +62,9 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "tag")
     private String tag;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "default_payment_method")
-    private String defaultPaymentMethod;
+    private PaymentMethod defaultPaymentMethod;
 
     @Column(name = "creation_date", updatable = false, nullable = false)
     private LocalDate creationDate;
@@ -75,8 +78,9 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "country")
     private String country;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "customer_type")
-    private String customerType;
+    private CustomerType customerType;
 
     @Column(name = "company_special_number") // regon
     private int companySpecialNumber;
@@ -85,7 +89,7 @@ public class Customer extends BaseAbstractEntity
     private BigDecimal defaultDiscount;
 
     @Column(name = "default_payment_date_days")
-    private int defaultPaymentDateDays;
+    private Integer defaultPaymentDateDays;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Invoice> invoiceHashSet = new HashSet<>();
@@ -152,7 +156,7 @@ public class Customer extends BaseAbstractEntity
         return tag;
     }
 
-    public String getDefaultPaymentMethod() {
+    public PaymentMethod getDefaultPaymentMethod() {
         return defaultPaymentMethod;
     }
 
@@ -172,7 +176,7 @@ public class Customer extends BaseAbstractEntity
         return country;
     }
 
-    public String getCustomerType() {
+    public CustomerType getCustomerType() {
         return customerType;
     }
 
@@ -184,7 +188,7 @@ public class Customer extends BaseAbstractEntity
         return defaultDiscount;
     }
 
-    public int getDefaultPaymentDateDays() {
+    public Integer getDefaultPaymentDateDays() {
         return defaultPaymentDateDays;
     }
 

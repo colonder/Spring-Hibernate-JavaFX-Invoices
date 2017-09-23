@@ -48,7 +48,7 @@ public class BoughtProduct extends BaseAbstractEntity
     @Column(name = "gross_value", nullable = false)
     private BigDecimal grossValue;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_id", referencedColumnName = "id")
     private Invoice invoice;
 

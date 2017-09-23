@@ -58,7 +58,7 @@ create table customer
 	customer_type varchar(20) not null default 'person',
 	company_special_number int,
 	default_discount numeric(3,2) default 0.00 check(default_discount >= 0.00),
-	default_payment_date_days int check(default_payment_date_days >= 0.00),
+	default_payment_date_days int check(default_payment_date_days >= 0),
 	last_modified date not null default CURRENT_DATE
 );
 
@@ -79,7 +79,7 @@ create table issued_invoices
 	paid_amount numeric(7,2) check(paid_amount > 0.00),
 	payment_method varchar(15) not null,
 	paid_date date,
-	payment_date date not null check(payment_date >= CURRENT_DATE),
+	payment_date_days int not null check(payment_date_days >= 0),
 	currency varchar(3) not null,
 	status varchar(10) not null,
 	creation_date date not null,

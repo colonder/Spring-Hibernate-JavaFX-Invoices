@@ -54,8 +54,8 @@ public class Invoice extends BaseAbstractEntity
     private LocalDate paidDate;
 
     // TODO: check in code for expiration date
-    @Column(name = "payment_date")
-    private LocalDate paymentDate;
+    @Column(name = "payment_date_days")
+    private Integer paymentDateDays;
 
     @Column(name = "currency")
     private String currency;
@@ -85,17 +85,17 @@ public class Invoice extends BaseAbstractEntity
     @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BoughtProduct> boughtProductSet;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id", referencedColumnName = "id")
     private Seller seller;
 
     public Invoice()
     {
-        // TODO: initialize invoice number from set policy
+        // TODO: initialize invoice number, currency from settings
         this.issueDate = LocalDate.now();
         this.creationDate = LocalDate.now();
         this.saleDate = LocalDate.now();
@@ -105,7 +105,8 @@ public class Invoice extends BaseAbstractEntity
         this.discountValue = BigDecimal.ZERO;
         this.grossValue = BigDecimal.ZERO;
         this.paidAmount = BigDecimal.ZERO;
-        boughtProductSet = new HashSet<>();
+        this.boughtProductSet = new HashSet<>();
+        this.status = InvoiceStatus.ISSUED;
     }
 
     public Invoice(InvoiceType type)
@@ -162,8 +163,8 @@ public class Invoice extends BaseAbstractEntity
         return paidDate;
     }
 
-    public LocalDate getPaymentDate() {
-        return paymentDate;
+    public Integer getPaymentDateDays() {
+        return paymentDateDays;
     }
 
     public String getCurrency() {
