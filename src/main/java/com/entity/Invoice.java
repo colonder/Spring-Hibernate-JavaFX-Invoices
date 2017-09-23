@@ -80,7 +80,7 @@ public class Invoice extends BaseAbstractEntity
     private LocalDate sentDate;
 
     @Column(name = "notes")
-    private String notes;
+    private String remarks;
 
     @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BoughtProduct> boughtProductSet;
@@ -190,8 +190,8 @@ public class Invoice extends BaseAbstractEntity
         return sentDate;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getRemarks() {
+        return remarks;
     }
 
     public Set<BoughtProduct> getBoughtProductSet() {

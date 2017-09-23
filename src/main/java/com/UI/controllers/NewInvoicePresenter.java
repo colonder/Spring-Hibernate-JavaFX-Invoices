@@ -81,12 +81,10 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     @FXML private TextArea remarksTextArea;
     @FXML private ComboBox<String> currencyComboBox;
     @FXML private ComboBox<String> languageComboBox;
-    @FXML private TitledPane optionsTitledPane;
     @FXML private ComboBox<String> calculateValsComboBox;
     @FXML private ComboBox<String> showUnitPriceComboBox;
-    @FXML private TextField paidDateTxtFld;
+    @FXML private DatePicker paidDatePicker;
     @FXML private ComboBox<String> calculateTotalComboBox;
-    @FXML private TextField labelTxtFld;
     //endregion
 
     @Autowired private ICustomerService customerService;
@@ -239,14 +237,6 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         });
         languageComboBox.setItems(languages);
         paymentDateComboBox.getItems().setAll(1, 3, 5, 7, 14, 21, 30, 45, 60, 75, 90);
-        calculateValsComboBox.getItems().setAll("Total value",
-                "Unit value (consistent with cash register)");
-        calculateTotalComboBox.getItems().setAll(
-                "Sum of all values from all records (preserves gross and net value)",
-                "Sum of the gross values and calculate net and tax values (preserves gross value, consistent with cash register)",
-                "Sum of the net values and calculate gross and tax values (preserves gross value)");
-        showUnitPriceComboBox.getItems().setAll("Net value",
-                "Gross value (consistent with cash register)");
         countryComboBox.setItems(countries);
     }
 
@@ -342,6 +332,14 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     }
 
     private void initOptions() {
+        calculateValsComboBox.getItems().setAll("Total value",
+                "Unit value (consistent with cash register)");
+        calculateTotalComboBox.getItems().setAll(
+                "Sum of all values from all records (preserves gross and net value)",
+                "Sum of the gross values and calculate net and tax values (preserves gross value, consistent with cash register)",
+                "Sum of the net values and calculate gross and tax values (preserves gross value)");
+        showUnitPriceComboBox.getItems().setAll("Net value",
+                "Gross value (consistent with cash register)");
         calculateValsComboBox.getSelectionModel().select(0);
         calculateTotalComboBox.getSelectionModel().select(0);
         showUnitPriceComboBox.getSelectionModel().select(0);
@@ -358,6 +356,8 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         issueDatePicker.setValue(invoice.getIssueDate());
         saleDatePicker.setValue(invoice.getSaleDate());
         locationTxtFld.setText(invoice.getLocation());
+        remarksTextArea.setText(invoice.getRemarks());
+        paidDatePicker.setValue(invoice.getPaidDate());
 
         // TODO: load these two fields from settings
         //currencyComboBox.getSelectionModel().select(settings.getDefaultCurrency());
