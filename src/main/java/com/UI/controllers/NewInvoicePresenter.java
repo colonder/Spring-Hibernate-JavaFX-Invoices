@@ -317,22 +317,26 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         quantityCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         quantityCol.setOnEditCommit(event -> {
 
-            // TODO: check if typed quantity does not exceed quantity available at the warehouse
+            if (event.getNewValue() < 0 || event.getNewValue() > productService.findByProductName(event.getRowValue()
+                    .getProductName()).getWarehouse().getAvailable())
+            {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error adding a product");
+                alert.setHeaderText("Not enough items in the warehouse");
+                alert.setContentText("Selected product amount exceeds amount in the warehouse");
 
-            event.getTableView().getItems().get(event.getTablePosition().getRow())
-                    .setQuantityProp(event.getNewValue());
+                alert.showAndWait();
+                return;
+            }
+
+            event.getRowValue().setQuantityProp(event.getNewValue());
 
         });
         netValCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
         discountCol.setCellValueFactory(new PropertyValueFactory<>("discountProp"));
         discountCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        discountCol.setOnEditCommit(event -> {
-
-            // TODO: check if typed quantity does not exceed quantity available at the warehouse
-
-            event.getTableView().getItems().get(event.getTablePosition().getRow())
-                    .setDiscountProp(event.getNewValue());
-        });
+        discountCol.setOnEditCommit(event -> event.getTableView().getItems().get(event.getTablePosition().getRow())
+                .setDiscountProp(event.getNewValue()));
         grossValCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
 
         productTableView.setItems(productsList);

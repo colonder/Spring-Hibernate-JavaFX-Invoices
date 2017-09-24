@@ -33,4 +33,16 @@ public class Warehouse extends BaseAbstractEntity
 
     @Column(name = "last_sale_date")
     private LocalDate lastSaleDate;
+
+    public int getSold() {
+        return sold;
+    }
+
+    public int getAvailable() {
+        return available;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
 }

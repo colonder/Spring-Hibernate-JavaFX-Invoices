@@ -19,6 +19,11 @@ public class ProductServImp implements IProductService {
     }
 
     @Override
+    public Product findByProductName(String name) {
+        return productRepository.findByProductName(name);
+    }
+
+    @Override
     public Product save(Product product) {
         return productRepository.save(product);
     }

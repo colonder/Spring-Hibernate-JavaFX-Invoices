@@ -10,4 +10,5 @@ import java.util.List;
 public interface IProductRepository extends JpaRepository<Product, Integer>
 {
     List<Product> findAllByIsActiveTrue();
+    Product findByProductName(String productName);
 }
