@@ -127,6 +127,7 @@ create table bought_products
 	net_value numeric(7,2) not null check(net_value > 0.00),
 	vat_value numeric(7,2) not null check(vat_value > 0.00),
 	discount_percents int,
+	discount_val numeric(7,2) check(discount_val >= 0.00),
 	gross_value numeric(7,2) not null check(gross_value > 0.00),	
 	invoice_id int references issued_invoices(id) on delete cascade
 );

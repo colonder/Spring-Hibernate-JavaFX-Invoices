@@ -116,6 +116,7 @@ public class Invoice extends BaseAbstractEntity
         this.type = type;
     }
 
+    //region getters and setters
     public int getId() {
         return id;
     }
@@ -215,4 +216,89 @@ public class Invoice extends BaseAbstractEntity
     public void setSeller(Seller seller) {
         this.seller = seller;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public void setType(InvoiceType type) {
+        this.type = type;
+    }
+
+    public void setIssueDate(LocalDate issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public void setNetValue(BigDecimal netValue) {
+        this.netValue = netValue;
+    }
+
+    public void setVatValue(BigDecimal vatValue) {
+        this.vatValue = vatValue;
+    }
+
+    public void setDiscountValue(BigDecimal discountValue) {
+        this.discountValue = discountValue;
+    }
+
+    public void setGrossValue(BigDecimal grossValue) {
+        this.grossValue = grossValue;
+    }
+
+    public void setPaidAmount(BigDecimal paidAmount) {
+        this.paidAmount = paidAmount;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public void setPaidDate(LocalDate paidDate) {
+        this.paidDate = paidDate;
+    }
+
+    public void setPaymentDateDays(Integer paymentDateDays) {
+        this.paymentDateDays = paymentDateDays;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public void setStatus(InvoiceStatus status) {
+        this.status = status;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setSaleDate(LocalDate saleDate) {
+        this.saleDate = saleDate;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setLastModified(LocalDate lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public void setSentDate(LocalDate sentDate) {
+        this.sentDate = sentDate;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public void setBoughtProductSet(Set<BoughtProduct> boughtProductSet) {
+        this.boughtProductSet = boughtProductSet;
+    }
+    //endregion
 }

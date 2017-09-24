@@ -48,6 +48,9 @@ public class BoughtProduct extends BaseAbstractEntity
     @Column(name = "gross_value", nullable = false)
     private BigDecimal grossValue;
 
+    @Column(name = "discount_val")
+    private BigDecimal discountValue;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_id", referencedColumnName = "id")
     private Invoice invoice;
@@ -58,11 +61,12 @@ public class BoughtProduct extends BaseAbstractEntity
     @Transient private SimpleObjectProperty<BigDecimal> netValProp;
     @Transient private SimpleObjectProperty<BigDecimal> taxValProp;
     @Transient private SimpleIntegerProperty discountProp;
+    @Transient private SimpleObjectProperty<BigDecimal> discountValProp;
     @Transient private SimpleObjectProperty<BigDecimal> unmodifiedGrossValProp;
     @Transient private SimpleObjectProperty<BigDecimal> grossValProp;
 
     public BoughtProduct(String productName, String symbol, String unit, BigDecimal price, BigDecimal vatRate,
-                         int discountPercents)
+                         int discountPercents, BigDecimal discountVal)
     {
         this.productName = productName;
         this.symbol = symbol;
@@ -70,6 +74,7 @@ public class BoughtProduct extends BaseAbstractEntity
         this.price = price;
         this.vatRate = vatRate;
         this.discountPercents = discountPercents;
+        this.discountValue = discountVal;
 
         this.priceProp = new SimpleObjectProperty<>(price);
         this.taxRateProp = new SimpleObjectProperty<>(vatRate);
@@ -80,6 +85,7 @@ public class BoughtProduct extends BaseAbstractEntity
         this.taxValProp = new SimpleObjectProperty<>(vatValue);
         this.unmodifiedGrossValProp = new SimpleObjectProperty<>(grossValue);
         this.grossValProp = new SimpleObjectProperty<>(grossValue);
+        this.discountValProp = new SimpleObjectProperty<>(discountValue);
         this.quantityProp.addListener((observable, oldValue, newValue) -> {
             this.setNetValProp(this.getPriceProp().multiply(new BigDecimal(newValue.intValue())).setScale(2,
                     BigDecimal.ROUND_HALF_DOWN));
@@ -121,9 +127,9 @@ public class BoughtProduct extends BaseAbstractEntity
 
     private void computeDiscount()
     {
-        this.setGrossValProp(this.getUnmodifiedGrossValProp().subtract(this.getGrossValProp()
-                .multiply(new BigDecimal(this.getDiscountProp()).divide(BigDecimal.valueOf(100))).setScale(2,
-                        BigDecimal.ROUND_HALF_DOWN)));
+        this.setDiscountValProp(this.getGrossValProp().multiply(new BigDecimal(this.getDiscountProp())
+                .divide(BigDecimal.valueOf(100))).setScale(2, BigDecimal.ROUND_HALF_DOWN));
+        this.setGrossValProp(this.getUnmodifiedGrossValProp().subtract(this.getDiscountValProp()));
     }
 
     //region getters and setters
@@ -317,5 +323,31 @@ public class BoughtProduct extends BaseAbstractEntity
     public SimpleObjectProperty<BigDecimal> unmodifiedGrossValPropProperty() {
         return unmodifiedGrossValProp;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public BigDecimal getDiscountValue() {
+        return discountValue;
+    }
+
+    public void setDiscountValue(BigDecimal discountValue) {
+        this.discountValue = discountValue;
+    }
+
+    public BigDecimal getDiscountValProp() {
+        return discountValProp.get();
+    }
+
+    public void setDiscountValProp(BigDecimal discountValProp) {
+        this.discountValProp.set(discountValProp);
+        this.setDiscountValue(discountValProp);
+    }
+
+    public SimpleObjectProperty<BigDecimal> discountValPropProperty() {
+        return discountValProp;
+    }
+
     //endregion
 }

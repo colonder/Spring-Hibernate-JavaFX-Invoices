@@ -45,4 +45,8 @@ public class Warehouse extends BaseAbstractEntity
     public String getProductCode() {
         return productCode;
     }
+
+    public void setAvailable(int available) {
+        this.available = available;
+    }
 }

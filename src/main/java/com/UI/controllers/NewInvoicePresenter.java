@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Currency;
 import java.util.Locale;
@@ -96,6 +97,10 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     private Invoice invoice;
     private Seller seller;
     private Customer customer;
+    private BigDecimal netVal;
+    private BigDecimal vatVal;
+    private BigDecimal grossVal;
+    private BigDecimal discountVal;
 
     @FXML
     public void initialize()
@@ -110,13 +115,78 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         buyerFromDatabaseBtn.setOnAction(event -> openSelectCustomerDialog());
         addItemBtn.setOnAction(event -> openSelectProductDialog());
         saveBtn.setOnAction(event -> {
-            // TODO: add persisting the rest of the invoice stuff
-            this.invoice.getBoughtProductSet().clear();
-            this.invoice.getBoughtProductSet().addAll(productsList);
-            this.invoice.setCustomer(this.customer);
-            this.invoice.setSeller(this.seller);
-            invoiceService.save(this.invoice);
+            if (ensureFieldsFilled())
+            {
+                this.invoice.setInvoiceNumber(numberTxtFld.getText());
+                this.invoice.setType(InvoiceType.typeMap.get(typeComboBox.getSelectionModel().getSelectedItem()));
+                this.invoice.setIssueDate(issueDatePicker.getValue());
+                this.invoice.setNetValue(this.netVal);
+                this.invoice.setVatValue(this.vatVal);
+                this.invoice.setGrossValue(this.grossVal);
+                this.invoice.setDiscountValue(this.discountVal);
+                this.invoice.setPaidAmount(new BigDecimal(paidAmountTxtFld.getText()));
+                this.invoice.setPaymentMethod(PaymentMethod.paymentMap.get(paymentMethodComboBox.getSelectionModel()
+                        .getSelectedItem()));
+                this.invoice.setPaidDate(paidDatePicker.getValue());
+                this.invoice.setPaymentDateDays(paymentDateComboBox.getSelectionModel().getSelectedItem());
+                this.invoice.setCurrency(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
+                this.invoice.setStatus(InvoiceStatus.statusMap.get(statusComboBox.getSelectionModel().getSelectedItem()));
+                this.invoice.setSaleDate(saleDatePicker.getValue());
+                this.invoice.setLocation(locationTxtFld.getText());
+                this.invoice.setLastModified(LocalDate.now());
+                this.invoice.setRemarks(remarksTextArea.getText());
+                this.invoice.getBoughtProductSet().clear();
+                this.invoice.getBoughtProductSet().addAll(productsList);
+                this.invoice.setCustomer(this.customer);
+                this.invoice.setSeller(this.seller);
+
+                invoiceService.save(this.invoice);
+                for (BoughtProduct product : productsList)
+                {
+                    // maybe not the perfect solution, but it works considering that bought products table holds
+                    // raw information about the product from the date of purchase and not the product as a foreign key
+                    Product p = productService.findByProductName(product.getProductName());
+                    p.getWarehouse().setAvailable(p.getWarehouse().getAvailable() - product.getQuantity());
+                    productService.save(p);
+                }
+            }
         });
+    }
+
+    private boolean ensureFieldsFilled()
+    {
+        // FIXME: NullPointerException
+        if (numberTxtFld.getText().isEmpty() ||
+                typeComboBox.getSelectionModel().isEmpty() ||
+                seller == null ||
+                customer == null ||
+                locationTxtFld.getText().isEmpty() ||
+                paymentMethodComboBox.getSelectionModel().isEmpty() ||
+                paymentDateComboBox.getSelectionModel().isEmpty() ||
+                invoiceCurrencyComboBox.getSelectionModel().isEmpty() ||
+                statusComboBox.getSelectionModel().isEmpty())
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error in saving invoice");
+            alert.setHeaderText("One or more fields are empty");
+            StringBuilder builder = new StringBuilder("It seems that one or more fields that need to be filled are empty. Please, " +
+                    "check whether these fields are filled properly:\n\n");
+            builder.append("- Invoice number\n");
+            builder.append("- Invoice type\n");
+            builder.append("- Seller\n");
+            builder.append("- Buyer\n");
+            builder.append("- Sale location\n");
+            builder.append("- Payment method\n");
+            builder.append("- Payment date in days\n");
+            builder.append("- Currency\n");
+            builder.append("- Invoice status\n");
+            alert.setContentText(builder.toString());
+
+            alert.showAndWait();
+            return false;
+        }
+
+        return true;
     }
 
     private void openSelectProductDialog() {
@@ -161,22 +231,22 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         Optional<Product> result = dialog.showAndWait();
         result.ifPresent(product -> {
 
-                BoughtProduct boughtProduct = new BoughtProduct(product.getProductName(), product.getSymbol(),
-                        product.getUnit(), product.getNetPrice(), product.getVatRate(), 0);
+            BoughtProduct boughtProduct = new BoughtProduct(product.getProductName(), product.getSymbol(),
+                    product.getUnit(), product.getNetPrice(), product.getVatRate(), 0, BigDecimal.ZERO);
 
-                if (productsList.contains(boughtProduct))
-                {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Error in adding product");
-                    alert.setHeaderText("Selected product is already on the list");
-                    alert.setContentText("It seems that selected product is already on the products lit. Please, " +
-                            "modify existing one instead of adding a new one.");
+            if (productsList.contains(boughtProduct))
+            {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error in adding product");
+                alert.setHeaderText("Selected product is already on the list");
+                alert.setContentText("It seems that selected product is already on the products lit. Please, " +
+                        "modify existing one instead of adding a new one.");
 
-                    alert.showAndWait();
-                    return;
-                }
+                alert.showAndWait();
+                return;
+            }
 
-                productsList.add(boughtProduct);
+            productsList.add(boughtProduct);
         });
     }
 
@@ -329,8 +399,16 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                 return;
             }
 
+            BigDecimal tmpNetVal = event.getRowValue().getNetValProp();
+            BigDecimal tmpVatVal = event.getRowValue().getTaxValProp();
+            BigDecimal tmpGrossVal = event.getRowValue().getGrossValProp();
+            BigDecimal tmpDiscountVal = event.getRowValue().getDiscountValProp();
             event.getRowValue().setQuantityProp(event.getNewValue());
-
+            this.netVal = this.netVal.subtract(tmpNetVal);
+            this.vatVal = this.vatVal.subtract(tmpVatVal);
+            this.grossVal = this.grossVal.subtract(tmpGrossVal);
+            this.discountVal = this.discountVal.subtract(tmpDiscountVal);
+            setValueLabels();
         });
         netValCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
         discountCol.setCellValueFactory(new PropertyValueFactory<>("discountProp"));
@@ -344,24 +422,10 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                 discountCol.setVisible(newValue));
     }
 
-    private void initValueLabels() {
-        totalNetValLabel.setText(sum(BoughtProduct::getNetValProp));
-        totalTaxValLabel.setText(sum(BoughtProduct::getTaxValProp));
-        totalGrossValLabel.setText(sum(BoughtProduct::getGrossValProp));
-        taxCurrencyLabel.setText(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
-        grossCurrencyLabel.setText(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
-    }
-
-    private String sum(Summbale field)
-    {
-        BigDecimal netVal = BigDecimal.ZERO;
-
-        for (BoughtProduct product : productsList)
-        {
-            netVal = netVal.add(field.getValueFrom(product));
-        }
-
-        return netVal.toString();
+    private void setValueLabels() {
+        totalNetValLabel.setText(netVal.toString());
+        totalTaxValLabel.setText(vatVal.toString());
+        totalGrossValLabel.setText(grossVal.toString());
     }
 
     private void initOptions() {
@@ -376,6 +440,8 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         calculateValsComboBox.getSelectionModel().select(0);
         calculateTotalComboBox.getSelectionModel().select(0);
         showUnitPriceComboBox.getSelectionModel().select(0);
+
+        // TODO: get back to this
     }
 
     @Override
@@ -394,11 +460,17 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         paidDatePicker.setValue(invoice.getPaidDate());
         paidAmountTxtFld.setText(invoice.getPaidAmount().toString());
         numberTxtFld.setText(invoice.getInvoiceNumber());
+        taxCurrencyLabel.setText(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
+        grossCurrencyLabel.setText(invoiceCurrencyComboBox.getSelectionModel().getSelectedItem());
+        this.netVal = invoice.getNetValue();
+        this.vatVal = invoice.getVatValue();
+        this.grossVal = invoice.getGrossValue();
+        this.discountVal = invoice.getDiscountValue();
 
         // TODO: load these two fields from settings
         //currencyComboBox.getSelectionModel().select(settings.getDefaultCurrency());
         //languageComboBox.getSelectionModel().select(settings.getDefaultLanguage());
-        initValueLabels();
+        setValueLabels();
         if (invoice.getCustomer() != null && invoice.getSeller() != null) {
             this.seller = invoice.getSeller();
             this.customer = invoice.getCustomer();
