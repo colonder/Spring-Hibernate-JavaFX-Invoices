@@ -46,7 +46,7 @@ public class Product extends BaseAbstractEntity
     @Column(name = "last_modified", nullable = false)
     private LocalDate lastModified;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "warehouse_item_id", referencedColumnName = "id")
     private Warehouse warehouse;
 
