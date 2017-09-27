@@ -115,9 +115,9 @@
                         </MenuButton>
                      </children>
                   </AnchorPane>
-                  <ScrollPane prefHeight="590.0">
+                  <ScrollPane>
                      <content>
-                        <TableView minHeight="-Infinity" minWidth="1030.0" prefHeight="580.0">
+                        <TableView fx:id="customersTableView" minHeight="-Infinity" prefHeight="580.0" prefWidth="1015.0">
                            <columns>
                               <TableColumn fx:id="aliasCol" editable="false" prefWidth="150.0" text="Alias" />
                               <TableColumn fx:id="lastNameCol" prefWidth="150.0" text="Last name" />
