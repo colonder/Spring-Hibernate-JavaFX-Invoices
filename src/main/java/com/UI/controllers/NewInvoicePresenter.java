@@ -102,6 +102,9 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     private BigDecimal grossVal;
     private BigDecimal discountVal;
 
+    // FIXME: invoice type does not change when entering new invoice from invoices view after new invoice from
+    // the home screen has been entered
+
     @FXML
     public void initialize()
     {
@@ -450,8 +453,9 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     public void initializeFields(Invoice invoice) {
         this.invoice = invoice;
         productsList = FXCollections.observableArrayList(invoice.getBoughtProductSet());
-        statusComboBox.getSelectionModel().select(InvoiceStatus.statusMap.inverse().get(invoice.getStatus()));
         if (invoice.getStatus() != null)
+            statusComboBox.getSelectionModel().select(InvoiceStatus.statusMap.inverse().get(invoice.getStatus()));
+        if (invoice.getType() != null)
             typeComboBox.getSelectionModel().select(InvoiceType.typeMap.inverse().get(invoice.getType()));
         if (invoice.getPaymentMethod() != null)
             paymentMethodComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(invoice

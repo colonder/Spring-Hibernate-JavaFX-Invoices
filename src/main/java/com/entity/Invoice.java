@@ -116,6 +116,12 @@ public class Invoice extends BaseAbstractEntity
         this.type = type;
     }
 
+    public Invoice(Customer customer)
+    {
+        this();
+        this.customer = customer;
+    }
+
     //region getters and setters
     public int getId() {
         return id;
