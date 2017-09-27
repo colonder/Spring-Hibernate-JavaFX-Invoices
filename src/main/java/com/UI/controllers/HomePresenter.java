@@ -36,7 +36,6 @@ public class HomePresenter implements IRefreshable {
     @FXML
     public void initialize()
     {
-        // FIXME: NullPointerException, because initializeFields is being called after initialize (productsList is null)
         standardBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newInvoiceView, new Invoice(InvoiceType.ORDINARY)));
         proFormaBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newInvoiceView, new Invoice(InvoiceType.PROFORMA)));
         correctiveBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newInvoiceView, new Invoice(InvoiceType.CORRECTIVE)));

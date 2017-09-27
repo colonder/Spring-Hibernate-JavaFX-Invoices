@@ -84,8 +84,7 @@ public class InvoicesPresenter {
     @FXML private TableColumn<Invoice, String> remarksCol;
     //endregion
 
-    static
-    {
+    static {
         LocalDate today = LocalDate.now();
         LocalDate previousMonth = today.minusMonths(1);
         LocalDate previousYear = today.minusYears(1);
@@ -116,8 +115,7 @@ public class InvoicesPresenter {
     private ObservableList<Invoice> listOfInvoices;
 
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
         initializeComboBoxes();
         initializeMenuItems();
         listOfInvoices = FXCollections.observableArrayList();
@@ -127,27 +125,28 @@ public class InvoicesPresenter {
         initializeButtons();
     }
 
-    private void initializeButtons()
-    {
+    private void initializeButtons() {
         newInvoiceBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newInvoiceView, new Invoice()));
         editBtn.setOnAction(event -> {
             Invoice invoiceToEdit = tableView.getSelectionModel().getSelectedItem();
-            ViewSwitcher.openAndInitialize(newInvoiceView, invoiceToEdit);
+            if (invoiceToEdit != null)
+                ViewSwitcher.openAndInitialize(newInvoiceView, invoiceToEdit);
         });
         deleteBtn.setOnAction(event -> {
+            if (tableView.getSelectionModel().getSelectedItems().size() != 0) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Invoices deletion");
+                alert.setHeaderText("Are you sure you want to delete selected invoices?");
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Invoices deletion");
-            alert.setHeaderText("Are you sure you want to delete selected invoices?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            result.ifPresent(choice -> {
-                if(choice.equals(ButtonType.OK)) {
-                    for (Invoice invoice : tableView.getSelectionModel().getSelectedItems()) {
-                        invoiceService.delete(invoice);
+                Optional<ButtonType> result = alert.showAndWait();
+                result.ifPresent(choice -> {
+                    if (choice.equals(ButtonType.OK)) {
+                        for (Invoice invoice : tableView.getSelectionModel().getSelectedItems()) {
+                            invoiceService.delete(invoice);
+                        }
                     }
-                }
-            });
+                });
+            }
         });
     }
 
@@ -177,12 +176,14 @@ public class InvoicesPresenter {
         remarksCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
     }
 
-    private void initializeComboBoxes()
-    {
+    private void initializeComboBoxes() {
         invoiceTypeComboBox.getItems().setAll(InvoiceType.typeMap.keySet());
         invoiceTypeComboBox.getSelectionModel().select(0);
-        invoiceTypeComboBox.setOnAction(event -> selectedTypeLabel.setText(invoiceTypeComboBox.getSelectionModel()
-                .getSelectedItem()));
+        invoiceTypeComboBox.setOnAction(event -> {
+            selectedTypeLabel.setText(invoiceTypeComboBox.getSelectionModel()
+                    .getSelectedItem());
+            search();
+        });
         periodComboBox.getItems().setAll("Last 12 months", "Current month", "Last month", "Current year", "Last year",
                 "All");
         periodComboBox.getSelectionModel().select(0);
@@ -192,8 +193,7 @@ public class InvoicesPresenter {
         paymentComboBox.getSelectionModel().select(0);
     }
 
-    private void initializeMenuItems()
-    {
+    private void initializeMenuItems() {
         numberCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
                 numberCol.setVisible(newValue));
         netValCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
@@ -236,11 +236,9 @@ public class InvoicesPresenter {
                 remarksCol.setVisible(newValue));
     }
 
-    private void setSearching()
-    {
+    private void setSearching() {
         phraseTxtFld.setOnKeyPressed(event -> {
-            if (!phraseTxtFld.getText().isEmpty() && event.getCode().equals(KeyCode.ENTER))
-            {
+            if (!phraseTxtFld.getText().isEmpty() && event.getCode().equals(KeyCode.ENTER)) {
                 search();
             }
         });
@@ -248,8 +246,7 @@ public class InvoicesPresenter {
         searchBtn.setOnAction(event -> search());
     }
 
-    private void search()
-    {
+    private void search() {
         listOfInvoices.setAll(invoiceService.findAll(
                 InvoiceType.typeMap.get(invoiceTypeComboBox.getSelectionModel().getSelectedItem()),
                 startDates[periodComboBox.getSelectionModel().getSelectedIndex()],
