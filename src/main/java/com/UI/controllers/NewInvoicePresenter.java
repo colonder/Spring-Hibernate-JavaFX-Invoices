@@ -313,9 +313,11 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         countries.sort(comparator);
         currencies.sort(comparator);
         currencyCodes.sort(comparator);
-        typeComboBox.getItems().setAll(InvoiceType.typeMap.keySet());
-        paymentMethodComboBox.getItems().setAll(PaymentMethod.paymentMap.keySet());
-        statusComboBox.getItems().setAll(InvoiceStatus.statusMap.keySet());
+        typeComboBox.getItems().setAll("Ordinary", "Pro forma", "Collective", "Expense");
+        paymentMethodComboBox.getItems().setAll("Cash", "Bank transfer", "Credit card", "Check", "Cash on delivery",
+                "Paypal");
+        statusComboBox.getItems().setAll("Issued", "Paid", "Partially paid", "Rejected", "Unpaid", "Paid after deadline",
+                "Unpaid expired");
         currencyComboBox.setItems(currencies);
         invoiceCurrencyComboBox.setItems(currencyCodes);
         invoiceCurrencyComboBox.setOnAction(event -> {
@@ -449,8 +451,11 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         this.invoice = invoice;
         productsList = FXCollections.observableArrayList(invoice.getBoughtProductSet());
         statusComboBox.getSelectionModel().select(InvoiceStatus.statusMap.inverse().get(invoice.getStatus()));
-        typeComboBox.getSelectionModel().select(InvoiceType.typeMap.inverse().get(invoice.getType()));
-        paymentMethodComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(invoice.getPaymentMethod()));
+        if (invoice.getStatus() != null)
+            typeComboBox.getSelectionModel().select(InvoiceType.typeMap.inverse().get(invoice.getType()));
+        if (invoice.getPaymentMethod() != null)
+            paymentMethodComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(invoice
+                    .getPaymentMethod()));
         paymentDateComboBox.getSelectionModel().select(invoice.getPaymentDateDays());
         invoiceCurrencyComboBox.getSelectionModel().select(invoice.getCurrency());
         issueDatePicker.setValue(invoice.getIssueDate());
@@ -471,10 +476,12 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         //currencyComboBox.getSelectionModel().select(settings.getDefaultCurrency());
         //languageComboBox.getSelectionModel().select(settings.getDefaultLanguage());
         setValueLabels();
-        if (invoice.getCustomer() != null && invoice.getSeller() != null) {
-            this.seller = invoice.getSeller();
+        if (invoice.getCustomer() != null) {
             this.customer = invoice.getCustomer();
             initBuyerFields(this.customer);
+        }
+        if (invoice.getSeller() != null) {
+            this.seller = invoice.getSeller();
             initSellerFields(this.seller);
         }
     }
