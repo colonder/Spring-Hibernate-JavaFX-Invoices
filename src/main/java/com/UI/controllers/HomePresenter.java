@@ -10,12 +10,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Component
+@Controller
 public class HomePresenter implements IRefreshable {
     @FXML private Label todayRevenueLabel;
     @FXML private Label lastSevenDaysRevenueLabel;
