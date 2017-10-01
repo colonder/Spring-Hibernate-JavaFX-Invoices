@@ -15,6 +15,7 @@
  */
 package com.UI.view;
 
+import com.entity.BaseAbstractEntity;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -43,6 +44,7 @@ import static java.util.ResourceBundle.getBundle;
  * >FXMLView</a> that provides DI for Java FX Controllers via Spring.
  *
  * @author Thomas Darimont
+ * @author Jakub Kustra (added few new methods to Thomas' version for this particular version)
  */
 public abstract class AbstractFxmlView {
 
@@ -75,10 +77,28 @@ public abstract class AbstractFxmlView {
         return this.applicationContext.getBean(type);
     }
 
+    private Object createControllerForType(Class<?> type, Object... args) {
+        return this.applicationContext.getBean(type, args);
+    }
+
     FXMLLoader loadSynchronously(URL resource, ResourceBundle bundle) throws IllegalStateException {
 
         FXMLLoader loader = new FXMLLoader(resource, bundle);
         loader.setControllerFactory(this::createControllerForType);
+
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            throw new IllegalStateException("Cannot load " + getConventionalName(), ex);
+        }
+
+        return loader;
+    }
+
+    FXMLLoader loadSynchronously(URL resource, ResourceBundle bundle, BaseAbstractEntity entity) throws IllegalStateException {
+
+        FXMLLoader loader = new FXMLLoader(resource, bundle);
+        loader.setControllerFactory(p -> this.createControllerForType(p, entity));
 
         try {
             loader.load();
@@ -99,6 +119,16 @@ public abstract class AbstractFxmlView {
         this.presenterProperty.set(this.fxmlLoader.getController());
     }
 
+    private void ensureFxmlLoaderInitialized(BaseAbstractEntity entity) {
+
+        if (this.fxmlLoader != null) {
+            return;
+        }
+
+        this.fxmlLoader = loadSynchronously(resource, bundle, entity);
+        this.presenterProperty.set(this.fxmlLoader.getController());
+    }
+
     /**
      * Initializes the view by loading the FXML (if not happened yet) and returns the top Node (parent) specified in the
      * FXML file.
@@ -108,7 +138,29 @@ public abstract class AbstractFxmlView {
     public Parent getView() {
 
         ensureFxmlLoaderInitialized();
+        return returnParent();
+    }
 
+
+    /**
+     * Initializes the view by loading the FXML (if not happened yet) and returns the top Node (parent) specified in the
+     * FXML file. Calls controllers constructor via getBean with specified argument.
+     *
+     * @return
+     */
+    public Parent getView(BaseAbstractEntity entity)
+    {
+        ensureFxmlLoaderInitialized(entity);
+        return returnParent();
+    }
+
+    /**
+     * Returns parent.
+     *
+     * @return
+     */
+    private Parent returnParent()
+    {
         Parent parent = fxmlLoader.getRoot();
         addCSSIfAvailable(parent);
         return parent;
