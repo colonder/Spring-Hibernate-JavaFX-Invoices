@@ -117,7 +117,7 @@
                   </AnchorPane>
                   <ScrollPane>
                      <content>
-                        <TableView fx:id="customersTableView" minHeight="-Infinity" prefHeight="580.0" prefWidth="1015.0">
+                        <TableView fx:id="customersTableView" minHeight="-Infinity" prefHeight="588.0" prefWidth="1015.0">
                            <columns>
                               <TableColumn fx:id="aliasCol" editable="false" prefWidth="150.0" text="Alias" />
                               <TableColumn fx:id="lastNameCol" prefWidth="150.0" text="Last name" />

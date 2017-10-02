@@ -42,6 +42,7 @@ public class CustomersPresenter {
     @FXML private CheckMenuItem currencyCheckMenuItem;
     @FXML private CheckMenuItem discountCheckMenuItem;
     @FXML private CheckMenuItem paymentDateCheckMenuItem;
+    @FXML private CheckMenuItem tagCheckMenuItem;
     @FXML private TableView<Customer> customersTableView;
     @FXML private TableColumn<Customer, String> aliasCol;
     @FXML private TableColumn<Customer, String> lastNameCol;
@@ -75,6 +76,52 @@ public class CustomersPresenter {
     {
         initComboBoxes();
         setSearching();
+        initCheckMenuItems();
+    }
+
+    private void initCheckMenuItems() {
+        aliasCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                aliasCol.setVisible(newValue));
+        lastNameCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                lastNameCol.setVisible(newValue));
+        firstNameCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                firstNameCol.setVisible(newValue));
+        personalIdCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                personalIdCol.setVisible(newValue));
+        taxIdCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                taxIdCol.setVisible(newValue));
+        emailCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                emailCol.setVisible(newValue));
+        addressCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                addressCol.setVisible(newValue));
+        postalCodeCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                postalCodeCol.setVisible(newValue));
+        cityCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                cityCol.setVisible(newValue));
+        telephoneCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                telephoneCol.setVisible(newValue));
+        cellphoneCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                cellphoneCol.setVisible(newValue));
+        faxCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                faxCol.setVisible(newValue));
+        companyNumCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                companyNumCol.setVisible(newValue));
+        paymentCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                paymentCol.setVisible(newValue));
+        creationDateCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                creationDateCol.setVisible(newValue));
+        lastPurchaseCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                purchaseCol.setVisible(newValue));
+        countryCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                countryCol.setVisible(newValue));
+        currencyCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                currencyCol.setVisible(newValue));
+        discountCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                discountCol.setVisible(newValue));
+        paymentDateCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                paymentDateCol.setVisible(newValue));
+        tagCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                tagCol.setVisible(newValue));
     }
 
     private void setSearching() {
@@ -95,6 +142,7 @@ public class CustomersPresenter {
     private void initComboBoxes()
     {
         customerTypeComboBox.getItems().setAll(CustomerType.customerMap.keySet());
+        customerTypeComboBox.getSelectionModel().selectFirst();
         // TODO: initialize filter variant combo box
     }
 }
