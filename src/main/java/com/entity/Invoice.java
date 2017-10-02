@@ -94,7 +94,7 @@ public class Invoice extends BaseAbstractEntity
     @JoinColumn(name = "seller_id", referencedColumnName = "id")
     private Seller seller;
 
-    public Invoice()
+    private Invoice()
     {
         // TODO: initialize invoice number, currency from settings
         this.issueDate = LocalDate.now();

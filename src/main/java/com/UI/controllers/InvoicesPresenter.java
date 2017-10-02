@@ -126,7 +126,7 @@ public class InvoicesPresenter {
     }
 
     private void initializeButtons() {
-        newInvoiceBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newInvoiceView, new Invoice()));
+        newInvoiceBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newInvoiceView, new Invoice(InvoiceType.ORDINARY)));
         editBtn.setOnAction(event -> {
             Invoice invoiceToEdit = tableView.getSelectionModel().getSelectedItem();
             if (invoiceToEdit != null)

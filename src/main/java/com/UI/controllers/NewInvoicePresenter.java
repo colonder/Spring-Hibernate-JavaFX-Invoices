@@ -451,18 +451,12 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         this.invoice = invoice;
         productsList = FXCollections.observableArrayList(invoice.getBoughtProductSet());
         if (invoice.getStatus() != null)
-            statusComboBox.getSelectionModel().select(InvoiceStatus.statusMap.inverse().get(invoice.getStatus()));
-        else
             statusComboBox.getSelectionModel().clearSelection();
         if (invoice.getType() != null)
             typeComboBox.getSelectionModel().select(InvoiceType.typeMap.inverse().get(invoice.getType()));
-        else
-            typeComboBox.getSelectionModel().clearSelection();
         if (invoice.getPaymentMethod() != null)
             paymentMethodComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(invoice
                     .getPaymentMethod()));
-        else
-            paymentMethodComboBox.getSelectionModel().clearSelection();
         paymentDateComboBox.getSelectionModel().select(invoice.getPaymentDateDays());
         invoiceCurrencyComboBox.getSelectionModel().select(invoice.getCurrency());
         issueDatePicker.setValue(invoice.getIssueDate());
