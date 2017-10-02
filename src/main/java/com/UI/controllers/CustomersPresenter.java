@@ -135,8 +135,8 @@ public class CustomersPresenter {
     }
 
     private void search() {
-        // TODO: finish implementing
-        listOfCustomers.setAll(customerService.findAll());
+        listOfCustomers.setAll(customerService.findAll(CustomerType.customerMap.get(customerTypeComboBox
+                .getSelectionModel().getSelectedItem())));
     }
 
     private void initComboBoxes()
