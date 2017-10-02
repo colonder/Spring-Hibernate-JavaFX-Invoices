@@ -93,7 +93,6 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     @Autowired private ICustomerService customerService;
     @Autowired private IProductService productService;
     @Autowired private IInvoiceService invoiceService;
-    private ObservableList<BoughtProduct> productsList;
     private Invoice invoice;
     private Seller seller;
     private Customer customer;
@@ -136,12 +135,12 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                 this.invoice.setLastModified(LocalDate.now());
                 this.invoice.setRemarks(remarksTextArea.getText());
                 this.invoice.getBoughtProductSet().clear();
-                this.invoice.getBoughtProductSet().addAll(productsList);
+                this.invoice.getBoughtProductSet().addAll(productTableView.getItems()); // workaround
                 this.invoice.setCustomer(this.customer);
                 this.invoice.setSeller(this.seller);
 
                 invoiceService.save(this.invoice);
-                for (BoughtProduct product : productsList)
+                for (BoughtProduct product : productTableView.getItems())
                 {
                     // maybe not the perfect solution, but it works considering that bought products table holds
                     // raw information about the product from the date of purchase and not the product as a foreign key
@@ -234,7 +233,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
             BoughtProduct boughtProduct = new BoughtProduct(product.getProductName(), product.getSymbol(),
                     product.getUnit(), product.getNetPrice(), product.getVatRate(), 0, BigDecimal.ZERO);
 
-            if (productsList.contains(boughtProduct))
+            if (productTableView.getItems().contains(boughtProduct))
             {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Error in adding product");
@@ -246,7 +245,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                 return;
             }
 
-            productsList.add(boughtProduct);
+            productTableView.getItems().add(boughtProduct);
         });
     }
 
@@ -272,7 +271,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         companyName.setCellValueFactory(new PropertyValueFactory<>("companyName"));
         taxIdentifierCol.setCellValueFactory(new PropertyValueFactory<>("taxIdentifier"));
         tableView.getColumns().addAll(aliasCol, lastNameCol, firstName, companyName, taxIdentifierCol);
-        tableView.getItems().setAll(customerService.findAll());
+        tableView.getItems().setAll(customerService.findAll(null));
         dialog.getDialogPane().setContent(tableView);
         dialog.getDialogPane().setPrefHeight(Region.USE_COMPUTED_SIZE);
 
@@ -379,7 +378,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                 }
 
                 setGraphic(removeButton);
-                removeButton.setOnAction(event -> productsList.remove(product));
+                removeButton.setOnAction(event -> productTableView.getItems().remove(product));
                 removeButton.getStylesheets().add("com/UI/view/css/new-invoice-stylesheet.css");
                 removeButton.getStyleClass().add("removeProductButton");
             }
@@ -419,7 +418,6 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                 .setDiscountProp(event.getNewValue()));
         grossValCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
 
-        productTableView.setItems(productsList);
         discountChckBox.selectedProperty().addListener((observable, oldValue, newValue) ->
                 discountCol.setVisible(newValue));
     }
@@ -449,7 +447,6 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     @Override
     public void initializeFields(Invoice invoice) {
         this.invoice = invoice;
-        productsList = FXCollections.observableArrayList(invoice.getBoughtProductSet());
         if (invoice.getStatus() != null)
             statusComboBox.getSelectionModel().clearSelection();
         if (invoice.getType() != null)

@@ -3,7 +3,6 @@ package com.UI.controllers;
 import com.entity.Customer;
 import com.enums.CustomerType;
 import com.service.ICustomerService;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -69,7 +68,6 @@ public class CustomersPresenter {
 
     @Autowired
     private ICustomerService customerService;
-    private ObservableList<Customer> listOfCustomers;
 
     @FXML
     public void initialize()
@@ -135,7 +133,7 @@ public class CustomersPresenter {
     }
 
     private void search() {
-        listOfCustomers.setAll(customerService.findAll(CustomerType.customerMap.get(customerTypeComboBox
+        customersTableView.getItems().setAll(customerService.findAll(CustomerType.customerMap.get(customerTypeComboBox
                 .getSelectionModel().getSelectedItem())));
     }
 
