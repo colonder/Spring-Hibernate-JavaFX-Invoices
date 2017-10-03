@@ -66,15 +66,20 @@ public class CustomersPresenter {
     @FXML private TableColumn<Customer, String> paymentDateCol;
     //endregion
 
-    @Autowired
-    private ICustomerService customerService;
+    @Autowired private ICustomerService customerService;
+    // TODO: add new customer create view
 
     @FXML
     public void initialize()
     {
+        initButtons();
         initComboBoxes();
         setSearching();
         initCheckMenuItems();
+    }
+
+    private void initButtons() {
+        //addCustomerBtn.setOnAction(event -> ViewSwitcher.openView());
     }
 
     private void initCheckMenuItems() {
@@ -133,8 +138,10 @@ public class CustomersPresenter {
     }
 
     private void search() {
+
         customersTableView.getItems().setAll(customerService.findAll(CustomerType.customerMap.get(customerTypeComboBox
-                .getSelectionModel().getSelectedItem())));
+                .getSelectionModel().getSelectedItem()), tagTxtArea.getText().isEmpty() ? null : tagTxtArea.getText()
+                .split(",")));
     }
 
     private void initComboBoxes()

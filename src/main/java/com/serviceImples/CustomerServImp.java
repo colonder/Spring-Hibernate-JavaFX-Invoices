@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.entity.CustomerSpecifications.withCustomerType;
+import static com.entity.CustomerSpecifications.withTags;
 import static org.springframework.data.jpa.domain.Specifications.where;
 
 @Service
@@ -20,8 +21,9 @@ public class CustomerServImp implements ICustomerService {
 
 
     @Override
-    public List<Customer> findAll(CustomerType type) {
-        return customerRepository.findAll(where(withCustomerType(type)));
+    public List<Customer> findAll(CustomerType type, String[] tags) {
+        return customerRepository.findAll(where(withCustomerType(type))
+                .and(withTags(tags)));
     }
 
     @Override

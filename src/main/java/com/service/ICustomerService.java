@@ -6,7 +6,7 @@ import com.enums.CustomerType;
 import java.util.List;
 
 public interface ICustomerService {
-    List<Customer> findAll(CustomerType type);
+    List<Customer> findAll(CustomerType type, String[] tags);
     Customer save(Customer customer);
     void delete(Customer customer);
 }
