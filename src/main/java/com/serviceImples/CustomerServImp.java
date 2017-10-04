@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.entity.CustomerSpecifications.withCustomerType;
-import static com.entity.CustomerSpecifications.withTags;
+import static com.specifications.CustomerSpecifications.withCustomerType;
+import static com.specifications.CustomerSpecifications.withTags;
 import static org.springframework.data.jpa.domain.Specifications.where;
 
 @Service
@@ -19,6 +19,11 @@ public class CustomerServImp implements ICustomerService {
     @Autowired
     private ICustomerRepository customerRepository;
 
+
+    @Override
+    public List<Customer> findAll() {
+        return customerRepository.findAll();
+    }
 
     @Override
     public List<Customer> findAll(CustomerType type, String[] tags) {

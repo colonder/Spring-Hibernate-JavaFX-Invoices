@@ -25,6 +25,9 @@ public class Product extends BaseAbstractEntity
     @Column(name = "unit")
     private String unit;
 
+    @Column(name = "tag")
+    private String tag;
+
     @Column(name = "net_price", nullable = false)
     private BigDecimal netPrice;
 
@@ -120,5 +123,21 @@ public class Product extends BaseAbstractEntity
 
     public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public LocalDate getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(LocalDate lastModified) {
+        this.lastModified = lastModified;
     }
 }

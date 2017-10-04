@@ -271,7 +271,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         companyName.setCellValueFactory(new PropertyValueFactory<>("companyName"));
         taxIdentifierCol.setCellValueFactory(new PropertyValueFactory<>("taxIdentifier"));
         tableView.getColumns().addAll(aliasCol, lastNameCol, firstName, companyName, taxIdentifierCol);
-        tableView.getItems().setAll(customerService.findAll(null, null));
+        tableView.getItems().setAll(customerService.findAll());
         dialog.getDialogPane().setContent(tableView);
         dialog.getDialogPane().setPrefHeight(Region.USE_COMPUTED_SIZE);
 

@@ -1,5 +1,6 @@
-package com.entity;
+package com.specifications;
 
+import com.entity.Invoice;
 import com.enums.InvoiceStatus;
 import com.enums.InvoiceType;
 import com.enums.PaymentMethod;

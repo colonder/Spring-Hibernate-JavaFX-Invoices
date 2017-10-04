@@ -1,5 +1,6 @@
-package com.entity;
+package com.specifications;
 
+import com.entity.Customer;
 import com.enums.CustomerType;
 import org.springframework.data.jpa.domain.Specification;
 

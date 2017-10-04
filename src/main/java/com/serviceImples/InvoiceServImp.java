@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.entity.InvoiceSpecifications.*;
+import static com.specifications.InvoiceSpecifications.*;
 import static org.springframework.data.jpa.domain.Specifications.where;
 
 @Service

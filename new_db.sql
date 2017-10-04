@@ -112,7 +112,8 @@ create table products
 	is_active boolean not null default '1',
 	warehouse_item_id int references warehouse(id),
 	creation_date date not null default CURRENT_DATE,
-	last_modified date not null default CURRENT_DATE
+	last_modified date not null default CURRENT_DATE,
+	tag varchar(20)
 );
 
 create table bought_products

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.HashMap;
 
 @Controller
 public class ProductsPresenter {
@@ -26,6 +28,24 @@ public class ProductsPresenter {
     @FXML private TableColumn<Product, Integer> soldCol;
     @FXML private TableColumn<Product, Integer> availableCol;
     @FXML private TableColumn<Product, BigDecimal> taxRateCol;
+    private static final HashMap<String, Boolean> isServiceMap;
+    private static final HashMap<String, Boolean> isActiveMap;
+
+    static
+    {
+        isServiceMap = new HashMap<>();
+        isActiveMap = new HashMap<>();
+        isServiceMap.put("All", null);
+        isServiceMap.put("Only services", true);
+        isServiceMap.put("Only products", false);
+        isActiveMap.put("All", null);
+        isActiveMap.put("Active", true);
+        isActiveMap.put("Non active", false);
+    }
+
+    @FXML private TableColumn<Product, Boolean> onlineSaleCol;
+    @FXML private TableColumn<Product, Boolean> activeCol;
+    @FXML private TableColumn<Product, Boolean> serviceCol;
     @FXML private CheckMenuItem nameCheckMenuItem;
     @FXML private CheckMenuItem netPriceCheckMenuItem;
     @FXML private CheckMenuItem onlineSaleCheckMenuItem;
@@ -41,6 +61,9 @@ public class ProductsPresenter {
     @Autowired
     private IProductService productService;
     // TODO: add new customer create view
+    @FXML private TableColumn<Product, String> codeCol;
+    @FXML private TableColumn<Product, LocalDate> creationCol;
+    @FXML private TableColumn<Product, LocalDate> lastSaleCol;
 
     @FXML
     public void initialize()
@@ -56,48 +79,28 @@ public class ProductsPresenter {
     }
 
     private void initCheckMenuItems() {
-        aliasCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                aliasCol.setVisible(newValue));
-        lastNameCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                lastNameCol.setVisible(newValue));
-        firstNameCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                firstNameCol.setVisible(newValue));
-        personalIdCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                personalIdCol.setVisible(newValue));
-        taxIdCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                taxIdCol.setVisible(newValue));
-        emailCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                emailCol.setVisible(newValue));
-        addressCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                addressCol.setVisible(newValue));
-        postalCodeCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                postalCodeCol.setVisible(newValue));
-        cityCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                cityCol.setVisible(newValue));
-        telephoneCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                telephoneCol.setVisible(newValue));
-        cellphoneCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                cellphoneCol.setVisible(newValue));
-        faxCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                faxCol.setVisible(newValue));
-        companyNumCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                companyNumCol.setVisible(newValue));
-        paymentCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                paymentCol.setVisible(newValue));
-        creationDateCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                creationDateCol.setVisible(newValue));
-        lastPurchaseCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                purchaseCol.setVisible(newValue));
-        countryCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                countryCol.setVisible(newValue));
-        currencyCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                currencyCol.setVisible(newValue));
-        discountCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                discountCol.setVisible(newValue));
-        paymentDateCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                paymentDateCol.setVisible(newValue));
-        tagCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
-                tagCol.setVisible(newValue));
+        nameCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                nameCol.setVisible(newValue));
+        netPriceCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                netPriceCol.setVisible(newValue));
+        onlineSaleCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                onlineSaleCol.setVisible(newValue));
+        soldCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                soldCol.setVisible(newValue));
+        availableCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                availableCol.setVisible(newValue));
+        taxRateCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                taxRateCol.setVisible(newValue));
+        activeCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                activeCol.setVisible(newValue));
+        serviceCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                serviceCol.setVisible(newValue));
+        codeCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                codeCol.setVisible(newValue));
+        creationCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                creationCol.setVisible(newValue));
+        lastSaleCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                lastSaleCol.setVisible(newValue));
     }
 
     private void setSearching() {
@@ -111,15 +114,18 @@ public class ProductsPresenter {
     }
 
     private void search() {
-        productsTableView.getItems().setAll(productService.findAll(CustomerType.customerMap.get(customerTypeComboBox
-                .getSelectionModel().getSelectedItem()), tagTxtArea.getText().isEmpty() ? null : tagTxtArea.getText()
-                .split(",")));
+        productsTableView.getItems().setAll(productService.findAll(phraseTxtFld.getText()
+                        .isEmpty() ? null : phraseTxtFld.getText(),
+                isServiceMap.get(productTypeComboBox.getSelectionModel().getSelectedItem()),
+                tagTxtArea.getText().isEmpty() ? null : tagTxtArea.getText().split(","),
+                isActiveMap.get(activeComboBox.getSelectionModel().getSelectedItem())));
     }
 
     private void initComboBoxes()
     {
-        //customerTypeComboBox.getItems().setAll(CustomerType.customerMap.keySet());
-        //customerTypeComboBox.getSelectionModel().selectFirst();
-        // TODO: initialize filter variant combo box
+        productTypeComboBox.getItems().setAll(isServiceMap.keySet());
+        productTypeComboBox.getSelectionModel().selectFirst();
+        activeComboBox.getItems().setAll(isActiveMap.keySet());
+        activeComboBox.getSelectionModel().selectFirst();
     }
 }

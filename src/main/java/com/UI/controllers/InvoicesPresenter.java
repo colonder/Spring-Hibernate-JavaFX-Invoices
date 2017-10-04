@@ -9,8 +9,6 @@ import com.service.IInvoiceService;
 import com.utilities.ViewSwitcher;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -112,14 +110,11 @@ public class InvoicesPresenter {
     private IInvoiceService invoiceService;
     @Autowired
     private NewInvoiceView newInvoiceView;
-    private ObservableList<Invoice> listOfInvoices;
 
     @FXML
     public void initialize() {
         initializeComboBoxes();
         initializeMenuItems();
-        listOfInvoices = FXCollections.observableArrayList();
-        tableView.setItems(listOfInvoices);
         setSearching();
         initializeColumns();
         initializeButtons();
@@ -243,11 +238,13 @@ public class InvoicesPresenter {
             }
         });
 
+        // TODO: create specifications for invoice
+
         searchBtn.setOnAction(event -> search());
     }
 
     private void search() {
-        listOfInvoices.setAll(invoiceService.findAll(
+        tableView.getItems().setAll(invoiceService.findAll(
                 InvoiceType.typeMap.get(invoiceTypeComboBox.getSelectionModel().getSelectedItem()),
                 startDates[periodComboBox.getSelectionModel().getSelectedIndex()],
                 endDates[periodComboBox.getSelectionModel().getSelectedIndex()],
