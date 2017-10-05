@@ -80,7 +80,7 @@ create table issued_invoices
 	payment_method varchar(15) not null,
 	paid_date date,
 	payment_date_days int not null check(payment_date_days >= 0),
-	varchar(3) not null,
+	currency varchar(3) not null,
 	status varchar(10) not null,
 	creation_date date not null,
 	last_modified date not null default CURRENT_DATE,
