@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
+<?import com.utilities.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.NewCustomerPresenter">
    <children>
       <VBox prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -174,26 +166,26 @@
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="telTxtFld" GridPane.rowIndex="11">
+                  <IntegerTextField fx:id="telTxtFld" GridPane.rowIndex="11">
                      <GridPane.margin>
                         <Insets right="5.0" />
                      </GridPane.margin>
-                  </TextField>
-                  <TextField fx:id="cellphoneTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                  </IntegerTextField>
+                  <IntegerTextField fx:id="cellphoneTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="11">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
-                  </TextField>
+                  </IntegerTextField>
                   <TextField fx:id="emailTxtFld" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="11">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="faxTxtFld" GridPane.columnIndex="4" GridPane.rowIndex="11">
+                  <IntegerTextField fx:id="faxTxtFld" GridPane.columnIndex="4" GridPane.rowIndex="11">
                      <GridPane.margin>
                         <Insets left="5.0" />
                      </GridPane.margin>
-                  </TextField>
+                  </IntegerTextField>
                   <TextField fx:id="tagsTxtFld" GridPane.columnSpan="3" GridPane.rowIndex="13" />
                   <Label text="Tags" GridPane.rowIndex="12">
                      <font>
@@ -258,11 +250,11 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="defaultDiscountTxtFld" GridPane.rowIndex="15">
+                  <BigDecimalTextField fx:id="defaultDiscountTxtFld" GridPane.rowIndex="15">
                      <GridPane.margin>
                         <Insets right="5.0" />
                      </GridPane.margin>
-                  </TextField>
+                  </BigDecimalTextField>
                   <Label fx:id="companyNumLbl" disable="true" text="Company special number" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="14">
                      <font>
                         <Font name="System Bold" size="14.0" />
@@ -271,10 +263,10 @@
                         <Insets left="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="companyNumTxtFld" disable="true" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="15">
+                  <IntegerTextField fx:id="companyNumTxtFld" disable="true" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="15">
                      <GridPane.margin>
                         <Insets left="5.0" />
-                     </GridPane.margin></TextField>
+                     </GridPane.margin></IntegerTextField>
                </children>
             </GridPane>
          </children>

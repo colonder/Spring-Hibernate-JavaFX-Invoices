@@ -4,16 +4,15 @@ import com.entity.Customer;
 import com.enums.CustomerType;
 import com.enums.PaymentMethod;
 import com.service.ICustomerService;
+import com.utilities.BigDecimalTextField;
+import com.utilities.IntegerTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.util.converter.BigDecimalStringConverter;
-import javafx.util.converter.IntegerStringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Locale;
 
@@ -32,13 +31,13 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
     @FXML private TextField firstNameTxtFld;
     @FXML private TextField lastNameTxtFld;
     @FXML private TextField aliasTxtFld;
-    @FXML private TextField telTxtFld;
-    @FXML private TextField cellphoneTxtFld;
+    @FXML private IntegerTextField telTxtFld;
+    @FXML private IntegerTextField cellphoneTxtFld;
     @FXML private TextField emailTxtFld;
-    @FXML private TextField faxTxtFld;
+    @FXML private IntegerTextField faxTxtFld;
     @FXML private TextField tagsTxtFld;
-    @FXML private TextField defaultDiscountTxtFld;
-    @FXML private TextField companyNumTxtFld;
+    @FXML private BigDecimalTextField defaultDiscountTxtFld;
+    @FXML private IntegerTextField companyNumTxtFld;
     @FXML private Label companyNumLbl;
     @FXML private ComboBox<String> defaultPaymentComboBox;
     @FXML private ComboBox<Integer> defaultDaysComboBox;
@@ -75,16 +74,16 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
                     addressTxtFld.getText(),
                     postalCodeTxtFld.getText(),
                     cityTxtFld.getText(),
-                    Integer.parseInt(telTxtFld.getText()),
-                    Integer.parseInt(cellphoneTxtFld.getText()),
-                    Integer.parseInt(faxTxtFld.getText()),
+                    telTxtFld.getValue(),
+                    cellphoneTxtFld.getValue(),
+                    faxTxtFld.getValue(),
                     tagsTxtFld.getText(),
                     PaymentMethod.paymentMap.get(defaultPaymentComboBox.getSelectionModel().getSelectedItem()),
                     LocalDate.now(),
                     countryComboBox.getSelectionModel().getSelectedItem(),
                     companyRadioBtn.isSelected() ? CustomerType.COMPANY : CustomerType.PERSON,
-                    Integer.parseInt(companyNumTxtFld.getText()),
-                    new BigDecimal(defaultDiscountTxtFld.getText()),
+                    companyNumTxtFld.getValue(),
+                    defaultDiscountTxtFld.getValue(),
                     defaultDaysComboBox.getSelectionModel().getSelectedItem()
             );
             customerService.save(customer);
