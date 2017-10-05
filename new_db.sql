@@ -1,4 +1,4 @@
-﻿drop table if exists bought_products;
+drop table if exists bought_products;
 drop table if exists issued_invoices;
 drop table if exists customer;
 drop table if exists products;
@@ -42,13 +42,13 @@ create table customer
 	last_name varchar(80),
 	first_name varchar(30),
 	tax_identifier_number varchar(20) unique not null,
-	email varchar(30) unique,
+	email varchar(30),
 	address varchar(100),
 	postal_code varchar(6),
 	city varchar(30),
-	telephone int unique,
-	cell_phone int unique,
-	fax_number int unique,
+	telephone int,
+	cell_phone int,
+	fax_number int,
 	tag varchar(20),
 	default_payment_method varchar(15),
 	creation_date date not null default CURRENT_DATE,
