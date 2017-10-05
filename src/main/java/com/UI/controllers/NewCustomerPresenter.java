@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -64,30 +65,58 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
     // FIXME: saving not working
     private void initSaveButton() {
         saveBtn.setOnAction(actionEvent -> {
-            customer.setAll(
-                    aliasTxtFld.getText(),
-                    companyNameTxtFld.getText(),
-                    lastNameTxtFld.getText(),
-                    firstNameTxtFld.getText(),
-                    taxIdTxtFld.getText(),
-                    emailTxtFld.getText(),
-                    addressTxtFld.getText(),
-                    postalCodeTxtFld.getText(),
-                    cityTxtFld.getText(),
-                    telTxtFld.getValue(),
-                    cellphoneTxtFld.getValue(),
-                    faxTxtFld.getValue(),
-                    tagsTxtFld.getText(),
-                    PaymentMethod.paymentMap.get(defaultPaymentComboBox.getSelectionModel().getSelectedItem()),
-                    LocalDate.now(),
-                    countryComboBox.getSelectionModel().getSelectedItem(),
-                    companyRadioBtn.isSelected() ? CustomerType.COMPANY : CustomerType.PERSON,
-                    companyNumTxtFld.getValue(),
-                    defaultDiscountTxtFld.getValue(),
-                    defaultDaysComboBox.getSelectionModel().getSelectedItem()
-            );
-            customerService.save(customer);
+            if (taxIdTxtFld.getText().isEmpty())
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("An error occurred while saving object to the database");
+                alert.setContentText("It seems that required field Tax identification number is empty");
+
+                alert.showAndWait();
+                return;
+            }
+
+            try {
+                customer.setAll(
+                        getTextFromControl(aliasTxtFld),
+                        getTextFromControl(companyNameTxtFld),
+                        getTextFromControl(lastNameTxtFld),
+                        getTextFromControl(firstNameTxtFld),
+                        getTextFromControl(taxIdTxtFld),
+                        getTextFromControl(emailTxtFld),
+                        getTextFromControl(addressTxtFld),
+                        getTextFromControl(postalCodeTxtFld),
+                        getTextFromControl(cityTxtFld),
+                        telTxtFld.getValue(),
+                        cellphoneTxtFld.getValue(),
+                        faxTxtFld.getValue(),
+                        getTextFromControl(tagsTxtFld),
+                        PaymentMethod.paymentMap.get(defaultPaymentComboBox.getSelectionModel().getSelectedItem()),
+                        LocalDate.now(),
+                        countryComboBox.getSelectionModel().getSelectedItem(),
+                        companyRadioBtn.isSelected() ? CustomerType.COMPANY : CustomerType.PERSON,
+                        companyNumTxtFld.getValue(),
+                        defaultDiscountTxtFld.getValue(),
+                        defaultDaysComboBox.getSelectionModel().getSelectedItem()
+                );
+                customerService.save(customer);
+            } catch (ConstraintViolationException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("An error occurred while saving object to the database");
+                alert.setContentText("It seems that the object with identical data already exist in the database.");
+
+                alert.showAndWait();
+                return;
+            }
         });
+    }
+    
+    private String getTextFromControl(TextField textField)
+    {
+        if (textField.getText().isEmpty())
+            return null;
+        return textField.getText();
     }
 
     private void populateComboBoxes() {

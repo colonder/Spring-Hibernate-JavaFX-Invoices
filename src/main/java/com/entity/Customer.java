@@ -32,7 +32,7 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "tax_identifier_number")
+    @Column(name = "tax_identifier_number", nullable = false)
     private String taxIdentifier;
 
     @Column(name = "email")
@@ -48,13 +48,13 @@ public class Customer extends BaseAbstractEntity
     private String city;
 
     @Column(name = "telephone")
-    private int telephone;
+    private Integer telephone;
 
     @Column(name = "cell_phone")
-    private int cellPhone;
+    private Integer cellPhone;
 
     @Column(name = "fax_number")
-    private int fax;
+    private Integer fax;
 
     @Column(name = "tag")
     private String tag;
@@ -76,11 +76,11 @@ public class Customer extends BaseAbstractEntity
     private String country;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "customer_type")
+    @Column(name = "customer_type", nullable = false)
     private CustomerType customerType;
 
     @Column(name = "company_special_number") // regon
-    private int companySpecialNumber;
+    private Integer companySpecialNumber;
 
     @Column(name = "default_discount")
     private BigDecimal defaultDiscount;
@@ -98,9 +98,9 @@ public class Customer extends BaseAbstractEntity
     }
 
     public void setAll(String alias, String companyName, String lastName, String firstName, String taxIdentifier,
-                    String email, String address, String postalCode, String city, int telephone, int cellPhone,
-                    int fax, String tag, PaymentMethod defaultPaymentMethod, LocalDate lastModified, String country,
-                    CustomerType customerType, int companySpecialNumber, BigDecimal defaultDiscount,
+                    String email, String address, String postalCode, String city, Integer telephone, Integer cellPhone,
+                    Integer fax, String tag, PaymentMethod defaultPaymentMethod, LocalDate lastModified, String country,
+                    CustomerType customerType, Integer companySpecialNumber, BigDecimal defaultDiscount,
                     Integer defaultPaymentDateDays) {
         this.alias = alias;
         this.companyName = companyName;

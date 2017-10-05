@@ -15,6 +15,9 @@ public class BigDecimalTextField extends TextField {
 
     public BigDecimal getValue()
     {
+        if (this.getText().isEmpty())
+            return null;
+
         return new BigDecimal(this.getText());
     }
 }
