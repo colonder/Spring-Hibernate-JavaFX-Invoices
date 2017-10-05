@@ -59,6 +59,9 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "tag")
     private String tag;
 
+    @Column(name = "default_currency")
+    private String defaultCurrency;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "default_payment_method")
     private PaymentMethod defaultPaymentMethod;
@@ -98,10 +101,11 @@ public class Customer extends BaseAbstractEntity
     }
 
     public void setAll(String alias, String companyName, String lastName, String firstName, String taxIdentifier,
-                    String email, String address, String postalCode, String city, Integer telephone, Integer cellPhone,
-                    Integer fax, String tag, PaymentMethod defaultPaymentMethod, LocalDate lastModified, String country,
-                    CustomerType customerType, Integer companySpecialNumber, BigDecimal defaultDiscount,
-                    Integer defaultPaymentDateDays) {
+                       String email, String address, String postalCode, String city, Integer telephone,
+                       Integer cellPhone, Integer fax, String tag, String defaultCurrency,
+                       PaymentMethod defaultPaymentMethod, LocalDate lastModified, String country,
+                       CustomerType customerType, Integer companySpecialNumber, BigDecimal defaultDiscount,
+                       Integer defaultPaymentDateDays) {
         this.alias = alias;
         this.companyName = companyName;
         this.lastName = lastName;
@@ -115,6 +119,7 @@ public class Customer extends BaseAbstractEntity
         this.cellPhone = cellPhone;
         this.fax = fax;
         this.tag = tag;
+        this.defaultCurrency = defaultCurrency;
         this.defaultPaymentMethod = defaultPaymentMethod;
         this.lastModified = lastModified;
         this.country = country;
@@ -128,6 +133,10 @@ public class Customer extends BaseAbstractEntity
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAlias() {
@@ -202,27 +211,27 @@ public class Customer extends BaseAbstractEntity
         this.city = city;
     }
 
-    public int getTelephone() {
+    public Integer getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(Integer telephone) {
         this.telephone = telephone;
     }
 
-    public int getCellPhone() {
+    public Integer getCellPhone() {
         return cellPhone;
     }
 
-    public void setCellPhone(int cellPhone) {
+    public void setCellPhone(Integer cellPhone) {
         this.cellPhone = cellPhone;
     }
 
-    public int getFax() {
+    public Integer getFax() {
         return fax;
     }
 
-    public void setFax(int fax) {
+    public void setFax(Integer fax) {
         this.fax = fax;
     }
 
@@ -232,6 +241,14 @@ public class Customer extends BaseAbstractEntity
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public String getDefaultCurrency() {
+        return defaultCurrency;
+    }
+
+    public void setDefaultCurrency(String defaultCurrency) {
+        this.defaultCurrency = defaultCurrency;
     }
 
     public PaymentMethod getDefaultPaymentMethod() {
@@ -282,11 +299,11 @@ public class Customer extends BaseAbstractEntity
         this.customerType = customerType;
     }
 
-    public int getCompanySpecialNumber() {
+    public Integer getCompanySpecialNumber() {
         return companySpecialNumber;
     }
 
-    public void setCompanySpecialNumber(int companySpecialNumber) {
+    public void setCompanySpecialNumber(Integer companySpecialNumber) {
         this.companySpecialNumber = companySpecialNumber;
     }
 
@@ -313,6 +330,7 @@ public class Customer extends BaseAbstractEntity
     public void setInvoiceHashSet(Set<Invoice> invoiceHashSet) {
         this.invoiceHashSet = invoiceHashSet;
     }
+
 
     //endregion
 }

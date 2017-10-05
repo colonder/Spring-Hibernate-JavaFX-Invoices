@@ -93,7 +93,6 @@
                               <CheckMenuItem fx:id="aliasCheckMenuItem" mnemonicParsing="false" selected="true" text="Alias" />
                               <CheckMenuItem fx:id="lastNameCheckMenuItem" mnemonicParsing="false" selected="true" text="Last name" />
                               <CheckMenuItem fx:id="firstNameCheckMenuItem" mnemonicParsing="false" selected="true" text="First name" />
-                              <CheckMenuItem fx:id="personalIdCheckMenuItem" mnemonicParsing="false" text="Personal ID" />
                               <CheckMenuItem fx:id="taxIdCheckMenuItem" mnemonicParsing="false" selected="true" text="Tax ID" />
                               <CheckMenuItem fx:id="emailCheckMenuItem" mnemonicParsing="false" text="Email" />
                               <CheckMenuItem fx:id="addressCheckMenuItem" mnemonicParsing="false" selected="true" text="Address" />
@@ -122,7 +121,6 @@
                               <TableColumn fx:id="aliasCol" editable="false" prefWidth="150.0" text="Alias" />
                               <TableColumn fx:id="lastNameCol" prefWidth="150.0" text="Last name" />
                               <TableColumn fx:id="firstNameCol" prefWidth="150.0" text="First name" />
-                              <TableColumn fx:id="personalIdCol" prefWidth="150.0" text="Personal ID" visible="false" />
                               <TableColumn fx:id="taxIdCol" prefWidth="150.0" text="Tax ID" />
                               <TableColumn fx:id="emailCol" prefWidth="150.0" text="Email" visible="false" />
                               <TableColumn fx:id="addressCol" prefWidth="150.0" text="Address" />

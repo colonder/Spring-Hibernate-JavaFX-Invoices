@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;
+import java.util.Currency;
 import java.util.Locale;
 
 @Controller
@@ -39,6 +40,7 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
     @FXML private TextField tagsTxtFld;
     @FXML private BigDecimalTextField defaultDiscountTxtFld;
     @FXML private IntegerTextField companyNumTxtFld;
+    @FXML private ComboBox<String> currencyComboBox;
     @FXML private Label companyNumLbl;
     @FXML private ComboBox<String> defaultPaymentComboBox;
     @FXML private ComboBox<Integer> defaultDaysComboBox;
@@ -47,12 +49,6 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
     @Autowired
     private ICustomerService customerService;
     private Customer customer;
-    private final ToggleGroup group;
-
-    public NewCustomerPresenter()
-    {
-        group = new ToggleGroup();
-    }
 
     @FXML
     public void initialize()
@@ -62,7 +58,6 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
         initSaveButton();
     }
 
-    // FIXME: saving not working
     private void initSaveButton() {
         saveBtn.setOnAction(actionEvent -> {
             if (taxIdTxtFld.getText().isEmpty())
@@ -91,6 +86,7 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
                         cellphoneTxtFld.getValue(),
                         faxTxtFld.getValue(),
                         getTextFromControl(tagsTxtFld),
+                        currencyComboBox.getSelectionModel().getSelectedItem(),
                         PaymentMethod.paymentMap.get(defaultPaymentComboBox.getSelectionModel().getSelectedItem()),
                         LocalDate.now(),
                         countryComboBox.getSelectionModel().getSelectedItem(),
@@ -107,7 +103,6 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
                 alert.setContentText("It seems that the object with identical data already exist in the database.");
 
                 alert.showAndWait();
-                return;
             }
         });
     }
@@ -124,16 +119,22 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
                 "Paypal");
         defaultDaysComboBox.getItems().setAll(1, 3, 5, 7, 14, 21, 30, 45, 60, 75, 90);
         ObservableList<String> countries = FXCollections.observableArrayList();
+        ObservableList<String> currencies = FXCollections.observableArrayList();
         for (Locale locale : Locale.getAvailableLocales())
         {
             if (!locale.getDisplayCountry().isEmpty()) {
                 countries.add(locale.getDisplayCountry());
             }
         }
+
+        Currency.getAvailableCurrencies().forEach(currency -> currencies.add(currency.getCurrencyCode()));
+
         countryComboBox.setItems(countries);
+        currencyComboBox.setItems(currencies);
     }
 
     private void initRadioButtons() {
+        final ToggleGroup group = new ToggleGroup();
         companyRadioBtn.setToggleGroup(group);
         personRadioBtn.setToggleGroup(group);
 
