@@ -46,6 +46,9 @@ public class ProductsPresenter {
     @FXML private TableColumn<Product, Boolean> onlineSaleCol;
     @FXML private TableColumn<Product, Boolean> activeCol;
     @FXML private TableColumn<Product, Boolean> serviceCol;
+    @FXML private TableColumn<Product, String> codeCol;
+    @FXML private TableColumn<Product, LocalDate> creationCol;
+    @FXML private TableColumn<Product, LocalDate> lastSaleCol;
     @FXML private CheckMenuItem nameCheckMenuItem;
     @FXML private CheckMenuItem netPriceCheckMenuItem;
     @FXML private CheckMenuItem onlineSaleCheckMenuItem;
@@ -58,12 +61,7 @@ public class ProductsPresenter {
     @FXML private CheckMenuItem creationCheckMenuItem;
     @FXML private CheckMenuItem lastSaleCheckMenuItem;
 
-    @Autowired
-    private IProductService productService;
-    // TODO: add new customer create view
-    @FXML private TableColumn<Product, String> codeCol;
-    @FXML private TableColumn<Product, LocalDate> creationCol;
-    @FXML private TableColumn<Product, LocalDate> lastSaleCol;
+    @Autowired private IProductService productService;
 
     @FXML
     public void initialize()
