@@ -32,9 +32,6 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "personal_id")
-    private long personalId;
-
     @Column(name = "tax_identifier_number")
     private String taxIdentifier;
 
@@ -92,9 +89,42 @@ public class Customer extends BaseAbstractEntity
     private Integer defaultPaymentDateDays;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    private Set<Invoice> invoiceHashSet = new HashSet<>();
+    private Set<Invoice> invoiceHashSet;
 
-    public Customer() {}
+    public Customer() {
+        this.creationDate = LocalDate.now();
+        this.lastModified = LocalDate.now();
+        invoiceHashSet = new HashSet<>();
+    }
+
+    public void setAll(String alias, String companyName, String lastName, String firstName, String taxIdentifier,
+                    String email, String address, String postalCode, String city, int telephone, int cellPhone,
+                    int fax, String tag, PaymentMethod defaultPaymentMethod, LocalDate lastModified, String country,
+                    CustomerType customerType, int companySpecialNumber, BigDecimal defaultDiscount,
+                    Integer defaultPaymentDateDays) {
+        this.alias = alias;
+        this.companyName = companyName;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.taxIdentifier = taxIdentifier;
+        this.email = email;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.telephone = telephone;
+        this.cellPhone = cellPhone;
+        this.fax = fax;
+        this.tag = tag;
+        this.defaultPaymentMethod = defaultPaymentMethod;
+        this.lastModified = lastModified;
+        this.country = country;
+        this.customerType = customerType;
+        this.companySpecialNumber = companySpecialNumber;
+        this.defaultDiscount = defaultDiscount;
+        this.defaultPaymentDateDays = defaultPaymentDateDays;
+    }
+
+    //region getters and setters
 
     public int getId() {
         return id;
@@ -104,95 +134,185 @@ public class Customer extends BaseAbstractEntity
         return alias;
     }
 
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
     public String getCompanyName() {
         return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getFirstName() {
         return firstName;
     }
 
-    public long getPersonalId() {
-        return personalId;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getTaxIdentifier() {
         return taxIdentifier;
     }
 
+    public void setTaxIdentifier(String taxIdentifier) {
+        this.taxIdentifier = taxIdentifier;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAddress() {
         return address;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getPostalCode() {
         return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getCity() {
         return city;
     }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public int getTelephone() {
         return telephone;
+    }
+
+    public void setTelephone(int telephone) {
+        this.telephone = telephone;
     }
 
     public int getCellPhone() {
         return cellPhone;
     }
 
+    public void setCellPhone(int cellPhone) {
+        this.cellPhone = cellPhone;
+    }
+
     public int getFax() {
         return fax;
+    }
+
+    public void setFax(int fax) {
+        this.fax = fax;
     }
 
     public String getTag() {
         return tag;
     }
 
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
     public PaymentMethod getDefaultPaymentMethod() {
         return defaultPaymentMethod;
+    }
+
+    public void setDefaultPaymentMethod(PaymentMethod defaultPaymentMethod) {
+        this.defaultPaymentMethod = defaultPaymentMethod;
     }
 
     public LocalDate getCreationDate() {
         return creationDate;
     }
 
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public LocalDate getLastModified() {
         return lastModified;
+    }
+
+    public void setLastModified(LocalDate lastModified) {
+        this.lastModified = lastModified;
     }
 
     public LocalDate getLastPurchaseDate() {
         return lastPurchaseDate;
     }
 
+    public void setLastPurchaseDate(LocalDate lastPurchaseDate) {
+        this.lastPurchaseDate = lastPurchaseDate;
+    }
+
     public String getCountry() {
         return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public CustomerType getCustomerType() {
         return customerType;
     }
 
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
+    }
+
     public int getCompanySpecialNumber() {
         return companySpecialNumber;
+    }
+
+    public void setCompanySpecialNumber(int companySpecialNumber) {
+        this.companySpecialNumber = companySpecialNumber;
     }
 
     public BigDecimal getDefaultDiscount() {
         return defaultDiscount;
     }
 
+    public void setDefaultDiscount(BigDecimal defaultDiscount) {
+        this.defaultDiscount = defaultDiscount;
+    }
+
     public Integer getDefaultPaymentDateDays() {
         return defaultPaymentDateDays;
+    }
+
+    public void setDefaultPaymentDateDays(Integer defaultPaymentDateDays) {
+        this.defaultPaymentDateDays = defaultPaymentDateDays;
     }
 
     public Set<Invoice> getInvoiceHashSet() {
         return invoiceHashSet;
     }
+
+    public void setInvoiceHashSet(Set<Invoice> invoiceHashSet) {
+        this.invoiceHashSet = invoiceHashSet;
+    }
+
+    //endregion
 }

@@ -1,7 +1,9 @@
 package com.UI.controllers;
 
+import com.UI.view.NewProductView;
 import com.entity.Product;
 import com.service.IProductService;
+import com.utilities.ViewSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -62,6 +64,7 @@ public class ProductsPresenter {
     @FXML private CheckMenuItem lastSaleCheckMenuItem;
 
     @Autowired private IProductService productService;
+    @Autowired private NewProductView newProductView;
 
     @FXML
     public void initialize()
@@ -73,7 +76,7 @@ public class ProductsPresenter {
     }
 
     private void initButtons() {
-        //addCustomerBtn.setOnAction(event -> ViewSwitcher.openView());
+        addProductBtn.setOnAction(actionEvent -> ViewSwitcher.openAndInitialize(newProductView, new Product()));
     }
 
     private void initCheckMenuItems() {

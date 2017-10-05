@@ -1,8 +1,10 @@
 package com.UI.controllers;
 
+import com.UI.view.NewCustomerView;
 import com.entity.Customer;
 import com.enums.CustomerType;
 import com.service.ICustomerService;
+import com.utilities.ViewSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -67,7 +69,7 @@ public class CustomersPresenter {
     //endregion
 
     @Autowired private ICustomerService customerService;
-    // TODO: add new customer create view
+    @Autowired private NewCustomerView newCustomerView;
 
     @FXML
     public void initialize()
@@ -79,7 +81,7 @@ public class CustomersPresenter {
     }
 
     private void initButtons() {
-        //addCustomerBtn.setOnAction(event -> ViewSwitcher.openView());
+        addCustomerBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newCustomerView, null));
     }
 
     private void initCheckMenuItems() {
