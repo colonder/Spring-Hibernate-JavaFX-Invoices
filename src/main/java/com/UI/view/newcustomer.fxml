@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.utilities.BigDecimalTextField?>
-<?import com.utilities.IntegerTextField?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.NewCustomerPresenter">
+<?import com.utilities.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.121" fx:controller="com.UI.controllers.NewCustomerPresenter">
    <children>
             <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
@@ -102,7 +93,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label text="Tax identification number" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                  <Label text="Tax identification number *" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
@@ -215,7 +206,7 @@
                         <Insets left="5.0" />
                      </GridPane.margin>
                   </RadioButton>
-                  <Label text="Alias*" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                  <Label text="Alias *" GridPane.columnIndex="2" GridPane.rowIndex="8">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
