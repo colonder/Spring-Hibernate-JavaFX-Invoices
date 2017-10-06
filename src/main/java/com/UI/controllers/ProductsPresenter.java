@@ -37,6 +37,7 @@ public class ProductsPresenter {
         isActiveMap.put("Non active", false);
     }
 
+    //region fxml fields
     @FXML private Button addProductBtn;
     @FXML private TextField phraseTxtFld;
     @FXML private ComboBox<String> productTypeComboBox;
@@ -69,6 +70,7 @@ public class ProductsPresenter {
     @FXML private CheckMenuItem codeCheckMenuItem;
     @FXML private CheckMenuItem creationCheckMenuItem;
     @FXML private CheckMenuItem lastSaleCheckMenuItem;
+    //endregion
 
     @Autowired private IProductService productService;
     @Autowired private NewProductView newProductView;

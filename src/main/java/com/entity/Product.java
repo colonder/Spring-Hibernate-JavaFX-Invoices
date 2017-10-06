@@ -56,6 +56,28 @@ public class Product extends BaseAbstractEntity
     @JoinColumn(name = "warehouse_item_id", referencedColumnName = "id")
     private Warehouse warehouse;
 
+    public Product() {
+        this.creationDate = LocalDate.now();
+        this.warehouse = new Warehouse();
+    }
+
+    public void setAll(String productName, String symbol, String unit, String tag, BigDecimal netPrice,
+                   BigDecimal grossPrice, BigDecimal vatRate, boolean onlineSale, boolean isService, boolean isActive,
+                   LocalDate creationDate, LocalDate lastModified) {
+        this.productName = productName;
+        this.symbol = symbol;
+        this.unit = unit;
+        this.tag = tag;
+        this.netPrice = netPrice;
+        this.grossPrice = grossPrice;
+        this.vatRate = vatRate;
+        this.onlineSale = onlineSale;
+        this.isService = isService;
+        this.isActive = isActive;
+        this.creationDate = creationDate;
+        this.lastModified = lastModified;
+    }
+
     //region getters and setters
     public String getProductName() {
         return productName;
