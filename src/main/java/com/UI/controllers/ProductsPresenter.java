@@ -4,8 +4,13 @@ import com.UI.view.NewProductView;
 import com.entity.Product;
 import com.service.IProductService;
 import com.utilities.ViewSwitcher;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,19 +22,6 @@ import java.util.HashMap;
 @Controller
 public class ProductsPresenter {
 
-    @FXML private Button addProductBtn;
-    @FXML private TextField phraseTxtFld;
-    @FXML private ComboBox<String> productTypeComboBox;
-    @FXML private TextArea tagTxtArea;
-    @FXML private ComboBox<String> filterComboBox;
-    @FXML private ComboBox<String> activeComboBox;
-    @FXML private Button searchBtn;
-    @FXML private TableView<Product> productsTableView;
-    @FXML private TableColumn<Product, String> nameCol;
-    @FXML private TableColumn<Product, BigDecimal> netPriceCol;
-    @FXML private TableColumn<Product, Integer> soldCol;
-    @FXML private TableColumn<Product, Integer> availableCol;
-    @FXML private TableColumn<Product, BigDecimal> taxRateCol;
     private static final HashMap<String, Boolean> isServiceMap;
     private static final HashMap<String, Boolean> isActiveMap;
 
@@ -45,6 +37,19 @@ public class ProductsPresenter {
         isActiveMap.put("Non active", false);
     }
 
+    @FXML private Button addProductBtn;
+    @FXML private TextField phraseTxtFld;
+    @FXML private ComboBox<String> productTypeComboBox;
+    @FXML private TextArea tagTxtArea;
+    @FXML private ComboBox<String> filterComboBox;
+    @FXML private ComboBox<String> activeComboBox;
+    @FXML private Button searchBtn;
+    @FXML private TableView<Product> productsTableView;
+    @FXML private TableColumn<Product, String> nameCol;
+    @FXML private TableColumn<Product, BigDecimal> netPriceCol;
+    @FXML private TableColumn<Product, Number> soldCol;
+    @FXML private TableColumn<Product, Number> availableCol;
+    @FXML private TableColumn<Product, BigDecimal> taxRateCol;
     @FXML private TableColumn<Product, Boolean> onlineSaleCol;
     @FXML private TableColumn<Product, Boolean> activeCol;
     @FXML private TableColumn<Product, Boolean> serviceCol;
@@ -73,6 +78,21 @@ public class ProductsPresenter {
         initComboBoxes();
         setSearching();
         initCheckMenuItems();
+        initTableColumns();
+    }
+
+    private void initTableColumns() {
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        netPriceCol.setCellValueFactory(new PropertyValueFactory<>("netPrice"));
+        soldCol.setCellValueFactory(cell -> new ReadOnlyIntegerWrapper(cell.getValue().getWarehouse().getSold()));
+        availableCol.setCellValueFactory(cell -> new ReadOnlyIntegerWrapper(cell.getValue().getWarehouse().getAvailable()));
+        taxRateCol.setCellValueFactory(new PropertyValueFactory<>("vatRate"));
+        onlineSaleCol.setCellValueFactory(new PropertyValueFactory<>("onlineSale"));
+        activeCol.setCellValueFactory(new PropertyValueFactory<>("isActive"));
+        serviceCol.setCellValueFactory(new PropertyValueFactory<>("isService"));
+        codeCol.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().getWarehouse().getProductCode()));
+        creationCol.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
+        lastSaleCol.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getWarehouse().getLastSaleDate()));
     }
 
     private void initButtons() {

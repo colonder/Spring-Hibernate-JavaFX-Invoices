@@ -49,4 +49,8 @@ public class Warehouse extends BaseAbstractEntity
     public void setAvailable(int available) {
         this.available = available;
     }
+
+    public LocalDate getLastSaleDate() {
+        return lastSaleDate;
+    }
 }
