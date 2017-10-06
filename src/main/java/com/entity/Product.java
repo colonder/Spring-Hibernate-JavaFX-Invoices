@@ -22,7 +22,7 @@ public class Product extends BaseAbstractEntity
     @Column(name = "symbol")
     private String symbol;
 
-    @Column(name = "unit")
+    @Column(name = "unit", nullable = false)
     private String unit;
 
     @Column(name = "tag")
@@ -52,18 +52,17 @@ public class Product extends BaseAbstractEntity
     @Column(name = "last_modified", nullable = false)
     private LocalDate lastModified;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "warehouse_item_id", referencedColumnName = "id")
     private Warehouse warehouse;
 
     public Product() {
         this.creationDate = LocalDate.now();
-        this.warehouse = new Warehouse();
     }
 
     public void setAll(String productName, String symbol, String unit, String tag, BigDecimal netPrice,
                    BigDecimal grossPrice, BigDecimal vatRate, boolean onlineSale, boolean isService, boolean isActive,
-                   LocalDate creationDate, LocalDate lastModified) {
+                   LocalDate lastModified) {
         this.productName = productName;
         this.symbol = symbol;
         this.unit = unit;
@@ -74,7 +73,6 @@ public class Product extends BaseAbstractEntity
         this.onlineSale = onlineSale;
         this.isService = isService;
         this.isActive = isActive;
-        this.creationDate = creationDate;
         this.lastModified = lastModified;
     }
 
