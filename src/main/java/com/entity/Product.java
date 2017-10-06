@@ -31,6 +31,9 @@ public class Product extends BaseAbstractEntity
     @Column(name = "net_price", nullable = false)
     private BigDecimal netPrice;
 
+    @Column(name = "gross_price", nullable = false)
+    private BigDecimal grossPrice;
+
     @Column(name = "vat_rate", nullable = false)
     private BigDecimal vatRate;
 
@@ -53,6 +56,7 @@ public class Product extends BaseAbstractEntity
     @JoinColumn(name = "warehouse_item_id", referencedColumnName = "id")
     private Warehouse warehouse;
 
+    //region getters and setters
     public String getProductName() {
         return productName;
     }
@@ -83,6 +87,14 @@ public class Product extends BaseAbstractEntity
 
     public void setNetPrice(BigDecimal netPrice) {
         this.netPrice = netPrice;
+    }
+
+    public BigDecimal getGrossPrice() {
+        return grossPrice;
+    }
+
+    public void setGrossPrice(BigDecimal grossPrice) {
+        this.grossPrice = grossPrice;
     }
 
     public BigDecimal getVatRate() {
@@ -140,4 +152,9 @@ public class Product extends BaseAbstractEntity
     public void setLastModified(LocalDate lastModified) {
         this.lastModified = lastModified;
     }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+    //endregion
 }

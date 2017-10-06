@@ -106,6 +106,7 @@ create table products
 	symbol varchar(10),
 	unit varchar(10) not null,
 	net_price numeric(7,2) not null check(net_price > 0.00),
+    gross_price numeric(7,2) not null check(gross_price > 0.00),
 	vat_rate numeric(4,2) not null check(vat_rate > 0.00),
 	online_sale boolean not null default '0',
 	is_service boolean not null default '0',

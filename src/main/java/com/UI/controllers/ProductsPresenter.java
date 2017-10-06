@@ -47,6 +47,7 @@ public class ProductsPresenter {
     @FXML private TableView<Product> productsTableView;
     @FXML private TableColumn<Product, String> nameCol;
     @FXML private TableColumn<Product, BigDecimal> netPriceCol;
+    @FXML private TableColumn<Product, BigDecimal> grossPriceCol;
     @FXML private TableColumn<Product, Number> soldCol;
     @FXML private TableColumn<Product, Number> availableCol;
     @FXML private TableColumn<Product, BigDecimal> taxRateCol;
@@ -58,6 +59,7 @@ public class ProductsPresenter {
     @FXML private TableColumn<Product, LocalDate> lastSaleCol;
     @FXML private CheckMenuItem nameCheckMenuItem;
     @FXML private CheckMenuItem netPriceCheckMenuItem;
+    @FXML private CheckMenuItem grossPriceCheckMenuItem;
     @FXML private CheckMenuItem onlineSaleCheckMenuItem;
     @FXML private CheckMenuItem soldCheckMenuItem;
     @FXML private CheckMenuItem availableCheckMenuItem;
@@ -86,6 +88,7 @@ public class ProductsPresenter {
     private void initTableColumns() {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
         netPriceCol.setCellValueFactory(new PropertyValueFactory<>("netPrice"));
+        grossPriceCol.setCellValueFactory(new PropertyValueFactory<>("grossPrice"));
         soldCol.setCellValueFactory(cell -> new ReadOnlyIntegerWrapper(cell.getValue().getWarehouse().getSold()));
         availableCol.setCellValueFactory(cell -> new ReadOnlyIntegerWrapper(cell.getValue().getWarehouse().getAvailable()));
         taxRateCol.setCellValueFactory(new PropertyValueFactory<>("vatRate"));
@@ -106,6 +109,8 @@ public class ProductsPresenter {
                 nameCol.setVisible(newValue));
         netPriceCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
                 netPriceCol.setVisible(newValue));
+        grossPriceCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
+                grossPriceCol.setVisible(newValue));
         onlineSaleCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
                 onlineSaleCol.setVisible(newValue));
         soldCheckMenuItem.selectedProperty().addListener((observable, oldValue, newValue) ->
