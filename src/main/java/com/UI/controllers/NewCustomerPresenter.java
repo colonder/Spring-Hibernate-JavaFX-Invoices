@@ -6,6 +6,7 @@ import com.enums.PaymentMethod;
 import com.service.ICustomerService;
 import com.utilities.BigDecimalTextField;
 import com.utilities.IntegerTextField;
+import com.utilities.Miscellaneous;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -73,19 +74,19 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
 
             try {
                 customer.setAll(
-                        getTextFromControl(aliasTxtFld),
-                        getTextFromControl(companyNameTxtFld),
-                        getTextFromControl(lastNameTxtFld),
-                        getTextFromControl(firstNameTxtFld),
-                        getTextFromControl(taxIdTxtFld),
-                        getTextFromControl(emailTxtFld),
-                        getTextFromControl(addressTxtFld),
-                        getTextFromControl(postalCodeTxtFld),
-                        getTextFromControl(cityTxtFld),
+                        Miscellaneous.getTextFromControl(aliasTxtFld),
+                        Miscellaneous.getTextFromControl(companyNameTxtFld),
+                        Miscellaneous.getTextFromControl(lastNameTxtFld),
+                        Miscellaneous.getTextFromControl(firstNameTxtFld),
+                        Miscellaneous.getTextFromControl(taxIdTxtFld),
+                        Miscellaneous.getTextFromControl(emailTxtFld),
+                        Miscellaneous.getTextFromControl(addressTxtFld),
+                        Miscellaneous.getTextFromControl(postalCodeTxtFld),
+                        Miscellaneous.getTextFromControl(cityTxtFld),
                         telTxtFld.getValue(),
                         cellphoneTxtFld.getValue(),
                         faxTxtFld.getValue(),
-                        getTextFromControl(tagsTxtFld),
+                        Miscellaneous.getTextFromControl(tagsTxtFld),
                         currencyComboBox.getSelectionModel().getSelectedItem(),
                         PaymentMethod.paymentMap.get(defaultPaymentComboBox.getSelectionModel().getSelectedItem()),
                         LocalDate.now(),
@@ -97,21 +98,9 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
                 );
                 customerService.save(customer);
             } catch (ConstraintViolationException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("An error occurred while saving object to the database");
-                alert.setContentText("It seems that the object with identical data already exist in the database.");
-
-                alert.showAndWait();
+                Miscellaneous.showConstraintAlert();
             }
         });
-    }
-    
-    private String getTextFromControl(TextField textField)
-    {
-        if (textField.getText().isEmpty())
-            return null;
-        return textField.getText();
     }
 
     private void populateComboBoxes() {
