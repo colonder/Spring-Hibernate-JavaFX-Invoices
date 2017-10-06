@@ -4,7 +4,6 @@ import com.UI.view.NewProductView;
 import com.entity.Product;
 import com.service.IProductService;
 import com.utilities.ViewSwitcher;
-import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -103,7 +102,7 @@ public class ProductsPresenter {
     }
 
     private void initButtons() {
-        addProductBtn.setOnAction(actionEvent -> ViewSwitcher.openAndInitialize(newProductView, new Product()));
+        addProductBtn.setOnAction(actionEvent -> ViewSwitcher.openAndInitialize(newProductView, null));
     }
 
     private void initCheckMenuItems() {
