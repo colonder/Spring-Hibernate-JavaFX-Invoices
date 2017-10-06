@@ -238,8 +238,6 @@ public class InvoicesPresenter {
             }
         });
 
-        // TODO: create specifications for invoice
-
         searchBtn.setOnAction(event -> search());
     }
 

@@ -71,6 +71,8 @@ public class ProductsPresenter {
     @Autowired private IProductService productService;
     @Autowired private NewProductView newProductView;
 
+    //TODO: implement filter options
+
     @FXML
     public void initialize()
     {
