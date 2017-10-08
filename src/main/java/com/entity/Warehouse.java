@@ -34,6 +34,13 @@ public class Warehouse extends BaseAbstractEntity
     @Column(name = "last_sale_date")
     private LocalDate lastSaleDate;
 
+    public Warehouse()
+    {
+        this.creationDate = LocalDate.now();
+        this.available = 0;
+        this.sold = 0;
+    }
+
     public int getSold() {
         return sold;
     }
@@ -52,5 +59,17 @@ public class Warehouse extends BaseAbstractEntity
 
     public LocalDate getLastSaleDate() {
         return lastSaleDate;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public void setLastModified(LocalDate lastModified) {
+        this.lastModified = lastModified;
     }
 }
