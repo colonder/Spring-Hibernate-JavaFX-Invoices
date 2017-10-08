@@ -148,12 +148,6 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
 
         @Override
     public void initializeFields(Customer customer) {
-
-        if (customer == null) {
-            this.customer = new Customer();
-            return;
-        }
-
         this.customer = customer;
         if (customer.getCustomerType() == CustomerType.COMPANY)
             companyRadioBtn.setSelected(true);

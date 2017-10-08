@@ -140,14 +140,15 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                 this.invoice.setSeller(this.seller);
 
                 invoiceService.save(this.invoice);
-                for (BoughtProduct product : productTableView.getItems())
+                //TODO: check if that's even necessary
+                /*for (BoughtProduct product : productTableView.getItems())
                 {
                     // maybe not the perfect solution, but it works considering that bought products table holds
                     // raw information about the product from the date of purchase and not the product as a foreign key
                     Product p = productService.findByProductName(product.getProductName());
                     p.getWarehouse().setAvailable(p.getWarehouse().getAvailable() - product.getQuantity());
                     productService.save(p);
-                }
+                }*/
             }
         });
     }

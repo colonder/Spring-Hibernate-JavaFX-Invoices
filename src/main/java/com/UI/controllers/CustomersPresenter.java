@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Controller
 public class CustomersPresenter {
@@ -67,14 +68,17 @@ public class CustomersPresenter {
     @FXML private TableColumn<Customer, String> currencyCol;
     @FXML private TableColumn<Customer, BigDecimal> discountCol;
     @FXML private TableColumn<Customer, String> paymentDateCol;
+    @FXML private Button editCustomerBtn;
+    @FXML private Button deleteCustomerBtn;
     //endregion
 
-    @Autowired private ICustomerService customerService;
-    @Autowired private NewCustomerView newCustomerView;
+    @Autowired
+    private ICustomerService customerService;
+    @Autowired
+    private NewCustomerView newCustomerView;
 
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
         initButtons();
         initComboBoxes();
         setSearching();
@@ -105,7 +109,38 @@ public class CustomersPresenter {
     }
 
     private void initButtons() {
-        addCustomerBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newCustomerView, null));
+        addCustomerBtn.setOnAction(event -> ViewSwitcher.openAndInitialize(newCustomerView, new Customer()));
+        editCustomerBtn.setOnAction(event -> {
+            if (customersTableView.getSelectionModel().getSelectedItems().size() != 0) {
+                if (customersTableView.getSelectionModel().getSelectedItems().size() == 1)
+                    ViewSwitcher.openAndInitialize(newCustomerView, customersTableView
+                            .getSelectionModel().getSelectedItem());
+                else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Editing customer");
+                    alert.setHeaderText("An error occurred while editing objects");
+                    alert.setContentText("You can't edit several objects simultaneously");
+                    alert.showAndWait();
+                }
+            }
+        });
+        deleteCustomerBtn.setOnAction(event -> {
+            if (customersTableView.getSelectionModel().getSelectedItems().size() != 0) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Invoices deletion");
+                alert.setHeaderText("Are you sure you want to delete selected customers?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                result.ifPresent(choice -> {
+                    if (choice.equals(ButtonType.OK)) {
+                        for (Customer customer : customersTableView.getSelectionModel().getSelectedItems()) {
+                            customerService.delete(customer);
+                        }
+                        search();
+                    }
+                });
+            }
+        });
     }
 
     private void initCheckMenuItems() {
@@ -168,8 +203,7 @@ public class CustomersPresenter {
                 .split(",")));
     }
 
-    private void initComboBoxes()
-    {
+    private void initComboBoxes() {
         customerTypeComboBox.getItems().setAll(CustomerType.customerMap.keySet());
         customerTypeComboBox.getSelectionModel().selectFirst();
         // TODO: initialize filter variant combo box

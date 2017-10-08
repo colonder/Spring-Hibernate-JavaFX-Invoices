@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Optional;
 
 @Controller
 public class ProductsPresenter {
@@ -33,7 +34,7 @@ public class ProductsPresenter {
         isServiceMap.put("Only products", false);
         isActiveMap.put("All", null);
         isActiveMap.put("Active", true);
-        isActiveMap.put("Non active", false);
+        isActiveMap.put("Inactive", false);
     }
 
     //region fxml fields
@@ -69,6 +70,8 @@ public class ProductsPresenter {
     @FXML private CheckMenuItem codeCheckMenuItem;
     @FXML private CheckMenuItem creationCheckMenuItem;
     @FXML private CheckMenuItem lastSaleCheckMenuItem;
+    @FXML private Button editProductBtn;
+    @FXML private Button deleteProductBtn;
     //endregion
 
     @Autowired private IProductService productService;
@@ -90,19 +93,66 @@ public class ProductsPresenter {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
         netPriceCol.setCellValueFactory(new PropertyValueFactory<>("netPrice"));
         grossPriceCol.setCellValueFactory(new PropertyValueFactory<>("grossPrice"));
-        soldCol.setCellValueFactory(cell -> new ReadOnlyIntegerWrapper(cell.getValue().getWarehouse().getSold()));
-        availableCol.setCellValueFactory(cell -> new ReadOnlyIntegerWrapper(cell.getValue().getWarehouse().getAvailable()));
+        soldCol.setCellValueFactory(cell -> {
+            if (!cell.getValue().isService())
+                return new ReadOnlyIntegerWrapper(cell.getValue().getWarehouse().getSold());
+            return null;
+        });
+        availableCol.setCellValueFactory(cell -> {
+            if (!cell.getValue().isService())
+                return new ReadOnlyIntegerWrapper(cell.getValue().getWarehouse().getAvailable());
+            return null;
+        });
         taxRateCol.setCellValueFactory(new PropertyValueFactory<>("vatRate"));
         onlineSaleCol.setCellValueFactory(new PropertyValueFactory<>("onlineSale"));
         activeCol.setCellValueFactory(new PropertyValueFactory<>("isActive"));
         serviceCol.setCellValueFactory(new PropertyValueFactory<>("isService"));
-        codeCol.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().getWarehouse().getProductCode()));
+        codeCol.setCellValueFactory(cell -> {
+            if (!cell.getValue().isService())
+                return new ReadOnlyStringWrapper(cell.getValue().getWarehouse().getProductCode());
+            return null;
+        });
         creationCol.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
-        lastSaleCol.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getWarehouse().getLastSaleDate()));
+        lastSaleCol.setCellValueFactory(cell -> {
+            if (!cell.getValue().isService())
+                return new ReadOnlyObjectWrapper<>(cell.getValue().getWarehouse().getLastSaleDate());
+            return null;
+        });
     }
 
     private void initButtons() {
         addProductBtn.setOnAction(actionEvent -> ViewSwitcher.openAndInitialize(newProductView, null));
+        editProductBtn.setOnAction(event -> {
+            if (productsTableView.getSelectionModel().getSelectedItems().size() != 0) {
+                if (productsTableView.getSelectionModel().getSelectedItems().size() == 1)
+                    ViewSwitcher.openAndInitialize(newProductView, productsTableView
+                            .getSelectionModel().getSelectedItem());
+                else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Editing product");
+                    alert.setHeaderText("An error occurred while editing objects");
+                    alert.setContentText("You can't edit several objects simultaneously");
+                    alert.showAndWait();
+                }
+            }
+        });
+        deleteProductBtn.setOnAction(event -> {
+            if (productsTableView.getSelectionModel().getSelectedItems().size() != 0) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Invoices deletion");
+                alert.setHeaderText("Are you sure you want to delete selected customers?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                result.ifPresent(choice -> {
+                    if (choice.equals(ButtonType.OK)) {
+                        for (Product product : productsTableView.getSelectionModel().getSelectedItems()) {
+                            productService.delete(product);
+                        }
+                        search();
+                    }
+                });
+            }
+        });
     }
 
     private void initCheckMenuItems() {

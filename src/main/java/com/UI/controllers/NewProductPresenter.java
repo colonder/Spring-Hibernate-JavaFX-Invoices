@@ -1,11 +1,15 @@
 package com.UI.controllers;
 
+import com.UI.view.ProductsView;
 import com.entity.Product;
+import com.entity.Warehouse;
 import com.service.IProductService;
 import com.utilities.BigDecimalTextField;
 import com.utilities.Miscellaneous;
+import com.utilities.ViewSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -30,8 +34,8 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
     @FXML private Label codeLabel;
 
     private Product product;
-    @Autowired
-    private IProductService productService;
+    @Autowired private IProductService productService;
+    @Autowired private ProductsView productsView;
 
     @FXML
     public void initialize()
@@ -49,6 +53,18 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
                 alert.showAndWait();
             }
 
+            try {
+                if (!serviceChckBox.isSelected())
+                {
+                    if (product.getWarehouse() == null)
+                    {
+                        product.setWarehouse(new Warehouse());
+                    }
+
+                    product.getWarehouse().setProductCode(codeTxtFld.getText());
+                    product.getWarehouse().setLastModified(LocalDate.now());
+                }
+
                 product.setAll(
                         productNameTxtFld.getText(),
                         Miscellaneous.getTextFromControl(symbolTxtFld),
@@ -63,7 +79,11 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
                         LocalDate.now()
                 );
                 productService.save(product);
-            });
+                ViewSwitcher.openView(productsView);
+            } catch (ConstraintViolationException e) {
+                Miscellaneous.showConstraintAlert();
+            }
+        });
         
         serviceChckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             codeLabel.setDisable(newValue);
@@ -90,9 +110,10 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
         this.product = product;
         serviceChckBox.setSelected(product.isService());
         onlineSaleChckBox.setSelected(product.isOnlineSale());
-        inactiveChckBox.setSelected(product.isActive());
+        inactiveChckBox.setSelected(!product.isActive());
         productNameTxtFld.setText(product.getProductName());
-        codeTxtFld.setText(product.getWarehouse().getProductCode());
+        if (product.getWarehouse() != null)
+            codeTxtFld.setText(product.getWarehouse().getProductCode());
         netPriceTxtFld.setValue(product.getNetPrice());
         vatTxtFld.setValue(product.getVatRate());
         grossPriceTxtFld.setValue(product.getGrossPrice());
