@@ -20,7 +20,7 @@ public class Miscellaneous {
 
     public static String getTextFromControl(TextField textField)
     {
-        if (textField.getText().isEmpty())
+        if (textField.getText() == null || textField.getText().isEmpty())
             return null;
         return textField.getText();
     }
