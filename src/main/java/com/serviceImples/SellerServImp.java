@@ -22,11 +22,13 @@ public class SellerServImp implements ISellerService {
     }
 
     @Override
+    @Transactional
     public Seller save(Seller seller) {
         return sellerRepository.save(seller);
     }
 
     @Override
+    @Transactional
     public void delete(Seller seller) {
         sellerRepository.delete(seller);
     }

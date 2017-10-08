@@ -5,6 +5,7 @@ import com.repositories.IProductRepository;
 import com.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,11 +31,13 @@ public class ProductServImp implements IProductService {
     }
 
     @Override
+    @Transactional
     public Product save(Product product) {
         return productRepository.save(product);
     }
 
     @Override
+    @Transactional
     public void delete(Product product) {
         productRepository.delete(product);
     }

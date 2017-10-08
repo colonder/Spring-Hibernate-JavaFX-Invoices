@@ -21,11 +21,13 @@ public class SettingsServImpl implements ISettingsService {
     }
 
     @Override
+    @Transactional
     public Settings save(Settings settings) {
         return settingsRepository.save(settings);
     }
 
     @Override
+    @Transactional
     public void delete(Settings settings) {
         settingsRepository.delete(settings);
     }

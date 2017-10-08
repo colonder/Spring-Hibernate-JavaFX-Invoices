@@ -5,6 +5,7 @@ import com.repositories.IWarehouseRepository;
 import com.service.IWarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,11 +20,13 @@ public class WarehouseServImp implements IWarehouseService {
     }
 
     @Override
+    @Transactional
     public Warehouse save(Warehouse warehouse) {
         return warehouseRepository.save(warehouse);
     }
 
     @Override
+    @Transactional
     public void delete(Warehouse warehouse) {
         warehouseRepository.delete(warehouse);
     }
