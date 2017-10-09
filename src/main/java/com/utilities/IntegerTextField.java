@@ -14,22 +14,19 @@ public class IntegerTextField extends TextField{
     {
         super();
         this.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
-        property = new SimpleIntegerProperty(0);
-        this.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.isEmpty()) {
+        property = new SimpleIntegerProperty();
+        this.focusedProperty().addListener(observable -> {
+            if (!this.getText().isEmpty()) {
                 try {
-                    this.setValue(Integer.parseInt(newValue));
+                    this.setValue(Integer.parseInt(this.getText()));
                 } catch (NumberFormatException e) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Conversion error");
                     alert.setHeaderText("An error occurred while entering the value");
                     alert.setContentText("It seems that the you have entered wrong type of the value");
                     alert.showAndWait();
-                    this.setText(oldValue);
                 }
             }
-            else
-                this.setValue(0);
         });
     }
 
@@ -38,8 +35,9 @@ public class IntegerTextField extends TextField{
         return property.getValue();
     }
 
-    public void setValue(int val)
+    public void setValue(Integer val)
     {
         this.property.set(val);
+        this.setText(String.valueOf(val));
     }
 }
