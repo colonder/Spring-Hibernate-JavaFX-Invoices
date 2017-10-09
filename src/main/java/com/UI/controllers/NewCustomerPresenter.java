@@ -11,8 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;
@@ -97,7 +97,7 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
                         defaultDaysComboBox.getSelectionModel().getSelectedItem()
                 );
                 customerService.save(customer);
-            } catch (ConstraintViolationException e) {
+            } catch (DataIntegrityViolationException e) {
                 Miscellaneous.showConstraintAlert();
             }
         });
