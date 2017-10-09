@@ -162,13 +162,18 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
         firstNameTxtFld.setText(customer.getFirstName());
         lastNameTxtFld.setText(customer.getLastName());
         aliasTxtFld.setText(customer.getAlias());
-        telTxtFld.setText(String.valueOf(customer.getTelephone()));
-        cellphoneTxtFld.setText(String.valueOf(customer.getCellPhone()));
+        if (customer.getTelephone() != null)
+            telTxtFld.setText(String.valueOf(customer.getTelephone()));
+        if (customer.getCellPhone() != null)
+            cellphoneTxtFld.setText(String.valueOf(customer.getCellPhone()));
         emailTxtFld.setText(customer.getEmail());
-        faxTxtFld.setText(String.valueOf(customer.getFax()));
+        if (customer.getFax() != null)
+            faxTxtFld.setText(String.valueOf(customer.getFax()));
         tagsTxtFld.setText(customer.getTag());
-        defaultDiscountTxtFld.setText(String.valueOf(customer.getDefaultDiscount()));
-        companyNumTxtFld.setText(String.valueOf(customer.getCompanySpecialNumber()));
+        if (customer.getDefaultDiscount() != null)
+            defaultDiscountTxtFld.setText(String.valueOf(customer.getDefaultDiscount()));
+        if (customer.getCompanySpecialNumber() != null)
+            companyNumTxtFld.setText(String.valueOf(customer.getCompanySpecialNumber()));
         defaultPaymentComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(customer.getDefaultPaymentMethod()));
         defaultDaysComboBox.getSelectionModel().select(customer.getDefaultPaymentDateDays());
     }
