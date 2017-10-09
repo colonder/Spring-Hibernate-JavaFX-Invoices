@@ -52,7 +52,7 @@ public class Product extends BaseAbstractEntity
     @Column(name = "last_modified", nullable = false)
     private LocalDate lastModified;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "warehouse_item_id", referencedColumnName = "id")
     private Warehouse warehouse;
 
