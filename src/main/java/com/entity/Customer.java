@@ -7,7 +7,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -97,7 +96,6 @@ public class Customer extends BaseAbstractEntity
     public Customer() {
         this.creationDate = LocalDate.now();
         this.lastModified = LocalDate.now();
-        invoiceHashSet = new HashSet<>();
     }
 
     public void setAll(String alias, String companyName, String lastName, String firstName, String taxIdentifier,

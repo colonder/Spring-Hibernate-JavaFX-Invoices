@@ -57,7 +57,7 @@ create table customer
 	country varchar(30),
 	customer_type varchar(20) not null default 'person',
 	company_special_number int,
-	default_discount numeric(3,2) default 0.00 check(default_discount >= 0.00),
+	default_discount numeric(4,2) default 0.00 check(default_discount >= 0.00),
 	default_payment_date_days int check(default_payment_date_days >= 0),
 	last_modified date not null default CURRENT_DATE
 );

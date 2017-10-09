@@ -16,7 +16,7 @@ public class BigDecimalTextField extends TextField {
     {
         super();
         this.setTextFormatter(new TextFormatter<>(new BigDecimalStringConverter()));
-        this.value = new SimpleObjectProperty<>(BigDecimal.ZERO);
+        this.value = new SimpleObjectProperty<>();
         this.focusedProperty().addListener(observable -> {
             if (!this.getText().isEmpty()) {
                 try {
@@ -29,8 +29,6 @@ public class BigDecimalTextField extends TextField {
                     alert.showAndWait();
                 }
             }
-            else
-                this.setValue(BigDecimal.ZERO);
         });
     }
 

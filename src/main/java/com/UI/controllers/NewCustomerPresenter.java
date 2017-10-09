@@ -61,7 +61,7 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
 
     private void initSaveButton() {
         saveBtn.setOnAction(actionEvent -> {
-            if (taxIdTxtFld.getText().isEmpty())
+            if (taxIdTxtFld.getText() == null || taxIdTxtFld.getText().isEmpty())
             {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -174,6 +174,7 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
             defaultDiscountTxtFld.setText(String.valueOf(customer.getDefaultDiscount()));
         if (customer.getCompanySpecialNumber() != null)
             companyNumTxtFld.setText(String.valueOf(customer.getCompanySpecialNumber()));
+        if (customer.getDefaultPaymentMethod() != null)
         defaultPaymentComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(customer.getDefaultPaymentMethod()));
         defaultDaysComboBox.getSelectionModel().select(customer.getDefaultPaymentDateDays());
     }
