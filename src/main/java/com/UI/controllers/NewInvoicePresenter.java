@@ -388,7 +388,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
         quantityCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         quantityCol.setOnEditCommit(event -> {
-
+            // FIXME: dialog informing that there's not enough items in the warehouse, while it's not true
             if (event.getNewValue() < 0 || event.getNewValue() > productService.findByProductName(event.getRowValue()
                     .getProductName()).getWarehouse().getAvailable())
             {

@@ -39,7 +39,6 @@ public class BigDecimalTextField extends TextField {
 
     public void setValue(BigDecimal val)
     {
-        //FIXME: set results in NullPointerException
         this.value.set(val);
         this.setText(val.toString());
     }
