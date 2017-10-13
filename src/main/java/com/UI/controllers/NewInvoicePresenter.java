@@ -343,7 +343,8 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     }
 
     private void initBuyerFields(Customer customer) {
-        buyerTxtFld.setText(String.format("%s %s", customer.getFirstName(), customer.getLastName()));
+        buyerTxtFld.setText(String.format("%s %s", customer.getFirstName() != null ? customer.getFirstName() : "",
+                customer.getLastName() != null ? customer.getLastName() : ""));
         buyerTaxIdTxtFld.setText(customer.getTaxIdentifier());
         buyerAddressTxtFld.setText(customer.getAddress());
         buyerPostalCodeTxtFld.setText(customer.getPostalCode());
@@ -406,6 +407,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
             BigDecimal tmpGrossVal = event.getRowValue().getGrossValProp();
             BigDecimal tmpDiscountVal = event.getRowValue().getDiscountValProp();
             event.getRowValue().setQuantityProp(event.getNewValue());
+            // FIXME: improper calculations
             this.netVal = this.netVal.subtract(tmpNetVal);
             this.vatVal = this.vatVal.subtract(tmpVatVal);
             this.grossVal = this.grossVal.subtract(tmpGrossVal);
