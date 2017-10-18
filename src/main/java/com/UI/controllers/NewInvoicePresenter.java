@@ -169,18 +169,10 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error in saving invoice");
             alert.setHeaderText("One or more fields are empty");
-            StringBuilder builder = new StringBuilder("It seems that one or more fields that need to be filled are empty. Please, " +
-                    "check whether these fields are filled properly:\n\n");
-            builder.append("- Invoice number\n");
-            builder.append("- Invoice type\n");
-            builder.append("- Seller\n");
-            builder.append("- Buyer\n");
-            builder.append("- Sale location\n");
-            builder.append("- Payment method\n");
-            builder.append("- Payment date in days\n");
-            builder.append("- Currency\n");
-            builder.append("- Invoice status\n");
-            alert.setContentText(builder.toString());
+            String builder = "It seems that one or more fields that need to be filled are empty. Please, " +
+                    "check whether these fields are filled properly:\n\n- Invoice number\n- Invoice type\n- Seller\n" +
+                    "- Buyer\n- Sale location\n- Payment method\n- Payment date in days\n- Currency\n- Invoice status\n";
+            alert.setContentText(builder);
 
             alert.showAndWait();
             return false;
@@ -233,6 +225,18 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
 
             BoughtProduct boughtProduct = new BoughtProduct(product.getProductName(), product.getSymbol(),
                     product.getUnit(), product.getNetPrice(), product.getVatRate(), 0, BigDecimal.ZERO);
+
+            if (product.getWarehouse().getAvailable() == 0)
+            {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error in adding product");
+                alert.setHeaderText("Selected product is not available in the warehouse");
+                alert.setContentText("It seems that selected product is not available in the warehouse anymore.");
+
+                alert.showAndWait();
+                openSelectProductDialog();
+                return;
+            }
 
             if (productTableView.getItems().contains(boughtProduct))
             {
