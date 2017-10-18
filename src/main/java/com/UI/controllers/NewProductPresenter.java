@@ -63,7 +63,6 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
 
                     product.getWarehouse().setProductCode(codeTxtFld.getText());
                     product.getWarehouse().setLastModified(LocalDate.now());
-                    product.getWarehouse().setAvailable(50); // temporarily
                 }
 
                 product.setAll(

@@ -79,13 +79,12 @@ public class BoughtProduct extends BaseAbstractEntity
         this.priceProp = new SimpleObjectProperty<>(price);
         this.taxRateProp = new SimpleObjectProperty<>(vatRate);
         this.quantityProp = new SimpleIntegerProperty(quantity);
-        this.taxRateProp = new SimpleObjectProperty<>(vatRate);
         this.discountProp = new SimpleIntegerProperty(discountPercents);
-        this.netValProp = new SimpleObjectProperty<>(netValue);
-        this.taxValProp = new SimpleObjectProperty<>(vatValue);
-        this.unmodifiedGrossValProp = new SimpleObjectProperty<>(grossValue);
-        this.grossValProp = new SimpleObjectProperty<>(grossValue);
-        this.discountValProp = new SimpleObjectProperty<>(discountValue);
+        this.netValProp = new SimpleObjectProperty<>(netValue != null ? netValue : BigDecimal.ZERO);
+        this.taxValProp = new SimpleObjectProperty<>(vatValue != null ? vatValue : BigDecimal.ZERO);
+        this.unmodifiedGrossValProp = new SimpleObjectProperty<>(grossValue != null ? grossValue : BigDecimal.ZERO);
+        this.grossValProp = new SimpleObjectProperty<>(grossValue != null ? grossValue : BigDecimal.ZERO);
+        this.discountValProp = new SimpleObjectProperty<>(discountValue != null ? discountValue : BigDecimal.ZERO);
         this.quantityProp.addListener((observable, oldValue, newValue) -> {
             this.setNetValProp(this.getPriceProp().multiply(new BigDecimal(newValue.intValue())).setScale(2,
                     BigDecimal.ROUND_HALF_DOWN));

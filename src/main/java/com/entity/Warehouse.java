@@ -37,7 +37,7 @@ public class Warehouse extends BaseAbstractEntity
     public Warehouse()
     {
         this.creationDate = LocalDate.now();
-        this.available = 0;
+        this.available = 10;
         this.sold = 0;
     }
 
