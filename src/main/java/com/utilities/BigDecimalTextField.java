@@ -17,19 +17,6 @@ public class BigDecimalTextField extends TextField {
         super();
         this.setTextFormatter(new TextFormatter<>(new BigDecimalStringConverter()));
         this.value = new SimpleObjectProperty<>();
-        this.focusedProperty().addListener(observable -> {
-            if (!this.getText().isEmpty()) {
-                try {
-                    this.setValue(new BigDecimal(this.getText()));
-                } catch (NumberFormatException e) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Conversion error");
-                    alert.setHeaderText("An error occurred while entering the value");
-                    alert.setContentText("It seems that the you have entered wrong type of the value");
-                    alert.showAndWait();
-                }
-            }
-        });
     }
 
     public BigDecimal getValue()
@@ -39,8 +26,15 @@ public class BigDecimalTextField extends TextField {
 
     public void setValue(BigDecimal val)
     {
-        this.value.set(val);
-        this.setText(val.toString());
+        try {
+            this.value.set(val);
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Conversion error");
+            alert.setHeaderText("An error occurred while entering the value");
+            alert.setContentText("It seems that the you have entered wrong type of the value");
+            alert.showAndWait();
+        }
     }
 
     public SimpleObjectProperty<BigDecimal> valueProperty() {
