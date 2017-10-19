@@ -17,10 +17,10 @@ public class Warehouse extends BaseAbstractEntity
 
     // id a product is some liquid, then it needs to be BigDecimal
     @Column(name = "sold", nullable = false)
-    private Integer sold;
+    private int sold;
 
     @Column(name = "available", nullable = false)
-    private Integer available;
+    private int available;
 
     @Column(name = "product_code")
     private String productCode;
@@ -39,7 +39,7 @@ public class Warehouse extends BaseAbstractEntity
         this.creationDate = LocalDate.now();
     }
 
-    public Warehouse(Integer available)
+    public Warehouse(int available)
     {
         super();
         this.available = available;
