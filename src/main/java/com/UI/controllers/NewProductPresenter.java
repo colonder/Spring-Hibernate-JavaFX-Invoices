@@ -5,6 +5,7 @@ import com.entity.Product;
 import com.entity.Warehouse;
 import com.service.IProductService;
 import com.utilities.BigDecimalTextField;
+import com.utilities.IntegerTextField;
 import com.utilities.Miscellaneous;
 import com.utilities.ViewSwitcher;
 import javafx.fxml.FXML;
@@ -32,6 +33,8 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
     @FXML private CheckBox inactiveChckBox;
     @FXML private Button saveBtn;
     @FXML private Label codeLabel;
+    @FXML private IntegerTextField amountTextFld;
+    @FXML private Label amountLbl;
 
     private Product product;
     @Autowired private IProductService productService;
@@ -58,7 +61,7 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
                 {
                     if (product.getWarehouse() == null)
                     {
-                        product.setWarehouse(new Warehouse());
+                        product.setWarehouse(new Warehouse(amountTextFld.getValue()));
                     }
 
                     product.getWarehouse().setProductCode(codeTxtFld.getText());
@@ -80,6 +83,7 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
                 );
                 productService.save(product);
                 ViewSwitcher.openView(productsView);
+                System.out.println(product.getWarehouse().getAvailable());
             } catch (ConstraintViolationException e) {
                 Miscellaneous.showConstraintAlert();
             }
@@ -88,15 +92,30 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
         serviceChckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             codeLabel.setDisable(newValue);
             codeTxtFld.setDisable(newValue);
+            amountLbl.setDisable(newValue);
+            amountTextFld.setDisable(newValue);
         });
 
-        netPriceTxtFld.valueProperty().addListener((observable, oldValue, newValue) -> grossPriceTxtFld.setValue(
-            newValue.add(newValue.multiply(vatTxtFld.getValue().multiply(Miscellaneous.ONE_HUNDREDTH)))
-                    .setScale(2, BigDecimal.ROUND_HALF_DOWN)));
+        netPriceTxtFld.valueProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                grossPriceTxtFld.setValue(
+                        newValue.add(newValue.multiply(vatTxtFld.getValue().multiply(Miscellaneous.ONE_HUNDREDTH)))
+                                .setScale(2, BigDecimal.ROUND_HALF_DOWN));
+            } catch (NullPointerException e) {
+                grossPriceTxtFld.setValue(BigDecimal.ZERO);
+            }
+        });
 
-        vatTxtFld.valueProperty().addListener((observable, oldValue, newValue) -> grossPriceTxtFld.setValue(
-                netPriceTxtFld.getValue().add(netPriceTxtFld.getValue().multiply(newValue)
-                        .multiply(Miscellaneous.ONE_HUNDREDTH)).setScale(2, BigDecimal.ROUND_HALF_DOWN)));
+        vatTxtFld.valueProperty().addListener((observable, oldValue, newValue) ->
+        {
+            try {
+                grossPriceTxtFld.setValue(
+                        netPriceTxtFld.getValue().add(netPriceTxtFld.getValue().multiply(newValue)
+                                .multiply(Miscellaneous.ONE_HUNDREDTH)).setScale(2, BigDecimal.ROUND_HALF_DOWN));
+            } catch (NullPointerException e) {
+                grossPriceTxtFld.setValue(BigDecimal.ZERO);
+            }
+        });
     }
 
     @Override
