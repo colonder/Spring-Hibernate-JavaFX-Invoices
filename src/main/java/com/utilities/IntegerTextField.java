@@ -3,8 +3,7 @@ package com.utilities;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.NumberStringConverter;
 
 public class IntegerTextField extends TextField{
 
@@ -13,16 +12,16 @@ public class IntegerTextField extends TextField{
     public IntegerTextField()
     {
         super();
-        this.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
         property = new SimpleIntegerProperty();
+        this.textProperty().bindBidirectional(property, new NumberStringConverter());
     }
 
-    public Integer getValue()
+    public int getValue()
     {
         return property.getValue();
     }
 
-    public void setValue(Integer val)
+    public void setValue(int val)
     {
         try {
             this.property.set(val);

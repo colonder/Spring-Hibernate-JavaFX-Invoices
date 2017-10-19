@@ -3,7 +3,6 @@ package com.utilities;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.util.converter.BigDecimalStringConverter;
 
 import java.math.BigDecimal;
@@ -15,8 +14,9 @@ public class BigDecimalTextField extends TextField {
     public BigDecimalTextField()
     {
         super();
-        this.setTextFormatter(new TextFormatter<>(new BigDecimalStringConverter()));
         this.value = new SimpleObjectProperty<>();
+        // FIXME: NullPointerException when inserting some string, including -
+        this.textProperty().bindBidirectional(value, new BigDecimalStringConverter());
     }
 
     public BigDecimal getValue()
