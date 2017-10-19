@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.utilities.BigDecimalTextField?>
+<?import com.utilities.IntegerTextField?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -117,7 +118,10 @@
                   <Insets right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="symbolTxtFld" GridPane.rowIndex="11" />
+            <TextField fx:id="symbolTxtFld" GridPane.rowIndex="11">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin></TextField>
             <Label text="Symbol" GridPane.rowIndex="10">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -145,6 +149,19 @@
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
+            <Label fx:id="amountLbl" text="Initial amount available" GridPane.columnIndex="1" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <IntegerTextField fx:id="amountTextFld" GridPane.columnIndex="1" GridPane.rowIndex="11">
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin>
+            </IntegerTextField>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
