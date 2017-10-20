@@ -75,7 +75,7 @@
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <BigDecimalTextField fx:id="netPriceTxtFld" GridPane.rowIndex="7">
+            <BigDecimalTextField fx:id="netPriceTxtFld" text="0.00" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets right="5.0" />
                </GridPane.margin>
@@ -136,7 +136,7 @@
                </GridPane.margin>
             </CheckBox>
             <Button fx:id="saveBtn" mnemonicParsing="false" text="Save" GridPane.rowIndex="13" />
-            <BigDecimalTextField fx:id="grossPriceTxtFld" GridPane.columnIndex="2" GridPane.rowIndex="7">
+            <BigDecimalTextField fx:id="grossPriceTxtFld" text="0.00" GridPane.columnIndex="2" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>

@@ -3,7 +3,10 @@ package com.utilities;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.util.converter.NumberStringConverter;
+
+import java.util.regex.Pattern;
 
 public class IntegerTextField extends TextField{
 
@@ -14,6 +17,9 @@ public class IntegerTextField extends TextField{
         super();
         property = new SimpleIntegerProperty();
         this.textProperty().bindBidirectional(property, new NumberStringConverter());
+        Pattern pattern = Pattern.compile("\\d*");
+        this.setTextFormatter(new TextFormatter<>(change -> pattern.matcher(change.getControlNewText())
+                .matches() ? change : null));
     }
 
     public int getValue()

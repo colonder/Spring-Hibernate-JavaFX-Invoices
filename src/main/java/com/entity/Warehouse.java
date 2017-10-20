@@ -34,14 +34,11 @@ public class Warehouse extends BaseAbstractEntity
     @Column(name = "last_sale_date")
     private LocalDate lastSaleDate;
 
-    public Warehouse()
-    {
-        this.creationDate = LocalDate.now();
-    }
+    public Warehouse(){}
 
     public Warehouse(int available)
     {
-        super();
+        this.creationDate = LocalDate.now();
         this.available = available;
     }
 
