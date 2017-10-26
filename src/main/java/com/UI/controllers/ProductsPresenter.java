@@ -42,7 +42,6 @@ public class ProductsPresenter {
     @FXML private TextField phraseTxtFld;
     @FXML private ComboBox<String> productTypeComboBox;
     @FXML private TextArea tagTxtArea;
-    @FXML private ComboBox<String> filterComboBox;
     @FXML private ComboBox<String> activeComboBox;
     @FXML private Button searchBtn;
     @FXML private TableView<Product> productsTableView;
@@ -76,8 +75,6 @@ public class ProductsPresenter {
 
     @Autowired private IProductService productService;
     @Autowired private NewProductView newProductView;
-
-    //TODO: implement filter options
 
     @FXML
     public void initialize()

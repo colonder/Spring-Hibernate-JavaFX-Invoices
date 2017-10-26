@@ -54,19 +54,6 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </TextArea>
-                  <Label text="Filter variant">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="filterComboBox" prefWidth="150.0">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ComboBox>
                   <Label text="Active product">
                      <font>
                         <Font name="System Bold" size="12.0" />

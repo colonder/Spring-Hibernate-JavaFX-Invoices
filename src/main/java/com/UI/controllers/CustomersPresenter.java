@@ -25,7 +25,6 @@ public class CustomersPresenter {
     @FXML private TextField phraseTxtFld;
     @FXML private ComboBox<String> customerTypeComboBox;
     @FXML private TextArea tagTxtArea;
-    @FXML private ComboBox<String> filterComboBox;
     @FXML private Button searchBtn;
     @FXML private CheckMenuItem aliasCheckMenuItem;
     @FXML private CheckMenuItem lastNameCheckMenuItem;
@@ -206,6 +205,5 @@ public class CustomersPresenter {
     private void initComboBoxes() {
         customerTypeComboBox.getItems().setAll(CustomerType.customerMap.keySet());
         customerTypeComboBox.getSelectionModel().selectFirst();
-        // TODO: initialize filter variant combo box
     }
 }
