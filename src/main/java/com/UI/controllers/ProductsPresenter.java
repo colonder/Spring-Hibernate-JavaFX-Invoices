@@ -118,7 +118,7 @@ public class ProductsPresenter {
     }
 
     private void initButtons() {
-        addProductBtn.setOnAction(actionEvent -> ViewSwitcher.openAndInitialize(newProductView, null));
+        addProductBtn.setOnAction(actionEvent -> ViewSwitcher.openAndInitialize(newProductView, new Product()));
         editProductBtn.setOnAction(event -> {
             if (productsTableView.getSelectionModel().getSelectedItems().size() != 0) {
                 if (productsTableView.getSelectionModel().getSelectedItems().size() == 1)

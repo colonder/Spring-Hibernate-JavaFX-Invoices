@@ -120,12 +120,6 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
 
     @Override
     public void initializeFields(Product product) {
-        if (product == null)
-        {
-            this.product = new Product();
-            return;
-        }
-
         this.product = product;
         serviceChckBox.setSelected(product.isService());
         onlineSaleChckBox.setSelected(product.isOnlineSale());
