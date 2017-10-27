@@ -24,4 +24,12 @@ public class Miscellaneous {
             return null;
         return textField.getText();
     }
+
+    public static Integer getValueFromNumericTextBox(int val)
+    {
+        if (val == 0)
+            return null;
+
+        return val;
+    }
 }
