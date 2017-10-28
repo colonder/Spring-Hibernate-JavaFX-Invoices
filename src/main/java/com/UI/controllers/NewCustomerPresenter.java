@@ -1,5 +1,6 @@
 package com.UI.controllers;
 
+import com.UI.view.CustomersView;
 import com.entity.Customer;
 import com.enums.CustomerType;
 import com.enums.PaymentMethod;
@@ -7,6 +8,7 @@ import com.service.ICustomerService;
 import com.utilities.BigDecimalTextField;
 import com.utilities.IntegerTextField;
 import com.utilities.Miscellaneous;
+import com.utilities.ViewSwitcher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -47,8 +49,8 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
     @FXML private ComboBox<Integer> defaultDaysComboBox;
     @FXML private Button saveBtn;
 
-    @Autowired
-    private ICustomerService customerService;
+    @Autowired private ICustomerService customerService;
+    @Autowired private CustomersView customersView;
     private Customer customer;
 
     @FXML
@@ -97,6 +99,8 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
                         defaultDaysComboBox.getSelectionModel().getSelectedItem()
                 );
                 customerService.save(customer);
+                customer = null; // save memory, ready for garbage collection
+                ViewSwitcher.openView(customersView);
             } catch (DataIntegrityViolationException e) {
                 Miscellaneous.showConstraintAlert();
             }

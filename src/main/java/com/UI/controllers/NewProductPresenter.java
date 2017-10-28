@@ -82,8 +82,8 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
                         LocalDate.now()
                 );
                 productService.save(product);
+                product = null; // save memory, ready for garbage collection
                 ViewSwitcher.openView(productsView);
-                System.out.println(product.getWarehouse().getAvailable());
             } catch (ConstraintViolationException e) {
                 Miscellaneous.showConstraintAlert();
             }
