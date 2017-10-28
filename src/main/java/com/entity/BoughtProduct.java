@@ -126,8 +126,8 @@ public class BoughtProduct extends BaseAbstractEntity
 
     private void computeDiscount()
     {
-        this.setDiscountValProp(this.getGrossValProp().multiply(new BigDecimal(this.getDiscountProp())
-                .divide(BigDecimal.valueOf(100))).setScale(2, BigDecimal.ROUND_HALF_DOWN));
+        this.setDiscountValProp(this.getUnmodifiedGrossValProp().multiply(new BigDecimal(
+                this.getDiscountProp() * 0.01)).setScale(2, BigDecimal.ROUND_HALF_DOWN));
         this.setGrossValProp(this.getUnmodifiedGrossValProp().subtract(this.getDiscountValProp()));
     }
 

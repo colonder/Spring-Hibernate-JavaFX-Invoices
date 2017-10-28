@@ -113,10 +113,6 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                 this.invoice.setInvoiceNumber(numberTxtFld.getText());
                 this.invoice.setType(InvoiceType.typeMap.get(typeComboBox.getSelectionModel().getSelectedItem()));
                 this.invoice.setIssueDate(issueDatePicker.getValue());
-                //this.invoice.setNetValue(this.netVal);
-                //this.invoice.setVatValue(this.vatVal);
-                //this.invoice.setGrossValue(this.grossVal);
-                //this.invoice.setDiscountValue(this.discountVal);
                 this.invoice.setPaidAmount(new BigDecimal(paidAmountTxtFld.getText()));
                 this.invoice.setPaymentMethod(PaymentMethod.paymentMap.get(paymentMethodComboBox.getSelectionModel()
                         .getSelectedItem()));
@@ -134,6 +130,8 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                 //this.invoice.setSeller(this.seller);
 
                 invoiceService.save(this.invoice);
+                this.invoice = null;
+                productTableView.getItems().clear();
                 //TODO: check if that's even necessary
                 /*for (BoughtProduct product : productTableView.getItems())
                 {
@@ -389,6 +387,7 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
             if (event.getNewValue() < 0)
             {
                 showQuantityAlert();
+                event.getRowValue().setQuantityProp(event.getOldValue());
             }
 
             else
@@ -400,22 +399,34 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
                     if (event.getNewValue() > warehouse.getAvailable())
                     {
                         showQuantityAlert();
+                        event.getRowValue().setQuantityProp(event.getOldValue());
+                        return;
                     }
                 }
-
-                setValueLabels(this.invoice);
+                event.getRowValue().setQuantityProp(event.getNewValue());
+                calculateInvoiceValues(event.getRowValue());
             }
 
         });
         netValCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
         discountCol.setCellValueFactory(new PropertyValueFactory<>("discountProp"));
         discountCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        discountCol.setOnEditCommit(event -> event.getTableView().getItems().get(event.getTablePosition().getRow())
-                .setDiscountProp(event.getNewValue()));
+        discountCol.setOnEditCommit(event -> {
+            event.getRowValue().setDiscountProp(event.getNewValue());
+            calculateInvoiceValues(event.getRowValue());
+        });
         grossValCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
-
         discountChckBox.selectedProperty().addListener((observable, oldValue, newValue) ->
                 discountCol.setVisible(newValue));
+    }
+
+    private void calculateInvoiceValues(BoughtProduct product)
+    {
+        this.invoice.setNetValue(this.invoice.getNetValue().subtract(this.invoice.getNetValue().subtract(product.getNetValProp())));
+        this.invoice.setVatValue(this.invoice.getVatValue().subtract(this.invoice.getVatValue().subtract(product.getTaxValProp())));
+        this.invoice.setGrossValue(this.invoice.getGrossValue().subtract(this.invoice.getGrossValue().subtract(product.getGrossValProp())));
+        this.invoice.setDiscountValue(this.invoice.getDiscountValue().subtract(this.invoice.getDiscountValue().subtract(product.getDiscountValProp())));
+        setValueLabels(this.invoice);
     }
 
     private void showQuantityAlert()
@@ -431,7 +442,12 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
     private void setValueLabels(Invoice invoice) {
         totalNetValLabel.setText(invoice.getNetValue().toString());
         totalTaxValLabel.setText(invoice.getVatValue().toString());
-        totalGrossValLabel.setText(invoice.getGrossValue().toString());
+        String total = invoice.getGrossValue().toString();
+
+        if (!invoice.getDiscountValue().equals(BigDecimal.ZERO))
+            total += " (discount: " + invoice.getDiscountValue() + ")";
+
+        totalGrossValLabel.setText(total);
     }
 
     private void initOptions() {
