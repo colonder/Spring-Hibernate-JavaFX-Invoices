@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Integer>, JpaSpecificationExecutor<Product>
 {
-    Product findById(int id);
+    Product findByProductName(String productName);
     List<Product> findAllByIsActiveTrue();
 }

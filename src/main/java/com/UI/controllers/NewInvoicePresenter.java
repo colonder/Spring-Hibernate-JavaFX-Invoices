@@ -386,20 +386,26 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
         quantityCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         quantityCol.setOnEditCommit(event -> {
-            // FIXME: dialog informing that there's not enough items in the warehouse, while it's not true
-            if (event.getNewValue() < 0 || event.getNewValue() > productService.findById(event.getRowValue()
-                    .getId()).getWarehouse().getAvailable())
+            if (event.getNewValue() < 0)
             {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Error adding a product");
-                alert.setHeaderText("Not enough items in the warehouse");
-                alert.setContentText("Selected product amount exceeds amount in the warehouse");
-
-                alert.showAndWait();
+                showQuantityAlert();
             }
 
             else
+            {
+                Warehouse warehouse = productService.findByProductName(event.getRowValue().getProductName()).getWarehouse();
+
+                if (warehouse != null)
+                {
+                    if (event.getNewValue() > warehouse.getAvailable())
+                    {
+                        showQuantityAlert();
+                    }
+                }
+
                 setValueLabels(this.invoice);
+            }
+
         });
         netValCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
         discountCol.setCellValueFactory(new PropertyValueFactory<>("discountProp"));
@@ -410,6 +416,16 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
 
         discountChckBox.selectedProperty().addListener((observable, oldValue, newValue) ->
                 discountCol.setVisible(newValue));
+    }
+
+    private void showQuantityAlert()
+    {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Error adding a product");
+        alert.setHeaderText("Not enough items in the warehouse");
+        alert.setContentText("Selected product amount exceeds amount in the warehouse");
+
+        alert.showAndWait();
     }
 
     private void setValueLabels(Invoice invoice) {

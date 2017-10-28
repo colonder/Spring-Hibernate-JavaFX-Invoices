@@ -26,11 +26,6 @@ public class ProductServImp implements IProductService {
     }
 
     @Override
-    public Product findById(int id) {
-        return productRepository.findById(id);
-    }
-
-    @Override
     @Transactional
     public Product save(Product product) {
         return productRepository.save(product);
@@ -45,5 +40,10 @@ public class ProductServImp implements IProductService {
     @Override
     public List<Product> findAllByIsActiveTrue() {
         return productRepository.findAllByIsActiveTrue();
+    }
+
+    @Override
+    public Product findByProductName(String productName) {
+        return productRepository.findByProductName(productName);
     }
 }
