@@ -21,32 +21,32 @@ public class Invoice extends BaseAbstractEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "invoice_number")
+    @Column(name = "invoice_number", nullable = false)
     private String invoiceNumber;
 
-    @Column(name = "invoice_type")
+    @Column(name = "invoice_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private InvoiceType type;
 
-    @Column(name = "issue_date")
+    @Column(name = "issue_date", nullable = false)
     private LocalDate issueDate;
 
-    @Column(name = "net_value")
+    @Column(name = "net_value", nullable = false)
     private BigDecimal netValue;
 
-    @Column(name = "vat_value")
+    @Column(name = "vat_value", nullable = false)
     private BigDecimal vatValue;
 
     @Column(name = "discount_value")
     private BigDecimal discountValue;
 
-    @Column(name = "gross_value")
+    @Column(name = "gross_value", nullable = false)
     private BigDecimal grossValue;
 
     @Column(name = "paid_amount")
     private BigDecimal paidAmount;
 
-    @Column(name = "payment_method")
+    @Column(name = "payment_method", nullable = false)
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
@@ -54,26 +54,26 @@ public class Invoice extends BaseAbstractEntity
     private LocalDate paidDate;
 
     // TODO: check in code for expiration date
-    @Column(name = "payment_date_days")
+    @Column(name = "payment_date_days", nullable = false)
     private Integer paymentDateDays;
 
-    @Column(name = "currency")
+    @Column(name = "currency", nullable = false)
     private String currency;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private InvoiceStatus status;
 
     @Column(name = "creation_date", updatable = false, nullable = false)
     private LocalDate creationDate;
 
-    @Column(name = "sale_date")
+    @Column(name = "sale_date", nullable = false)
     private LocalDate saleDate;
 
-    @Column(name = "location")
+    @Column(name = "location", nullable = false)
     private String location;
 
-    @Column(name = "last_modified")
+    @Column(name = "last_modified", nullable = false)
     private LocalDate lastModified;
 
     @Column(name = "sent_date")

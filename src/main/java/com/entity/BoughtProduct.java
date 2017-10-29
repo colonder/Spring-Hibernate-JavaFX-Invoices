@@ -1,5 +1,6 @@
 package com.entity;
 
+import com.utilities.Miscellaneous;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.hibernate.annotations.DynamicUpdate;
@@ -88,7 +89,7 @@ public class BoughtProduct extends BaseAbstractEntity
         this.quantityProp.addListener((observable, oldValue, newValue) -> {
             this.setNetValProp(this.getPriceProp().multiply(new BigDecimal(newValue.intValue())).setScale(2,
                     BigDecimal.ROUND_HALF_DOWN));
-            this.setTaxValProp(this.getNetValProp().multiply(this.getTaxRateProp().divide(BigDecimal.valueOf(100)))
+            this.setTaxValProp(this.getNetValProp().multiply(this.getTaxRateProp().multiply(Miscellaneous.ONE_HUNDREDTH))
                     .setScale(2, BigDecimal.ROUND_HALF_DOWN));
             this.setUnmodifiedGrossValProp(this.getNetValProp().add(this.getTaxValProp())
                     .setScale(2, BigDecimal.ROUND_HALF_DOWN));

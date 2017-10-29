@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.NewInvoicePresenter">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="1500.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.UI.controllers.NewInvoicePresenter">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -439,17 +439,17 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="totalNetValLabel" text="0.00" GridPane.columnIndex="2">
+                                    <Label fx:id="totalNetValLabel" text="0.00" GridPane.columnIndex="1">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="totalTaxValLabel" text="0.00" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                    <Label fx:id="totalTaxValLabel" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="totalGrossValLabel" text="0.00" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                    <Label fx:id="totalGrossValLabel" text="0.00" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

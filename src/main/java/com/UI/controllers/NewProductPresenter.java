@@ -123,7 +123,7 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
         this.product = product;
         serviceChckBox.setSelected(product.isService());
         onlineSaleChckBox.setSelected(product.isOnlineSale());
-        inactiveChckBox.setSelected(!product.isActive());
+        inactiveChckBox.setSelected(product.isActive());
         productNameTxtFld.setText(product.getProductName());
         if (product.getWarehouse() != null)
             codeTxtFld.setText(product.getWarehouse().getProductCode());
