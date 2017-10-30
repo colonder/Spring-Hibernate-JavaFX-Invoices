@@ -147,8 +147,8 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
 
     private boolean ensureFieldsFilled()
     {
-        // FIXME: NullPointerException
-        if (numberTxtFld.getText().isEmpty() ||
+        // FIXME: NullPointerException when trying to save an invoice with default empty text fields
+        if (numberTxtFld.textProperty() == null ||
                 typeComboBox.getSelectionModel().isEmpty() ||
                 this.invoice.getSeller() == null ||
                 this.invoice.getCustomer() == null ||
@@ -452,7 +452,6 @@ public class NewInvoicePresenter implements IInitializableFromEntity<Invoice> {
         totalNetValLabel.setText(invoice.getNetValue().toString());
         totalTaxValLabel.setText(invoice.getVatValue().toString());
         String total = invoice.getGrossValue().toString();
-        System.out.println(invoice.getDiscountValue());
         if (!invoice.getDiscountValue().equals(BigDecimal.ZERO))
             total += " (discount: " + invoice.getDiscountValue() + ")";
 
