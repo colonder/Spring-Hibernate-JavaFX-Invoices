@@ -1,17 +1,17 @@
 package com.UI.controllers;
 
-import com.UI.view.ProductsView;
+import com.UI.FxmlView;
 import com.entity.Product;
-import com.entity.Warehouse;
 import com.service.IProductService;
 import com.utilities.BigDecimalTextField;
 import com.utilities.IntegerTextField;
 import com.utilities.Miscellaneous;
-import com.utilities.ViewSwitcher;
+import com.UI.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
@@ -21,14 +21,12 @@ import java.time.LocalDate;
 public class NewProductPresenter implements IInitializableFromEntity<Product> {
 
     @FXML private CheckBox serviceChckBox;
-    @FXML private CheckBox onlineSaleChckBox;
     @FXML private TextField productNameTxtFld;
     @FXML private TextField codeTxtFld;
     @FXML private BigDecimalTextField netPriceTxtFld;
     @FXML private BigDecimalTextField vatTxtFld;
     @FXML private BigDecimalTextField grossPriceTxtFld;
     @FXML private TextField unitTxtFld;
-    @FXML private TextField tagsTxtFld;
     @FXML private TextField symbolTxtFld;
     @FXML private CheckBox inactiveChckBox;
     @FXML private Button saveBtn;
@@ -38,7 +36,10 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
 
     private Product product;
     @Autowired private IProductService productService;
-    @Autowired private ProductsView productsView;
+
+    @Lazy
+    @Autowired
+    private SceneManager sceneManager;
 
     @FXML
     public void initialize()
@@ -57,33 +58,18 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
             }
 
             try {
-                if (!serviceChckBox.isSelected())
-                {
-                    if (product.getWarehouse() == null)
-                    {
-                        product.setWarehouse(new Warehouse(amountTextFld.getValue()));
-                    }
-
-                    product.getWarehouse().setProductCode(codeTxtFld.getText());
-                    product.getWarehouse().setLastModified(LocalDate.now());
-                }
 
                 product.setAll(
                         productNameTxtFld.getText(),
                         Miscellaneous.getTextFromControl(symbolTxtFld),
                         unitTxtFld.getText(),
-                        Miscellaneous.getTextFromControl(tagsTxtFld),
                         netPriceTxtFld.getValue(),
-                        grossPriceTxtFld.getValue(),
                         vatTxtFld.getValue(),
-                        onlineSaleChckBox.isSelected(),
-                        serviceChckBox.isSelected(),
-                        !inactiveChckBox.isSelected(),
-                        LocalDate.now()
+                        !inactiveChckBox.isSelected()
                 );
                 productService.save(product);
                 product = null; // save memory, ready for garbage collection
-                ViewSwitcher.openView(productsView);
+                sceneManager.switchScene(FxmlView.PRODUCTS);
             } catch (ConstraintViolationException e) {
                 Miscellaneous.showConstraintAlert();
             }
@@ -121,17 +107,11 @@ public class NewProductPresenter implements IInitializableFromEntity<Product> {
     @Override
     public void initializeFields(Product product) {
         this.product = product;
-        serviceChckBox.setSelected(product.isService());
-        onlineSaleChckBox.setSelected(product.isOnlineSale());
         inactiveChckBox.setSelected(product.isActive());
         productNameTxtFld.setText(product.getProductName());
-        if (product.getWarehouse() != null)
-            codeTxtFld.setText(product.getWarehouse().getProductCode());
         netPriceTxtFld.setValue(product.getNetPrice());
         vatTxtFld.setValue(product.getVatRate());
-        grossPriceTxtFld.setValue(product.getGrossPrice());
         unitTxtFld.setText(product.getUnit());
-        tagsTxtFld.setText(product.getTag());
         symbolTxtFld.setText(product.getSymbol());
     }
 }

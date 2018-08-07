@@ -1,35 +1,52 @@
 package com;
 
-import com.UI.view.HomeView;
-import com.UI.view.RootView;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import com.UI.FxmlView;
+import com.UI.SceneManager;
+import javafx.application.Application;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-@Lazy
-public class Main extends AbstractJavaFxApplicationSupport {
+public class Main extends Application {
 
-    @Autowired private RootView rootView;
-    @Autowired private HomeView homeView;
-    public static BorderPane rootPane;
+    protected ConfigurableApplicationContext springContext;
+    protected SceneManager sceneManager;
 
-    public static void main(String[] args) {
-        launchApp(Main.class, args);
+    public static void main(final String[] args) {
+        Application.launch(args);
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
-        stage.setTitle("Simple invoices");
-        rootPane = (BorderPane) rootView.getView();
-        rootPane.setCenter(homeView.getView());
-        stage.setScene(new Scene(rootPane));
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.setResizable(true);
-        stage.show();
+    public void init() {
+        springContext = springBootApplicationContext();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        sceneManager = springContext.getBean(SceneManager.class, stage);
+        displayInitialScene();
+    }
+
+    @Override
+    public void stop() {
+        springContext.close();
+    }
+
+    /**
+     * Useful to override this method by sub-classes wishing to change the first
+     * Scene to be displayed on startup. Example: Functional tests on main
+     * window.
+     */
+    protected void displayInitialScene() {
+        sceneManager.switchScene(FxmlView.HOME);
+    }
+
+
+    private ConfigurableApplicationContext springBootApplicationContext() {
+        SpringApplicationBuilder builder = new SpringApplicationBuilder(Main.class);
+        String[] args = getParameters().getRaw().toArray(new String[0]);
+        return builder.run(args);
     }
 }

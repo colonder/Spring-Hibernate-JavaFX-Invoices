@@ -19,10 +19,7 @@ public class ProductServImp implements IProductService {
 
     @Override
     public List<Product> findAll(String phrase, Boolean isService, String[] tags, Boolean isActive) {
-        return productRepository.findAll(where(withPhrase(phrase))
-                .and(withProductType(isService))
-                .and(withTags(tags))
-                .and(withActive(isActive)));
+        return productRepository.findAll(where(withPhrase(phrase)).and(withActive(isActive)));
     }
 
     @Override
