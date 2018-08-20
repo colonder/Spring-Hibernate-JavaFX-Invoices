@@ -45,10 +45,10 @@ public enum FxmlView {
 
         @Override
         public String getFxmlFile() {
-            return "/fxmls/invoices.fxml";
+            return "/fxmls/products.fxml";
         }
     },
-    NEW_PROUCT {
+    NEW_PRODUCT {
         @Override
         public String getTitle() {
             return getStringFromResourceBundle("new_product.fxml");

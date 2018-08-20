@@ -2,108 +2,99 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.CheckMenuItem?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.CustomersPresenter">
-   <children>
-      <BorderPane layoutX="160.0" layoutY="125.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
-            <VBox BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="addCustomerBtn" alignment="TOP_LEFT" mnemonicParsing="false" text="Add customer">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="15.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Label text="Search phrase">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="phraseTxtFld" promptText="Number or word">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Button fx:id="searchBtn" mnemonicParsing="false" text="Search">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="15.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-               <padding>
+<BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.CustomersPresenter">
+   <top>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="homeBtn" mnemonicParsing="false" text="Home">
+               <HBox.margin>
                   <Insets left="10.0" right="10.0" />
-               </padding>
-            </VBox>
-         </left>
-         <center>
-            <VBox BorderPane.alignment="CENTER">
+               </HBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="productsBtn" mnemonicParsing="false" text="Products">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="settingsBtn" mnemonicParsing="false" text="Settings">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <center>
+      <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox>
                <children>
-                  <AnchorPane>
-                     <children>
-                        <Label text="Customers" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <ButtonBar layoutX="619.0" layoutY="20.0" prefWidth="400.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="20.0">
-                          <buttons>
-                              <Button fx:id="editCustomerBtn" mnemonicParsing="false" text="Edit selected" />
-                            <Button fx:id="deleteCustomerBtn" mnemonicParsing="false" text="Delete selected" />
-                              <MenuButton mnemonicParsing="false" text="Column visibility">
-                                 <items>
-                                    <CheckMenuItem fx:id="aliasCheckMenuItem" mnemonicParsing="false" selected="true" text="Alias" />
-                                    <CheckMenuItem fx:id="lastNameCheckMenuItem" mnemonicParsing="false" selected="true" text="Last name" />
-                                    <CheckMenuItem fx:id="firstNameCheckMenuItem" mnemonicParsing="false" selected="true" text="First name" />
-                                    <CheckMenuItem fx:id="taxIdCheckMenuItem" mnemonicParsing="false" selected="true" text="Tax ID" />
-                                    <CheckMenuItem fx:id="addressCheckMenuItem" mnemonicParsing="false" selected="true" text="Address" />
-                                    <CheckMenuItem fx:id="postalCodeCheckMenuItem" mnemonicParsing="false" selected="true" text="Postal code" />
-                                    <CheckMenuItem fx:id="cityCheckMenuItem" mnemonicParsing="false" selected="true" text="City" />
-                                    <CheckMenuItem fx:id="companyNumCheckMenuItem" mnemonicParsing="false" text="Company special number" />
-                                    <CheckMenuItem fx:id="paymentCheckMenuItem" mnemonicParsing="false" text="Default payment method" />
-                                 </items>
-                              </MenuButton>
-                          </buttons>
-                        </ButtonBar>
-                     </children>
-                  </AnchorPane>
-                  <ScrollPane fitToHeight="true">
-                     <content>
-                        <TableView fx:id="customersTableView">
-                           <columns>
-                              <TableColumn fx:id="aliasCol" editable="false" prefWidth="150.0" text="Alias" />
-                              <TableColumn fx:id="lastNameCol" prefWidth="150.0" text="Last name" />
-                              <TableColumn fx:id="firstNameCol" prefWidth="150.0" text="First name" />
-                              <TableColumn fx:id="taxIdCol" prefWidth="150.0" text="Tax ID" />
-                              <TableColumn fx:id="addressCol" prefWidth="150.0" text="Address" />
-                              <TableColumn fx:id="postalCodeCol" prefWidth="150.0" text="Postal code" />
-                              <TableColumn fx:id="cityCol" prefWidth="150.0" text="City" />
-                              <TableColumn fx:id="companyNumCol" prefWidth="150.0" text="Company special number" visible="false" />
-                              <TableColumn fx:id="paymentCol" prefWidth="150.0" text="Default payment&#10;      menthod" visible="false" />
-                           </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                     </content>
-                  </ScrollPane>
+                  <Button fx:id="addBtn" mnemonicParsing="false" text="Add">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="editBtn" mnemonicParsing="false" text="Edit">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="deleteBtn" mnemonicParsing="false" text="Delete">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
-            </VBox>
-         </center>
-      </BorderPane>
-   </children>
-</AnchorPane>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <TableView fx:id="customersTable" prefHeight="465.0" prefWidth="810.0">
+               <columns>
+                  <TableColumn fx:id="aliasCol" editable="false" prefWidth="75.0" text="Alias" />
+                  <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="lastNameCol" editable="false" prefWidth="75.0" text="Last name" />
+                  <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="firmCol" editable="false" prefWidth="75.0" text="Firm name" />
+                  <TableColumn fx:id="firmIdCol" prefWidth="75.0" text="Firm ID" />
+                  <TableColumn fx:id="addressCol" editable="false" prefWidth="75.0" text="Address" />
+                  <TableColumn fx:id="postalCodeCol" editable="false" prefWidth="75.0" text="Postal code" />
+                  <TableColumn fx:id="cityCol" prefWidth="75.0" text="City" />
+                  <TableColumn fx:id="paymentCol" prefWidth="75.0" text="Payment" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

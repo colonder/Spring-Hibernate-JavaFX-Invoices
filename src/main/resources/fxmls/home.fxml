@@ -16,177 +16,174 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.HomePresenter">
-   <children>
-      <BorderPane layoutX="96.0" layoutY="154.0" prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <HBox BorderPane.alignment="CENTER">
+<BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.HomePresenter">
+   <top>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="customersBtn" mnemonicParsing="false" text="Customers">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="productsBtn" mnemonicParsing="false" text="Products">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="printBtn" mnemonicParsing="false" text="Print">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="settingsBtn" mnemonicParsing="false" text="Settings">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.06390977443609022, 0.9530075187969925" orientation="VERTICAL" BorderPane.alignment="TOP_LEFT">
+         <items>
+            <GridPane prefHeight="80.0" prefWidth="940.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints vgrow="NEVER" />
+               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" text="Clients">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
+                  <Label text="Customer:">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="customerLbl" text="Label" GridPane.columnIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>
-                  </Button>
-                  <Button mnemonicParsing="false" text="Products">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
+                  </Label>
+                  <Button fx:id="addProductBtn" mnemonicParsing="false" text="Add product" GridPane.columnIndex="2">
                      <font>
                         <Font size="20.0" />
                      </font>
-                  </Button>
-                  <Button mnemonicParsing="false" text="Print">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" text="Settings">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
                   </Button>
                </children>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </BorderPane.margin></HBox>
-         </top>
-         <center>
-            <SplitPane dividerPositions="0.06390977443609022, 0.9530075187969925" orientation="VERTICAL" BorderPane.alignment="TOP_LEFT">
-               <items>
-                  <GridPane prefHeight="80.0" prefWidth="940.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints vgrow="NEVER" />
-                    </rowConstraints>
+               <padding>
+                  <Insets right="15.0" />
+               </padding>
+            </GridPane>
+            <AnchorPane>
+               <children>
+                  <TableView layoutX="36.0" layoutY="99.0" prefHeight="465.0" prefWidth="810.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <columns>
+                        <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="symbolCol" editable="false" prefWidth="75.0" text="Symbol" />
+                        <TableColumn fx:id="amountCol" prefWidth="75.0" text="Amount" />
+                        <TableColumn fx:id="unitCol" editable="false" prefWidth="75.0" text="Unit" />
+                        <TableColumn fx:id="netCol" editable="false" prefWidth="75.0" text="Net" />
+                        <TableColumn prefWidth="75.0" text="Tax">
+                           <columns>
+                              <TableColumn fx:id="vatRateCol" editable="false" prefWidth="75.0" text="VAT rate" />
+                              <TableColumn fx:id="vatValCol" editable="false" prefWidth="75.0" text="Value" />
+                           </columns>
+                        </TableColumn>
+                        <TableColumn fx:id="grossCol" editable="false" prefWidth="75.0" text="Gross" />
+                        <TableColumn fx:id="deleteCol" editable="false" prefWidth="75.0" sortable="false" text="Delete" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity">
+               <children>
+                  <Label text="Total: ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalLbl" text="Label">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
+                  </Label>
+                  <Label text="In words: ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="wordsLbl" text="Label">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </items>
+      </SplitPane>
+   </center>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox alignment="CENTER">
                      <children>
-                        <Label text="Client: ">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <Label text="Label" GridPane.columnIndex="1">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Button mnemonicParsing="false" text="Add product" GridPane.columnIndex="2">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
+                        <Button fx:id="firstBtn" mnemonicParsing="false" text="First">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="prevBtn" mnemonicParsing="false" text="Prev">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="nextBtn" mnemonicParsing="false" text="Next">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="lastBtn" mnemonicParsing="false" text="Last">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
                         </Button>
                      </children>
-                     <padding>
-                        <Insets right="15.0" />
-                     </padding>
-                  </GridPane>
-                  <AnchorPane>
-                     <children>
-                        <TableView layoutX="36.0" layoutY="99.0" prefHeight="465.0" prefWidth="810.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <columns>
-                            <TableColumn editable="false" prefWidth="75.0" text="Name" />
-                            <TableColumn editable="false" prefWidth="75.0" text="Symbol" />
-                              <TableColumn prefWidth="75.0" text="Amount" />
-                              <TableColumn editable="false" prefWidth="75.0" text="Unit" />
-                              <TableColumn editable="false" prefWidth="75.0" text="Net" />
-                              <TableColumn prefWidth="75.0" text="Tax">
-                                 <columns>
-                                    <TableColumn editable="false" prefWidth="75.0" text="VAT rate" />
-                                    <TableColumn editable="false" prefWidth="75.0" text="Value" />
-                                 </columns>
-                              </TableColumn>
-                              <TableColumn editable="false" prefWidth="75.0" text="Gross" />
-                              <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Delete" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity">
-                     <children>
-                        <Label text="Total: ">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label text="Label">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <padding>
-                              <Insets right="20.0" />
-                           </padding>
-                        </Label>
-                        <Label text="In words: ">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label text="Label">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
                   </HBox>
-               </items>
-            </SplitPane>
-         </center>
-         <left>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <Button mnemonicParsing="false" text="First">
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" text="Prev">
-                                 <HBox.margin>
-                                    <Insets left="5.0" right="5.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" text="Next">
-                                 <HBox.margin>
-                                    <Insets left="5.0" right="5.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" text="Last">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <ListView prefHeight="500.0" />
-                     </children>
-                  </VBox>
+                  <ListView fx:id="customersList" prefHeight="500.0" />
                </children>
-               <BorderPane.margin>
-                  <Insets left="5.0" right="5.0" />
-               </BorderPane.margin>
-            </AnchorPane>
-         </left>
-      </BorderPane>
-   </children>
-</AnchorPane>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets left="5.0" right="5.0" />
+         </BorderPane.margin>
+      </AnchorPane>
+   </left>
+</BorderPane>
