@@ -46,22 +46,22 @@ public class ProductsPresenter implements Initializable {
     private Button deleteBtn;
 
     @FXML
-    private TableView<?> productsTable;
+    private TableView<Product> productsTable;
 
     @FXML
-    private TableColumn<?, ?> nameCol;
+    private TableColumn<Product, String> nameCol;
 
     @FXML
-    private TableColumn<?, ?> symbolCol;
+    private TableColumn<Product, String> symbolCol;
 
     @FXML
-    private TableColumn<?, ?> unitCol;
+    private TableColumn<Product, String> unitCol;
 
     @FXML
-    private TableColumn<?, ?> grossCol;
+    private TableColumn<Product, BigDecimal> grossCol;
 
     @FXML
-    private TableColumn<?, ?> vatRateCol;
+    private TableColumn<Product, BigDecimal>vatRateCol;
     //endregion
 
     @Lazy
@@ -71,6 +71,15 @@ public class ProductsPresenter implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeButtons();
+        initializeTable();
+    }
+
+    private void initializeTable() {
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
+        unitCol.setCellValueFactory(new PropertyValueFactory<>("unit"));
+        grossCol.setCellValueFactory(new PropertyValueFactory<>("grossPrice"));
+        vatRateCol.setCellValueFactory(new PropertyValueFactory<>("vatRate"));
     }
 
     private void initializeButtons() {
@@ -78,23 +87,6 @@ public class ProductsPresenter implements Initializable {
         customersBtn.setOnAction(actionEvent -> sceneManager.switchScene(FxmlView.CUSTOMERS));
     }
 }
-
-//    @FXML
-//    public void initialize()
-//    {
-//        initButtons();
-//        initComboBoxes();
-//        setSearching();
-//        initCheckMenuItems();
-//        initTableColumns();
-//    }
-//
-//    private void initTableColumns() {
-//        nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
-//        netPriceCol.setCellValueFactory(new PropertyValueFactory<>("netPrice"));
-//        taxRateCol.setCellValueFactory(new PropertyValueFactory<>("vatRate"));
-//        activeCol.setCellValueFactory(new PropertyValueFactory<>("isActive"));
-//    }
 //
 //    private void initButtons() {
 ////        addProductBtn.setOnAction(actionEvent -> SceneManager.openAndInitialize(newProductView, new Product()));
