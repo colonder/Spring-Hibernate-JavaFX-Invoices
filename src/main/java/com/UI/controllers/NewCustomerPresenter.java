@@ -1,24 +1,14 @@
 package com.UI.controllers;
 
-import com.UI.FxmlView;
 import com.entity.Customer;
 import com.service.ICustomerService;
-import com.utilities.BigDecimalTextField;
 import com.utilities.IntegerTextField;
-import com.utilities.Miscellaneous;
 import com.UI.SceneManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-
-import java.time.LocalDate;
-import java.util.Currency;
-import java.util.Locale;
 
 @Controller
 public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
@@ -91,17 +81,17 @@ public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
         @Override
     public void initializeFields(Customer customer) {
         this.customer = customer;
-        companyNameTxtFld.setText(customer.getCompanyName());
-        taxIdTxtFld.setText(customer.getTaxIdentifier());
+        companyNameTxtFld.setText(customer.getFirmName());
+        taxIdTxtFld.setText(customer.getTaxId());
         addressTxtFld.setText(customer.getAddress());
         postalCodeTxtFld.setText(customer.getPostalCode());
         cityTxtFld.setText(customer.getCity());
         firstNameTxtFld.setText(customer.getFirstName());
         lastNameTxtFld.setText(customer.getLastName());
         aliasTxtFld.setText(customer.getAlias());
-        if (customer.getCompanySpecialNumber() != null)
-            companyNumTxtFld.setText(String.valueOf(customer.getCompanySpecialNumber()));
-//        if (customer.getDefaultPaymentMethod() != null)
-//        defaultPaymentComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(customer.getDefaultPaymentMethod()));
+        if (customer.getFirmId() != null)
+            companyNumTxtFld.setText(String.valueOf(customer.getFirmId()));
+//        if (customer.getPayment() != null)
+//        defaultPaymentComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(customer.getPayment()));
     }
 }

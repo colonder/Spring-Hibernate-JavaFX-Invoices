@@ -17,8 +17,8 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "alias")
     private String alias;
 
-    @Column(name = "company_name")
-    private String companyName;
+    @Column(name = "firm_name")
+    private String firmName;
 
     @Column(name = "last_name")
     private String lastName;
@@ -26,8 +26,8 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "tax_identifier_number", nullable = false)
-    private String taxIdentifier;
+    @Column(name = "tax_id", nullable = false)
+    private String taxId;
 
     @Column(name = "address")
     private String address;
@@ -38,25 +38,25 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "city")
     private String city;
 
-    @Column(name = "default_payment_method")
-    private Integer defaultPaymentMethod;
+    @Column(name = "payment")
+    private Integer payment;
 
-    @Column(name = "company_special_number") // regon
-    private Integer companySpecialNumber;
+    @Column(name = "firm_id") // regon
+    private Integer firmId;
 
-    public void setAll(String alias, String companyName, String lastName, String firstName, String taxIdentifier,
-                       String address, String postalCode, String city, Integer defaultPaymentMethod,
-                       Integer companySpecialNumber) {
+    public void setAll(String alias, String firmName, String lastName, String firstName, String taxId,
+                       String address, String postalCode, String city, Integer payment,
+                       Integer firmId) {
         this.alias = alias;
-        this.companyName = companyName;
+        this.firmName = firmName;
         this.lastName = lastName;
         this.firstName = firstName;
-        this.taxIdentifier = taxIdentifier;
+        this.taxId = taxId;
         this.address = address;
         this.postalCode = postalCode;
         this.city = city;
-        this.defaultPaymentMethod = defaultPaymentMethod;
-        this.companySpecialNumber = companySpecialNumber;
+        this.payment = payment;
+        this.firmId = firmId;
     }
 
     //region getters and setters
@@ -77,12 +77,12 @@ public class Customer extends BaseAbstractEntity
         this.alias = alias;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getFirmName() {
+        return firmName;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setFirmName(String firmName) {
+        this.firmName = firmName;
     }
 
     public String getLastName() {
@@ -101,12 +101,12 @@ public class Customer extends BaseAbstractEntity
         this.firstName = firstName;
     }
 
-    public String getTaxIdentifier() {
-        return taxIdentifier;
+    public String getTaxId() {
+        return taxId;
     }
 
-    public void setTaxIdentifier(String taxIdentifier) {
-        this.taxIdentifier = taxIdentifier;
+    public void setTaxId(String taxId) {
+        this.taxId = taxId;
     }
 
     public String getAddress() {
@@ -133,20 +133,20 @@ public class Customer extends BaseAbstractEntity
         this.city = city;
     }
 
-    public Integer getCompanySpecialNumber() {
-        return companySpecialNumber;
+    public Integer getFirmId() {
+        return firmId;
     }
 
-    public void setCompanySpecialNumber(Integer companySpecialNumber) {
-        this.companySpecialNumber = companySpecialNumber;
+    public void setFirmId(Integer firmId) {
+        this.firmId = firmId;
     }
 
-    public Integer getDefaultPaymentMethod() {
-        return defaultPaymentMethod;
+    public Integer getPayment() {
+        return payment;
     }
 
-    public void setDefaultPaymentMethod(Integer defaultPaymentMethod) {
-        this.defaultPaymentMethod = defaultPaymentMethod;
+    public void setPayment(Integer payment) {
+        this.payment = payment;
     }
 
 

@@ -4,7 +4,6 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "products")
@@ -25,23 +24,18 @@ public class Product extends BaseAbstractEntity
     @Column(name = "unit", nullable = false)
     private String unit;
 
-    @Column(name = "net_price", nullable = false)
-    private BigDecimal netPrice;
+    @Column(name = "gross_price", nullable = false)
+    private BigDecimal grossPrice;
 
     @Column(name = "vat_rate", nullable = false)
     private BigDecimal vatRate;
 
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive;
-
-    public void setAll(String productName, String symbol, String unit, BigDecimal netPrice, BigDecimal vatRate,
-                       boolean isActive) {
+    public void setAll(String productName, String symbol, String unit, BigDecimal netPrice, BigDecimal vatRate) {
         this.productName = productName;
         this.symbol = symbol;
         this.unit = unit;
-        this.netPrice = netPrice;
+        this.grossPrice = netPrice;
         this.vatRate = vatRate;
-        this.isActive = isActive;
     }
 
     //region getters and setters
@@ -69,12 +63,12 @@ public class Product extends BaseAbstractEntity
         this.unit = unit;
     }
 
-    public BigDecimal getNetPrice() {
-        return netPrice;
+    public BigDecimal getGrossPrice() {
+        return grossPrice;
     }
 
-    public void setNetPrice(BigDecimal netPrice) {
-        this.netPrice = netPrice;
+    public void setGrossPrice(BigDecimal grossPrice) {
+        this.grossPrice = grossPrice;
     }
 
     public BigDecimal getVatRate() {
@@ -83,14 +77,6 @@ public class Product extends BaseAbstractEntity
 
     public void setVatRate(BigDecimal vatRate) {
         this.vatRate = vatRate;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
     //endregion
 }

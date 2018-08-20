@@ -78,34 +78,7 @@ public class ProductsPresenter implements Initializable {
         customersBtn.setOnAction(actionEvent -> sceneManager.switchScene(FxmlView.CUSTOMERS));
     }
 }
-//public class ProductsPresenter {
-//
-//    private static final HashMap<String, Boolean> isActiveMap;
-//
-//    static
-//    {
-//        isActiveMap = new HashMap<>();
-//        isActiveMap.put("All", null);
-//        isActiveMap.put("Active", true);
-//        isActiveMap.put("Inactive", false);
-//    }
-//
-//    //region fxml fields
-//    @FXML private Button addProductBtn;
-//    @FXML private TextField phraseTxtFld;
-//    @FXML private ComboBox<String> activeComboBox;
-//    @FXML private Button searchBtn;
-//    @FXML private TableView<Product> productsTableView;
-//    @FXML private TableColumn<Product, String> nameCol;
-//    @FXML private TableColumn<Product, BigDecimal> netPriceCol;
-//    @FXML private TableColumn<Product, BigDecimal> taxRateCol;
-//    @FXML private TableColumn<Product, Boolean> activeCol;
-//    @FXML private Button editProductBtn;
-//    @FXML private Button deleteProductBtn;
-//    //endregion
-//
-//    @Autowired private IProductService productService;
-//
+
 //    @FXML
 //    public void initialize()
 //    {
