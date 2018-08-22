@@ -4,10 +4,7 @@ import com.UI.FxmlView;
 import com.UI.SceneManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -83,7 +80,10 @@ public class HomePresenter implements Initializable {
     private Button lastBtn;
 
     @FXML
-    private ListView<?> customersList;
+    private ListView<String> customersList;
+
+    @FXML
+    private DatePicker datePicker;
     //endregion
 
     @Lazy
