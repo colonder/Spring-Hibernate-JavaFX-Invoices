@@ -43,37 +43,37 @@ public class CustomersPresenter implements Initializable {
     private Button deleteBtn;
 
     @FXML
-    private TableView<?> customersTable;
+    private TableView<Customer> customersTable;
 
     @FXML
-    private TableColumn<?, ?> aliasCol;
+    private TableColumn<Customer, String> aliasCol;
 
     @FXML
-    private TableColumn<?, ?> nameCol;
+    private TableColumn<Customer, String> nameCol;
 
     @FXML
-    private TableColumn<?, ?> lastNameCol;
+    private TableColumn<Customer, String> lastNameCol;
 
     @FXML
-    private TableColumn<?, ?> idCol;
+    private TableColumn<Customer, String> idCol;
 
     @FXML
-    private TableColumn<?, ?> firmCol;
+    private TableColumn<Customer, String> firmCol;
 
     @FXML
-    private TableColumn<?, ?> firmIdCol;
+    private TableColumn<Customer, Integer> firmIdCol;
 
     @FXML
-    private TableColumn<?, ?> addressCol;
+    private TableColumn<Customer, String> addressCol;
 
     @FXML
-    private TableColumn<?, ?> postalCodeCol;
+    private TableColumn<Customer, String> postalCodeCol;
 
     @FXML
-    private TableColumn<?, ?> cityCol;
+    private TableColumn<Customer, String> cityCol;
 
     @FXML
-    private TableColumn<?, ?> paymentCol;
+    private TableColumn<Customer, Integer> paymentCol;
     //endregion
 
     @Lazy
@@ -83,6 +83,20 @@ public class CustomersPresenter implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeButtons();
+        initializeTable();
+    }
+
+    private void initializeTable() {
+        aliasCol.setCellValueFactory(new PropertyValueFactory<>("alias"));
+        firmCol.setCellValueFactory(new PropertyValueFactory<>("firm_name"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("last_name"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("first_name"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("tax_id"));
+        addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postal_code"));
+        cityCol.setCellValueFactory(new PropertyValueFactory<>("city"));
+        paymentCol.setCellValueFactory(new PropertyValueFactory<>("payment"));
+        firmIdCol.setCellValueFactory(new PropertyValueFactory<>("firm_id"));
     }
 
     private void initializeButtons() {

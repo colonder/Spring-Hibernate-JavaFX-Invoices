@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
@@ -61,10 +62,11 @@
    <center>
       <SplitPane dividerPositions="0.06390977443609022, 0.9530075187969925" orientation="VERTICAL" BorderPane.alignment="TOP_LEFT">
          <items>
-            <GridPane prefHeight="80.0" prefWidth="940.0">
+            <GridPane>
                <columnConstraints>
                   <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="10.0" prefWidth="436.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="221.0" minWidth="10.0" prefWidth="220.0" />
                   <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
                </columnConstraints>
                <rowConstraints>
@@ -81,11 +83,16 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="addProductBtn" mnemonicParsing="false" text="Add product" GridPane.columnIndex="2">
+                  <Button fx:id="addProductBtn" mnemonicParsing="false" text="Add product" GridPane.columnIndex="3">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
+                  <DatePicker fx:id="datePicker" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </DatePicker>
                </children>
                <padding>
                   <Insets right="15.0" />
