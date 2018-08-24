@@ -44,21 +44,6 @@ public class Customer extends BaseAbstractEntity
     @Column(name = "firm_id") // regon
     private Integer firmId;
 
-    public void setAll(String alias, String firmName, String lastName, String firstName, String taxId,
-                       String address, String postalCode, String city, Integer payment,
-                       Integer firmId) {
-        this.alias = alias;
-        this.firmName = firmName;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.taxId = taxId;
-        this.address = address;
-        this.postalCode = postalCode;
-        this.city = city;
-        this.payment = payment;
-        this.firmId = firmId;
-    }
-
     //region getters and setters
 
     public int getId() {

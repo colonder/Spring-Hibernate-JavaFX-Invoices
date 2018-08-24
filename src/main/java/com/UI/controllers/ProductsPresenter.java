@@ -1,26 +1,23 @@
 package com.UI.controllers;
 
 import com.UI.FxmlView;
+import com.UI.SceneManager;
 import com.entity.Product;
 import com.service.IProductService;
-import com.UI.SceneManager;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Controller
@@ -68,13 +65,18 @@ public class ProductsPresenter implements Initializable {
     @Autowired
     private SceneManager sceneManager;
 
+    @Autowired
+    private IProductService productService;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeButtons();
         initializeTable();
+        loadProducts();
     }
 
     private void initializeTable() {
+        productsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
         symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
         unitCol.setCellValueFactory(new PropertyValueFactory<>("unit"));
@@ -85,6 +87,26 @@ public class ProductsPresenter implements Initializable {
     private void initializeButtons() {
         homeBtn.setOnAction(actionEvent -> sceneManager.switchScene(FxmlView.HOME));
         customersBtn.setOnAction(actionEvent -> sceneManager.switchScene(FxmlView.CUSTOMERS));
+    }
+
+    private void loadProducts() {
+        productsTable.getItems().clear();
+        productsTable.getItems().addAll(productService.findAll());
+    }
+
+    @FXML
+    void addProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deleteProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void editProduct(ActionEvent event) {
+
     }
 }
 //

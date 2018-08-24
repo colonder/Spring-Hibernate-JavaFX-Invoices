@@ -1,23 +1,22 @@
 package com.UI.controllers;
 
 import com.UI.FxmlView;
+import com.UI.SceneManager;
 import com.entity.Customer;
 import com.service.ICustomerService;
-import com.UI.SceneManager;
-import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
-import java.math.BigDecimal;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Controller
@@ -80,13 +79,18 @@ public class CustomersPresenter implements Initializable {
     @Autowired
     private SceneManager sceneManager;
 
+    @Autowired
+    private ICustomerService customerService;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeButtons();
         initializeTable();
+        loadCustomers();
     }
 
     private void initializeTable() {
+        customersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         aliasCol.setCellValueFactory(new PropertyValueFactory<>("alias"));
         firmCol.setCellValueFactory(new PropertyValueFactory<>("firm_name"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("last_name"));
@@ -102,6 +106,26 @@ public class CustomersPresenter implements Initializable {
     private void initializeButtons() {
         productsBtn.setOnAction(actionEvent -> sceneManager.switchScene(FxmlView.PRODUCTS));
         homeBtn.setOnAction(actionEvent -> sceneManager.switchScene(FxmlView.HOME));
+    }
+
+    private void loadCustomers() {
+        customersTable.getItems().clear();
+        customersTable.getItems().addAll(customerService.findAll());
+    }
+
+    @FXML
+    void addCustomer(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deleteCustomer(ActionEvent event) {
+
+    }
+
+    @FXML
+    void editCustomer(ActionEvent event) {
+
     }
 }
 
