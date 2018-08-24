@@ -9,17 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.specifications.ProductsSpecifications.*;
-import static org.springframework.data.jpa.domain.Specifications.where;
-
 @Service
 public class ProductServImp implements IProductService {
     @Autowired
     private IProductRepository productRepository;
 
     @Override
-    public List<Product> findAll(String phrase, Boolean isService, String[] tags, Boolean isActive) {
-        return productRepository.findAll(where(withPhrase(phrase)).and(withActive(isActive)));
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
     @Override
@@ -29,13 +26,28 @@ public class ProductServImp implements IProductService {
     }
 
     @Override
+    public Product update(Product entity) {
+        return productRepository.save(entity);
+    }
+
+    @Override
     @Transactional
     public void delete(Product product) {
         productRepository.delete(product);
     }
 
     @Override
-    public Product findByProductName(String productName) {
-        return productRepository.findByProductName(productName);
+    public void deleteInBatch(List<Product> entities) {
+
     }
+
+    @Override
+    public Product find(Long id) {
+        return productRepository.findById(id).get();
+    }
+
+//    @Override
+//    public Product findByProductName(String productName) {
+//        return productRepository.findByProductName(productName);
+//    }
 }

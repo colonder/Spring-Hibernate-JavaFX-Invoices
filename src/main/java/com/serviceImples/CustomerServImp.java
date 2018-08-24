@@ -27,8 +27,23 @@ public class CustomerServImp implements ICustomerService {
     }
 
     @Override
+    public Customer update(Customer customer) {
+        return customerRepository.save(customer);
+    }
+
+    @Override
     @Transactional
     public void delete(Customer customer) {
         customerRepository.delete(customer);
+    }
+
+    @Override
+    public void deleteInBatch(List<Customer> entities) {
+        customerRepository.deleteInBatch(entities);
+    }
+
+    @Override
+    public Customer find(Long id) {
+        return customerRepository.findById(id).get();
     }
 }
