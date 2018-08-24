@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "customer")
 @DynamicUpdate
-public class Customer extends BaseAbstractEntity
+public class Customer
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

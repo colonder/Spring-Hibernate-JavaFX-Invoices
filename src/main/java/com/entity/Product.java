@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "products")
 @DynamicUpdate
-public class Product extends BaseAbstractEntity
+public class Product
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,14 +29,6 @@ public class Product extends BaseAbstractEntity
 
     @Column(name = "vat_rate", nullable = false)
     private BigDecimal vatRate;
-
-    public void setAll(String productName, String symbol, String unit, BigDecimal netPrice, BigDecimal vatRate) {
-        this.productName = productName;
-        this.symbol = symbol;
-        this.unit = unit;
-        this.grossPrice = netPrice;
-        this.vatRate = vatRate;
-    }
 
     //region getters and setters
     public String getProductName() {
