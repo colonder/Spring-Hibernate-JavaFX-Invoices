@@ -1,9 +1,12 @@
 package com.UI;
+
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class SceneManager {
@@ -20,7 +23,19 @@ public class SceneManager {
         show(viewRootNodeHierarchy, view.getTitle());
     }
 
-    private void show(final Parent rootnode, String title) {
+    public FXMLLoader getLoader(FxmlView view) {
+        FXMLLoader loader = null;
+
+        try {
+            loader = springFXMLLoader.load(view.getFxmlFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return loader;
+    }
+
+    public void show(final Parent rootnode, String title) {
         Scene scene = prepareScene(rootnode);
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
@@ -53,7 +68,8 @@ public class SceneManager {
     private Parent loadViewNodeHierarchy(String fxmlFilePath) {
         Parent rootNode = null;
         try {
-            rootNode = springFXMLLoader.load(fxmlFilePath);
+            FXMLLoader loader = springFXMLLoader.load(fxmlFilePath);
+            rootNode = loader.load();
             Objects.requireNonNull(rootNode, "A Root FXML node must not be null");
         } catch (Exception exception) {
             logAndExit("Unable to load FXML view" + fxmlFilePath, exception);
