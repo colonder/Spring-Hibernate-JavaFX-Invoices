@@ -2,7 +2,9 @@ package com.UI.controllers;
 
 import com.UI.FxmlView;
 import com.UI.SceneManager;
+import com.entity.Customer;
 import com.entity.Product;
+import com.service.ICustomerService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -83,7 +85,7 @@ public class HomePresenter implements Initializable {
     private Button lastBtn;
 
     @FXML
-    private ListView<String> customersList;
+    private ListView<Customer> customersList;
 
     @FXML
     private DatePicker datePicker;
@@ -93,10 +95,34 @@ public class HomePresenter implements Initializable {
     @Autowired
     private SceneManager sceneManager;
 
+    @Autowired
+    private ICustomerService customerService;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeButtons();
         initializeTable();
+        setListViewProperties();
+        loadCustomers();
+    }
+
+    private void setListViewProperties() {
+        customersList.setCellFactory(param -> new ListCell<Customer>() {
+            @Override
+            protected void updateItem(Customer item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null || item.getAlias() == null) {
+                    setText(null);
+                } else {
+                    setText(item.getAlias());
+                }
+            }
+        });
+    }
+
+    private void loadCustomers() {
+        customersList.getItems().clear();
+        customersList.getItems().addAll(customerService.findAll());
     }
 
     private void initializeTable() {
@@ -107,8 +133,13 @@ public class HomePresenter implements Initializable {
         vatRateCol.setCellValueFactory(new PropertyValueFactory<>("vatRate"));
     }
 
-    private void initializeButtons() {
-        customersBtn.setOnAction(actionEvent -> sceneManager.switchScene(FxmlView.CUSTOMERS));
-        productsBtn.setOnAction(actionEvent -> sceneManager.switchScene(FxmlView.PRODUCTS));
+    @FXML
+    void switchToCustomers() {
+        sceneManager.switchScene(FxmlView.CUSTOMERS);
+    }
+
+    @FXML
+    void switchToProducts() {
+        sceneManager.switchScene(FxmlView.PRODUCTS);
     }
 }
