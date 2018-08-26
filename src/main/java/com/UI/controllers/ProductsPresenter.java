@@ -6,13 +6,16 @@ import com.entity.Product;
 import com.service.IProductService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.List;
@@ -100,23 +103,48 @@ public class ProductsPresenter implements Initializable {
 
     @FXML
     void deleteProduct(ActionEvent event) {
-        List<Product> users = productsTable.getSelectionModel().getSelectedItems();
+        List<Product> products = productsTable.getSelectionModel().getSelectedItems();
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Are you sure you want to delete selected?");
-        Optional<ButtonType> action = alert.showAndWait();
+        if (!products.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete selected?");
+            Optional<ButtonType> action = alert.showAndWait();
 
-        if (action.orElse(null) == ButtonType.OK)
-            productService.deleteInBatch(users);
+            if (action.orElse(null) == ButtonType.OK)
+                productService.deleteInBatch(products);
 
-        loadProducts();
+            loadProducts();
+        } else {
+            actionAlert();
+        }
     }
 
     @FXML
     void editProduct(ActionEvent event) {
+        Parent rootNode = null;
 
+        FXMLLoader loader = sceneManager.getLoader(FxmlView.NEW_PRODUCT);
+        try {
+            rootNode = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        NewProductPresenter presenter = loader.getController();
+        try {
+            presenter.initData(productsTable.getSelectionModel().getSelectedItem());
+            sceneManager.show(rootNode, FxmlView.NEW_PRODUCT.getTitle());
+        } catch (NullPointerException e) {
+            actionAlert();
+        }
+    }
+
+    private void actionAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Editing product");
+        alert.setContentText("You have to select product to edit");
+        alert.showAndWait();
     }
 }
 //
