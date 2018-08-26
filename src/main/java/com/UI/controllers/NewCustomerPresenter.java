@@ -1,97 +1,158 @@
 package com.UI.controllers;
 
+import com.UI.FxmlView;
+import com.UI.SceneManager;
 import com.entity.Customer;
 import com.service.ICustomerService;
-import com.utilities.IntegerTextField;
-import com.UI.SceneManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 @Controller
-public class NewCustomerPresenter implements IInitializableFromEntity<Customer>{
-
-    @FXML private TextField companyNameTxtFld;
-    @FXML private TextField taxIdTxtFld;
-    @FXML private TextField addressTxtFld;
-    @FXML private TextField postalCodeTxtFld;
-    @FXML private TextField cityTxtFld;
-    @FXML private TextField firstNameTxtFld;
-    @FXML private TextField lastNameTxtFld;
-    @FXML private TextField aliasTxtFld;
-    @FXML private IntegerTextField companyNumTxtFld;
-    @FXML private ComboBox<String> defaultPaymentComboBox;
-    @FXML private Button saveBtn;
-
-    @Autowired private ICustomerService customerService;
-    private Customer customer;
-
-    @Lazy
-    @Autowired
-    private SceneManager sceneManager;
+public class NewCustomerPresenter implements Initializable {
 
     @FXML
-    public void initialize()
-    {
-        populateComboBoxes();
-        initSaveButton();
+    private Button saveBtn;
+
+    @FXML
+    private TextField aliasTxtFld;
+
+    @FXML
+    private TextField nameTxtFld;
+
+    @FXML
+    private TextField lastNameTxtFld;
+
+    @FXML
+    private TextField idTxtFld;
+
+    @FXML
+    private TextField firmNameTxtFld;
+
+    @FXML
+    private TextField firmIdTxtFld;
+
+    @FXML
+    private TextField addressTxtFld;
+
+    @FXML
+    private TextField postalTxtFld;
+
+    @FXML
+    private TextField cityTxtFld;
+
+    @FXML
+    private RadioButton cashRadioBtn;
+
+    @Autowired
+    @Lazy
+    private SceneManager sceneManager;
+
+    @Autowired
+    private ICustomerService customerService;
+
+    @FXML
+    void cancel(ActionEvent event) {
+        clearFields();
+        sceneManager.switchScene(FxmlView.CUSTOMERS);
     }
 
-    private void initSaveButton() {
-        saveBtn.setOnAction(actionEvent -> {
-            if (taxIdTxtFld.getText() == null || taxIdTxtFld.getText().isEmpty())
-            {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("An error occurred while saving object to the database");
-                alert.setContentText("It seems that required field Tax identification number is empty");
+    private void saveCustomer() {
+        Customer customer = new Customer();
+        customer.setAlias(aliasTxtFld.getText());
+        customer.setFirstName(nameTxtFld.getText());
+        customer.setLastName(lastNameTxtFld.getText());
+        customer.setTaxId(idTxtFld.getText());
+        customer.setFirmName(firmNameTxtFld.getText());
+        customer.setFirmId(Integer.parseInt(firmIdTxtFld.getText()));
+        customer.setAddress(addressTxtFld.getText());
+        customer.setPostalCode(postalTxtFld.getText());
+        customer.setCity(cityTxtFld.getText());
+        customer.setPayment(cashRadioBtn.isSelected() ? 0 : 1);
 
-                alert.showAndWait();
-                return;
-            }
+        Customer newCustomer = customerService.save(customer);
 
-//            try {
-//                customer.setAll(
-//                        Miscellaneous.getTextFromControl(aliasTxtFld),
-//                        Miscellaneous.getTextFromControl(companyNameTxtFld),
-//                        Miscellaneous.getTextFromControl(lastNameTxtFld),
-//                        Miscellaneous.getTextFromControl(firstNameTxtFld),
-//                        Miscellaneous.getTextFromControl(taxIdTxtFld),
-//                        Miscellaneous.getTextFromControl(addressTxtFld),
-//                        Miscellaneous.getTextFromControl(postalCodeTxtFld),
-//                        Miscellaneous.getTextFromControl(cityTxtFld),
-//                        PaymentMethod.paymentMap.get(defaultPaymentComboBox.getSelectionModel().getSelectedItem())
-//                );
-//                customerService.save(customer);
-//                customer = null; // save memory, ready for garbage collection
-//                sceneManager.switchScene(FxmlView.CUSTOMERS);
-//            } catch (DataIntegrityViolationException e) {
-//                Miscellaneous.showConstraintAlert();
-//            }
-        });
+        saveAlert(newCustomer);
+        sceneManager.switchScene(FxmlView.CUSTOMERS);
     }
 
-    private void populateComboBoxes() {
-        defaultPaymentComboBox.getItems().setAll("Cash", "Bank transfer", "Credit card", "Check", "Cash on delivery",
-                "Paypal");
+    private void updateCustomer(Customer customer) {
+        customer.setAlias(aliasTxtFld.getText());
+        customer.setFirstName(nameTxtFld.getText());
+        customer.setLastName(lastNameTxtFld.getText());
+        customer.setTaxId(idTxtFld.getText());
+        customer.setFirmName(firmNameTxtFld.getText());
+        customer.setFirmId(Integer.parseInt(firmIdTxtFld.getText()));
+        customer.setAddress(addressTxtFld.getText());
+        customer.setPostalCode(postalTxtFld.getText());
+        customer.setCity(cityTxtFld.getText());
+        customer.setPayment(cashRadioBtn.isSelected() ? 0 : 1);
+
+        Customer updatedCustomer = customerService.update(customer);
+        updateAlert(updatedCustomer);
+
+        saveBtn.setOnAction(actionEvent -> saveCustomer());
+        sceneManager.switchScene(FxmlView.CUSTOMERS);
     }
 
-        @Override
-    public void initializeFields(Customer customer) {
-        this.customer = customer;
-        companyNameTxtFld.setText(customer.getFirmName());
-        taxIdTxtFld.setText(customer.getTaxId());
-        addressTxtFld.setText(customer.getAddress());
-        postalCodeTxtFld.setText(customer.getPostalCode());
-        cityTxtFld.setText(customer.getCity());
-        firstNameTxtFld.setText(customer.getFirstName());
-        lastNameTxtFld.setText(customer.getLastName());
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        saveBtn.setOnAction(actionEvent -> saveCustomer());
+    }
+
+    public void initData(Customer customer) {
+        saveBtn.setOnAction(actionEvent -> updateCustomer(customer));
+
         aliasTxtFld.setText(customer.getAlias());
-        if (customer.getFirmId() != null)
-            companyNumTxtFld.setText(String.valueOf(customer.getFirmId()));
-//        if (customer.getPayment() != null)
-//        defaultPaymentComboBox.getSelectionModel().select(PaymentMethod.paymentMap.inverse().get(customer.getPayment()));
+        nameTxtFld.setText(customer.getFirstName());
+        lastNameTxtFld.setText(customer.getLastName());
+        idTxtFld.setText(customer.getTaxId());
+        firmNameTxtFld.setText(customer.getFirmName());
+        firmIdTxtFld.setText(customer.getFirmId().toString());
+        addressTxtFld.setText(customer.getAddress());
+        postalTxtFld.setText(customer.getPostalCode());
+        cityTxtFld.setText(customer.getCity());
+        cashRadioBtn.setSelected(customer.getPayment() == 0);
+    }
+
+    private void clearFields() {
+        aliasTxtFld.setText(null);
+        nameTxtFld.setText(null);
+        lastNameTxtFld.setText(null);
+        idTxtFld.setText(null);
+        firmNameTxtFld.setText(null);
+        firmIdTxtFld.setText(null);
+        addressTxtFld.setText(null);
+        postalTxtFld.setText(null);
+        cityTxtFld.setText(null);
+        cashRadioBtn.setSelected(true);
+    }
+
+    private void saveAlert(Customer customer) {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("User saved successfully.");
+        alert.setHeaderText(null);
+        alert.setContentText("The user " + customer.getAlias() + " has been created with an id " + customer.getId() + ".");
+        alert.showAndWait();
+    }
+
+    private void updateAlert(Customer customer) {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("User updated successfully.");
+        alert.setHeaderText(null);
+        alert.setContentText("The user " + customer.getAlias() + " has been updated.");
+        alert.showAndWait();
     }
 }
