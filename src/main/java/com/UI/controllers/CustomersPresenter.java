@@ -4,7 +4,6 @@ import com.UI.FxmlView;
 import com.UI.SceneManager;
 import com.entity.Customer;
 import com.service.ICustomerService;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -94,15 +93,15 @@ public class CustomersPresenter implements Initializable {
     private void initializeTable() {
         customersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         aliasCol.setCellValueFactory(new PropertyValueFactory<>("alias"));
-        firmCol.setCellValueFactory(new PropertyValueFactory<>("firm_name"));
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("last_name"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("first_name"));
-        idCol.setCellValueFactory(new PropertyValueFactory<>("tax_id"));
+        firmCol.setCellValueFactory(new PropertyValueFactory<>("firmName"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("taxId"));
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
-        postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postal_code"));
+        postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         cityCol.setCellValueFactory(new PropertyValueFactory<>("city"));
         paymentCol.setCellValueFactory(new PropertyValueFactory<>("payment"));
-        firmIdCol.setCellValueFactory(new PropertyValueFactory<>("firm_id"));
+        firmIdCol.setCellValueFactory(new PropertyValueFactory<>("firmId"));
     }
 
     private void initializeButtons() {
@@ -116,12 +115,12 @@ public class CustomersPresenter implements Initializable {
     }
 
     @FXML
-    void addCustomer(ActionEvent event) {
+    void addCustomer() {
         sceneManager.switchScene(FxmlView.NEW_CUSTOMER);
     }
 
     @FXML
-    void deleteCustomer(ActionEvent event) {
+    void deleteCustomer() {
         List<Customer> customers = customersTable.getSelectionModel().getSelectedItems();
 
         if (!customers.isEmpty()) {
@@ -140,7 +139,7 @@ public class CustomersPresenter implements Initializable {
     }
 
     @FXML
-    void editCustomer(ActionEvent event) {
+    void editCustomer() {
         Parent rootNode = null;
 
         FXMLLoader loader = sceneManager.getLoader(FxmlView.NEW_CUSTOMER);

@@ -69,40 +69,37 @@ public class NewCustomerPresenter implements Initializable {
 
     private void saveCustomer() {
         Customer customer = new Customer();
-        customer.setAlias(aliasTxtFld.getText());
-        customer.setFirstName(nameTxtFld.getText());
-        customer.setLastName(lastNameTxtFld.getText());
-        customer.setTaxId(idTxtFld.getText());
-        customer.setFirmName(firmNameTxtFld.getText());
-        customer.setFirmId(Integer.parseInt(firmIdTxtFld.getText()));
-        customer.setAddress(addressTxtFld.getText());
-        customer.setPostalCode(postalTxtFld.getText());
-        customer.setCity(cityTxtFld.getText());
-        customer.setPayment(cashRadioBtn.isSelected() ? 0 : 1);
+        setCustomerProperties(customer);
 
         Customer newCustomer = customerService.save(customer);
 
         saveAlert(newCustomer);
+        clearFields();
         sceneManager.switchScene(FxmlView.CUSTOMERS);
     }
 
     private void updateCustomer(Customer customer) {
-        customer.setAlias(aliasTxtFld.getText());
-        customer.setFirstName(nameTxtFld.getText());
-        customer.setLastName(lastNameTxtFld.getText());
-        customer.setTaxId(idTxtFld.getText());
-        customer.setFirmName(firmNameTxtFld.getText());
-        customer.setFirmId(Integer.parseInt(firmIdTxtFld.getText()));
-        customer.setAddress(addressTxtFld.getText());
-        customer.setPostalCode(postalTxtFld.getText());
-        customer.setCity(cityTxtFld.getText());
-        customer.setPayment(cashRadioBtn.isSelected() ? 0 : 1);
+        setCustomerProperties(customer);
 
         Customer updatedCustomer = customerService.update(customer);
         updateAlert(updatedCustomer);
 
         saveBtn.setOnAction(actionEvent -> saveCustomer());
+        clearFields();
         sceneManager.switchScene(FxmlView.CUSTOMERS);
+    }
+
+    private void setCustomerProperties(Customer customer) {
+        customer.setAlias(aliasTxtFld.getText());
+        customer.setFirstName(nameTxtFld.getText());
+        customer.setLastName(lastNameTxtFld.getText());
+        customer.setTaxId(idTxtFld.getText());
+        customer.setFirmName(firmNameTxtFld.getText());
+        customer.setFirmId(Integer.parseInt(firmIdTxtFld.getText()));
+        customer.setAddress(addressTxtFld.getText());
+        customer.setPostalCode(postalTxtFld.getText());
+        customer.setCity(cityTxtFld.getText());
+        customer.setPayment(cashRadioBtn.isSelected() ? 0 : 1);
     }
 
     @Override

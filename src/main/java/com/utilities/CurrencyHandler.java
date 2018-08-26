@@ -30,7 +30,7 @@ public class CurrencyHandler {
 
     public static String convertSumToWords(BigDecimal value) {
         String cents = value.toString();
-        cents = cents.substring(cents.indexOf(".") + 1, cents.length());
+        cents = cents.substring(cents.indexOf(".") + 1);
         String digits = String.valueOf(value.intValue());
         char character = digits.charAt(digits.length() - 1);
         String currencySymbolSpellOut;

@@ -38,12 +38,12 @@ public class ProductServImp implements IProductService {
 
     @Override
     public void deleteInBatch(List<Product> entities) {
-
+        productRepository.deleteInBatch(entities);
     }
 
     @Override
     public Product find(Long id) {
-        return productRepository.findById(id).get();
+        return productRepository.findById(id).orElse(null);
     }
 
 //    @Override
