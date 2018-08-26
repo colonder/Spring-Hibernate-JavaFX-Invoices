@@ -1,3 +1,55 @@
+package com.UI.controllers;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class NewProductPresenter {
+
+    @FXML
+    private TextField nameTxtFld;
+
+    @FXML
+    private TextField symbolTxtFld;
+
+    @FXML
+    private TextField unitTxtFld;
+
+    @FXML
+    private TextField grossPriceTxtFld;
+
+    @FXML
+    private RadioButton VAT8RadioBtn;
+
+    @FXML
+    private ToggleGroup vatToggle;
+
+    @FXML
+    private RadioButton VAT23RadioBtn;
+
+    @FXML
+    private RadioButton otherVatRadioBtn;
+
+    @FXML
+    private TextField vatRateTxtFld;
+
+    @FXML
+    private Button saveBtn;
+
+
+    @FXML
+    void cancel(ActionEvent event) {
+
+    }
+
+}
+
+
 //package com.UI.controllers;
 //
 //import com.UI.FxmlView;

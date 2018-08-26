@@ -7,10 +7,7 @@ import com.service.IProductService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -18,6 +15,8 @@ import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Controller
@@ -96,12 +95,23 @@ public class ProductsPresenter implements Initializable {
 
     @FXML
     void addProduct(ActionEvent event) {
-
+        sceneManager.switchScene(FxmlView.NEW_PRODUCT);
     }
 
     @FXML
     void deleteProduct(ActionEvent event) {
+        List<Product> users = productsTable.getSelectionModel().getSelectedItems();
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to delete selected?");
+        Optional<ButtonType> action = alert.showAndWait();
+
+        if (action.orElse(null) == ButtonType.OK)
+            productService.deleteInBatch(users);
+
+        loadProducts();
     }
 
     @FXML

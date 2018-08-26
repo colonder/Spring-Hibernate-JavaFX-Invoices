@@ -51,7 +51,7 @@ public enum FxmlView {
     NEW_PRODUCT {
         @Override
         public String getTitle() {
-            return getStringFromResourceBundle("new_product.fxml");
+            return getStringFromResourceBundle("new_product.title");
         }
 
         @Override
