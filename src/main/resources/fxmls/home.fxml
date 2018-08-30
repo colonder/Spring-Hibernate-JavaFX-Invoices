@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
 <BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.HomePresenter">
    <top>
       <HBox BorderPane.alignment="CENTER">
@@ -146,22 +159,22 @@
                <children>
                   <HBox alignment="CENTER">
                      <children>
-                        <Button fx:id="firstBtn" mnemonicParsing="false" text="First">
+                        <Button fx:id="firstBtn" mnemonicParsing="false" onAction="#firstCustomer" text="First">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="prevBtn" mnemonicParsing="false" text="Prev">
+                        <Button fx:id="prevBtn" mnemonicParsing="false" onAction="#prevCustomer" text="Prev">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="nextBtn" mnemonicParsing="false" text="Next">
+                        <Button fx:id="nextBtn" mnemonicParsing="false" onAction="#nextCustomer" text="Next">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="lastBtn" mnemonicParsing="false" text="Last">
+                        <Button fx:id="lastBtn" mnemonicParsing="false" onAction="#lastCustomer" text="Last">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>

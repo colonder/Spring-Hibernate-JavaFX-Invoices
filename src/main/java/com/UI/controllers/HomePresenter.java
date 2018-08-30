@@ -21,23 +21,9 @@ import java.util.ResourceBundle;
 public class HomePresenter implements Initializable {
 
     //region fxmls
-    @FXML
-    private Button customersBtn;
-
-    @FXML
-    private Button productsBtn;
-
-    @FXML
-    private Button printBtn;
-
-    @FXML
-    private Button settingsBtn;
 
     @FXML
     private Label customerLbl;
-
-    @FXML
-    private Button addProductBtn;
 
     @FXML
     private TableColumn<Product, String> nameCol;
@@ -46,19 +32,19 @@ public class HomePresenter implements Initializable {
     private TableColumn<Product, String> symbolCol;
 
     @FXML
-    private TableColumn<?, ?> amountCol;
+    private TableColumn<?, BigDecimal> amountCol;
 
     @FXML
     private TableColumn<Product, String> unitCol;
 
     @FXML
-    private TableColumn<?, ?> netCol;
+    private TableColumn<?, BigDecimal> netCol;
 
     @FXML
     private TableColumn<Product, BigDecimal> vatRateCol;
 
     @FXML
-    private TableColumn<?, ?> vatValCol;
+    private TableColumn<?, BigDecimal> vatValCol;
 
     @FXML
     private TableColumn<Product, BigDecimal> grossCol;
@@ -71,18 +57,6 @@ public class HomePresenter implements Initializable {
 
     @FXML
     private Label wordsLbl;
-
-    @FXML
-    private Button firstBtn;
-
-    @FXML
-    private Button prevBtn;
-
-    @FXML
-    private Button nextBtn;
-
-    @FXML
-    private Button lastBtn;
 
     @FXML
     private ListView<Customer> customersList;
@@ -118,6 +92,7 @@ public class HomePresenter implements Initializable {
                 }
             }
         });
+        customersList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     private void loadCustomers() {
@@ -141,5 +116,25 @@ public class HomePresenter implements Initializable {
     @FXML
     void switchToProducts() {
         sceneManager.switchScene(FxmlView.PRODUCTS);
+    }
+
+    @FXML
+    void firstCustomer() {
+        customersList.getSelectionModel().selectFirst();
+    }
+
+    @FXML
+    void lastCustomer() {
+        customersList.getSelectionModel().selectLast();
+    }
+
+    @FXML
+    void prevCustomer() {
+        customersList.getSelectionModel().selectPrevious();
+    }
+
+    @FXML
+    void nextCustomer() {
+        customersList.getSelectionModel().selectNext();
     }
 }
