@@ -93,11 +93,16 @@ public class HomePresenter implements Initializable {
             }
         });
         customersList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        customersList.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldVal, newVal) -> {
+            customerLbl.setText(newVal.getAlias());
+            // add loading template of invoice from database
+        }));
     }
 
     private void loadCustomers() {
         customersList.getItems().clear();
         customersList.getItems().addAll(customerService.findAll());
+        customersList.getSelectionModel().selectFirst();
     }
 
     private void initializeTable() {
