@@ -23,3 +23,11 @@ create table products
   vat_rate numeric(4,2) not null check(vat_rate > 0.00),
   is_active boolean not null default true
 );
+
+create table templates
+(
+  id int primary key,
+  customer_id int references customer(id) on delete cascade,
+  product_id int references products(id) on delete cascade,
+  quantity numeric(5,2) not null default 0
+);

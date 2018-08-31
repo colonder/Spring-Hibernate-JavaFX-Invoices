@@ -1,8 +1,11 @@
 package com.entity;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
@@ -44,7 +47,17 @@ public class Customer
     @Column(name = "firm_id") // regon
     private Integer firmId;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Templates> templates = new ArrayList<>();
+
     //region getters and setters
+    public List<Templates> getTemplates() {
+        return templates;
+    }
+
+    public void setTemplates(List<Templates> templates) {
+        this.templates = templates;
+    }
 
     public int getId() {
         return id;
@@ -133,7 +146,5 @@ public class Customer
     public void setPayment(Integer payment) {
         this.payment = payment;
     }
-
-
     //endregion
 }

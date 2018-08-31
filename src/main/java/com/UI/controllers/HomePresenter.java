@@ -4,11 +4,14 @@ import com.UI.FxmlView;
 import com.UI.SceneManager;
 import com.entity.Customer;
 import com.entity.Product;
+import com.entity.Templates;
 import com.service.ICustomerService;
+import com.service.ITemplatesService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -26,28 +29,28 @@ public class HomePresenter implements Initializable {
     private Label customerLbl;
 
     @FXML
-    private TableColumn<Product, String> nameCol;
+    private TableColumn<Templates, String> nameCol;
 
     @FXML
-    private TableColumn<Product, String> symbolCol;
+    private TableColumn<Templates, String> symbolCol;
 
     @FXML
-    private TableColumn<?, BigDecimal> amountCol;
+    private TableColumn<Templates, BigDecimal> amountCol;
 
     @FXML
-    private TableColumn<Product, String> unitCol;
+    private TableColumn<Templates, String> unitCol;
 
     @FXML
-    private TableColumn<?, BigDecimal> netCol;
+    private TableColumn<Templates, BigDecimal> netCol;
 
     @FXML
-    private TableColumn<Product, BigDecimal> vatRateCol;
+    private TableColumn<Templates, BigDecimal> vatRateCol;
 
     @FXML
-    private TableColumn<?, BigDecimal> vatValCol;
+    private TableColumn<Templates, BigDecimal> vatValCol;
 
     @FXML
-    private TableColumn<Product, BigDecimal> grossCol;
+    private TableColumn<Templates, BigDecimal> grossCol;
 
     @FXML
     private TableColumn<?, ?> deleteCol;
@@ -63,6 +66,9 @@ public class HomePresenter implements Initializable {
 
     @FXML
     private DatePicker datePicker;
+
+    @FXML
+    private TableView<Templates> templateTable;
     //endregion
 
     @Lazy
@@ -71,6 +77,9 @@ public class HomePresenter implements Initializable {
 
     @Autowired
     private ICustomerService customerService;
+
+    @Autowired
+    private ITemplatesService templatesService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -95,14 +104,19 @@ public class HomePresenter implements Initializable {
         customersList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         customersList.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldVal, newVal) -> {
             customerLbl.setText(newVal.getAlias());
-            // add loading template of invoice from database
+            loadTemplates(newVal);
         }));
+    }
+
+    private void loadTemplates(Customer customer) {
+        templateTable.getItems().clear();
+        templateTable.getItems().addAll(templatesService.findByCustomer(customer));
     }
 
     private void loadCustomers() {
         customersList.getItems().clear();
         customersList.getItems().addAll(customerService.findAll());
-        customersList.getSelectionModel().selectFirst();
+//        customersList.getSelectionModel().selectFirst();
     }
 
     private void initializeTable() {
@@ -142,4 +156,17 @@ public class HomePresenter implements Initializable {
     void nextCustomer() {
         customersList.getSelectionModel().selectNext();
     }
+
+    @FXML
+    void addProduct() {
+
+    }
+
+    Callback<TableColumn<Product, BigDecimal>, TableCell<Product, BigDecimal>> cellFactory =
+            param -> new TableCell<Product, BigDecimal>() {
+                @Override
+                public void updateItem(BigDecimal val, boolean empty) {
+
+                }
+            };
 }

@@ -21,7 +21,7 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-             <Button fx:id="customersBtn" mnemonicParsing="false" onAction="#switchToCustomers" text="Customers">
+             <Button mnemonicParsing="false" onAction="#switchToCustomers" text="Customers">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
@@ -29,7 +29,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-             <Button fx:id="productsBtn" mnemonicParsing="false" onAction="#switchToProducts" text="Products">
+             <Button mnemonicParsing="false" onAction="#switchToProducts" text="Products">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
@@ -37,7 +37,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="printBtn" mnemonicParsing="false" text="Print">
+            <Button mnemonicParsing="false" text="Print">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
@@ -45,7 +45,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="settingsBtn" mnemonicParsing="false" text="Settings">
+            <Button mnemonicParsing="false" text="Settings">
                <font>
                   <Font size="20.0" />
                </font>
@@ -83,7 +83,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="addProductBtn" mnemonicParsing="false" text="Add product" GridPane.columnIndex="3">
+                  <Button mnemonicParsing="false" onAction="#addProduct" text="Add product" GridPane.columnIndex="3">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -100,7 +100,7 @@
             </GridPane>
             <AnchorPane>
                <children>
-                  <TableView layoutX="36.0" layoutY="99.0" prefHeight="465.0" prefWidth="810.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="templateTable" layoutX="36.0" layoutY="99.0" prefHeight="465.0" prefWidth="810.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columns>
                         <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name" />
                         <TableColumn fx:id="symbolCol" editable="false" prefWidth="75.0" text="Symbol" />
@@ -159,22 +159,22 @@
                <children>
                   <HBox alignment="CENTER">
                      <children>
-                        <Button fx:id="firstBtn" mnemonicParsing="false" onAction="#firstCustomer" text="First">
+                        <Button mnemonicParsing="false" onAction="#firstCustomer" text="First">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="prevBtn" mnemonicParsing="false" onAction="#prevCustomer" text="Prev">
+                        <Button mnemonicParsing="false" onAction="#prevCustomer" text="Prev">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="nextBtn" mnemonicParsing="false" onAction="#nextCustomer" text="Next">
+                        <Button mnemonicParsing="false" onAction="#nextCustomer" text="Next">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="lastBtn" mnemonicParsing="false" onAction="#lastCustomer" text="Last">
+                        <Button mnemonicParsing="false" onAction="#lastCustomer" text="Last">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
