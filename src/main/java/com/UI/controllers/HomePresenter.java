@@ -36,7 +36,7 @@ public class HomePresenter implements Initializable {
     private TableColumn<Templates, String> symbolCol;
 
     @FXML
-    private TableColumn<Templates, BigDecimal> amountCol;
+    private TableColumn<Templates, BigDecimal> quantityCol;
 
     @FXML
     private TableColumn<Templates, String> unitCol;
@@ -52,9 +52,6 @@ public class HomePresenter implements Initializable {
 
     @FXML
     private TableColumn<Templates, BigDecimal> grossCol;
-
-    @FXML
-    private TableColumn<Templates, Boolean> deleteCol;
 
     @FXML
     private Label totalLbl;
@@ -158,6 +155,12 @@ public class HomePresenter implements Initializable {
 
     @FXML
     void addProduct() {
+
+    }
+
+    @FXML
+    void saveTemplate()
+    {
 
     }
 

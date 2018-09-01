@@ -5,7 +5,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -59,99 +58,6 @@
          </BorderPane.margin>
       </HBox>
    </top>
-   <center>
-      <SplitPane dividerPositions="0.06390977443609022, 0.9530075187969925" orientation="VERTICAL" BorderPane.alignment="TOP_LEFT">
-         <items>
-            <GridPane>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="10.0" prefWidth="436.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="221.0" minWidth="10.0" prefWidth="220.0" />
-                  <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints vgrow="NEVER" />
-               </rowConstraints>
-               <children>
-                  <Label text="Customer:">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="customerLbl" text="Label" GridPane.columnIndex="1">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Button mnemonicParsing="false" onAction="#addProduct" text="Add product" GridPane.columnIndex="3">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
-                  <DatePicker fx:id="datePicker" GridPane.columnIndex="2">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </DatePicker>
-               </children>
-               <padding>
-                  <Insets right="15.0" />
-               </padding>
-            </GridPane>
-            <AnchorPane>
-               <children>
-                  <TableView fx:id="templateTable" layoutX="36.0" layoutY="99.0" prefHeight="465.0" prefWidth="810.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <columns>
-                        <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name" />
-                        <TableColumn fx:id="symbolCol" editable="false" prefWidth="75.0" text="Symbol" />
-                        <TableColumn fx:id="amountCol" prefWidth="75.0" text="Amount" />
-                        <TableColumn fx:id="unitCol" editable="false" prefWidth="75.0" text="Unit" />
-                        <TableColumn fx:id="netCol" editable="false" prefWidth="75.0" text="Net" />
-                        <TableColumn prefWidth="75.0" text="Tax">
-                           <columns>
-                              <TableColumn fx:id="vatRateCol" editable="false" prefWidth="75.0" text="VAT rate" />
-                              <TableColumn fx:id="vatValCol" editable="false" prefWidth="75.0" text="Value" />
-                           </columns>
-                        </TableColumn>
-                        <TableColumn fx:id="grossCol" editable="false" prefWidth="75.0" text="Gross" />
-                        <TableColumn fx:id="deleteCol" editable="false" prefWidth="75.0" sortable="false" text="Delete" />
-                     </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </AnchorPane>
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity">
-               <children>
-                  <Label text="Total: ">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="totalLbl" text="Label">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <padding>
-                        <Insets right="20.0" />
-                     </padding>
-                  </Label>
-                  <Label text="In words: ">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="wordsLbl" text="Label">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </items>
-      </SplitPane>
-   </center>
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -193,4 +99,91 @@
          </BorderPane.margin>
       </AnchorPane>
    </left>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="831.0" minWidth="10.0" prefWidth="179.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="831.0" minWidth="10.0" prefWidth="563.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="468.0" minWidth="10.0" prefWidth="208.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="56.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="448.0" minHeight="10.0" prefHeight="442.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="387.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="129.0" minHeight="0.0" prefHeight="25.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2">
+               <children>
+                  <Label text="Customer: ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="customerLbl" text="Label">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="471.0" GridPane.columnSpan="3" GridPane.rowIndex="3">
+               <children>
+                  <Label text="Total: ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalLbl" text="Label">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="In words: ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="wordsLbl" text="Label">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Button fx:id="addProduct" mnemonicParsing="false" text="Add product" GridPane.rowIndex="2">
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <DatePicker fx:id="datePicker" GridPane.columnIndex="2" />
+            <TableView fx:id="templateTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
+                <TableColumn fx:id="symbolCol" prefWidth="75.0" text="Symbol" />
+                  <TableColumn fx:id="quantityCol" prefWidth="75.0" text="Quantity" />
+                  <TableColumn fx:id="unitCol" prefWidth="75.0" text="Unit" />
+                  <TableColumn fx:id="netCol" prefWidth="75.0" text="Net value" />
+                  <TableColumn prefWidth="75.0" text="VAT">
+                     <columns>
+                        <TableColumn fx:id="vatRateCol" prefWidth="75.0" text="Rate" />
+                        <TableColumn fx:id="vatValCol" prefWidth="75.0" text="Value" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="grossCol" prefWidth="75.0" text="Gross value" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Button fx:id="saveTemplate" mnemonicParsing="false" text="Save template" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </GridPane>
+   </center>
 </BorderPane>
