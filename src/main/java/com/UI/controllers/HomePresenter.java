@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -53,7 +54,7 @@ public class HomePresenter implements Initializable {
     private TableColumn<Templates, BigDecimal> grossCol;
 
     @FXML
-    private TableColumn<?, ?> deleteCol;
+    private TableColumn<Templates, Boolean> deleteCol;
 
     @FXML
     private Label totalLbl;
@@ -104,13 +105,11 @@ public class HomePresenter implements Initializable {
         customersList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         customersList.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldVal, newVal) -> {
             customerLbl.setText(newVal.getAlias());
-            loadTemplates(newVal);
-        }));
-    }
+            templateTable.getItems().clear();
 
-    private void loadTemplates(Customer customer) {
-        templateTable.getItems().clear();
-        templateTable.getItems().addAll(templatesService.findByCustomer(customer));
+            // wywala się w tym miejscu...
+            templateTable.getItems().addAll(newVal.getTemplates());
+        }));
     }
 
     private void loadCustomers() {

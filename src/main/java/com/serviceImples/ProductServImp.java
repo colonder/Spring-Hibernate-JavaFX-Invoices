@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProductServImp implements IProductService {
     @Autowired
     private IProductRepository productRepository;
@@ -20,7 +21,6 @@ public class ProductServImp implements IProductService {
     }
 
     @Override
-    @Transactional
     public Product save(Product product) {
         return productRepository.save(product);
     }
@@ -31,7 +31,6 @@ public class ProductServImp implements IProductService {
     }
 
     @Override
-    @Transactional
     public void delete(Product product) {
         productRepository.delete(product);
     }

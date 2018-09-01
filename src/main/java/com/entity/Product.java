@@ -1,13 +1,12 @@
 package com.entity;
 
-import org.hibernate.annotations.DynamicUpdate;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
-@DynamicUpdate
 public class Product
 {
     @Id
@@ -30,7 +29,14 @@ public class Product
     @Column(name = "vat_rate", nullable = false)
     private BigDecimal vatRate;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Templates> templates = new ArrayList<>();
+
     //region getters and setters
+    public int getId() {
+        return id;
+    }
+
     public String getProductName() {
         return productName;
     }
@@ -70,5 +76,14 @@ public class Product
     public void setVatRate(BigDecimal vatRate) {
         this.vatRate = vatRate;
     }
+
+    public List<Templates> getTemplates() {
+        return templates;
+    }
+
+    public void setTemplates(List<Templates> templates) {
+        this.templates = templates;
+    }
+
     //endregion
 }

@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "templates")
-@DynamicUpdate
 public class Templates {
 
     @Id
@@ -19,11 +18,11 @@ public class Templates {
     private BigDecimal quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID")
+    @PrimaryKeyJoinColumn
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")
+    @PrimaryKeyJoinColumn
     private Product product;
 
     public int getId() {

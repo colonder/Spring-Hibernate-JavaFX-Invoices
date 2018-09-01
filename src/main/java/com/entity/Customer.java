@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "customer")
-@DynamicUpdate
 public class Customer
 {
     @Id

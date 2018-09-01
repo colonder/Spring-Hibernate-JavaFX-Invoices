@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class CustomerServImp implements ICustomerService {
     @Autowired
     private ICustomerRepository customerRepository;
@@ -21,7 +22,7 @@ public class CustomerServImp implements ICustomerService {
     }
 
     @Override
-    @Transactional
+
     public Customer save(Customer customer) {
         return customerRepository.save(customer);
     }
@@ -32,7 +33,6 @@ public class CustomerServImp implements ICustomerService {
     }
 
     @Override
-    @Transactional
     public void delete(Customer customer) {
         customerRepository.delete(customer);
     }
