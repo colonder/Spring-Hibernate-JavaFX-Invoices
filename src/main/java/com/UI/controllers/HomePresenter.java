@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -105,6 +104,7 @@ public class HomePresenter implements Initializable {
             templateTable.getItems().clear();
 
             // wywala się w tym miejscu...
+//            Hibernate.initialize(newVal.getTemplates());
             templateTable.getItems().addAll(newVal.getTemplates());
         }));
     }
@@ -112,7 +112,6 @@ public class HomePresenter implements Initializable {
     private void loadCustomers() {
         customersList.getItems().clear();
         customersList.getItems().addAll(customerService.findAll());
-//        customersList.getSelectionModel().selectFirst();
     }
 
     private void initializeTable() {

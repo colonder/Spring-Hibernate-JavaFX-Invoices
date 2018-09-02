@@ -47,6 +47,6 @@ public class Customer
     @Column(name = "firm_id") // regon
     private Integer firmId;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Templates> templates;
 }

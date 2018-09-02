@@ -20,11 +20,11 @@ public class Templates {
     @Column(name = "QUANTITY")
     private BigDecimal quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID")
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 }
