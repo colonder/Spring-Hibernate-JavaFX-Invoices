@@ -1,12 +1,15 @@
 package com.entity;
 
-import org.hibernate.annotations.DynamicUpdate;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "templates")
+@Getter
+@Setter
 public class Templates {
 
     @Id
@@ -18,38 +21,10 @@ public class Templates {
     private BigDecimal quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID")
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")
     private Product product;
-
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-    public BigDecimal getQuantity() {
-        return quantity;
-    }
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
-    }
 }

@@ -1,12 +1,16 @@
 package com.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
+@Getter
+@Setter
 public class Product
 {
     @Id
@@ -30,60 +34,5 @@ public class Product
     private BigDecimal vatRate;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Templates> templates = new ArrayList<>();
-
-    //region getters and setters
-    public int getId() {
-        return id;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public BigDecimal getGrossPrice() {
-        return grossPrice;
-    }
-
-    public void setGrossPrice(BigDecimal grossPrice) {
-        this.grossPrice = grossPrice;
-    }
-
-    public BigDecimal getVatRate() {
-        return vatRate;
-    }
-
-    public void setVatRate(BigDecimal vatRate) {
-        this.vatRate = vatRate;
-    }
-
-    public List<Templates> getTemplates() {
-        return templates;
-    }
-
-    public void setTemplates(List<Templates> templates) {
-        this.templates = templates;
-    }
-
-    //endregion
+    private List<Templates> templates;
 }
