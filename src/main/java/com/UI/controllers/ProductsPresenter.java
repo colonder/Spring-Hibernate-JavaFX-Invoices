@@ -57,7 +57,7 @@ public class ProductsPresenter implements Initializable {
     private TableColumn<Product, String> unitCol;
 
     @FXML
-    private TableColumn<Product, BigDecimal> grossCol;
+    private TableColumn<Product, BigDecimal> unitNetPrice;
 
     @FXML
     private TableColumn<Product, BigDecimal>vatRateCol;
@@ -82,7 +82,7 @@ public class ProductsPresenter implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
         symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
         unitCol.setCellValueFactory(new PropertyValueFactory<>("unit"));
-        grossCol.setCellValueFactory(new PropertyValueFactory<>("netPrice"));
+        unitNetPrice.setCellValueFactory(new PropertyValueFactory<>("unitNetPrice"));
         vatRateCol.setCellValueFactory(new PropertyValueFactory<>("vatRate"));
     }
 

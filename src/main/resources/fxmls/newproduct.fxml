@@ -27,12 +27,12 @@
                         <Label text="Symbol" GridPane.rowIndex="1"/>
                         <Label text="Name"/>
                         <Label text="Unit" GridPane.rowIndex="2"/>
-                        <Label text="Gross price" GridPane.rowIndex="3"/>
+                        <Label text="Unit net price" GridPane.rowIndex="3"/>
                         <Label text="VAT rate" GridPane.rowIndex="4"/>
                         <TextField fx:id="nameTxtFld" GridPane.columnIndex="1"/>
                         <TextField fx:id="symbolTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                         <TextField fx:id="unitTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <TextField fx:id="grossPriceTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <TextField fx:id="unitNetPriceTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                         <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <children>
                                 <RadioButton fx:id="VAT8RadioBtn" mnemonicParsing="false" selected="true" text="8%">

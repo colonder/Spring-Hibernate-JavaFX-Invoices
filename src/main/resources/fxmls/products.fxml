@@ -78,7 +78,7 @@
                   <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name" />
                   <TableColumn fx:id="symbolCol" editable="false" prefWidth="75.0" text="Symbol" />
                   <TableColumn fx:id="unitCol" editable="false" prefWidth="75.0" text="Unit" />
-                  <TableColumn fx:id="grossCol" editable="false" prefWidth="75.0" text="Gross" />
+                   <TableColumn fx:id="unitNetPrice" editable="false" prefWidth="75.0" text="Unit net price"/>
                   <TableColumn fx:id="vatRateCol" editable="false" prefWidth="75.0" text="VAT rate" />
                </columns>
                <columnResizePolicy>

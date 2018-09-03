@@ -31,7 +31,7 @@ public class NewProductPresenter implements Initializable {
     private TextField unitTxtFld;
 
     @FXML
-    private TextField grossPriceTxtFld;
+    private TextField unitNetPriceTxtFld;
 
     @FXML
     private RadioButton VAT8RadioBtn;
@@ -65,7 +65,7 @@ public class NewProductPresenter implements Initializable {
         nameTxtFld.setText(null);
         symbolTxtFld.setText(null);
         unitTxtFld.setText(null);
-        grossPriceTxtFld.setText(null);
+        unitNetPriceTxtFld.setText(null);
         VAT23RadioBtn.setSelected(true);
     }
 
@@ -94,7 +94,7 @@ public class NewProductPresenter implements Initializable {
         product.setProductName(nameTxtFld.getText());
         product.setSymbol(symbolTxtFld.getText());
         product.setUnit(unitTxtFld.getText());
-        product.setNetPrice(new BigDecimal(grossPriceTxtFld.getText()));
+        product.setUnitNetPrice(new BigDecimal(unitNetPriceTxtFld.getText()));
         if (VAT8RadioBtn.isSelected())
             product.setVatRate(new BigDecimal(8));
 
@@ -116,7 +116,7 @@ public class NewProductPresenter implements Initializable {
         nameTxtFld.setText(product.getProductName());
         symbolTxtFld.setText(product.getSymbol());
         unitTxtFld.setText(product.getUnit());
-        grossPriceTxtFld.setText(product.getNetPrice().toString());
+        unitNetPriceTxtFld.setText(product.getUnitNetPrice().toString());
 
         BigDecimal vat = product.getVatRate();
 
@@ -178,7 +178,7 @@ public class NewProductPresenter implements Initializable {
 //    @FXML private TextField codeTxtFld;
 //    @FXML private BigDecimalTextField netPriceTxtFld;
 //    @FXML private BigDecimalTextField vatTxtFld;
-//    @FXML private BigDecimalTextField grossPriceTxtFld;
+//    @FXML private BigDecimalTextField unitNetPriceTxtFld;
 //    @FXML private TextField unitTxtFld;
 //    @FXML private TextField symbolTxtFld;
 //    @FXML private CheckBox inactiveChckBox;
@@ -201,7 +201,7 @@ public class NewProductPresenter implements Initializable {
 //            if (productNameTxtFld.getText().isEmpty() ||
 //                    unitTxtFld.getText().isEmpty() ||
 //                    netPriceTxtFld.getText().isEmpty() ||
-//                    grossPriceTxtFld.getText().isEmpty() ||
+//                    unitNetPriceTxtFld.getText().isEmpty() ||
 //                    vatTxtFld.getText().isEmpty()) {
 //                Alert alert = new Alert(Alert.AlertType.ERROR);
 //                alert.setTitle("Error");
@@ -237,22 +237,22 @@ public class NewProductPresenter implements Initializable {
 //
 //        netPriceTxtFld.valueProperty().addListener((observable, oldValue, newValue) -> {
 //            try {
-//                grossPriceTxtFld.setValue(
+//                unitNetPriceTxtFld.setValue(
 //                        newValue.add(newValue.multiply(vatTxtFld.getValue().multiply(Miscellaneous.ONE_HUNDREDTH)))
 //                                .setScale(2, BigDecimal.ROUND_HALF_DOWN));
 //            } catch (NullPointerException e) {
-//                grossPriceTxtFld.setValue(BigDecimal.ZERO);
+//                unitNetPriceTxtFld.setValue(BigDecimal.ZERO);
 //            }
 //        });
 //
 //        vatTxtFld.valueProperty().addListener((observable, oldValue, newValue) ->
 //        {
 //            try {
-//                grossPriceTxtFld.setValue(
+//                unitNetPriceTxtFld.setValue(
 //                        netPriceTxtFld.getValue().add(netPriceTxtFld.getValue().multiply(newValue)
 //                                .multiply(Miscellaneous.ONE_HUNDREDTH)).setScale(2, BigDecimal.ROUND_HALF_DOWN));
 //            } catch (NullPointerException e) {
-//                grossPriceTxtFld.setValue(BigDecimal.ZERO);
+//                unitNetPriceTxtFld.setValue(BigDecimal.ZERO);
 //            }
 //        });
 //    }
@@ -262,7 +262,7 @@ public class NewProductPresenter implements Initializable {
 //        this.product = product;
 //        inactiveChckBox.setSelected(product.isActive());
 //        productNameTxtFld.setText(product.getProductName());
-//        netPriceTxtFld.setValue(product.getNetPrice());
+//        netPriceTxtFld.setValue(product.getUnitNetPrice());
 //        vatTxtFld.setValue(product.getVatRate());
 //        unitTxtFld.setText(product.getUnit());
 //        symbolTxtFld.setText(product.getSymbol());
