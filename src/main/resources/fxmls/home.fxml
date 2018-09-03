@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.HomePresenter">
    <top>
       <HBox BorderPane.alignment="CENTER">
@@ -154,7 +142,7 @@
                   </Label>
                </children>
             </HBox>
-            <Button fx:id="addProduct" mnemonicParsing="false" text="Add product" GridPane.rowIndex="2">
+             <Button mnemonicParsing="false" onAction="#addProduct" text="Add product" GridPane.rowIndex="2">
                <font>
                   <Font size="20.0" />
                </font></Button>
@@ -165,7 +153,7 @@
                 <TableColumn fx:id="symbolCol" prefWidth="75.0" text="Symbol" />
                   <TableColumn fx:id="quantityCol" prefWidth="75.0" text="Quantity" />
                   <TableColumn fx:id="unitCol" prefWidth="75.0" text="Unit" />
-                  <TableColumn fx:id="netCol" prefWidth="75.0" text="Net value" />
+                  <TableColumn fx:id="netCol" prefWidth="75.0" text="Unit net price"/>
                   <TableColumn prefWidth="75.0" text="VAT">
                      <columns>
                         <TableColumn fx:id="vatRateCol" prefWidth="75.0" text="Rate" />
@@ -178,7 +166,8 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="saveTemplate" mnemonicParsing="false" text="Save template" GridPane.columnIndex="1" GridPane.rowIndex="2">
+             <Button mnemonicParsing="false" onAction="#saveTemplate" text="Save template" GridPane.columnIndex="1"
+                     GridPane.rowIndex="2">
                <font>
                   <Font size="20.0" />
                </font>

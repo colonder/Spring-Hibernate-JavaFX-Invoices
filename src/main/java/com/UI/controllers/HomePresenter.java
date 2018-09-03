@@ -3,21 +3,24 @@ package com.UI.controllers;
 import com.UI.FxmlView;
 import com.UI.SceneManager;
 import com.entity.Customer;
+import com.entity.Product;
 import com.entity.Templates;
 import com.service.ICustomerService;
-import com.service.ITemplatesService;
+import com.service.IProductService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Controller
@@ -76,7 +79,7 @@ public class HomePresenter implements Initializable {
     private ICustomerService customerService;
 
     @Autowired
-    private ITemplatesService templatesService;
+    private IProductService productService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -115,7 +118,7 @@ public class HomePresenter implements Initializable {
         nameCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getProductName()));
         symbolCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getSymbol()));
         unitCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getUnit()));
-        netCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getNetPrice()));
+        netCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getUnitNetPrice()));
         vatRateCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getVatRate()));
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
     }
@@ -153,6 +156,66 @@ public class HomePresenter implements Initializable {
     @FXML
     void addProduct() {
 
+        if (customersList.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error in adding product");
+            alert.setHeaderText("There is no customer selected");
+
+            alert.showAndWait();
+            return;
+        }
+
+        Dialog<Product> dialog = new Dialog<>();
+        dialog.setTitle("Choose a product");
+        dialog.setHeaderText("Select a product from the database");
+        ButtonType selectBtnType = new ButtonType("Select", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelBtnType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(selectBtnType, cancelBtnType);
+//        dialog.setGraphic(new ImageView(this.getClass().getResource("/images/icons8-Product-96.png")
+//                .toString()));
+
+        // create table view and columns
+        TableView<Product> tableView = new TableView<>();
+        TableColumn<Product, String> nameCol = new TableColumn<>("Product name");
+        TableColumn<Product, String> symbolCol = new TableColumn<>("Symbol");
+        TableColumn<Product, String> unitCol = new TableColumn<>("Unit");
+        TableColumn<Product, BigDecimal> cpuCol = new TableColumn<>("CPU");
+        TableColumn<Product, BigDecimal> vatRateCol = new TableColumn<>("VAT rate");
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
+        unitCol.setCellValueFactory(new PropertyValueFactory<>("unit"));
+        cpuCol.setCellValueFactory(new PropertyValueFactory<>("unitNetPrice"));
+        vatRateCol.setCellValueFactory(new PropertyValueFactory<>("taxRate"));
+        tableView.getColumns().addAll(nameCol, symbolCol, unitCol, cpuCol, vatRateCol);
+        tableView.getItems().setAll(productService.findAll());
+        dialog.getDialogPane().setContent(tableView);
+        dialog.getDialogPane().setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == selectBtnType) {
+                return tableView.getSelectionModel().getSelectedItem();
+            }
+            return null;
+        });
+
+        Optional<Product> result = dialog.showAndWait();
+        result.ifPresent(product -> {
+
+            Templates template = new Templates(customersList.getSelectionModel().getSelectedItem(), product);
+
+            if (templateTable.getItems().contains(template)) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error in adding product");
+                alert.setHeaderText("Selected product is already on the list");
+                alert.setContentText("It seems that selected product is already on the products lit. Please, " +
+                        "modify existing one instead of adding a new one.");
+
+                alert.showAndWait();
+                return;
+            }
+
+            templateTable.getItems().add(template);
+        });
     }
 
     @FXML
