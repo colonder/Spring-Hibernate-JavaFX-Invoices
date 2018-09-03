@@ -3,15 +3,15 @@ package com.UI.controllers;
 import com.UI.FxmlView;
 import com.UI.SceneManager;
 import com.entity.Customer;
-import com.entity.Product;
 import com.entity.Templates;
 import com.service.ICustomerService;
 import com.service.ITemplatesService;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -102,9 +102,6 @@ public class HomePresenter implements Initializable {
         customersList.getSelectionModel().selectedItemProperty().addListener(((observableValue, oldVal, newVal) -> {
             customerLbl.setText(newVal.getAlias());
             templateTable.getItems().clear();
-
-            // wywala się w tym miejscu...
-//            Hibernate.initialize(newVal.getTemplates());
             templateTable.getItems().addAll(newVal.getTemplates());
         }));
     }
@@ -115,11 +112,12 @@ public class HomePresenter implements Initializable {
     }
 
     private void initializeTable() {
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
-        unitCol.setCellValueFactory(new PropertyValueFactory<>("unit"));
-        grossCol.setCellValueFactory(new PropertyValueFactory<>("grossPrice"));
-        vatRateCol.setCellValueFactory(new PropertyValueFactory<>("vatRate"));
+        nameCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getProductName()));
+        symbolCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getSymbol()));
+        unitCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getUnit()));
+        netCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getNetPrice()));
+        vatRateCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getVatRate()));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
     }
 
     @FXML
@@ -162,12 +160,4 @@ public class HomePresenter implements Initializable {
     {
 
     }
-
-    Callback<TableColumn<Product, BigDecimal>, TableCell<Product, BigDecimal>> cellFactory =
-            param -> new TableCell<Product, BigDecimal>() {
-                @Override
-                public void updateItem(BigDecimal val, boolean empty) {
-
-                }
-            };
 }

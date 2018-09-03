@@ -82,7 +82,7 @@ public class ProductsPresenter implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
         symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
         unitCol.setCellValueFactory(new PropertyValueFactory<>("unit"));
-        grossCol.setCellValueFactory(new PropertyValueFactory<>("grossPrice"));
+        grossCol.setCellValueFactory(new PropertyValueFactory<>("netPrice"));
         vatRateCol.setCellValueFactory(new PropertyValueFactory<>("vatRate"));
     }
 

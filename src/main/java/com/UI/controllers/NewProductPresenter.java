@@ -94,7 +94,7 @@ public class NewProductPresenter implements Initializable {
         product.setProductName(nameTxtFld.getText());
         product.setSymbol(symbolTxtFld.getText());
         product.setUnit(unitTxtFld.getText());
-        product.setGrossPrice(new BigDecimal(grossPriceTxtFld.getText()));
+        product.setNetPrice(new BigDecimal(grossPriceTxtFld.getText()));
         if (VAT8RadioBtn.isSelected())
             product.setVatRate(new BigDecimal(8));
 
@@ -116,7 +116,7 @@ public class NewProductPresenter implements Initializable {
         nameTxtFld.setText(product.getProductName());
         symbolTxtFld.setText(product.getSymbol());
         unitTxtFld.setText(product.getUnit());
-        grossPriceTxtFld.setText(product.getGrossPrice().toString());
+        grossPriceTxtFld.setText(product.getNetPrice().toString());
 
         BigDecimal vat = product.getVatRate();
 
@@ -262,7 +262,7 @@ public class NewProductPresenter implements Initializable {
 //        this.product = product;
 //        inactiveChckBox.setSelected(product.isActive());
 //        productNameTxtFld.setText(product.getProductName());
-//        netPriceTxtFld.setValue(product.getGrossPrice());
+//        netPriceTxtFld.setValue(product.getNetPrice());
 //        vatTxtFld.setValue(product.getVatRate());
 //        unitTxtFld.setText(product.getUnit());
 //        symbolTxtFld.setText(product.getSymbol());
