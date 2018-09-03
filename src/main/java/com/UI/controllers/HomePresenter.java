@@ -7,6 +7,7 @@ import com.entity.Product;
 import com.entity.Templates;
 import com.service.ICustomerService;
 import com.service.IProductService;
+import com.service.ITemplatesService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
@@ -80,6 +81,9 @@ public class HomePresenter implements Initializable {
 
     @Autowired
     private IProductService productService;
+
+    @Autowired
+    private ITemplatesService templatesService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -221,6 +225,7 @@ public class HomePresenter implements Initializable {
     @FXML
     void saveTemplate()
     {
-
+        templatesService.saveAll(templateTable.getItems());
+        customersList.getSelectionModel().getSelectedItem().setTemplates(templateTable.getItems());
     }
 }
