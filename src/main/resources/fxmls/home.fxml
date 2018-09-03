@@ -161,6 +161,7 @@
                      </columns>
                   </TableColumn>
                   <TableColumn fx:id="grossCol" prefWidth="75.0" text="Gross value" />
+                  <TableColumn fx:id="deleteCol" editable="false" prefWidth="75.0" sortable="false" text="Delete"/>
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
