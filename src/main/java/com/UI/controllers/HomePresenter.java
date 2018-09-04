@@ -8,6 +8,7 @@ import com.entity.Templates;
 import com.service.ICustomerService;
 import com.service.IProductService;
 import com.service.ITemplatesService;
+import com.utilities.BigDecimalEditableCell;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
@@ -135,6 +136,10 @@ public class HomePresenter implements Initializable {
         netCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getUnitNetPrice()));
         vatRateCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getVatRate()));
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        quantityCol.setCellFactory(c -> new BigDecimalEditableCell());
+        quantityCol.setOnEditCommit(event -> {
+            event.getRowValue().setQuantity(event.getNewValue());
+        });
         deleteCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue())); // looks weird, fix it
         deleteCol.setCellFactory(param -> new TableCell<Templates, Templates>() {
             private Button removeButton = new Button("", new ImageView(new Image(getClass()
@@ -253,19 +258,20 @@ public class HomePresenter implements Initializable {
     @FXML
     void saveTemplate() {
         // if there is anything to compare with...
-        if (customersList.getSelectionModel().getSelectedItem() != null &&
-                !customersList.getSelectionModel().getSelectedItem().getTemplates().isEmpty()) {
-            // ...find out if there is any difference between templates in Customer object itself
-            // and what is currently in the table view
-            Set<Integer> ids = templateTable.getItems().stream()
-                    .map(Templates::getId)
-                    .collect(Collectors.toSet());
-            List<Templates> deletedTemplates = customersList.getSelectionModel().getSelectedItem()
-                    .getTemplates().stream()
-                    .filter(temp -> !ids.contains(temp.getId()))
-                    .collect(Collectors.toList());
-            if (!deletedTemplates.isEmpty()) {
-                templatesService.deleteInBatch(deletedTemplates);
+        if (customersList.getSelectionModel().getSelectedItem() != null) {
+            if (!customersList.getSelectionModel().getSelectedItem().getTemplates().isEmpty()) {
+                // ...find out if there is any difference between templates in Customer object itself
+                // and what is currently in the table view
+                Set<Integer> ids = templateTable.getItems().stream()
+                        .map(Templates::getId)
+                        .collect(Collectors.toSet());
+                List<Templates> deletedTemplates = customersList.getSelectionModel().getSelectedItem()
+                        .getTemplates().stream()
+                        .filter(temp -> !ids.contains(temp.getId()))
+                        .collect(Collectors.toList());
+                if (!deletedTemplates.isEmpty()) {
+                    templatesService.deleteInBatch(deletedTemplates);
+                }
             }
 
             if (!templateTable.getItems().isEmpty()) {
