@@ -42,7 +42,7 @@ public class Customer
     private String city;
 
     @Column(name = "payment")
-    private Integer payment;
+    private String payment;
 
     @Column(name = "firm_id") // regon
     private Integer firmId;

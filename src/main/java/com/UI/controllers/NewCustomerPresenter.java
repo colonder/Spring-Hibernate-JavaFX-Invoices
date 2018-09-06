@@ -4,7 +4,6 @@ import com.UI.FxmlView;
 import com.UI.SceneManager;
 import com.entity.Customer;
 import com.service.ICustomerService;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -62,7 +61,7 @@ public class NewCustomerPresenter implements Initializable {
     private ICustomerService customerService;
 
     @FXML
-    void cancel(ActionEvent event) {
+    void cancel() {
         clearFields();
         sceneManager.switchScene(FxmlView.CUSTOMERS);
     }
@@ -99,7 +98,7 @@ public class NewCustomerPresenter implements Initializable {
         customer.setAddress(addressTxtFld.getText());
         customer.setPostalCode(postalTxtFld.getText());
         customer.setCity(cityTxtFld.getText());
-        customer.setPayment(cashRadioBtn.isSelected() ? 0 : 1);
+        customer.setPayment(cashRadioBtn.isSelected() ? "Cash" : "Bank transfer");
     }
 
     @Override
@@ -119,7 +118,7 @@ public class NewCustomerPresenter implements Initializable {
         addressTxtFld.setText(customer.getAddress());
         postalTxtFld.setText(customer.getPostalCode());
         cityTxtFld.setText(customer.getCity());
-        cashRadioBtn.setSelected(customer.getPayment() == 0);
+        cashRadioBtn.setSelected(customer.getPayment().equals("Cash"));
     }
 
     private void clearFields() {

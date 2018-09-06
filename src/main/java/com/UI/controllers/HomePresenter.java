@@ -140,9 +140,7 @@ public class HomePresenter implements Initializable {
         vatRateCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getVatRate()));
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
         quantityCol.setCellFactory(c -> new BigDecimalEditableCell());
-        quantityCol.setOnEditCommit(event -> {
-            event.getRowValue().setQuantityProp(event.getNewValue());
-        });
+        quantityCol.setOnEditCommit(event -> event.getRowValue().setQuantityProp(event.getNewValue()));
         deleteCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue())); // looks weird, fix it
         deleteCol.setCellFactory(param -> new TableCell<Templates, Templates>() {
             private Button removeButton = new Button("", new ImageView(new Image(getClass()

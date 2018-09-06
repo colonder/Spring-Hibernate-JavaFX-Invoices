@@ -73,7 +73,7 @@ public class CustomersPresenter implements Initializable {
     private TableColumn<Customer, String> cityCol;
 
     @FXML
-    private TableColumn<Customer, Integer> paymentCol;
+    private TableColumn<Customer, String> paymentCol;
     //endregion
 
     @Lazy
