@@ -150,18 +150,19 @@
              <TableView fx:id="templateTable" editable="true" prefHeight="200.0" prefWidth="200.0"
                         GridPane.columnSpan="3" GridPane.rowIndex="1">
               <columns>
-                  <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name"/>
-                  <TableColumn fx:id="symbolCol" editable="false" prefWidth="75.0" text="Symbol"/>
+                  <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name"/>
+                  <TableColumn fx:id="symbolCol" prefWidth="75.0" text="Symbol"/>
+                  <TableColumn fx:id="unitCol" prefWidth="75.0" text="Unit"/>
+                  <TableColumn fx:id="netCol" prefWidth="75.0" text="Unit net price"/>
                   <TableColumn fx:id="quantityCol" prefWidth="75.0" text="Quantity" />
-                  <TableColumn fx:id="unitCol" editable="false" prefWidth="75.0" text="Unit"/>
-                  <TableColumn fx:id="netCol" editable="false" prefWidth="75.0" text="Unit net price"/>
+                  <TableColumn fx:id="netTotalCol" prefWidth="75.0" text="Net value"/>
                   <TableColumn editable="false" prefWidth="75.0" text="VAT">
                      <columns>
-                         <TableColumn fx:id="vatRateCol" editable="false" prefWidth="75.0" text="Rate"/>
-                         <TableColumn fx:id="vatValCol" editable="false" prefWidth="75.0" text="Value"/>
+                         <TableColumn fx:id="vatRateCol" prefWidth="75.0" text="Rate"/>
+                         <TableColumn fx:id="vatValCol" prefWidth="75.0" text="Value"/>
                      </columns>
                   </TableColumn>
-                  <TableColumn fx:id="grossCol" editable="false" prefWidth="75.0" text="Gross value"/>
+                  <TableColumn fx:id="grossCol" prefWidth="75.0" text="Gross value"/>
                   <TableColumn fx:id="deleteCol" editable="false" prefWidth="75.0" sortable="false" text="Delete"/>
               </columns>
                <columnResizePolicy>

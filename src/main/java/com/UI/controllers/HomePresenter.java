@@ -67,6 +67,9 @@ public class HomePresenter implements Initializable {
     private TableColumn<Templates, Templates> deleteCol;
 
     @FXML
+    private TableColumn<Templates, BigDecimal> netTotalCol;
+
+    @FXML
     private Label totalLbl;
 
     @FXML
@@ -135,10 +138,10 @@ public class HomePresenter implements Initializable {
         unitCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getUnit()));
         netCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getUnitNetPrice()));
         vatRateCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getVatRate()));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
         quantityCol.setCellFactory(c -> new BigDecimalEditableCell());
         quantityCol.setOnEditCommit(event -> {
-            event.getRowValue().setQuantity(event.getNewValue());
+            event.getRowValue().setQuantityProp(event.getNewValue());
         });
         deleteCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue())); // looks weird, fix it
         deleteCol.setCellFactory(param -> new TableCell<Templates, Templates>() {
@@ -158,6 +161,9 @@ public class HomePresenter implements Initializable {
                 }
             }
         });
+        vatValCol.setCellValueFactory(new PropertyValueFactory<>("taxValProp"));
+        grossCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
+        netTotalCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
     }
 
     @FXML
@@ -278,6 +284,7 @@ public class HomePresenter implements Initializable {
                 //update those that left, if any
                 templatesService.saveAll(templateTable.getItems());
             }
+            // seems to not working when saving as template and switching to another customer and back
             customersList.getSelectionModel().getSelectedItem().setTemplates(templateTable.getItems());
         }
     }

@@ -27,7 +27,7 @@ public class Product
     @Column(name = "unit", nullable = false)
     private String unit;
 
-    @Column(name = "unit_net_pricee", nullable = false)
+    @Column(name = "unit_net_price", nullable = false)
     private BigDecimal unitNetPrice;
 
     @Column(name = "vat_rate", nullable = false)
