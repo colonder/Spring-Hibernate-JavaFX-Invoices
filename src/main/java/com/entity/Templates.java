@@ -47,9 +47,9 @@ public class Templates {
 
     public Templates() {
         this.quantityProp = new SimpleObjectProperty<>(BigDecimal.ZERO);
-        this.netValProp = new SimpleObjectProperty<>();
-        this.taxValProp = new SimpleObjectProperty<>();
-        this.grossValProp = new SimpleObjectProperty<>();
+        this.netValProp = new SimpleObjectProperty<>(BigDecimal.ZERO);
+        this.taxValProp = new SimpleObjectProperty<>(BigDecimal.ZERO);
+        this.grossValProp = new SimpleObjectProperty<>(BigDecimal.ZERO);
         this.quantityProp.addListener(((observableValue, oldValue, newValue) -> {
             this.netValProp.set(newValue.multiply(product.getUnitNetPrice()).setScale(2, RoundingMode.HALF_UP));
             this.taxValProp.set(getNetValProp().multiply(product.getVatRate().movePointLeft(2))
