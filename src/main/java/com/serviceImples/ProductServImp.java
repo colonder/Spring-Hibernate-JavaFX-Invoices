@@ -5,12 +5,10 @@ import com.repositories.IProductRepository;
 import com.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
 public class ProductServImp implements IProductService {
     @Autowired
     private IProductRepository productRepository;

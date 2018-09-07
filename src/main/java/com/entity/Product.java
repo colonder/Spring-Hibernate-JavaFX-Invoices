@@ -14,7 +14,7 @@ import java.util.List;
 public class Product
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id")
     private int id;
 
@@ -33,6 +33,6 @@ public class Product
     @Column(name = "vat_rate", nullable = false)
     private BigDecimal vatRate;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product")
     private List<Templates> templates;
 }

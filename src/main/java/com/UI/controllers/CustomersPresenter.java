@@ -3,7 +3,9 @@ package com.UI.controllers;
 import com.UI.FxmlView;
 import com.UI.SceneManager;
 import com.entity.Customer;
+import com.entity.Templates;
 import com.service.ICustomerService;
+import com.service.ITemplatesService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,18 +31,6 @@ public class CustomersPresenter implements Initializable {
 
     @FXML
     private Button productsBtn;
-
-    @FXML
-    private Button settingsBtn;
-
-    @FXML
-    private Button addBtn;
-
-    @FXML
-    private Button editBtn;
-
-    @FXML
-    private Button deleteBtn;
 
     @FXML
     private TableView<Customer> customersTable;
@@ -83,6 +73,9 @@ public class CustomersPresenter implements Initializable {
     @Autowired
     private ICustomerService customerService;
 
+    @Autowired
+    private ITemplatesService templatesService;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeButtons();
@@ -124,18 +117,32 @@ public class CustomersPresenter implements Initializable {
         List<Customer> customers = customersTable.getSelectionModel().getSelectedItems();
 
         if (!customers.isEmpty()) {
+
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("Are you sure you want to delete selected?");
-            Optional<ButtonType> action = alert.showAndWait();
+            List<Templates> templates = templatesService.findByCustomerIn(customers);
 
-            if (action.orElse(null) == ButtonType.OK)
-                customerService.deleteInBatch(customers);
+            if (!templates.isEmpty()) {
+                alert.setContentText("There are saved templates containing for this customer. " +
+                        "Deleting it will also delete those templates. Are you sure you want to delete selected?");
+                Optional<ButtonType> action = alert.showAndWait();
+
+                if (action.orElse(null) == ButtonType.OK) {
+                    templatesService.deleteInBatch(templates);
+                    customerService.deleteInBatch(customers);
+                }
+            } else {
+                alert.setContentText("Are you sure you want to delete selected?");
+                Optional<ButtonType> action = alert.showAndWait();
+                if (action.orElse(null) == ButtonType.OK) {
+                    customerService.deleteInBatch(customers);
+                }
+            }
 
             loadCustomers();
-        } else
+        } else {
             actionAlert();
+        }
     }
 
     @FXML

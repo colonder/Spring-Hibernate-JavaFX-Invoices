@@ -13,7 +13,7 @@ import java.util.List;
 public class Customer
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id")
     private int id;
 
@@ -47,6 +47,6 @@ public class Customer
     @Column(name = "firm_id") // regon
     private Integer firmId;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
     private List<Templates> templates;
 }

@@ -1,17 +1,16 @@
 package com.serviceImples;
 
 import com.entity.Customer;
+import com.entity.Product;
 import com.entity.Templates;
 import com.repositories.ITemplatesRepository;
 import com.service.ITemplatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
 public class TemplatesServImp implements ITemplatesService {
 
     @Autowired
@@ -48,12 +47,17 @@ public class TemplatesServImp implements ITemplatesService {
     }
 
     @Override
-    public List<Templates> findByCustomer(Customer customer) {
-        return templatesRepository.findByCustomer(customer);
+    public List<Templates> saveAll(List<Templates> templates) {
+        return templatesRepository.saveAll(templates);
     }
 
     @Override
-    public List<Templates> saveAll(List<Templates> templates) {
-        return templatesRepository.saveAll(templates);
+    public List<Templates> findByProductIn(List<Product> products) {
+        return templatesRepository.findByProductIn(products);
+    }
+
+    @Override
+    public List<Templates> findByCustomerIn(List<Customer> customers) {
+        return templatesRepository.findByCustomerIn(customers);
     }
 }
