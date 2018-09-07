@@ -4,6 +4,7 @@ import com.ibm.icu.text.NumberFormat;
 import com.ibm.icu.text.RuleBasedNumberFormat;
 import com.ibm.icu.util.Currency;
 import com.ibm.icu.util.ULocale;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
  * I highly recommend using this libraries for any kind of project (especially engineering, language and banking ones,
  * ICU has created very good stuff supporting those issues in Java)
  */
+@Component
 public class CurrencyHandler {
 
     private static ULocale locale = new ULocale("pl_PL");
@@ -24,11 +26,11 @@ public class CurrencyHandler {
         currencyFormatter.setCurrency(currency);
     }
 
-    public static String formatToCurrency(BigDecimal value) {
+    public String formatToCurrency(BigDecimal value) {
         return currencyFormatter.format(value);
     }
 
-    public static String convertSumToWords(BigDecimal value) {
+    public String convertSumToWords(BigDecimal value) {
         String cents = value.toString();
         cents = cents.substring(cents.indexOf(".") + 1);
         String digits = String.valueOf(value.intValue());

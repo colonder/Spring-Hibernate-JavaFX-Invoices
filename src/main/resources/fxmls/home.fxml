@@ -122,7 +122,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="totalLbl" text="Label">
+                   <Label fx:id="totalLbl" text="-">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -135,7 +135,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="wordsLbl" text="Label">
+                   <Label fx:id="wordsLbl" text="-">
                      <font>
                         <Font size="18.0" />
                      </font>

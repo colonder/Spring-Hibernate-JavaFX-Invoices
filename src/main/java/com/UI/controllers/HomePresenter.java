@@ -9,6 +9,7 @@ import com.service.ICustomerService;
 import com.service.IProductService;
 import com.service.ITemplatesService;
 import com.utilities.BigDecimalEditableCell;
+import com.utilities.CurrencyHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
@@ -98,6 +99,9 @@ public class HomePresenter implements Initializable {
     @Autowired
     private ITemplatesService templatesService;
 
+    @Autowired
+    private CurrencyHandler currencyHandler;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeTable();
@@ -124,6 +128,7 @@ public class HomePresenter implements Initializable {
             customerLbl.setText(newVal.getAlias());
             templateTable.getItems().clear();
             templateTable.getItems().addAll(newVal.getTemplates());
+            calculateTotal();
         }));
     }
 
@@ -140,7 +145,10 @@ public class HomePresenter implements Initializable {
         vatRateCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getVatRate()));
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
         quantityCol.setCellFactory(c -> new BigDecimalEditableCell());
-        quantityCol.setOnEditCommit(event -> event.getRowValue().setQuantityProp(event.getNewValue()));
+        quantityCol.setOnEditCommit(event -> {
+            event.getRowValue().setQuantityProp(event.getNewValue());
+            calculateTotal();
+        });
         deleteCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue())); // looks weird, fix it
         deleteCol.setCellFactory(param -> new TableCell<Templates, Templates>() {
             private Button removeButton = new Button("", new ImageView(new Image(getClass()
@@ -155,13 +163,25 @@ public class HomePresenter implements Initializable {
                     setText(null);
                 } else {
                     setGraphic(removeButton);
-                    removeButton.setOnAction(event -> templateTable.getItems().remove(temp));
+                    removeButton.setOnAction(event -> {
+                        templateTable.getItems().remove(temp);
+                        calculateTotal();
+                    });
                 }
             }
         });
         vatValCol.setCellValueFactory(new PropertyValueFactory<>("taxValProp"));
         grossCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
         netTotalCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
+    }
+
+    private void calculateTotal() {
+        BigDecimal total = templateTable.getItems()
+                .stream()
+                .map(Templates::getGrossValProp)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        totalLbl.setText(currencyHandler.formatToCurrency(total));
+        wordsLbl.setText(currencyHandler.convertSumToWords(total));
     }
 
     @FXML
@@ -280,7 +300,16 @@ public class HomePresenter implements Initializable {
 
             if (!templateTable.getItems().isEmpty()) {
                 //update those that left, if any
-                templatesService.saveAll(templateTable.getItems());
+
+                try {
+                    templatesService.saveAll(templateTable.getItems());
+                } catch (Exception e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error saving template");
+                    alert.setHeaderText("There was an error saving a template, try again");
+
+                    alert.showAndWait();
+                }
             }
             // seems to not working when saving as template and switching to another customer and back
             customersList.getSelectionModel().getSelectedItem().setTemplates(templateTable.getItems());
