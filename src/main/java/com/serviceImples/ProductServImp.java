@@ -39,7 +39,7 @@ public class ProductServImp implements IProductService {
     }
 
     @Override
-    public Product find(Long id) {
+    public Product find(int id) {
         return productRepository.findById(id).orElse(null);
     }
 

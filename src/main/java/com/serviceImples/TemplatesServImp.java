@@ -37,7 +37,7 @@ public class TemplatesServImp implements ITemplatesService {
     }
 
     @Override
-    public Templates find(Long id) {
+    public Templates find(int id) {
         return templatesRepository.findById(id).orElse(null);
     }
 

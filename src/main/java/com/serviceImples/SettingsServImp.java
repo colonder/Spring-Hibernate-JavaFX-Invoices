@@ -1,6 +1,7 @@
 package com.serviceImples;
 
 import com.entity.Settings;
+import com.repositories.ISettingsRepository;
 import com.service.ISettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,15 +10,15 @@ import org.springframework.stereotype.Service;
 public class SettingsServImp implements ISettingsService {
 
     @Autowired
-    ISettingsService settingsService;
+    ISettingsRepository settingsRepository;
 
     @Override
     public Settings save(Settings entity) {
-        return settingsService.save(entity);
+        return settingsRepository.save(entity);
     }
 
     @Override
-    public Settings update(Settings entity) {
-        return settingsService.update(entity);
+    public Settings findById(int id) {
+        return settingsRepository.findById(id).orElseGet(Settings::new);
     }
 }

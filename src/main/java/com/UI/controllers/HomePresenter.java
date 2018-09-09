@@ -195,6 +195,16 @@ public class HomePresenter implements Initializable {
     }
 
     @FXML
+    void switchToSettings() {
+        sceneManager.switchScene(FxmlView.SETTINGS);
+    }
+
+    @FXML
+    void printInvoice() {
+
+    }
+
+    @FXML
     void firstCustomer() {
         customersList.getSelectionModel().selectFirst();
     }

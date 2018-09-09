@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="com.UI.controllers.SettingsPresenter">
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <GridPane alignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0"
+                          AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="50.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="LEFT" minWidth="-Infinity" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="500.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Label text="Last name" GridPane.rowIndex="1"/>
+                        <Label text="Name"/>
+                        <Label text="ID" GridPane.rowIndex="2"/>
+                        <Label text="Firm name" GridPane.rowIndex="3"/>
+                        <Label text="Firm ID" GridPane.rowIndex="4"/>
+                        <Label text="Address" GridPane.rowIndex="5"/>
+                        <Label text="Postal code" GridPane.rowIndex="6"/>
+                        <Label text="City" GridPane.rowIndex="7"/>
+                        <Label text="Bank account" GridPane.rowIndex="8"/>
+                        <TextField fx:id="nameTxtFld" GridPane.columnIndex="1"/>
+                        <TextField fx:id="lastNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <TextField fx:id="idTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <TextField fx:id="firmNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <TextField fx:id="firmIdTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <TextField fx:id="addressTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                        <TextField fx:id="postalTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                        <TextField fx:id="cityTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                        <TextField fx:id="bankAccTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                    </children>
+                </GridPane>
+            </children>
+        </AnchorPane>
+    </center>
+    <bottom>
+        <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <buttons>
+                <Button mnemonicParsing="false" onAction="#save" text="Save">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#cancel" text="Cancel">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Button>
+            </buttons>
+            <padding>
+                <Insets bottom="10.0" top="10.0"/>
+            </padding>
+        </ButtonBar>
+    </bottom>
+</BorderPane>

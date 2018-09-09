@@ -82,8 +82,6 @@ public class NewCustomerPresenter implements Initializable {
 
         Customer updatedCustomer = customerService.update(customer);
         updateAlert(updatedCustomer);
-
-        saveBtn.setOnAction(actionEvent -> saveCustomer());
         clearFields();
         sceneManager.switchScene(FxmlView.CUSTOMERS);
     }

@@ -41,7 +41,7 @@ public class CustomerServImp implements ICustomerService {
     }
 
     @Override
-    public Customer find(Long id) {
-        return customerRepository.findById(id).get();
+    public Customer find(int id) {
+        return customerRepository.findById(id).orElse(null);
     }
 }

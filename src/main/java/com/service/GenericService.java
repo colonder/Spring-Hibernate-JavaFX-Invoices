@@ -11,7 +11,7 @@ public interface GenericService<T> {
 
     void deleteInBatch(List<T> entities);
 
-    T find(Long id);
+    T find(int id);
 
     List<T> findAll();
 }

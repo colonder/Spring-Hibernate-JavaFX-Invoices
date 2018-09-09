@@ -37,8 +37,8 @@ public class Settings {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "payment")
-    private String payment;
+    @Column(name = "bank_acc_num")
+    private String bankAccNum;
 
     @Column(name = "firm_id") // regon
     private Integer firmId;

@@ -58,6 +58,17 @@ public enum FxmlView {
         public String getFxmlFile() {
             return "/fxmls/newproduct.fxml";
         }
+    },
+    SETTINGS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("settings.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxmls/settings.fxml";
+        }
     };
 
 
