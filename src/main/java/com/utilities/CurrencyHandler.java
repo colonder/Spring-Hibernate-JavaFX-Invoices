@@ -36,12 +36,16 @@ public class CurrencyHandler {
         String digits = String.valueOf(value.intValue());
         char character = digits.charAt(digits.length() - 1);
         String currencySymbolSpellOut;
-        if (character == '1' && digits.length() < 2) {
-            currencySymbolSpellOut = "złoty";
-        } else if (character == '2' || character == '3' || character == '4') {
-            currencySymbolSpellOut = "złote";
-        } else {
+        if (value.intValue() >= 10 && value.intValue() < 20) {
             currencySymbolSpellOut = "złotych";
+        } else {
+            if (character == '1' && digits.length() < 2) {
+                currencySymbolSpellOut = "złoty";
+            } else if (character == '2' || character == '3' || character == '4') {
+                currencySymbolSpellOut = "złote";
+            } else {
+                currencySymbolSpellOut = "złotych";
+            }
         }
 
         return spellOutFormatter.format(value.intValue()) + " " + currencySymbolSpellOut + " " + cents + "/100";
