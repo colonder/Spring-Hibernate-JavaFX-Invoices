@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
@@ -22,18 +22,19 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
                         <Label text="Symbol" GridPane.rowIndex="1"/>
                         <Label text="Name"/>
                         <Label text="Unit" GridPane.rowIndex="2"/>
                         <Label text="Unit net price" GridPane.rowIndex="3"/>
-                        <Label text="VAT rate" GridPane.rowIndex="4"/>
+                        <Label text="VAT rate" GridPane.rowIndex="5"/>
                         <TextField fx:id="nameTxtFld" GridPane.columnIndex="1"/>
                         <TextField fx:id="symbolTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                         <TextField fx:id="unitTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                         <TextField fx:id="unitNetPriceTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="5">
                             <children>
                                 <RadioButton fx:id="VAT8RadioBtn" mnemonicParsing="false" selected="true" text="8%">
                                     <toggleGroup>
@@ -57,6 +58,26 @@
                                         <Insets left="15.0"/>
                                     </HBox.margin>
                                 </TextField>
+                            </children>
+                        </HBox>
+                        <Label text="Per month" GridPane.rowIndex="4"/>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
+                              GridPane.rowIndex="4">
+                            <children>
+                                <RadioButton mnemonicParsing="false" text="Yes">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="monthToggle"/>
+                                    </toggleGroup>
+                                </RadioButton>
+                                <RadioButton fx:id="monthNoRadioBtn" mnemonicParsing="false" selected="true" text="No"
+                                             toggleGroup="$monthToggle">
+                                    <HBox.margin>
+                                        <Insets/>
+                                    </HBox.margin>
+                                    <padding>
+                                        <Insets left="15.0"/>
+                                    </padding>
+                                </RadioButton>
                             </children>
                         </HBox>
                     </children>

@@ -50,6 +50,9 @@ public class ProductsPresenter implements Initializable {
 
     @FXML
     private TableColumn<Product, BigDecimal>vatRateCol;
+
+    @FXML
+    private TableColumn<Product, Boolean> perMonthCol;
     //endregion
 
     @Lazy
@@ -76,6 +79,7 @@ public class ProductsPresenter implements Initializable {
         unitCol.setCellValueFactory(new PropertyValueFactory<>("unit"));
         unitNetPrice.setCellValueFactory(new PropertyValueFactory<>("unitNetPrice"));
         vatRateCol.setCellValueFactory(new PropertyValueFactory<>("vatRate"));
+        perMonthCol.setCellValueFactory(new PropertyValueFactory<>("perMonth"));
     }
 
     private void initializeButtons() {

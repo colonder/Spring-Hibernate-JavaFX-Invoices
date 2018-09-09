@@ -33,6 +33,9 @@ public class Product
     @Column(name = "vat_rate", nullable = false)
     private BigDecimal vatRate;
 
+    @Column(name = "per_month", nullable = false)
+    private Boolean perMonth;
+
     @OneToMany(mappedBy = "product")
     private List<Templates> templates;
 }

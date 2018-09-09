@@ -80,6 +80,7 @@
                   <TableColumn fx:id="unitCol" editable="false" prefWidth="75.0" text="Unit" />
                    <TableColumn fx:id="unitNetPrice" editable="false" prefWidth="75.0" text="Unit net price"/>
                   <TableColumn fx:id="vatRateCol" editable="false" prefWidth="75.0" text="VAT rate" />
+                   <TableColumn fx:id="perMonthCol" editable="false" prefWidth="75.0" text="Per month"/>
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
