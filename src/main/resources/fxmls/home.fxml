@@ -150,20 +150,21 @@
              <TableView fx:id="templateTable" editable="true" prefHeight="200.0" prefWidth="200.0"
                         GridPane.columnSpan="3" GridPane.rowIndex="1">
               <columns>
-                  <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name"/>
-                  <TableColumn fx:id="symbolCol" prefWidth="75.0" text="Symbol"/>
-                  <TableColumn fx:id="unitCol" prefWidth="75.0" text="Unit"/>
-                  <TableColumn fx:id="netCol" prefWidth="75.0" text="Unit net price"/>
-                  <TableColumn fx:id="quantityCol" prefWidth="75.0" text="Quantity" />
-                  <TableColumn fx:id="netTotalCol" prefWidth="75.0" text="Net value"/>
-                  <TableColumn editable="false" prefWidth="75.0" text="VAT">
+                  <TableColumn fx:id="nameCol" prefWidth="276.0" resizable="false" text="Name"/>
+                  <TableColumn fx:id="symbolCol" minWidth="0.0" prefWidth="63.0" resizable="false" text="Symbol"/>
+                  <TableColumn fx:id="unitCol" prefWidth="44.0" resizable="false" text="Unit"/>
+                  <TableColumn fx:id="netCol" prefWidth="108.0" resizable="false" text="Unit net price"/>
+                  <TableColumn fx:id="quantityCol" prefWidth="72.0" resizable="false" text="Quantity"/>
+                  <TableColumn fx:id="netTotalCol" prefWidth="77.0" resizable="false" text="Net value"/>
+                  <TableColumn editable="false" prefWidth="118.0" resizable="false" text="VAT">
                      <columns>
-                         <TableColumn fx:id="vatRateCol" prefWidth="75.0" text="Rate"/>
-                         <TableColumn fx:id="vatValCol" prefWidth="75.0" text="Value"/>
+                         <TableColumn fx:id="vatRateCol" prefWidth="51.0" resizable="false" text="Rate"/>
+                         <TableColumn fx:id="vatValCol" prefWidth="69.0" resizable="false" text="Value"/>
                      </columns>
                   </TableColumn>
-                  <TableColumn fx:id="grossCol" prefWidth="75.0" text="Gross value"/>
-                  <TableColumn fx:id="deleteCol" editable="false" prefWidth="75.0" sortable="false" text="Delete"/>
+                  <TableColumn fx:id="grossCol" minWidth="0.0" prefWidth="102.0" resizable="false" text="Gross value"/>
+                  <TableColumn fx:id="deleteCol" editable="false" prefWidth="81.0" resizable="false" sortable="false"
+                               text="Delete"/>
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

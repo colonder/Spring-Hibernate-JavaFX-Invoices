@@ -50,12 +50,6 @@ public class Templates {
         this.netValProp = new SimpleObjectProperty<>(BigDecimal.ZERO);
         this.taxValProp = new SimpleObjectProperty<>(BigDecimal.ZERO);
         this.grossValProp = new SimpleObjectProperty<>(BigDecimal.ZERO);
-        this.quantityProp.addListener(((observableValue, oldValue, newValue) -> {
-            this.netValProp.set(newValue.multiply(product.getUnitNetPrice()).setScale(2, RoundingMode.HALF_UP));
-            this.taxValProp.set(getNetValProp().multiply(product.getVatRate().movePointLeft(2))
-                    .setScale(2, RoundingMode.HALF_UP));
-            this.grossValProp.set(getNetValProp().add(getTaxValProp()).setScale(2, RoundingMode.HALF_UP));
-        }));
     }
 
     public Templates(Customer customer, Product product) {
@@ -76,6 +70,12 @@ public class Templates {
     @PostLoad
     private void postLoad() {
         setQuantityProp(quantity);
+        this.quantityProp.addListener(((observableValue, oldValue, newValue) -> {
+            this.netValProp.set(newValue.multiply(product.getUnitNetPrice()).setScale(2, RoundingMode.HALF_UP));
+            this.taxValProp.set(getNetValProp().multiply(product.getVatRate().movePointLeft(2))
+                    .setScale(2, RoundingMode.HALF_UP));
+            this.grossValProp.set(getNetValProp().add(getTaxValProp()).setScale(2, RoundingMode.HALF_UP));
+        }));
     }
 
     public BigDecimal getNetValProp() {
