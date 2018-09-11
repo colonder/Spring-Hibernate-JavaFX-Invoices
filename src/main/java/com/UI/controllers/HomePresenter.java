@@ -13,16 +13,21 @@ import com.utilities.CurrencyHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.print.*;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import javafx.scene.transform.Scale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
@@ -36,12 +41,11 @@ import java.util.stream.Collectors;
 public class HomePresenter implements Initializable {
 
     //region fxmls
-
     @FXML
     private Label customerLbl;
 
     @FXML
-    private TableColumn<Templates, String> nameCol;
+    private TableColumn<Templates, Templates> nameCol;
 
     @FXML
     private TableColumn<Templates, String> symbolCol;
@@ -138,7 +142,34 @@ public class HomePresenter implements Initializable {
     }
 
     private void initializeTable() {
-        nameCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getProductName()));
+        nameCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue()));
+        nameCol.setCellFactory(c -> new TableCell<Templates, Templates>() {
+            @Override
+            protected void updateItem(Templates templates, boolean b) {
+                super.updateItem(templates, b);
+
+                if (b || templates == null) {
+                    setText(null);
+                } else {
+                    StringBuilder val = new StringBuilder(templates.getProduct().getProductName());
+
+                    if (templates.getProduct().getPerMonth()) {
+
+                        int month = datePicker.getValue().getMonth().getValue();
+                        int year = datePicker.getValue().getYear();
+                        val.append(" for month ").append(month).append("/").append(year);
+
+                        datePicker.valueProperty().addListener((observableValue, oldValue, newValue) -> {
+                            // fix it
+                            setText(templates.getProduct().getProductName() + " for month " +
+                                    newValue.getMonth().getValue() + "/" + newValue.getYear());
+                        });
+                    }
+
+                    setText(val.toString());
+                }
+            }
+        });
         symbolCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getSymbol()));
         unitCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getUnit()));
         netCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getUnitNetPrice()));
@@ -202,6 +233,45 @@ public class HomePresenter implements Initializable {
     @FXML
     void printInvoice() {
 
+        if (customersList.getSelectionModel().getSelectedItem() != null) {
+            Parent rootNode;
+
+            FXMLLoader loader = sceneManager.getLoader(FxmlView.INVOICE);
+            try {
+                rootNode = loader.load();
+                loader.<InvoicePresenter>getController().initData(
+                        customersList.getSelectionModel().getSelectedItem(),
+                        templateTable.getItems(),
+                        totalLbl.getText(),
+                        wordsLbl.getText(),
+                        datePicker.getValue().toString());
+                Printer printer = Printer.getDefaultPrinter();
+                PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT,
+                        Printer.MarginType.HARDWARE_MINIMUM);
+                PrinterJob job = PrinterJob.createPrinterJob();
+                double scaleX = pageLayout.getPrintableWidth() / 794;
+                double scaleY = pageLayout.getPrintableHeight() / 1123;
+                Scale scale = new Scale(scaleX, scaleY);
+                rootNode.getTransforms().add(scale);
+                if (job != null && job.showPrintDialog(sceneManager.getPrimaryStage())) {
+                    boolean success = job.printPage(pageLayout, rootNode);
+
+                    if (success)
+                        job.endJob();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error during printing");
+                    alert.setHeaderText("An error during printing occured");
+
+                    alert.showAndWait();
+                }
+
+                rootNode.getTransforms().remove(scale);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML

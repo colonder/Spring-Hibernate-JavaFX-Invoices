@@ -81,4 +81,8 @@ public class SceneManager {
     private void logAndExit(String errorMsg, Exception exception) {
         Platform.exit();
     }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 }
