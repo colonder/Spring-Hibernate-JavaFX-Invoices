@@ -25,27 +25,24 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
                         <Label text="Last name" GridPane.rowIndex="1"/>
                         <Label text="Name"/>
-                        <Label text="ID" GridPane.rowIndex="2"/>
+                        <Label text="Tax ID" GridPane.rowIndex="2"/>
                         <Label text="Firm name" GridPane.rowIndex="3"/>
-                        <Label text="Firm ID" GridPane.rowIndex="4"/>
-                        <Label text="Address" GridPane.rowIndex="5"/>
-                        <Label text="Postal code" GridPane.rowIndex="6"/>
-                        <Label text="City" GridPane.rowIndex="7"/>
-                        <Label text="Bank account" GridPane.rowIndex="8"/>
+                        <Label text="Address" GridPane.rowIndex="4"/>
+                        <Label text="Postal code" GridPane.rowIndex="5"/>
+                        <Label text="City" GridPane.rowIndex="6"/>
+                        <Label text="Bank account" GridPane.rowIndex="7"/>
                         <TextField fx:id="nameTxtFld" GridPane.columnIndex="1"/>
                         <TextField fx:id="lastNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                         <TextField fx:id="idTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                         <TextField fx:id="firmNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                        <TextField fx:id="firmIdTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                        <TextField fx:id="addressTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                        <TextField fx:id="postalTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                        <TextField fx:id="cityTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                        <TextField fx:id="bankAccTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                        <TextField fx:id="addressTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <TextField fx:id="postalTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                        <TextField fx:id="cityTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                        <TextField fx:id="bankAccTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
                     </children>
                 </GridPane>
             </children>

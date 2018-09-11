@@ -39,7 +39,4 @@ public class Settings {
 
     @Column(name = "bank_acc_num")
     private String bankAccNum;
-
-    @Column(name = "firm_id") // regon
-    private Integer firmId;
 }
