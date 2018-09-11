@@ -69,8 +69,18 @@ public enum FxmlView {
         public String getFxmlFile() {
             return "/fxmls/settings.fxml";
         }
-    };
+    },
+    INVOICE {
+        @Override
+        public String getTitle() {
+            return "";
+        }
 
+        @Override
+        public String getFxmlFile() {
+            return "/fxmls/invoiceTemplate.fxml";
+        }
+    };
 
     public abstract String getTitle();
     public abstract String getFxmlFile();
