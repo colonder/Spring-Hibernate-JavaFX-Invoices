@@ -30,9 +30,6 @@ public class SettingsPresenter implements Initializable {
     private TextField firmNameTxtFld;
 
     @FXML
-    private TextField firmIdTxtFld;
-
-    @FXML
     private TextField addressTxtFld;
 
     @FXML
@@ -60,7 +57,6 @@ public class SettingsPresenter implements Initializable {
         settings.setLastName(lastNameTxtFld.getText());
         settings.setCity(cityTxtFld.getText());
         settings.setAddress(addressTxtFld.getText());
-        settings.setFirmId(Integer.valueOf(firmIdTxtFld.getText()));
         settings.setFirmName(firmNameTxtFld.getText());
         settings.setPostalCode(postalTxtFld.getText());
         settings.setTaxId(idTxtFld.getText());
@@ -82,7 +78,6 @@ public class SettingsPresenter implements Initializable {
         lastNameTxtFld.setText(settings.getLastName());
         idTxtFld.setText(settings.getTaxId());
         firmNameTxtFld.setText(settings.getFirmName());
-        firmIdTxtFld.setText(settings.getFirmId().toString());
         addressTxtFld.setText(settings.getAddress());
         postalTxtFld.setText(settings.getPostalCode());
         cityTxtFld.setText(settings.getCity());

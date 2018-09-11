@@ -10,7 +10,7 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="homeBtn" mnemonicParsing="false" text="Home">
+            <Button mnemonicParsing="false" onAction="#switchToHome" text="Home">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
@@ -18,7 +18,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="productsBtn" mnemonicParsing="false" text="Products">
+            <Button mnemonicParsing="false" onAction="#switchToProducts" text="Products">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
@@ -26,7 +26,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="settingsBtn" mnemonicParsing="false" text="Settings">
+            <Button mnemonicParsing="false" onAction="#switchToSettings" text="Settings">
                <font>
                   <Font size="20.0" />
                </font>

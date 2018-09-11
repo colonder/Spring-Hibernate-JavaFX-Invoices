@@ -27,12 +27,6 @@ public class CustomersPresenter implements Initializable {
 
     //region fxmls
     @FXML
-    private Button homeBtn;
-
-    @FXML
-    private Button productsBtn;
-
-    @FXML
     private TableView<Customer> customersTable;
 
     @FXML
@@ -75,7 +69,6 @@ public class CustomersPresenter implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeButtons();
         initializeTable();
         loadCustomers();
     }
@@ -93,14 +86,24 @@ public class CustomersPresenter implements Initializable {
         paymentCol.setCellValueFactory(new PropertyValueFactory<>("payment"));
     }
 
-    private void initializeButtons() {
-        productsBtn.setOnAction(actionEvent -> sceneManager.switchScene(FxmlView.PRODUCTS));
-        homeBtn.setOnAction(actionEvent -> sceneManager.switchScene(FxmlView.HOME));
-    }
-
     private void loadCustomers() {
         customersTable.getItems().clear();
         customersTable.getItems().addAll(customerService.findAll());
+    }
+
+    @FXML
+    void switchToProducts() {
+        sceneManager.switchScene(FxmlView.PRODUCTS);
+    }
+
+    @FXML
+    void switchToHome() {
+        sceneManager.switchScene(FxmlView.HOME);
+    }
+
+    @FXML
+    void switchToSettings() {
+        sceneManager.switchScene(FxmlView.SETTINGS);
     }
 
     @FXML
@@ -167,21 +170,3 @@ public class CustomersPresenter implements Initializable {
         alert.showAndWait();
     }
 }
-
-//
-//    private void setSearching() {
-//        phraseTxtFld.setOnKeyPressed(event -> {
-//            if (!phraseTxtFld.getText().isEmpty() && event.getCode().equals(KeyCode.ENTER)) {
-//                search();
-//            }
-//        });
-//
-//        searchBtn.setOnAction(event -> search());
-//    }
-//
-//    private void search() {
-//
-////        customersTableView.getItems().setAll(customerService.findAll(CustomerType.customerMap.get(customerTypeComboBox
-////                .getSelectionModel().getSelectedItem())));
-//    }
-//}

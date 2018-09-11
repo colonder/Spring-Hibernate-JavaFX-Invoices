@@ -28,12 +28,6 @@ public class ProductsPresenter implements Initializable {
 
     //region fxmls
     @FXML
-    private Button homeBtn;
-
-    @FXML
-    private Button customersBtn;
-
-    @FXML
     private TableView<Product> productsTable;
 
     @FXML
@@ -67,7 +61,6 @@ public class ProductsPresenter implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeButtons();
         initializeTable();
         loadProducts();
     }
@@ -82,14 +75,24 @@ public class ProductsPresenter implements Initializable {
         perMonthCol.setCellValueFactory(new PropertyValueFactory<>("perMonth"));
     }
 
-    private void initializeButtons() {
-        homeBtn.setOnAction(actionEvent -> sceneManager.switchScene(FxmlView.HOME));
-        customersBtn.setOnAction(actionEvent -> sceneManager.switchScene(FxmlView.CUSTOMERS));
-    }
-
     private void loadProducts() {
         productsTable.getItems().clear();
         productsTable.getItems().addAll(productService.findAll());
+    }
+
+    @FXML
+    void switchToCustomers() {
+        sceneManager.switchScene(FxmlView.CUSTOMERS);
+    }
+
+    @FXML
+    void switchToHome() {
+        sceneManager.switchScene(FxmlView.HOME);
+    }
+
+    @FXML
+    void switchToSettings() {
+        sceneManager.switchScene(FxmlView.SETTINGS);
     }
 
     @FXML
