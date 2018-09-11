@@ -44,9 +44,6 @@ public class Customer
     @Column(name = "payment")
     private String payment;
 
-    @Column(name = "firm_id") // regon
-    private Integer firmId;
-
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
     private List<Templates> templates;
 }

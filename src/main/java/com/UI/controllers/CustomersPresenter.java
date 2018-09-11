@@ -51,9 +51,6 @@ public class CustomersPresenter implements Initializable {
     private TableColumn<Customer, String> firmCol;
 
     @FXML
-    private TableColumn<Customer, Integer> firmIdCol;
-
-    @FXML
     private TableColumn<Customer, String> addressCol;
 
     @FXML
@@ -94,7 +91,6 @@ public class CustomersPresenter implements Initializable {
         postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         cityCol.setCellValueFactory(new PropertyValueFactory<>("city"));
         paymentCol.setCellValueFactory(new PropertyValueFactory<>("payment"));
-        firmIdCol.setCellValueFactory(new PropertyValueFactory<>("firmId"));
     }
 
     private void initializeButtons() {

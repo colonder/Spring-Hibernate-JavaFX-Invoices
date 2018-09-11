@@ -39,9 +39,6 @@ public class NewCustomerPresenter implements Initializable {
     private TextField firmNameTxtFld;
 
     @FXML
-    private TextField firmIdTxtFld;
-
-    @FXML
     private TextField addressTxtFld;
 
     @FXML
@@ -92,7 +89,6 @@ public class NewCustomerPresenter implements Initializable {
         customer.setLastName(lastNameTxtFld.getText());
         customer.setTaxId(idTxtFld.getText());
         customer.setFirmName(firmNameTxtFld.getText());
-        customer.setFirmId(Integer.parseInt(firmIdTxtFld.getText()));
         customer.setAddress(addressTxtFld.getText());
         customer.setPostalCode(postalTxtFld.getText());
         customer.setCity(cityTxtFld.getText());
@@ -112,7 +108,6 @@ public class NewCustomerPresenter implements Initializable {
         lastNameTxtFld.setText(customer.getLastName());
         idTxtFld.setText(customer.getTaxId());
         firmNameTxtFld.setText(customer.getFirmName());
-        firmIdTxtFld.setText(customer.getFirmId().toString());
         addressTxtFld.setText(customer.getAddress());
         postalTxtFld.setText(customer.getPostalCode());
         cityTxtFld.setText(customer.getCity());
@@ -125,7 +120,6 @@ public class NewCustomerPresenter implements Initializable {
         lastNameTxtFld.setText(null);
         idTxtFld.setText(null);
         firmNameTxtFld.setText(null);
-        firmIdTxtFld.setText(null);
         addressTxtFld.setText(null);
         postalTxtFld.setText(null);
         cityTxtFld.setText(null);

@@ -81,7 +81,6 @@
                   <TableColumn fx:id="lastNameCol" editable="false" prefWidth="75.0" text="Last name" />
                   <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="firmCol" editable="false" prefWidth="75.0" text="Firm name" />
-                  <TableColumn fx:id="firmIdCol" prefWidth="75.0" text="Firm ID" />
                   <TableColumn fx:id="addressCol" editable="false" prefWidth="75.0" text="Address" />
                   <TableColumn fx:id="postalCodeCol" editable="false" prefWidth="75.0" text="Postal code" />
                   <TableColumn fx:id="cityCol" prefWidth="75.0" text="City" />
