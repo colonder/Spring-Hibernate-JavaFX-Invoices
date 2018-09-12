@@ -67,7 +67,7 @@
     <bottom>
         <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <buttons>
-                <Button fx:id="saveBtn" mnemonicParsing="false" text="Save">
+                <Button mnemonicParsing="false" onAction="#saveCustomer" text="Save">
                     <font>
                         <Font size="18.0"/>
                     </font>

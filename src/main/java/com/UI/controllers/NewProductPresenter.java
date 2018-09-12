@@ -7,7 +7,6 @@ import com.service.IProductService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,15 +39,6 @@ public class NewProductPresenter implements Initializable {
     private RadioButton VAT23RadioBtn;
 
     @FXML
-    private RadioButton otherVatRadioBtn;
-
-    @FXML
-    private TextField vatRateTxtFld;
-
-    @FXML
-    private Button saveBtn;
-
-    @FXML
     private RadioButton monthNoRadioBtn;
 
     @Autowired
@@ -57,6 +47,8 @@ public class NewProductPresenter implements Initializable {
 
     @Autowired
     private IProductService productService;
+
+    private Product product;
 
     @FXML
     void cancel() {
@@ -73,23 +65,16 @@ public class NewProductPresenter implements Initializable {
         monthNoRadioBtn.setSelected(true);
     }
 
+    @FXML
     private void saveProduct() {
-        Product product = new Product();
-        setProductProperties(product);
+        if (this.product == null) {
+            this.product = new Product();
+        }
+        setProductProperties(this.product);
 
-        Product newProduct = productService.save(product);
+        Product newProduct = productService.save(this.product);
 
         saveAlert(newProduct);
-        sceneManager.switchScene(FxmlView.PRODUCTS);
-    }
-
-    private void updateProduct(Product product) {
-        setProductProperties(product);
-
-        Product updatedProduct = productService.update(product);
-        updateAlert(updatedProduct);
-
-        saveBtn.setOnAction(actionEvent -> saveProduct());
         clearFields();
         sceneManager.switchScene(FxmlView.PRODUCTS);
     }
@@ -103,21 +88,17 @@ public class NewProductPresenter implements Initializable {
         if (VAT8RadioBtn.isSelected())
             product.setVatRate(new BigDecimal(8));
 
-        else if (VAT23RadioBtn.isSelected())
-            product.setVatRate(new BigDecimal(23));
-
         else
-            product.setVatRate(new BigDecimal(vatRateTxtFld.getText()));
-
+            product.setVatRate(new BigDecimal(23));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        saveBtn.setOnAction(actionEvent -> saveProduct());
+        this.product = null;
     }
 
     public void initData(Product product) {
-        saveBtn.setOnAction(actionEvent -> updateProduct(product));
+        this.product = product;
 
         nameTxtFld.setText(product.getProductName());
         symbolTxtFld.setText(product.getSymbol());
@@ -130,30 +111,16 @@ public class NewProductPresenter implements Initializable {
         if (vat.compareTo(new BigDecimal(8.0)) == 0)
             VAT8RadioBtn.setSelected(true);
 
-        else if (vat.compareTo(new BigDecimal(23.0)) == 0)
+        else
             VAT23RadioBtn.setSelected(true);
-
-        else {
-            otherVatRadioBtn.setSelected(true);
-            vatRateTxtFld.setText(vat.toString());
-        }
     }
 
     private void saveAlert(Product product) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("User saved successfully.");
+        alert.setTitle("Operation successful.");
         alert.setHeaderText(null);
-        alert.setContentText("The product " + product.getProductName() + " has been created");
-        alert.showAndWait();
-    }
-
-    private void updateAlert(Product product) {
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Product updated successfully.");
-        alert.setHeaderText(null);
-        alert.setContentText("The product " + product.getProductName() + " has been updated.");
+        alert.setContentText("The product " + product.getProductName() + " has been updated");
         alert.showAndWait();
     }
 }

@@ -7,7 +7,6 @@ import com.service.ICustomerService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +18,6 @@ import java.util.ResourceBundle;
 
 @Controller
 public class NewCustomerPresenter implements Initializable {
-
-    @FXML
-    private Button saveBtn;
 
     @FXML
     private TextField aliasTxtFld;
@@ -63,22 +59,18 @@ public class NewCustomerPresenter implements Initializable {
         sceneManager.switchScene(FxmlView.CUSTOMERS);
     }
 
-    private void saveCustomer() {
-        Customer customer = new Customer();
-        setCustomerProperties(customer);
+    private Customer customer;
 
-        Customer newCustomer = customerService.save(customer);
+    @FXML
+    private void saveCustomer() {
+        if (this.customer == null) {
+            this.customer = new Customer();
+        }
+        setCustomerProperties(this.customer);
+
+        Customer newCustomer = customerService.save(this.customer);
 
         saveAlert(newCustomer);
-        clearFields();
-        sceneManager.switchScene(FxmlView.CUSTOMERS);
-    }
-
-    private void updateCustomer(Customer customer) {
-        setCustomerProperties(customer);
-
-        Customer updatedCustomer = customerService.update(customer);
-        updateAlert(updatedCustomer);
         clearFields();
         sceneManager.switchScene(FxmlView.CUSTOMERS);
     }
@@ -97,11 +89,11 @@ public class NewCustomerPresenter implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        saveBtn.setOnAction(actionEvent -> saveCustomer());
+        this.customer = null;
     }
 
     public void initData(Customer customer) {
-        saveBtn.setOnAction(actionEvent -> updateCustomer(customer));
+        this.customer = customer;
 
         aliasTxtFld.setText(customer.getAlias());
         nameTxtFld.setText(customer.getFirstName());
@@ -130,15 +122,6 @@ public class NewCustomerPresenter implements Initializable {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("User saved successfully.");
-        alert.setHeaderText(null);
-        alert.setContentText("The user " + customer.getAlias() + " has been created with an id " + customer.getId() + ".");
-        alert.showAndWait();
-    }
-
-    private void updateAlert(Customer customer) {
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("User updated successfully.");
         alert.setHeaderText(null);
         alert.setContentText("The user " + customer.getAlias() + " has been updated.");
         alert.showAndWait();
