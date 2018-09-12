@@ -23,8 +23,8 @@
         <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-        <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints fillHeight="false" maxHeight="-Infinity" minHeight="0.0" prefHeight="150.0"/>
+        <RowConstraints minHeight="10.0" percentHeight="15.0" vgrow="SOMETIMES"/>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
         <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="NEVER"/>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
@@ -147,9 +147,9 @@
         </GridPane>
         <Label text="Płatność:" GridPane.rowIndex="6"/>
         <Label fx:id="paymentMethod" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-        <Label text="Nr konta PKO S.A.:" GridPane.rowIndex="5"/>
-        <TableView fx:id="templateTable" editable="true" prefHeight="200.0" prefWidth="200.0"
-                   GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
+        <Label fx:id="bankLbl" text="Nr konta PKO S.A.:" visible="false" GridPane.rowIndex="5"/>
+        <TableView fx:id="templateTable" editable="true" prefWidth="200.0" GridPane.columnSpan="2147483647"
+                   GridPane.rowIndex="7" GridPane.vgrow="SOMETIMES">
             <columns>
                 <TableColumn fx:id="nameCol" prefWidth="153.0" resizable="false" text="Name"/>
                 <TableColumn fx:id="symbolCol" prefWidth="62.0" resizable="false" text="Symbol"/>
@@ -200,8 +200,8 @@
                 <Font name="System Bold" size="16.0"/>
             </font>
         </Label>
-        <Label text="Płatność przelewem 14 (czternaście) dni od data otrzymania faktury"
-               GridPane.columnSpan="2147483647" GridPane.rowIndex="13">
+        <Label fx:id="paymentRequireLbl" text="Płatność przelewem 14 (czternaście) dni od data otrzymania faktury"
+               visible="false" GridPane.columnSpan="2147483647" GridPane.rowIndex="13">
             <font>
                 <Font name="System Bold" size="15.0"/>
             </font>
@@ -239,15 +239,18 @@
             </children>
         </HBox>
         <Label fx:id="bankAccNum" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5"/>
-        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3"
+        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2"
               GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
             <children>
                 <Label text="RAZEM W TYM">
                     <font>
                         <Font name="System Bold" size="16.0"/>
                     </font>
+                    <padding>
+                        <Insets right="20.0"/>
+                    </padding>
                 </Label>
-                <TableView prefWidth="288.0">
+                <TableView maxHeight="-Infinity" prefWidth="347.0">
                     <columns>
                         <TableColumn editable="false" prefWidth="75.0" sortable="false" text="8%"/>
                         <TableColumn editable="false" prefWidth="75.0" sortable="false" text="23%"/>
@@ -256,6 +259,9 @@
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                     </columnResizePolicy>
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
                 </TableView>
             </children>
         </HBox>
