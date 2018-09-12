@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -151,6 +152,10 @@ public class HomePresenter implements Initializable {
                 if (b || templates == null) {
                     setText(null);
                 } else {
+                    Text text = new Text();
+                    setPrefHeight(Control.USE_COMPUTED_SIZE);
+                    text.wrappingWidthProperty().bind(nameCol.widthProperty());
+
                     StringBuilder val = new StringBuilder(templates.getProduct().getProductName());
 
                     if (templates.getProduct().getPerMonth()) {
@@ -160,13 +165,16 @@ public class HomePresenter implements Initializable {
                         val.append(" for month ").append(month).append("/").append(year);
 
                         datePicker.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-                            // fix it
-                            setText(templates.getProduct().getProductName() + " for month " +
+
+                            text.setText(templates.getProduct().getProductName() + " for month " +
                                     newValue.getMonth().getValue() + "/" + newValue.getYear());
+
+                            setGraphic(text);
+
                         });
                     }
-
-                    setText(val.toString());
+                    text.setText(val.toString());
+                    setGraphic(text);
                 }
             }
         });
