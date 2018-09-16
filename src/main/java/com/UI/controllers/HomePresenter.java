@@ -24,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
+import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,7 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -107,6 +109,30 @@ public class HomePresenter implements Initializable {
     @Autowired
     private CurrencyHandler currencyHandler;
 
+    private NumberFormat numberFormat;
+    private Callback<TableColumn<Templates, BigDecimal>, TableCell<Templates, BigDecimal>> cellFactory;
+
+    public HomePresenter() {
+        numberFormat = NumberFormat.getNumberInstance();
+        cellFactory = new Callback<TableColumn<Templates, BigDecimal>, TableCell<Templates, BigDecimal>>() {
+            @Override
+            public TableCell<Templates, BigDecimal> call(final TableColumn<Templates, BigDecimal> param) {
+                return new TableCell<Templates, BigDecimal>() {
+                    @Override
+                    public void updateItem(BigDecimal v, boolean empty) {
+                        super.updateItem(v, empty);
+                        if (empty || v == null) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            setText(numberFormat.format(v));
+                        }
+                    }
+                };
+            }
+        };
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeTable();
@@ -181,7 +207,9 @@ public class HomePresenter implements Initializable {
         symbolCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getSymbol()));
         unitCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getUnit()));
         netCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getUnitNetPrice()));
+        netCol.setCellFactory(cellFactory);
         vatRateCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getVatRate()));
+        vatRateCol.setCellFactory(cellFactory);
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
         quantityCol.setCellFactory(c -> new BigDecimalEditableCell());
         quantityCol.setOnEditCommit(event -> {
@@ -210,8 +238,11 @@ public class HomePresenter implements Initializable {
             }
         });
         vatValCol.setCellValueFactory(new PropertyValueFactory<>("taxValProp"));
+        vatValCol.setCellFactory(cellFactory);
         grossCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
+        grossCol.setCellFactory(cellFactory);
         netTotalCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
+        netTotalCol.setCellFactory(cellFactory);
     }
 
     private void calculateTotal() {

@@ -31,12 +31,15 @@ public class CurrencyHandler {
     }
 
     public String convertSumToWords(BigDecimal value) {
+        if (value == null || value.compareTo(BigDecimal.ZERO) == 0) {
+            return "-";
+        }
         String cents = value.toString();
         cents = cents.substring(cents.indexOf(".") + 1);
         String digits = String.valueOf(value.intValue());
         char character = digits.charAt(digits.length() - 1);
         String currencySymbolSpellOut;
-        if (value.intValue() >= 10 && value.intValue() < 20) {
+        if (digits.charAt(digits.length() - 2) == '1') {
             currencySymbolSpellOut = "złotych";
         } else {
             if (character == '1' && digits.length() < 2) {

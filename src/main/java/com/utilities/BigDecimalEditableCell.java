@@ -4,6 +4,7 @@ import com.entity.Templates;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -14,11 +15,11 @@ import java.util.function.UnaryOperator;
 
 public class BigDecimalEditableCell extends TableCell<Templates, BigDecimal> {
 
-    private BigDecimalTextField textField;
+    private TextField textField;
     private TextFormatter<BigDecimal> textFormatter;
 
     public BigDecimalEditableCell() {
-        textField = new BigDecimalTextField();
+        textField = new TextField();
         UnaryOperator<TextFormatter.Change> filter = c -> {
             String newText = c.getControlNewText();
 
