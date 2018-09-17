@@ -10,6 +10,7 @@ import com.service.IProductService;
 import com.service.ITemplatesService;
 import com.utilities.BigDecimalEditableCell;
 import com.utilities.CurrencyHandler;
+import com.utilities.Miscellaneous;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
@@ -24,7 +25,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
-import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,6 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -109,30 +108,6 @@ public class HomePresenter implements Initializable {
     @Autowired
     private CurrencyHandler currencyHandler;
 
-    private NumberFormat numberFormat;
-    private Callback<TableColumn<Templates, BigDecimal>, TableCell<Templates, BigDecimal>> cellFactory;
-
-    public HomePresenter() {
-        numberFormat = NumberFormat.getNumberInstance();
-        cellFactory = new Callback<TableColumn<Templates, BigDecimal>, TableCell<Templates, BigDecimal>>() {
-            @Override
-            public TableCell<Templates, BigDecimal> call(final TableColumn<Templates, BigDecimal> param) {
-                return new TableCell<Templates, BigDecimal>() {
-                    @Override
-                    public void updateItem(BigDecimal v, boolean empty) {
-                        super.updateItem(v, empty);
-                        if (empty || v == null) {
-                            setGraphic(null);
-                            setText(null);
-                        } else {
-                            setText(numberFormat.format(v));
-                        }
-                    }
-                };
-            }
-        };
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeTable();
@@ -207,9 +182,9 @@ public class HomePresenter implements Initializable {
         symbolCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getSymbol()));
         unitCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getUnit()));
         netCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getUnitNetPrice()));
-        netCol.setCellFactory(cellFactory);
+        netCol.setCellFactory(Miscellaneous.getCellFactory());
         vatRateCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getVatRate()));
-        vatRateCol.setCellFactory(cellFactory);
+        vatRateCol.setCellFactory(Miscellaneous.getCellFactory());
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
         quantityCol.setCellFactory(c -> new BigDecimalEditableCell());
         quantityCol.setOnEditCommit(event -> {
@@ -238,11 +213,11 @@ public class HomePresenter implements Initializable {
             }
         });
         vatValCol.setCellValueFactory(new PropertyValueFactory<>("taxValProp"));
-        vatValCol.setCellFactory(cellFactory);
+        vatValCol.setCellFactory(Miscellaneous.getCellFactory());
         grossCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
-        grossCol.setCellFactory(cellFactory);
+        grossCol.setCellFactory(Miscellaneous.getCellFactory());
         netTotalCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
-        netTotalCol.setCellFactory(cellFactory);
+        netTotalCol.setCellFactory(Miscellaneous.getCellFactory());
     }
 
     private void calculateTotal() {
@@ -360,7 +335,9 @@ public class HomePresenter implements Initializable {
         TableColumn<Product, String> symbolCol = new TableColumn<>("Symbol");
         TableColumn<Product, String> unitCol = new TableColumn<>("Unit");
         TableColumn<Product, BigDecimal> cpuCol = new TableColumn<>("CPU");
+        cpuCol.setCellFactory(Miscellaneous.getCellFactory());
         TableColumn<Product, BigDecimal> vatRateCol = new TableColumn<>("VAT rate");
+        vatRateCol.setCellFactory(Miscellaneous.getCellFactory());
         nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
         symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
         unitCol.setCellValueFactory(new PropertyValueFactory<>("unit"));

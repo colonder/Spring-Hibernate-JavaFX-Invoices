@@ -6,6 +6,7 @@ import com.entity.Product;
 import com.entity.Templates;
 import com.service.IProductService;
 import com.service.ITemplatesService;
+import com.utilities.Miscellaneous;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -71,7 +72,9 @@ public class ProductsPresenter implements Initializable {
         symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
         unitCol.setCellValueFactory(new PropertyValueFactory<>("unit"));
         unitNetPrice.setCellValueFactory(new PropertyValueFactory<>("unitNetPrice"));
+        unitNetPrice.setCellFactory(Miscellaneous.getCellFactory());
         vatRateCol.setCellValueFactory(new PropertyValueFactory<>("vatRate"));
+        vatRateCol.setCellFactory(Miscellaneous.getCellFactory());
         perMonthCol.setCellValueFactory(new PropertyValueFactory<>("perMonth"));
     }
 

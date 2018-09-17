@@ -17,13 +17,13 @@ import java.math.BigDecimal;
 @Component
 public class CurrencyHandler {
 
-    private static ULocale locale = new ULocale("pl_PL");
-    private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-    private static NumberFormat spellOutFormatter = new RuleBasedNumberFormat(locale, RuleBasedNumberFormat.SPELLOUT);
-    private static Currency currency = Currency.getInstance(locale);
+    private ULocale locale = new ULocale("pl_PL");
+    private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+    private NumberFormat spellOutFormatter = new RuleBasedNumberFormat(locale, RuleBasedNumberFormat.SPELLOUT);
 
-    static {
-        currencyFormatter.setCurrency(currency);
+    public CurrencyHandler() {
+        currencyFormatter.setCurrency(Currency.getInstance(locale));
+
     }
 
     public String formatToCurrency(BigDecimal value) {
@@ -53,6 +53,4 @@ public class CurrencyHandler {
 
         return spellOutFormatter.format(value.intValue()) + " " + currencySymbolSpellOut + " " + cents + "/100";
     }
-
-
 }
