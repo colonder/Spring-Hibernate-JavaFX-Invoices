@@ -1,7 +1,6 @@
 package com.utilities;
 
 import com.entity.Templates;
-import javafx.beans.binding.Bindings;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
@@ -11,6 +10,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.util.converter.BigDecimalStringConverter;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.function.UnaryOperator;
 
 public class BigDecimalEditableCell extends TableCell<Templates, BigDecimal> {
@@ -29,16 +30,20 @@ public class BigDecimalEditableCell extends TableCell<Templates, BigDecimal> {
             }
 
             // otherwise, must have all digits:
-            if (!newText.matches("\\d{0,4}\\.?\\d{0,2}")) {
+            if (!newText.matches("\\d{0,4}.?\\d{0,2}")) {
                 return null;
             }
 
-            // check range:
-            BigDecimal value = new BigDecimal(newText);
-            if (value.compareTo(BigDecimal.ZERO) == -1) {
+            try {
+                BigDecimal value = new BigDecimal(NumberFormat.getNumberInstance().parse(newText).toString());
+                if (value.compareTo(BigDecimal.ZERO) < 0) {
+                    return null;
+                } else {
+                    return c;
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
                 return null;
-            } else {
-                return c;
             }
         };
         BigDecimalStringConverter converter = new BigDecimalStringConverter();
@@ -52,12 +57,19 @@ public class BigDecimalEditableCell extends TableCell<Templates, BigDecimal> {
             }
         });
 
-        textField.setOnAction(e -> commitEdit(converter.fromString(textField.getText())));
+        textField.setOnAction(e -> {
+            try {
+                commitEdit(converter.fromString(NumberFormat
+                        .getNumberInstance().parse(textField.getText()).toString()));
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+        });
 
-        textProperty().bind(Bindings
-                .when(emptyProperty())
-                .then((String) null)
-                .otherwise(itemProperty().asString()));
+        itemProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (newValue != null)
+                setText(NumberFormat.getNumberInstance().format(newValue));
+        });
 
         setGraphic(textField);
         setContentDisplay(ContentDisplay.TEXT_ONLY);

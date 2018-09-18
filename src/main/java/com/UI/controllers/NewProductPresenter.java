@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ResourceBundle;
 
 @Controller
@@ -66,7 +68,7 @@ public class NewProductPresenter implements Initializable {
     }
 
     @FXML
-    private void saveProduct() {
+    private void saveProduct() throws ParseException {
         if (this.product == null) {
             this.product = new Product();
         }
@@ -77,13 +79,15 @@ public class NewProductPresenter implements Initializable {
         saveAlert(newProduct);
         clearFields();
         sceneManager.switchScene(FxmlView.PRODUCTS);
+
     }
 
-    private void setProductProperties(Product product) {
+    private void setProductProperties(Product product) throws ParseException {
         product.setProductName(nameTxtFld.getText());
         product.setSymbol(symbolTxtFld.getText());
         product.setUnit(unitTxtFld.getText());
-        product.setUnitNetPrice(new BigDecimal(unitNetPriceTxtFld.getText()));
+        product.setUnitNetPrice(new BigDecimal(NumberFormat.getNumberInstance()
+                .parse(unitNetPriceTxtFld.getText()).toString())); // fix this
         product.setPerMonth(!monthNoRadioBtn.isSelected());
         if (VAT8RadioBtn.isSelected())
             product.setVatRate(new BigDecimal(8));
@@ -103,7 +107,7 @@ public class NewProductPresenter implements Initializable {
         nameTxtFld.setText(product.getProductName());
         symbolTxtFld.setText(product.getSymbol());
         unitTxtFld.setText(product.getUnit());
-        unitNetPriceTxtFld.setText(product.getUnitNetPrice().toString());
+        unitNetPriceTxtFld.setText(NumberFormat.getNumberInstance().format(product.getUnitNetPrice()));
         monthNoRadioBtn.setSelected(!product.getPerMonth());
 
         BigDecimal vat = product.getVatRate();
