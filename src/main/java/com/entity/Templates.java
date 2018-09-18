@@ -59,10 +59,6 @@ public class Templates {
         setListeners();
     }
 
-    public BigDecimal getQuantityProp() {
-        return quantityProp.get();
-    }
-
     public void setQuantityProp(BigDecimal quantityProp) {
         this.quantityProp.set(quantityProp);
         setQuantity(quantityProp);

@@ -104,6 +104,9 @@ public class InvoicePresenter {
     @FXML
     private Label bankAccNum;
 
+    @FXML
+    private TableView<BigDecimal> taxTable;
+
     @Autowired
     private ISettingsService settingsService;
 
@@ -145,5 +148,25 @@ public class InvoicePresenter {
         vatValCol.setCellValueFactory(new PropertyValueFactory<>("taxValProp"));
         grossCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
         netTotalCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
+
+        BigDecimal vat8Tax = BigDecimal.ZERO;
+        BigDecimal vat8Net = BigDecimal.ZERO;
+        BigDecimal vat8Gross = BigDecimal.ZERO;
+        BigDecimal vat23Tax = BigDecimal.ZERO;
+        BigDecimal vat23Net = BigDecimal.ZERO;
+        BigDecimal vat23Gross = BigDecimal.ZERO;
+
+        for (Templates t : templates) {
+
+            if (t.getProduct().getVatRate().compareTo(new BigDecimal(8)) == 0) {
+                vat8Tax = vat8Tax.add(t.getTaxValProp());
+                vat8Net = vat8Net.add(t.getNetValProp());
+                vat8Gross = vat8Gross.add(t.getGrossValProp());
+            } else {
+                vat23Tax = vat23Tax.add(t.getTaxValProp());
+                vat23Net = vat23Net.add(t.getNetValProp());
+                vat23Gross = vat23Gross.add(t.getGrossValProp());
+            }
+        }
     }
 }
