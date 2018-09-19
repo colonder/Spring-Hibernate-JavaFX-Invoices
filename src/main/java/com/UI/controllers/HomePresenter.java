@@ -151,7 +151,7 @@ public class HomePresenter implements Initializable {
                 super.updateItem(templates, b);
 
                 if (b || templates == null) {
-                    setText(null);
+                    setGraphic(null);
                 } else {
                     Text text = new Text();
                     setPrefHeight(Control.USE_COMPUTED_SIZE);
@@ -326,8 +326,6 @@ public class HomePresenter implements Initializable {
         ButtonType selectBtnType = new ButtonType("Select", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelBtnType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().addAll(selectBtnType, cancelBtnType);
-//        dialog.setGraphic(new ImageView(this.getClass().getResource("/images/icons8-Product-96.png")
-//                .toString()));
 
         // create table view and columns
         TableView<Product> tableView = new TableView<>();
@@ -346,7 +344,7 @@ public class HomePresenter implements Initializable {
         tableView.getColumns().addAll(nameCol, symbolCol, unitCol, cpuCol, vatRateCol);
         tableView.getItems().setAll(productService.findAll());
         dialog.getDialogPane().setContent(tableView);
-        dialog.getDialogPane().setPrefHeight(Region.USE_COMPUTED_SIZE);
+        dialog.getDialogPane().setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == selectBtnType) {
