@@ -1,6 +1,7 @@
 package com.utilities;
 
 import com.entity.Templates;
+import javafx.beans.binding.Bindings;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
@@ -12,6 +13,7 @@ import javafx.util.converter.BigDecimalStringConverter;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.Locale;
 import java.util.function.UnaryOperator;
 
 public class BigDecimalEditableCell extends TableCell<Templates, BigDecimal> {
@@ -30,7 +32,7 @@ public class BigDecimalEditableCell extends TableCell<Templates, BigDecimal> {
             }
 
             // otherwise, must have all digits:
-            if (!newText.matches("\\d{0,4}.?\\d{0,2}")) {
+            if (!newText.matches("\\d{0,4}[,.]?\\d{0,2}")) {
                 return null;
             }
 
@@ -66,10 +68,11 @@ public class BigDecimalEditableCell extends TableCell<Templates, BigDecimal> {
             }
         });
 
-        itemProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (newValue != null)
-                setText(NumberFormat.getNumberInstance().format(newValue));
-        });
+        textProperty().bind(Bindings
+                .when(emptyProperty())
+                .then((String) null)
+                .otherwise(itemProperty().asString(Locale.getDefault(), "%,.2f")));
+
 
         setGraphic(textField);
         setContentDisplay(ContentDisplay.TEXT_ONLY);
