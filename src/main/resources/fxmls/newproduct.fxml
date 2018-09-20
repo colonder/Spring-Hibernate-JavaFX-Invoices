@@ -53,7 +53,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
                               GridPane.rowIndex="4">
                             <children>
-                                <RadioButton mnemonicParsing="false" text="Yes">
+                                <RadioButton fx:id="monthYesRadioBtn" mnemonicParsing="false" text="Yes">
                                     <toggleGroup>
                                         <ToggleGroup fx:id="monthToggle"/>
                                     </toggleGroup>

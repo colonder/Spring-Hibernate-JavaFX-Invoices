@@ -43,6 +43,9 @@ public class NewProductPresenter implements Initializable {
     @FXML
     private RadioButton monthNoRadioBtn;
 
+    @FXML
+    private RadioButton monthYesRadioBtn;
+
     @Autowired
     @Lazy
     private SceneManager sceneManager;
@@ -108,15 +111,12 @@ public class NewProductPresenter implements Initializable {
         symbolTxtFld.setText(product.getSymbol());
         unitTxtFld.setText(product.getUnit());
         unitNetPriceTxtFld.setText(NumberFormat.getNumberInstance().format(product.getUnitNetPrice()));
-        monthNoRadioBtn.setSelected(!product.getPerMonth());
+        monthYesRadioBtn.setSelected(product.getPerMonth());
 
         BigDecimal vat = product.getVatRate();
 
         if (vat.compareTo(new BigDecimal(8.0)) == 0)
             VAT8RadioBtn.setSelected(true);
-
-        else
-            VAT23RadioBtn.setSelected(true);
     }
 
     private void saveAlert(Product product) {
