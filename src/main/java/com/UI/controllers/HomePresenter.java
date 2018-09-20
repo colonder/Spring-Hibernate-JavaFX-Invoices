@@ -258,7 +258,7 @@ public class HomePresenter implements Initializable {
                         templateTable.getItems(),
                         totalLbl.getText(),
                         wordsLbl.getText(),
-                        datePicker.getValue().toString());
+                        datePicker.getValue());
                 Printer printer = Printer.getDefaultPrinter();
                 PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT,
                         Printer.MarginType.HARDWARE_MINIMUM);

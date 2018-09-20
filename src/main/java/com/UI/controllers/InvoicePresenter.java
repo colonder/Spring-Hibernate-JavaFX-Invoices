@@ -4,18 +4,16 @@ import com.entity.Customer;
 import com.entity.Settings;
 import com.entity.Templates;
 import com.service.ISettingsService;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Controller
 public class InvoicePresenter {
@@ -60,34 +58,7 @@ public class InvoicePresenter {
     private Label paymentRequireLbl;
 
     @FXML
-    private TableView<Templates> templateTable;
-
-    @FXML
-    private TableColumn<Templates, String> nameCol;
-
-    @FXML
-    private TableColumn<Templates, String> symbolCol;
-
-    @FXML
-    private TableColumn<Templates, BigDecimal> quantityCol;
-
-    @FXML
-    private TableColumn<Templates, String> unitCol;
-
-    @FXML
-    private TableColumn<Templates, BigDecimal> netCol;
-
-    @FXML
-    private TableColumn<Templates, BigDecimal> vatRateCol;
-
-    @FXML
-    private TableColumn<Templates, BigDecimal> vatValCol;
-
-    @FXML
-    private TableColumn<Templates, BigDecimal> grossCol;
-
-    @FXML
-    private TableColumn<Templates, BigDecimal> netTotalCol;
+    private GridPane productsGrid;
 
     @FXML
     private Label sellCity;
@@ -102,16 +73,40 @@ public class InvoicePresenter {
     private Label totalWords;
 
     @FXML
-    private Label bankAccNum;
+    private Label net8Val;
 
     @FXML
-    private TableView<BigDecimal> taxTable;
+    private Label tax8Val;
+
+    @FXML
+    private Label gross8Val;
+
+    @FXML
+    private Label net23Val;
+
+    @FXML
+    private Label tax23Val;
+
+    @FXML
+    private Label gross23Val;
+
+    @FXML
+    private Label netTotVal;
+
+    @FXML
+    private Label taxTotVal;
+
+    @FXML
+    private Label grossTotVal;
+
+    @FXML
+    private Label bankAccNum;
 
     @Autowired
     private ISettingsService settingsService;
 
     public void initData(Customer customer, ObservableList<Templates> templates, String total,
-                         String words, String date) {
+                         String words, LocalDate date) {
         Settings settings = settingsService.findById(1);
         sellerName.setText(settings.getFirstName() + " " + settings.getLastName());
         sellerFirm.setText(settings.getFirmName());
@@ -134,39 +129,75 @@ public class InvoicePresenter {
 
         totalNum.setText(total);
         totalWords.setText(words);
-        sellDate.setText(date);
-        sellCity.setText("Warszawa, " + date);
+        sellDate.setText(date.toString());
+        sellCity.setText("Warszawa, " + date.toString());
 
-        templateTable.setItems(templates);
-
-        nameCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getProductName()));
-        symbolCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getSymbol()));
-        unitCol.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getProduct().getUnit()));
-        netCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getUnitNetPrice()));
-        vatRateCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue().getProduct().getVatRate()));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantityProp"));
-        vatValCol.setCellValueFactory(new PropertyValueFactory<>("taxValProp"));
-        grossCol.setCellValueFactory(new PropertyValueFactory<>("grossValProp"));
-        netTotalCol.setCellValueFactory(new PropertyValueFactory<>("netValProp"));
+        BigDecimal totTax = BigDecimal.ZERO;
+        BigDecimal totNet = BigDecimal.ZERO;
+        BigDecimal totGross = BigDecimal.ZERO;
 
         BigDecimal vat8Tax = BigDecimal.ZERO;
         BigDecimal vat8Net = BigDecimal.ZERO;
         BigDecimal vat8Gross = BigDecimal.ZERO;
+
         BigDecimal vat23Tax = BigDecimal.ZERO;
         BigDecimal vat23Net = BigDecimal.ZERO;
         BigDecimal vat23Gross = BigDecimal.ZERO;
 
-        for (Templates t : templates) {
+        for (int i = 0; i < templates.size(); i++) {
 
-            if (t.getProduct().getVatRate().compareTo(new BigDecimal(8)) == 0) {
-                vat8Tax = vat8Tax.add(t.getTaxValProp());
-                vat8Net = vat8Net.add(t.getNetValProp());
-                vat8Gross = vat8Gross.add(t.getGrossValProp());
+            addRow(i + 1, templates.get(i), date);
+            totNet = totNet.add(templates.get(i).getNetValProp());
+            totTax = totTax.add(templates.get(i).getTaxValProp());
+            totGross = totGross.add(templates.get(i).getGrossValProp());
+
+            if (templates.get(i).getProduct().getVatRate().compareTo(new BigDecimal(8)) == 0) {
+                vat8Tax = vat8Tax.add(templates.get(i).getTaxValProp());
+                vat8Net = vat8Net.add(templates.get(i).getNetValProp());
+                vat8Gross = vat8Gross.add(templates.get(i).getGrossValProp());
             } else {
-                vat23Tax = vat23Tax.add(t.getTaxValProp());
-                vat23Net = vat23Net.add(t.getNetValProp());
-                vat23Gross = vat23Gross.add(t.getGrossValProp());
+                vat23Tax = vat23Tax.add(templates.get(i).getTaxValProp());
+                vat23Net = vat23Net.add(templates.get(i).getNetValProp());
+                vat23Gross = vat23Gross.add(templates.get(i).getGrossValProp());
             }
         }
+
+        netTotVal.setText(formatNumber(totNet));
+        taxTotVal.setText(formatNumber(totTax));
+        grossTotVal.setText(formatNumber(totGross));
+
+        net8Val.setText(formatNumber(vat8Net));
+        tax8Val.setText(formatNumber(vat8Tax));
+        gross8Val.setText(formatNumber(vat8Gross));
+
+        net23Val.setText(formatNumber(vat23Net));
+        tax23Val.setText(formatNumber(vat23Tax));
+        gross23Val.setText(formatNumber(vat23Gross));
+    }
+
+    private void addRow(int i, Templates template, LocalDate date) {
+
+        Text name = new Text();
+        name.setWrappingWidth(230);
+        name.setText(template.getProduct().getPerMonth() ?
+                template.getProduct().getProductName() + " za m-c "
+                        + date.getMonth().getValue() + "/" + date.getYear()
+                : template.getProduct().getProductName());
+
+        productsGrid.addRow(i,
+                name,
+                new Label(template.getProduct().getSymbol()),
+                new Label(template.getProduct().getUnit()),
+                new Label(formatNumber(template.getProduct().getUnitNetPrice())),
+                new Label(formatNumber(template.getQuantity())),
+                new Label(formatNumber(template.getNetValProp())),
+                new Label(formatNumber(template.getProduct().getVatRate())),
+                new Label(formatNumber(template.getTaxValProp())),
+                new Label(formatNumber(template.getGrossValProp()))
+        );
+    }
+
+    private String formatNumber(BigDecimal val) {
+        return String.format("%,.2f", val);
     }
 }
