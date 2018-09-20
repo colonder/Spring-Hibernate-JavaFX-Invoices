@@ -25,4 +25,8 @@ public class Numbering {
 
     @Column(name = "number")
     private int number;
+
+    public Numbering() {
+        this.number = 1;
+    }
 }

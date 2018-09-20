@@ -32,7 +32,6 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -113,7 +112,7 @@ public class HomePresenter implements Initializable {
         initializeTable();
         setListViewProperties();
         loadCustomers();
-        datePicker.setValue(LocalDate.now());
+        datePicker.setValue(Miscellaneous.chosenDate);
     }
 
     private void setListViewProperties() {
@@ -227,6 +226,11 @@ public class HomePresenter implements Initializable {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         totalLbl.setText(currencyHandler.formatToCurrency(total));
         wordsLbl.setText(currencyHandler.convertSumToWords(total));
+    }
+
+    @FXML
+    void dateSelection() {
+        Miscellaneous.chosenDate = datePicker.getValue();
     }
 
     @FXML

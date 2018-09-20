@@ -76,11 +76,13 @@
             <TableView fx:id="productsTable" prefHeight="465.0" prefWidth="810.0">
                <columns>
                   <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name" />
-                  <TableColumn fx:id="symbolCol" editable="false" prefWidth="75.0" text="Symbol" />
-                  <TableColumn fx:id="unitCol" editable="false" prefWidth="75.0" text="Unit" />
-                   <TableColumn fx:id="unitNetPrice" editable="false" prefWidth="75.0" text="Unit net price"/>
-                  <TableColumn fx:id="vatRateCol" editable="false" prefWidth="75.0" text="VAT rate" />
-                   <TableColumn fx:id="perMonthCol" editable="false" prefWidth="75.0" text="Per month"/>
+                   <TableColumn fx:id="symbolCol" editable="false" maxWidth="1000.0" prefWidth="75.0" text="Symbol"/>
+                   <TableColumn fx:id="unitCol" editable="false" maxWidth="1000.0" prefWidth="75.0" text="Unit"/>
+                   <TableColumn fx:id="unitNetPrice" editable="false" maxWidth="1800.0" prefWidth="75.0"
+                                text="Unit net price"/>
+                   <TableColumn fx:id="vatRateCol" editable="false" maxWidth="1300.0" prefWidth="75.0" text="VAT rate"/>
+                   <TableColumn fx:id="perMonthCol" editable="false" maxWidth="1800.0" prefWidth="-1.0"
+                                text="Per month"/>
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

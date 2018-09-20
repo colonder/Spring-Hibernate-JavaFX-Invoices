@@ -2,7 +2,9 @@ package com.UI.controllers;
 
 import com.UI.FxmlView;
 import com.UI.SceneManager;
+import com.entity.Numbering;
 import com.entity.Settings;
+import com.service.INumberingService;
 import com.service.ISettingsService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -41,14 +43,21 @@ public class SettingsPresenter implements Initializable {
     @FXML
     private TextField bankAccTxtFld;
 
+    @FXML
+    private TextField currInvoiceNumLbl;
+
     @Autowired
     private ISettingsService settingsService;
+
+    @Autowired
+    private INumberingService numberingService;
 
     @Autowired
     @Lazy
     private SceneManager sceneManager;
 
     private Settings settings;
+    private Numbering numbering;
 
     @FXML
     void save() {
@@ -61,8 +70,10 @@ public class SettingsPresenter implements Initializable {
         settings.setPostalCode(postalTxtFld.getText());
         settings.setTaxId(idTxtFld.getText());
         settings.setBankAccNum(bankAccTxtFld.getText());
+        numbering.setNumber(Integer.parseInt(currInvoiceNumLbl.getText()));
 
         settingsService.save(settings);
+        numberingService.save(numbering);
         sceneManager.switchScene(FxmlView.HOME);
     }
 
@@ -74,6 +85,7 @@ public class SettingsPresenter implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         settings = settingsService.findById(1);
+        numbering = numberingService.findById(1);
         nameTxtFld.setText(settings.getFirstName());
         lastNameTxtFld.setText(settings.getLastName());
         idTxtFld.setText(settings.getTaxId());
@@ -82,5 +94,6 @@ public class SettingsPresenter implements Initializable {
         postalTxtFld.setText(settings.getPostalCode());
         cityTxtFld.setText(settings.getCity());
         bankAccTxtFld.setText(settings.getBankAccNum());
+        currInvoiceNumLbl.setText(String.valueOf(numbering.getNumber()));
     }
 }

@@ -25,6 +25,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
                         <Label text="Last name" GridPane.rowIndex="1"/>
@@ -43,6 +44,9 @@
                         <TextField fx:id="postalTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                         <TextField fx:id="cityTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
                         <TextField fx:id="bankAccTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                        <Label text="Current invoice number" textAlignment="CENTER" wrapText="true"
+                               GridPane.rowIndex="8"/>
+                        <TextField fx:id="currInvoiceNumLbl" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
                     </children>
                 </GridPane>
             </children>

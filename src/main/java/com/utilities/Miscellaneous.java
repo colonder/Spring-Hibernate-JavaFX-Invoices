@@ -6,6 +6,7 @@ import javafx.util.Callback;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 
 public class Miscellaneous {
 
@@ -28,4 +29,6 @@ public class Miscellaneous {
             }
         };
     }
+
+    public static LocalDate chosenDate = LocalDate.now();
 }
