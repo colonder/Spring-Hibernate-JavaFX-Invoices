@@ -18,6 +18,7 @@ import java.time.LocalDate;
 @Controller
 public class InvoicePresenter {
 
+    //region fxmls
     @FXML
     private Label sellerAddress;
 
@@ -102,12 +103,17 @@ public class InvoicePresenter {
     @FXML
     private Label bankAccNum;
 
+    @FXML
+    private Label signatureLbl;
+    //endregion
+
     @Autowired
     private ISettingsService settingsService;
 
     public void initData(Customer customer, ObservableList<Templates> templates, String total,
                          String words, LocalDate date) {
         Settings settings = settingsService.findById(1);
+        signatureLbl.setText(settings.getFirstName() + " " + settings.getLastName());
         sellerName.setText(settings.getFirstName() + " " + settings.getLastName());
         sellerFirm.setText(settings.getFirmName());
         sellerAddress.setText(settings.getAddress());
