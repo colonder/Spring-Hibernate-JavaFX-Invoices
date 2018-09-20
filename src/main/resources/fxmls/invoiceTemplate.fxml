@@ -52,7 +52,7 @@
                         <Font name="System Bold" size="18.0"/>
                     </font>
                 </Label>
-                <Label text="Label">
+                <Label fx:id="invoiceNumLbl" text="Label">
                     <font>
                         <Font name="System Bold" size="18.0"/>
                     </font>
@@ -107,8 +107,7 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
@@ -118,11 +117,11 @@
                         <Font name="System Bold" size="13.0"/>
                     </font>
                 </Label>
-                <Label text="NIP/PESEL" GridPane.rowIndex="3"/>
-                <Label text="Adres" GridPane.rowIndex="2"/>
-                <Label fx:id="buyerTaxId" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <Label text="NIP/PESEL" GridPane.rowIndex="2"/>
+                <Label text="Adres" GridPane.rowIndex="1"/>
+                <Label fx:id="buyerTaxId" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                 <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1"
-                      GridPane.rowIndex="2">
+                      GridPane.rowIndex="1">
                     <children>
                         <Label fx:id="buyerAddress" text="Label" wrapText="true">
                             <padding>
@@ -135,12 +134,16 @@
                         <Insets/>
                     </opaqueInsets>
                 </VBox>
-                <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1"
-                      GridPane.rowSpan="2">
+                <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
                     <children>
-                        <Label fx:id="buyerName" contentDisplay="TEXT_ONLY" prefHeight="20.0" prefWidth="315.0"
-                               text="Label" wrapText="true"/>
-                        <Label fx:id="buyerFirm" prefHeight="70.0" prefWidth="315.0" wrapText="true"/>
+                        <Text fx:id="buyerName" strokeType="OUTSIDE" strokeWidth="0.0" text="Text"
+                              wrappingWidth="315.0">
+                            <VBox.margin>
+                                <Insets bottom="5.0"/>
+                            </VBox.margin>
+                        </Text>
+                        <Text fx:id="buyerFirm" strokeType="OUTSIDE" strokeWidth="0.0" text="Text"
+                              wrappingWidth="315.0"/>
                     </children>
                 </VBox>
             </children>

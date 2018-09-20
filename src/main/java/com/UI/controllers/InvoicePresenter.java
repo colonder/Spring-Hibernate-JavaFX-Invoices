@@ -1,8 +1,10 @@
 package com.UI.controllers;
 
 import com.entity.Customer;
+import com.entity.Numbering;
 import com.entity.Settings;
 import com.entity.Templates;
+import com.service.INumberingService;
 import com.service.ISettingsService;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class InvoicePresenter {
@@ -44,10 +47,10 @@ public class InvoicePresenter {
     private Label buyerPostalCode;
 
     @FXML
-    private Label buyerName;
+    private Text buyerName;
 
     @FXML
-    private Label buyerFirm;
+    private Text buyerFirm;
 
     @FXML
     private Label paymentMethod;
@@ -105,21 +108,39 @@ public class InvoicePresenter {
 
     @FXML
     private Label signatureLbl;
+
+    @FXML
+    private Label invoiceNumLbl;
     //endregion
 
     @Autowired
     private ISettingsService settingsService;
 
+    @Autowired
+    private INumberingService numberingService;
+
     public void initData(Customer customer, ObservableList<Templates> templates, String total,
                          String words, LocalDate date) {
         Settings settings = settingsService.findById(1);
-        signatureLbl.setText(settings.getFirstName() + " " + settings.getLastName());
-        sellerName.setText(settings.getFirstName() + " " + settings.getLastName());
-        sellerFirm.setText(settings.getFirmName());
-        sellerAddress.setText(settings.getAddress());
-        sellerPostalCode.setText(settings.getPostalCode());
-        sellerTaxID.setText(settings.getTaxId());
+        setSellerFields(settings);
+        setBuyerFields(customer, settings);
 
+        Numbering numbering = numberingService.findById(1);
+
+        invoiceNumLbl.setText((numbering.getNumber() + 1) + "/" + constructDate(date));
+
+        numbering.setNumber(numbering.getNumber() + 1);
+        numberingService.save(numbering);
+
+        totalNum.setText(total);
+        totalWords.setText(words);
+        sellDate.setText(date.toString());
+        sellCity.setText("Warszawa, " + date.toString());
+
+        fillTables(templates, date);
+    }
+
+    private void setBuyerFields(Customer customer, Settings settings) {
         if (customer.getPayment().equals("Bank transfer")) {
             bankAccNum.setText(settings.getBankAccNum());
             bankLbl.setVisible(true);
@@ -130,14 +151,20 @@ public class InvoicePresenter {
         buyerName.setText(customer.getFirstName() + " " + customer.getLastName());
         buyerFirm.setText(customer.getFirmName());
         buyerAddress.setText(customer.getAddress());
-        buyerPostalCode.setText(customer.getPostalCode());
+        buyerPostalCode.setText(customer.getPostalCode() + " " + customer.getCity());
         buyerTaxId.setText(customer.getTaxId());
+    }
 
-        totalNum.setText(total);
-        totalWords.setText(words);
-        sellDate.setText(date.toString());
-        sellCity.setText("Warszawa, " + date.toString());
+    private void setSellerFields(Settings settings) {
+        signatureLbl.setText(settings.getFirstName() + " " + settings.getLastName());
+        sellerName.setText(settings.getFirstName() + " " + settings.getLastName());
+        sellerFirm.setText(settings.getFirmName());
+        sellerAddress.setText(settings.getAddress());
+        sellerPostalCode.setText(settings.getPostalCode() + " " + settings.getCity());
+        sellerTaxID.setText(settings.getTaxId());
+    }
 
+    private void fillTables(List<Templates> templates, LocalDate date) {
         BigDecimal totTax = BigDecimal.ZERO;
         BigDecimal totNet = BigDecimal.ZERO;
         BigDecimal totGross = BigDecimal.ZERO;
@@ -153,6 +180,7 @@ public class InvoicePresenter {
         for (int i = 0; i < templates.size(); i++) {
 
             addRow(i + 1, templates.get(i), date);
+
             totNet = totNet.add(templates.get(i).getNetValProp());
             totTax = totTax.add(templates.get(i).getTaxValProp());
             totGross = totGross.add(templates.get(i).getGrossValProp());
@@ -186,8 +214,7 @@ public class InvoicePresenter {
         Text name = new Text();
         name.setWrappingWidth(230);
         name.setText(template.getProduct().getPerMonth() ?
-                template.getProduct().getProductName() + " za m-c "
-                        + date.getMonth().getValue() + "/" + date.getYear()
+                template.getProduct().getProductName() + " za m-c " + constructDate(date)
                 : template.getProduct().getProductName());
 
         productsGrid.addRow(i,
@@ -205,5 +232,9 @@ public class InvoicePresenter {
 
     private String formatNumber(BigDecimal val) {
         return String.format("%,.2f", val);
+    }
+
+    private String constructDate(LocalDate date) {
+        return date.getMonth().getValue() + "/" + date.getYear();
     }
 }

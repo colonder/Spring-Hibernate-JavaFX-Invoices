@@ -4,7 +4,9 @@ import com.entity.Numbering;
 import com.repositories.INumberingRepository;
 import com.service.INumberingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class NumberingServImp implements INumberingService {
 
     @Autowired
