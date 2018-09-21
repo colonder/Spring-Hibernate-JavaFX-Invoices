@@ -34,10 +34,10 @@ public class NewItemController {
 
     private void validationAlert(String field, boolean empty) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Validation Error");
+        alert.setTitle("Niepawidłowa wartość");
         alert.setHeaderText(null);
-        if (empty) alert.setContentText("Please Enter " + field);
-        else alert.setContentText("Please Enter Valid " + field);
+        if (empty) alert.setContentText("Wprowadź " + field);
+        else alert.setContentText("Wprowadź poprawną wartość dla " + field);
         alert.showAndWait();
     }
 }

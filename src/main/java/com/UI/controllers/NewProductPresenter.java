@@ -72,9 +72,10 @@ public class NewProductPresenter extends NewItemController implements Initializa
 
     @FXML
     private void saveProduct() {
-        if (emptyValidation("Name", nameTxtFld.getText().isEmpty()) &&
-                emptyValidation("Unit", unitTxtFld.getText().isEmpty()) &&
-                validate("CPU", unitNetPriceTxtFld.getText(), "\\d{0,4}[,.]?\\d{0,2}")) {
+        if (emptyValidation("Nazwa", nameTxtFld.getText().isEmpty()) &&
+                emptyValidation("Jednostka miary", unitTxtFld.getText().isEmpty()) &&
+                validate("Cena jednostkowa netto", unitNetPriceTxtFld.getText(),
+                        "\\d{0,4}[,.]?\\d{0,2}")) {
             if (this.product == null) {
                 this.product = new Product();
             }
@@ -129,18 +130,18 @@ public class NewProductPresenter extends NewItemController implements Initializa
     private void saveAlert(Product product) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Operation successful.");
+        alert.setTitle("Produkt zapisany");
         alert.setHeaderText(null);
-        alert.setContentText("The product " + product.getProductName() + " has been updated");
+        alert.setContentText("Produkt " + product.getProductName() + " został zaktualizowany");
         alert.showAndWait();
     }
 
     private void saveError(Product product) {
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Operation aborted.");
+        alert.setTitle("Operacja nie powiodła się");
         alert.setHeaderText(null);
-        alert.setContentText("The product " + product.getProductName() + " could not be saved");
+        alert.setContentText("Produkt " + product.getProductName() + " nie mógł zostać zapisany");
         alert.showAndWait();
     }
 }

@@ -12,10 +12,11 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <GridPane alignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0"
-                          AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="50.0">
+                <GridPane alignment="CENTER" layoutX="277.0" layoutY="53.0" prefHeight="435.0" prefWidth="623.0"
+                          AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0"
+                          AnchorPane.topAnchor="53.0">
                     <columnConstraints>
-                        <ColumnConstraints halignment="LEFT" minWidth="-Infinity" prefWidth="100.0"/>
+                        <ColumnConstraints halignment="LEFT" minWidth="-Infinity" prefWidth="110.0"/>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="500.0"/>
                     </columnConstraints>
                     <rowConstraints>
@@ -30,15 +31,15 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <Label text="Alias"/>
-                        <Label text="Last name" GridPane.rowIndex="2"/>
-                        <Label text="Name" GridPane.rowIndex="1"/>
-                        <Label text="Tax ID" GridPane.rowIndex="3"/>
-                        <Label text="Firm name" GridPane.rowIndex="4"/>
-                        <Label text="Address" GridPane.rowIndex="5"/>
-                        <Label text="Postal code" GridPane.rowIndex="6"/>
-                        <Label text="City" GridPane.rowIndex="7"/>
-                        <Label text="Payment" GridPane.rowIndex="8"/>
+                        <Label text="%alias"/>
+                        <Label text="%last_name" GridPane.rowIndex="2"/>
+                        <Label text="%name" GridPane.rowIndex="1"/>
+                        <Label text="%ID" GridPane.rowIndex="3"/>
+                        <Label text="%firm" GridPane.rowIndex="4"/>
+                        <Label text="%address" GridPane.rowIndex="5"/>
+                        <Label text="%postal_code" GridPane.rowIndex="6"/>
+                        <Label text="%city" GridPane.rowIndex="7"/>
+                        <Label text="%payment" GridPane.rowIndex="8"/>
                         <TextField fx:id="aliasTxtFld" GridPane.columnIndex="1"/>
                         <TextField fx:id="nameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                         <TextField fx:id="lastNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
@@ -49,12 +50,13 @@
                         <TextField fx:id="cityTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
                         <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="8">
                             <children>
-                                <RadioButton fx:id="cashRadioBtn" mnemonicParsing="false" selected="true" text="Cash">
+                                <RadioButton fx:id="cashRadioBtn" mnemonicParsing="false" selected="true" text="%cash">
                                     <toggleGroup>
                                         <ToggleGroup fx:id="paymentToggle"/>
                                     </toggleGroup>
                                 </RadioButton>
-                                <RadioButton mnemonicParsing="false" text="Bank transfer" toggleGroup="$paymentToggle">
+                                <RadioButton fx:id="transferRadioBtn" mnemonicParsing="false" text="%transfer"
+                                             toggleGroup="$paymentToggle">
                                     <padding>
                                         <Insets left="15.0"/>
                                     </padding>
@@ -69,7 +71,7 @@
     <bottom>
         <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <buttons>
-                <Button mnemonicParsing="false" onAction="#saveCustomer" text="Save">
+                <Button mnemonicParsing="false" onAction="#saveCustomer" text="%save">
                     <font>
                         <Font size="18.0"/>
                     </font>
@@ -81,7 +83,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#cancel" text="Cancel">
+                <Button mnemonicParsing="false" onAction="#cancel" text="%cancel">
                     <font>
                         <Font size="18.0"/>
                     </font>

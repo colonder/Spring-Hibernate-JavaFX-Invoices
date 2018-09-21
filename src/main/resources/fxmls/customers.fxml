@@ -11,7 +11,7 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#switchToHome" text="Home">
+             <Button mnemonicParsing="false" onAction="#switchToHome" text="%home">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
@@ -26,7 +26,7 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#switchToProducts" text="Products">
+             <Button mnemonicParsing="false" onAction="#switchToProducts" text="%products">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
@@ -41,7 +41,7 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#switchToSettings" text="Settings">
+             <Button mnemonicParsing="false" onAction="#switchToSettings" text="%settings">
                <font>
                   <Font size="20.0" />
                </font>
@@ -67,7 +67,7 @@
          <children>
             <HBox>
                <children>
-                   <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addCustomer" text="Add">
+                   <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addCustomer" text="%add">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -82,7 +82,7 @@
                            </ImageView>
                        </graphic>
                   </Button>
-                   <Button fx:id="editBtn" mnemonicParsing="false" onAction="#editCustomer" text="Edit">
+                   <Button fx:id="editBtn" mnemonicParsing="false" onAction="#editCustomer" text="%edit">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -97,7 +97,7 @@
                            </ImageView>
                        </graphic>
                   </Button>
-                   <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteCustomer" text="Delete">
+                   <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteCustomer" text="%delete">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -119,15 +119,15 @@
             </HBox>
             <TableView fx:id="customersTable" prefHeight="465.0" prefWidth="810.0">
                <columns>
-                  <TableColumn fx:id="aliasCol" editable="false" prefWidth="75.0" text="Alias" />
-                  <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name" />
-                  <TableColumn fx:id="lastNameCol" editable="false" prefWidth="75.0" text="Last name" />
-                  <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
-                  <TableColumn fx:id="firmCol" editable="false" prefWidth="75.0" text="Firm name" />
-                  <TableColumn fx:id="addressCol" editable="false" prefWidth="75.0" text="Address" />
-                  <TableColumn fx:id="postalCodeCol" editable="false" prefWidth="75.0" text="Postal code" />
-                  <TableColumn fx:id="cityCol" prefWidth="75.0" text="City" />
-                  <TableColumn fx:id="paymentCol" prefWidth="75.0" text="Payment" />
+                   <TableColumn fx:id="aliasCol" editable="false" prefWidth="75.0" text="%alias"/>
+                   <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="%name"/>
+                   <TableColumn fx:id="lastNameCol" editable="false" prefWidth="75.0" text="%last_name"/>
+                   <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="%ID"/>
+                   <TableColumn fx:id="firmCol" editable="false" prefWidth="75.0" text="%firm"/>
+                   <TableColumn fx:id="addressCol" editable="false" prefWidth="75.0" text="%address"/>
+                   <TableColumn fx:id="postalCodeCol" editable="false" prefWidth="75.0" text="%postal_code"/>
+                   <TableColumn fx:id="cityCol" prefWidth="75.0" text="%city"/>
+                   <TableColumn fx:id="paymentCol" prefWidth="75.0" text="%payment"/>
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

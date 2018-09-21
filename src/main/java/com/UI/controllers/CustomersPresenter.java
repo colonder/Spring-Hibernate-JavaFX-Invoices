@@ -118,27 +118,22 @@ public class CustomersPresenter implements Initializable {
         if (!customers.isEmpty()) {
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation Dialog");
-            List<Templates> templates = templatesService.findByCustomerIn(customers);
+            alert.setTitle("Potwierdzenie");
+            alert.setContentText("Czy na pewno usunąć?");
+            Optional<ButtonType> action = alert.showAndWait();
+            if (action.orElse(null) == ButtonType.OK) {
 
-            if (!templates.isEmpty()) {
-                alert.setContentText("There are saved templates containing for this customer. " +
-                        "Deleting it will also delete those templates. Are you sure you want to delete selected?");
-                Optional<ButtonType> action = alert.showAndWait();
+                List<Templates> templates = templatesService.findByCustomerIn(customers);
 
-                if (action.orElse(null) == ButtonType.OK) {
+                if (!templates.isEmpty()) {
+
                     templatesService.deleteInBatch(templates);
-                    customerService.deleteInBatch(customers);
                 }
-            } else {
-                alert.setContentText("Are you sure you want to delete selected?");
-                Optional<ButtonType> action = alert.showAndWait();
-                if (action.orElse(null) == ButtonType.OK) {
-                    customerService.deleteInBatch(customers);
-                }
+
+                customerService.deleteInBatch(customers);
+                loadCustomers();
             }
 
-            loadCustomers();
         } else {
             actionAlert();
         }
@@ -165,8 +160,8 @@ public class CustomersPresenter implements Initializable {
 
     private void actionAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Editing customer");
-        alert.setContentText("You have to select customer to edit");
+        alert.setTitle("Edycja kontrahenta");
+        alert.setContentText("Musisz wybrać kontrahenta by edytować");
         alert.showAndWait();
     }
 }

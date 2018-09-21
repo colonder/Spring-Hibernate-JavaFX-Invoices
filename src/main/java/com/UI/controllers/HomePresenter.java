@@ -162,11 +162,11 @@ public class HomePresenter implements Initializable {
 
                         int month = datePicker.getValue().getMonth().getValue();
                         int year = datePicker.getValue().getYear();
-                        val.append(" for month ").append(month).append("/").append(year);
+                        val.append(" za m-c ").append(month).append("/").append(year);
 
                         datePicker.valueProperty().addListener((observableValue, oldValue, newValue) -> {
 
-                            text.setText(templates.getProduct().getProductName() + " for month " +
+                            text.setText(templates.getProduct().getProductName() + " za m-c " +
                                     newValue.getMonth().getValue() + "/" + newValue.getYear());
 
                             setGraphic(text);
@@ -278,8 +278,8 @@ public class HomePresenter implements Initializable {
                         job.endJob();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error during printing");
-                    alert.setHeaderText("An error during printing occured");
+                    alert.setTitle("Błąd drukowania");
+                    alert.setHeaderText("Wystąpił błąd podczas drukowania");
 
                     alert.showAndWait();
                 }
@@ -317,28 +317,27 @@ public class HomePresenter implements Initializable {
 
         if (customersList.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Error in adding product");
-            alert.setHeaderText("There is no customer selected");
+            alert.setTitle("Błąd dodawania produktu");
+            alert.setHeaderText("Nie ma wybranego kontrahenta");
 
             alert.showAndWait();
             return;
         }
 
         Dialog<Product> dialog = new Dialog<>();
-        dialog.setTitle("Choose a product");
-        dialog.setHeaderText("Select a product from the database");
-        ButtonType selectBtnType = new ButtonType("Select", ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancelBtnType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.setTitle("Wybierz produkt");
+        ButtonType selectBtnType = new ButtonType("Wybierz", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelBtnType = new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().addAll(selectBtnType, cancelBtnType);
 
         // create table view and columns
         TableView<Product> tableView = new TableView<>();
-        TableColumn<Product, String> nameCol = new TableColumn<>("Product name");
+        TableColumn<Product, String> nameCol = new TableColumn<>("Nazwa");
         TableColumn<Product, String> symbolCol = new TableColumn<>("Symbol");
-        TableColumn<Product, String> unitCol = new TableColumn<>("Unit");
-        TableColumn<Product, BigDecimal> cpuCol = new TableColumn<>("CPU");
+        TableColumn<Product, String> unitCol = new TableColumn<>("j. m.");
+        TableColumn<Product, BigDecimal> cpuCol = new TableColumn<>("Cena jedn. netto");
         cpuCol.setCellFactory(Miscellaneous.getCellFactory());
-        TableColumn<Product, BigDecimal> vatRateCol = new TableColumn<>("VAT rate");
+        TableColumn<Product, BigDecimal> vatRateCol = new TableColumn<>("Stawka VAT");
         vatRateCol.setCellFactory(Miscellaneous.getCellFactory());
         nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
         symbolCol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
@@ -364,10 +363,9 @@ public class HomePresenter implements Initializable {
 
             if (templateTable.getItems().contains(template)) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Error in adding product");
-                alert.setHeaderText("Selected product is already on the list");
-                alert.setContentText("It seems that selected product is already on the products lit. Please, " +
-                        "modify existing one instead of adding a new one.");
+                alert.setTitle("Błąd dodawania produktu");
+                alert.setHeaderText("Produkt jest już na liście");
+                alert.setContentText("Proszę wybrać inny produkt lub zmodyfikować już istniejący");
 
                 alert.showAndWait();
                 return;
@@ -403,13 +401,13 @@ public class HomePresenter implements Initializable {
                     templatesService.saveAll(templateTable.getItems());
                 } catch (Exception e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error saving template");
-                    alert.setHeaderText("There was an error saving a template, try again");
+                    alert.setTitle("Błąd zapisywania szablonu");
+                    alert.setHeaderText("Wystąpił błąd zapisywania szablonu, spróbuj jeszcze raz");
 
                     alert.showAndWait();
                 }
             }
-            // seems to not working when saving as template and switching to another customer and back
+            // seems to not work when saving as template and switching to another customer and back
             customersList.getSelectionModel().getSelectedItem().setTemplates(templateTable.getItems());
         }
     }

@@ -145,7 +145,7 @@ public class InvoicePresenter {
     }
 
     private void setBuyerFields(Customer customer, Settings settings) {
-        if (customer.getPayment().equals("Bank transfer")) {
+        if (customer.getPayment().equals("Przelewem")) {
             bankAccNum.setText(settings.getBankAccNum());
             bankLbl.setVisible(true);
             paymentRequireLbl.setVisible(true);

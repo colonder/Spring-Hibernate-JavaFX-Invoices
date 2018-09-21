@@ -110,27 +110,19 @@ public class ProductsPresenter implements Initializable {
         if (!products.isEmpty()) {
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation Dialog");
-            List<Templates> templates = templatesService.findByProductIn(products);
+            alert.setTitle("Potwierdzenie");
+            alert.setContentText("Czy na pewno usunąć?");
+            Optional<ButtonType> action = alert.showAndWait();
 
-            if (!templates.isEmpty()) {
-                alert.setContentText("There are saved templates containing this product. " +
-                        "Deleting it will also delete those templates. Are you sure you want to delete selected?");
-                Optional<ButtonType> action = alert.showAndWait();
+            if (action.orElse(null) == ButtonType.OK) {
+                List<Templates> templates = templatesService.findByProductIn(products);
 
-                if (action.orElse(null) == ButtonType.OK) {
+                if (!templates.isEmpty()) {
                     templatesService.deleteInBatch(templates);
-                    productService.deleteInBatch(products);
                 }
-            } else {
-                alert.setContentText("Are you sure you want to delete selected?");
-                Optional<ButtonType> action = alert.showAndWait();
-
-                if (action.orElse(null) == ButtonType.OK)
-                    productService.deleteInBatch(products);
+                productService.deleteInBatch(products);
+                loadProducts();
             }
-
-            loadProducts();
         } else {
             actionAlert();
         }
@@ -157,8 +149,8 @@ public class ProductsPresenter implements Initializable {
 
     private void actionAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Editing product");
-        alert.setContentText("You have to select product to edit");
+        alert.setTitle("Edycja produktu");
+        alert.setContentText("Musisz wybrać produkt by móc edytować");
         alert.showAndWait();
     }
 }

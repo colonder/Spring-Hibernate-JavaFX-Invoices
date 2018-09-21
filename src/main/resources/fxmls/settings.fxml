@@ -30,14 +30,14 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <Label text="Last name" GridPane.rowIndex="1"/>
-                        <Label text="Name"/>
-                        <Label text="Tax ID" GridPane.rowIndex="2"/>
-                        <Label text="Firm name" GridPane.rowIndex="3"/>
-                        <Label text="Address" GridPane.rowIndex="4"/>
-                        <Label text="Postal code" GridPane.rowIndex="5"/>
-                        <Label text="City" GridPane.rowIndex="6"/>
-                        <Label text="Bank account" GridPane.rowIndex="7"/>
+                        <Label text="%last_name" GridPane.rowIndex="1"/>
+                        <Label text="%name"/>
+                        <Label text="%ID" GridPane.rowIndex="2"/>
+                        <Label text="%firm" GridPane.rowIndex="3"/>
+                        <Label text="%address" GridPane.rowIndex="4"/>
+                        <Label text="%postal_code" GridPane.rowIndex="5"/>
+                        <Label text="%city" GridPane.rowIndex="6"/>
+                        <Label text="%account" GridPane.rowIndex="7"/>
                         <TextField fx:id="nameTxtFld" GridPane.columnIndex="1"/>
                         <TextField fx:id="lastNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                         <TextField fx:id="idTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
@@ -46,8 +46,7 @@
                         <TextField fx:id="postalTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                         <TextField fx:id="cityTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
                         <TextField fx:id="bankAccTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                        <Label text="Current invoice number" textAlignment="CENTER" wrapText="true"
-                               GridPane.rowIndex="8"/>
+                        <Label text="%invoice_num" wrapText="true" GridPane.rowIndex="8"/>
                         <TextField fx:id="currInvoiceNumLbl" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
                     </children>
                 </GridPane>
@@ -57,7 +56,7 @@
     <bottom>
         <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <buttons>
-                <Button mnemonicParsing="false" onAction="#save" text="Save">
+                <Button mnemonicParsing="false" onAction="#save" text="%save">
                     <font>
                         <Font size="18.0"/>
                     </font>
@@ -69,7 +68,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#cancel" text="Cancel">
+                <Button mnemonicParsing="false" onAction="#cancel" text="%cancel">
                     <font>
                         <Font size="18.0"/>
                     </font>

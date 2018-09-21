@@ -44,6 +44,9 @@ public class NewCustomerPresenter extends NewItemController implements Initializ
     private TextField cityTxtFld;
 
     @FXML
+    private RadioButton transferRadioBtn;
+
+    @FXML
     private RadioButton cashRadioBtn;
 
     @Autowired
@@ -63,12 +66,13 @@ public class NewCustomerPresenter extends NewItemController implements Initializ
 
     @FXML
     private void saveCustomer() {
-        if (validate("First name", nameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+") &&
-                validate("Last name", lastNameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+") &&
-                validate("Tax ID", idTxtFld.getText(), "[\\d\\-?]+") &&
-                validate("Postal code", postalTxtFld.getText(), "\\d{2}\\-\\d{3}") &&
-                validate("City", cityTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+") &&
-                emptyValidation("Address", addressTxtFld.getText().isEmpty())) {
+        if (validate("Imię", nameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+") &&
+                validate("Nazwisko", lastNameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+") &&
+                validate("NIP/PESEL", idTxtFld.getText(), "[\\d\\-?]+") &&
+                validate("Kod pocztowy", postalTxtFld.getText(), "\\d{2}\\-\\d{3}") &&
+                validate("Miasto", cityTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+") &&
+                emptyValidation("Adres", addressTxtFld.getText().isEmpty()) &&
+                emptyValidation("Nazwa", aliasTxtFld.getText().isEmpty())) {
             if (this.customer == null) {
                 this.customer = new Customer();
             }
@@ -91,7 +95,7 @@ public class NewCustomerPresenter extends NewItemController implements Initializ
         customer.setAddress(addressTxtFld.getText());
         customer.setPostalCode(postalTxtFld.getText());
         customer.setCity(cityTxtFld.getText());
-        customer.setPayment(cashRadioBtn.isSelected() ? "Cash" : "Bank transfer");
+        customer.setPayment(cashRadioBtn.isSelected() ? "Gotówką" : "Przelewem");
     }
 
     @Override
@@ -110,7 +114,7 @@ public class NewCustomerPresenter extends NewItemController implements Initializ
         addressTxtFld.setText(customer.getAddress());
         postalTxtFld.setText(customer.getPostalCode());
         cityTxtFld.setText(customer.getCity());
-        cashRadioBtn.setSelected(customer.getPayment().equals("Cash"));
+        transferRadioBtn.setSelected(customer.getPayment().equals("Przelewem"));
     }
 
     private void clearFields() {
@@ -128,9 +132,9 @@ public class NewCustomerPresenter extends NewItemController implements Initializ
     private void saveAlert(Customer customer) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("User saved successfully.");
+        alert.setTitle("Kontrahent zapisany");
         alert.setHeaderText(null);
-        alert.setContentText("The user " + customer.getAlias() + " has been updated.");
+        alert.setContentText("Kontrahent " + customer.getAlias() + " został zaktualizowany");
         alert.showAndWait();
     }
 }
