@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Controller
-public class NewCustomerPresenter implements Initializable {
+public class NewCustomerPresenter extends NewItemController implements Initializable {
 
     @FXML
     private TextField aliasTxtFld;
@@ -63,16 +63,23 @@ public class NewCustomerPresenter implements Initializable {
 
     @FXML
     private void saveCustomer() {
-        if (this.customer == null) {
-            this.customer = new Customer();
+        if (validate("First name", nameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+") &&
+                validate("Last name", lastNameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+") &&
+                validate("Tax ID", idTxtFld.getText(), "[\\d\\-?]+") &&
+                validate("Postal code", postalTxtFld.getText(), "\\d{2}\\-\\d{3}") &&
+                validate("City", cityTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+") &&
+                emptyValidation("Address", addressTxtFld.getText().isEmpty())) {
+            if (this.customer == null) {
+                this.customer = new Customer();
+            }
+            setCustomerProperties(this.customer);
+
+            Customer newCustomer = customerService.save(this.customer);
+
+            saveAlert(newCustomer);
+            clearFields();
+            sceneManager.switchScene(FxmlView.CUSTOMERS);
         }
-        setCustomerProperties(this.customer);
-
-        Customer newCustomer = customerService.save(this.customer);
-
-        saveAlert(newCustomer);
-        clearFields();
-        sceneManager.switchScene(FxmlView.CUSTOMERS);
     }
 
     private void setCustomerProperties(Customer customer) {

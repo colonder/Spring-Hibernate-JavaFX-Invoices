@@ -20,7 +20,7 @@ import java.text.ParseException;
 import java.util.ResourceBundle;
 
 @Controller
-public class NewProductPresenter implements Initializable {
+public class NewProductPresenter extends NewItemController implements Initializable {
 
     @FXML
     private TextField nameTxtFld;
@@ -71,18 +71,25 @@ public class NewProductPresenter implements Initializable {
     }
 
     @FXML
-    private void saveProduct() throws ParseException {
-        if (this.product == null) {
-            this.product = new Product();
+    private void saveProduct() {
+        if (emptyValidation("Name", nameTxtFld.getText().isEmpty()) &&
+                emptyValidation("Unit", unitTxtFld.getText().isEmpty()) &&
+                validate("CPU", unitNetPriceTxtFld.getText(), "\\d{0,4}[,.]?\\d{0,2}")) {
+            if (this.product == null) {
+                this.product = new Product();
+            }
+
+            try {
+                setProductProperties(this.product);
+                Product newProduct = productService.save(this.product);
+
+                saveAlert(newProduct);
+                clearFields();
+                sceneManager.switchScene(FxmlView.PRODUCTS);
+            } catch (ParseException e) {
+                saveError(this.product);
+            }
         }
-        setProductProperties(this.product);
-
-        Product newProduct = productService.save(this.product);
-
-        saveAlert(newProduct);
-        clearFields();
-        sceneManager.switchScene(FxmlView.PRODUCTS);
-
     }
 
     private void setProductProperties(Product product) throws ParseException {
@@ -125,6 +132,15 @@ public class NewProductPresenter implements Initializable {
         alert.setTitle("Operation successful.");
         alert.setHeaderText(null);
         alert.setContentText("The product " + product.getProductName() + " has been updated");
+        alert.showAndWait();
+    }
+
+    private void saveError(Product product) {
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Operation aborted.");
+        alert.setHeaderText(null);
+        alert.setContentText("The product " + product.getProductName() + " could not be saved");
         alert.showAndWait();
     }
 }
