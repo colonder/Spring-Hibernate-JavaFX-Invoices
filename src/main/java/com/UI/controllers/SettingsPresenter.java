@@ -70,10 +70,13 @@ public class SettingsPresenter implements Initializable {
         settings.setPostalCode(postalTxtFld.getText());
         settings.setTaxId(idTxtFld.getText());
         settings.setBankAccNum(bankAccTxtFld.getText());
-        numbering.setNumber(Integer.parseInt(currInvoiceNumLbl.getText()));
+
+        if (numbering.getNumber() != Integer.parseInt(currInvoiceNumLbl.getText())) {
+            numbering.setNumber(Integer.parseInt(currInvoiceNumLbl.getText()));
+            numberingService.save(numbering);
+        }
 
         settingsService.save(settings);
-        numberingService.save(numbering);
         sceneManager.switchScene(FxmlView.HOME);
     }
 

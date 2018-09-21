@@ -127,8 +127,12 @@ public class InvoicePresenter {
 
         Numbering numbering = numberingService.findById(1);
 
-        invoiceNumLbl.setText((numbering.getNumber() + 1) + "/" + constructDate(date));
+        if (date.getMonth().compareTo(numbering.getMonth()) != 0) {
+            numbering.setNumber(1);
+            numbering.setMonth(date.getMonth());
+        }
 
+        invoiceNumLbl.setText(numbering.getNumber() + "/" + constructDate(date));
         numbering.setNumber(numbering.getNumber() + 1);
         numberingService.save(numbering);
 

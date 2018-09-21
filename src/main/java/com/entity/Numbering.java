@@ -2,11 +2,11 @@ package com.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Month;
 
 @Entity
 @Table(name = "invoice")
@@ -20,13 +20,14 @@ public class Numbering {
     @Column(name = "id")
     private int id;
 
-    @LastModifiedDate
-    private LocalDate date;
+    @Enumerated(EnumType.ORDINAL)
+    private Month month;
 
     @Column(name = "number")
     private int number;
 
     public Numbering() {
         this.number = 1;
+        this.month = LocalDate.now().getMonth();
     }
 }
