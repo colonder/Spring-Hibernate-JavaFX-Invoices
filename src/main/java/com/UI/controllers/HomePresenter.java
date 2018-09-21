@@ -407,8 +407,11 @@ public class HomePresenter implements Initializable {
                     alert.showAndWait();
                 }
             }
-            // seems to not work when saving as template and switching to another customer and back
-            customersList.getSelectionModel().getSelectedItem().setTemplates(templateTable.getItems());
+
+            customersList.getItems().set(
+                    customersList.getSelectionModel().getSelectedIndex(),
+                    customerService.find(customersList.getSelectionModel().getSelectedItem().getId())
+            );
         }
     }
 }
