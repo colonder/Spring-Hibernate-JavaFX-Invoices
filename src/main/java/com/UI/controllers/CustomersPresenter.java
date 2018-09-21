@@ -117,9 +117,11 @@ public class CustomersPresenter implements Initializable {
 
         if (!customers.isEmpty()) {
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Czy na pewno usunąć?",
+                    new ButtonType("OK", ButtonBar.ButtonData.OK_DONE),
+                    new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE));
             alert.setTitle("Potwierdzenie");
-            alert.setContentText("Czy na pewno usunąć?");
             Optional<ButtonType> action = alert.showAndWait();
             if (action.orElse(null) == ButtonType.OK) {
 

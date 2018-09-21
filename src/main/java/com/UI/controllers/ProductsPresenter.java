@@ -109,20 +109,31 @@ public class ProductsPresenter implements Initializable {
 
         if (!products.isEmpty()) {
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
+                    new ButtonType("OK", ButtonBar.ButtonData.OK_DONE),
+                    new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE));
             alert.setTitle("Potwierdzenie");
-            alert.setContentText("Czy na pewno usunąć?");
-            Optional<ButtonType> action = alert.showAndWait();
+            List<Templates> templates = templatesService.findByProductIn(products);
 
-            if (action.orElse(null) == ButtonType.OK) {
-                List<Templates> templates = templatesService.findByProductIn(products);
+            if (!templates.isEmpty()) {
+                alert.setContentText("Ten produkt znajduje się w kilku szablonach. " +
+                        "Usunięcie produktu spowoduje usunięcie ich również z szablonów. " +
+                        "Czy na pewno usunąć wybrane produkty?");
+                Optional<ButtonType> action = alert.showAndWait();
 
-                if (!templates.isEmpty()) {
+                if (action.orElse(null) == ButtonType.OK) {
                     templatesService.deleteInBatch(templates);
+                    productService.deleteInBatch(products);
                 }
-                productService.deleteInBatch(products);
-                loadProducts();
+            } else {
+                alert.setContentText("Czy na pewno usunąć wybrane produkty?");
+                Optional<ButtonType> action = alert.showAndWait();
+
+                if (action.orElse(null) == ButtonType.OK)
+                    productService.deleteInBatch(products);
             }
+
+            loadProducts();
         } else {
             actionAlert();
         }
