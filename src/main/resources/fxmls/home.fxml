@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.HomePresenter">
@@ -15,6 +16,13 @@
                <font>
                   <Font size="20.0" />
                </font>
+                 <graphic>
+                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@../images/icons8-grupy-użytkownika-mężczyzna-mężczyzna-30.png"/>
+                         </image>
+                     </ImageView>
+                 </graphic>
             </Button>
              <Button mnemonicParsing="false" onAction="#switchToProducts" text="Products">
                <HBox.margin>
@@ -23,6 +31,13 @@
                <font>
                   <Font size="20.0" />
                </font>
+                 <graphic>
+                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@../images/icons8-produkt-30.png"/>
+                         </image>
+                     </ImageView>
+                 </graphic>
             </Button>
              <Button mnemonicParsing="false" onAction="#printInvoice" text="Print">
                <HBox.margin>
@@ -31,6 +46,13 @@
                <font>
                   <Font size="20.0" />
                </font>
+                 <graphic>
+                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@../images/icons8-drukuj-30.png"/>
+                         </image>
+                     </ImageView>
+                 </graphic>
             </Button>
              <Button mnemonicParsing="false" onAction="#switchToSettings" text="Settings">
                <font>
@@ -39,6 +61,13 @@
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
+                 <graphic>
+                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@../images/icons8-usługi-30.png"/>
+                         </image>
+                     </ImageView>
+                 </graphic>
             </Button>
          </children>
          <BorderPane.margin>
@@ -53,25 +82,53 @@
                <children>
                   <HBox alignment="CENTER">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#firstCustomer" text="First">
+                         <Button mnemonicParsing="false" onAction="#firstCustomer">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
+                             <graphic>
+                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                     <image>
+                                         <Image url="@../images/icons8-pierwszy-30.png"/>
+                                     </image>
+                                 </ImageView>
+                             </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#prevCustomer" text="Prev">
+                         <Button mnemonicParsing="false" onAction="#prevCustomer">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
+                             <graphic>
+                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                     <image>
+                                         <Image url="@../images/icons8-poprzedni-30.png"/>
+                                     </image>
+                                 </ImageView>
+                             </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#nextCustomer" text="Next">
+                         <Button mnemonicParsing="false" onAction="#nextCustomer">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
+                             <graphic>
+                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                     <image>
+                                         <Image url="@../images/icons8-następny-30.png"/>
+                                     </image>
+                                 </ImageView>
+                             </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#lastCustomer" text="Last">
+                         <Button mnemonicParsing="false" onAction="#lastCustomer">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
+                             <graphic>
+                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                     <image>
+                                         <Image url="@../images/icons8-ostatni-30.png"/>
+                                     </image>
+                                 </ImageView>
+                             </graphic>
                         </Button>
                      </children>
                      <VBox.margin>
@@ -98,7 +155,7 @@
         <rowConstraints>
           <RowConstraints maxHeight="56.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="448.0" minHeight="10.0" prefHeight="442.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="387.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="387.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES"/>
           <RowConstraints maxHeight="129.0" minHeight="0.0" prefHeight="25.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -149,10 +206,6 @@
                   </Label>
                </children>
             </HBox>
-             <Button mnemonicParsing="false" onAction="#addProduct" text="Add product" GridPane.rowIndex="2">
-               <font>
-                  <Font size="20.0" />
-               </font></Button>
              <DatePicker fx:id="datePicker" onAction="#dateSelection" GridPane.columnIndex="3">
                  <GridPane.margin>
                      <Insets bottom="5.0"/>
@@ -181,12 +234,6 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-             <Button mnemonicParsing="false" onAction="#saveTemplate" text="Save template" GridPane.columnIndex="1"
-                     GridPane.rowIndex="2">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
              <Label text="Date:" GridPane.columnIndex="2">
                  <font>
                      <Font size="18.0"/>
@@ -195,6 +242,40 @@
                      <Insets bottom="5.0"/>
                  </GridPane.margin>
              </Label>
+             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                 <children>
+                     <Button mnemonicParsing="false" onAction="#addProduct" text="Add product">
+                         <font>
+                             <Font size="20.0"/>
+                         </font>
+                         <graphic>
+                             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                     <Image url="@../images/icons8-plus-30.png"/>
+                                 </image>
+                             </ImageView>
+                         </graphic>
+                         <HBox.margin>
+                             <Insets right="10.0"/>
+                         </HBox.margin>
+                     </Button>
+                     <Button mnemonicParsing="false" onAction="#saveTemplate" text="Save template">
+                         <font>
+                             <Font size="20.0"/>
+                         </font>
+                         <graphic>
+                             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                     <Image url="@../images/icons8-zapisz-30.png"/>
+                                 </image>
+                             </ImageView>
+                         </graphic>
+                     </Button>
+                 </children>
+                 <GridPane.margin>
+                     <Insets bottom="10.0" top="10.0"/>
+                 </GridPane.margin>
+             </HBox>
          </children>
       </GridPane>
    </center>

@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
@@ -71,11 +73,25 @@
                     <font>
                         <Font size="18.0"/>
                     </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/icons8-zapisz-30.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
                 </Button>
                 <Button mnemonicParsing="false" onAction="#cancel" text="Cancel">
                     <font>
                         <Font size="18.0"/>
                     </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/icons8-anuluj-30.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
                 </Button>
             </buttons>
             <padding>

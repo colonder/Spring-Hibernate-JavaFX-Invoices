@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="1200.0"
@@ -16,6 +17,13 @@
                <font>
                   <Font size="20.0" />
                </font>
+                 <graphic>
+                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@../images/icons8-dom-30.png"/>
+                         </image>
+                     </ImageView>
+                 </graphic>
             </Button>
              <Button mnemonicParsing="false" onAction="#switchToCustomers" text="Customers">
                <HBox.margin>
@@ -24,6 +32,13 @@
                <font>
                   <Font size="20.0" />
                </font>
+                 <graphic>
+                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@../images/icons8-grupy-użytkownika-mężczyzna-mężczyzna-30.png"/>
+                         </image>
+                     </ImageView>
+                 </graphic>
             </Button>
              <Button mnemonicParsing="false" onAction="#switchToSettings" text="Settings">
                <font>
@@ -32,6 +47,13 @@
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
+                 <graphic>
+                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@../images/icons8-usługi-30.png"/>
+                         </image>
+                     </ImageView>
+                 </graphic>
             </Button>
          </children>
          <BorderPane.margin>
@@ -51,6 +73,13 @@
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
+                       <graphic>
+                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                               <image>
+                                   <Image url="@../images/icons8-dodaj-produkt-30.png"/>
+                               </image>
+                           </ImageView>
+                       </graphic>
                   </Button>
                    <Button fx:id="editBtn" mnemonicParsing="false" onAction="#editProduct" text="Edit">
                      <font>
@@ -59,6 +88,13 @@
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
+                       <graphic>
+                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                               <image>
+                                   <Image url="@../images/icons8-edytuj-produkt-30.png"/>
+                               </image>
+                           </ImageView>
+                       </graphic>
                   </Button>
                    <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteProduct" text="Delete">
                      <font>
@@ -67,6 +103,13 @@
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
+                       <graphic>
+                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                               <image>
+                                   <Image url="@../images/icons8-usuń-produkt-30.png"/>
+                               </image>
+                           </ImageView>
+                       </graphic>
                   </Button>
                </children>
                <VBox.margin>

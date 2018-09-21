@@ -190,7 +190,7 @@ public class HomePresenter implements Initializable {
             event.getRowValue().setQuantityProp(event.getNewValue());
             calculateTotal();
         });
-        deleteCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue())); // looks weird, fix it
+        deleteCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         deleteCol.setCellFactory(param -> new TableCell<Templates, Templates>() {
             private Button removeButton = new Button("", new ImageView(new Image(getClass()
                     .getResourceAsStream("/images/icons8-clear-symbol-24.png"))));
