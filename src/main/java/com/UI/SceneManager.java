@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public class SceneManager {
@@ -24,15 +23,7 @@ public class SceneManager {
     }
 
     public FXMLLoader getLoader(FxmlView view) {
-        FXMLLoader loader = null;
-
-        try {
-            loader = springFXMLLoader.load(view.getFxmlFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return loader;
+        return springFXMLLoader.load(view.getFxmlFile());
     }
 
     public void show(final Parent rootnode, String title) {
