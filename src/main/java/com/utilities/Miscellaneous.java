@@ -1,5 +1,7 @@
 package com.utilities;
 
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
@@ -31,4 +33,6 @@ public class Miscellaneous {
     }
 
     public static LocalDate chosenDate = LocalDate.now();
+    public static ButtonType ok = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+    public static ButtonType cancel = new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE);
 }

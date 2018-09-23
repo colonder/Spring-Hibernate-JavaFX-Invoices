@@ -6,6 +6,7 @@ import com.entity.Customer;
 import com.entity.Templates;
 import com.service.ICustomerService;
 import com.service.ITemplatesService;
+import com.utilities.Miscellaneous;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -119,11 +120,11 @@ public class CustomersPresenter implements Initializable {
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                     "Czy na pewno usunąć?",
-                    new ButtonType("OK", ButtonBar.ButtonData.OK_DONE),
-                    new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE));
+                    Miscellaneous.ok,
+                    Miscellaneous.cancel);
             alert.setTitle("Potwierdzenie");
             Optional<ButtonType> action = alert.showAndWait();
-            if (action.orElse(null) == ButtonType.OK) {
+            if (action.orElse(Miscellaneous.cancel) == Miscellaneous.ok) {
 
                 List<Templates> templates = templatesService.findByCustomerIn(customers);
 

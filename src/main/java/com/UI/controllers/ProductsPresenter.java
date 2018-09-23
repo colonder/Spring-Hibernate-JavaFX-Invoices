@@ -110,8 +110,8 @@ public class ProductsPresenter implements Initializable {
         if (!products.isEmpty()) {
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
-                    new ButtonType("OK", ButtonBar.ButtonData.OK_DONE),
-                    new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE));
+                    Miscellaneous.ok,
+                    Miscellaneous.cancel);
             alert.setTitle("Potwierdzenie");
             List<Templates> templates = templatesService.findByProductIn(products);
 
@@ -121,7 +121,7 @@ public class ProductsPresenter implements Initializable {
                         "Czy na pewno usunąć wybrane produkty?");
                 Optional<ButtonType> action = alert.showAndWait();
 
-                if (action.orElse(null) == ButtonType.OK) {
+                if (action.orElse(Miscellaneous.cancel) == Miscellaneous.ok) {
                     templatesService.deleteInBatch(templates);
                     productService.deleteInBatch(products);
                 }
@@ -129,7 +129,7 @@ public class ProductsPresenter implements Initializable {
                 alert.setContentText("Czy na pewno usunąć wybrane produkty?");
                 Optional<ButtonType> action = alert.showAndWait();
 
-                if (action.orElse(null) == ButtonType.OK)
+                if (action.orElse(Miscellaneous.cancel) == Miscellaneous.ok)
                     productService.deleteInBatch(products);
             }
 
