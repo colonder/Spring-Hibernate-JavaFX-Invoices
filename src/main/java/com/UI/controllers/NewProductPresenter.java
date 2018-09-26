@@ -75,7 +75,7 @@ public class NewProductPresenter extends NewItemController implements Initializa
         if (emptyValidation("Nazwa", nameTxtFld.getText().isEmpty()) &&
                 emptyValidation("Jednostka miary", unitTxtFld.getText().isEmpty()) &&
                 validate("Cena jednostkowa netto", unitNetPriceTxtFld.getText(),
-                        "\\d{0,4}[,.]?\\d{0,2}")) {
+                        "\\d{0,4}[,.]?\\d{0,2}", false)) {
             if (this.product == null) {
                 this.product = new Product();
             }

@@ -66,11 +66,11 @@ public class NewCustomerPresenter extends NewItemController implements Initializ
 
     @FXML
     private void saveCustomer() {
-        if (validate("Imię", nameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+") &&
-                validate("Nazwisko", lastNameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+") &&
-                validate("NIP/PESEL", idTxtFld.getText(), "[\\d\\-?]+") &&
-                validate("Kod pocztowy", postalTxtFld.getText(), "\\d{2}\\-\\d{3}") &&
-                validate("Miasto", cityTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+") &&
+        if (validate("Imię", nameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+", true) &&
+                validate("Nazwisko", lastNameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+", true) &&
+                validate("NIP/PESEL", idTxtFld.getText(), "[\\d\\-?]+", false) &&
+                validate("Kod pocztowy", postalTxtFld.getText(), "\\d{2}\\-\\d{3}", false) &&
+                validate("Miasto", cityTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+", false) &&
                 emptyValidation("Adres", addressTxtFld.getText().isEmpty()) &&
                 emptyValidation("Nazwa", aliasTxtFld.getText().isEmpty())) {
             if (this.customer == null) {

@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class NewItemController {
 
-    protected boolean validate(String field, String value, String pattern) {
+    boolean validate(String field, String value, String pattern, boolean nullable) {
         if (!value.isEmpty()) {
             Pattern p = Pattern.compile(pattern);
             Matcher m = p.matcher(value);
@@ -17,13 +17,15 @@ public class NewItemController {
                 validationAlert(field, false);
                 return false;
             }
-        } else {
+        } else if (!nullable) {
             validationAlert(field, true);
             return false;
+        } else {
+            return true;
         }
     }
 
-    protected boolean emptyValidation(String field, boolean empty) {
+    boolean emptyValidation(String field, boolean empty) {
         if (!empty) {
             return true;
         } else {
