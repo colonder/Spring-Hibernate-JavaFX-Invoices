@@ -5,9 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.Getter;
 
 import java.util.Objects;
 
+@Getter
 public class SceneManager {
     private final Stage primaryStage;
     private final SpringFXMLLoader springFXMLLoader;
@@ -71,9 +73,5 @@ public class SceneManager {
 
     private void logAndExit(String errorMsg, Exception exception) {
         Platform.exit();
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
     }
 }
