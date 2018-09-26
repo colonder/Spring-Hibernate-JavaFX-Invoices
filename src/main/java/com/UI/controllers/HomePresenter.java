@@ -156,24 +156,21 @@ public class HomePresenter implements Initializable {
                     setPrefHeight(Control.USE_COMPUTED_SIZE);
                     text.wrappingWidthProperty().bind(nameCol.widthProperty());
 
-                    StringBuilder val = new StringBuilder(templates.getProduct().getProductName());
+                    String val = templates.getProduct().getProductName();
 
                     if (templates.getProduct().getPerMonth()) {
 
                         int month = datePicker.getValue().getMonth().getValue();
                         int year = datePicker.getValue().getYear();
-                        val.append(" za m-c ").append(month).append("/").append(year);
+                        val += " za m-c " + month + "/" + year;
 
                         datePicker.valueProperty().addListener((observableValue, oldValue, newValue) -> {
 
                             text.setText(templates.getProduct().getProductName() + " za m-c " +
                                     newValue.getMonth().getValue() + "/" + newValue.getYear());
-
-                            setGraphic(text);
-
                         });
                     }
-                    text.setText(val.toString());
+                    text.setText(val);
                     setGraphic(text);
                 }
             }
