@@ -7,6 +7,7 @@ import com.entity.Templates;
 import com.service.IProductService;
 import com.service.ITemplatesService;
 import com.utilities.Miscellaneous;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -47,7 +48,7 @@ public class ProductsPresenter implements Initializable {
     private TableColumn<Product, BigDecimal>vatRateCol;
 
     @FXML
-    private TableColumn<Product, Boolean> perMonthCol;
+    private TableColumn<Product, Product> perMonthCol;
     //endregion
 
     @Lazy
@@ -75,7 +76,19 @@ public class ProductsPresenter implements Initializable {
         unitNetPrice.setCellFactory(Miscellaneous.getCellFactory());
         vatRateCol.setCellValueFactory(new PropertyValueFactory<>("vatRate"));
         vatRateCol.setCellFactory(Miscellaneous.getCellFactory());
-        perMonthCol.setCellValueFactory(new PropertyValueFactory<>("perMonth"));
+        perMonthCol.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue()));
+        perMonthCol.setCellFactory(productProductTableColumn -> new TableCell<Product, Product>() {
+            @Override
+            protected void updateItem(Product product, boolean b) {
+                super.updateItem(product, b);
+
+                if (b || product == null) {
+                    setText(null);
+                } else {
+                    setText(product.getPerMonth() ? "Tak" : "Nie");
+                }
+            }
+        });
     }
 
     private void loadProducts() {
