@@ -51,6 +51,11 @@ public class CurrencyHandler {
             }
         }
 
-        return spellOutFormatter.format(value.intValue()) + " " + currencySymbolSpellOut + " " + cents + "/100";
+        String resultingString = spellOutFormatter.format(value.intValue()) + " " + currencySymbolSpellOut;
+        if (!cents.equals("00")) {
+            resultingString += " " + cents + "/100";
+        }
+
+        return resultingString;
     }
 }
