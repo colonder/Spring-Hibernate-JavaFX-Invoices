@@ -3,6 +3,7 @@ package com.UI;
 import javafx.fxml.FXMLLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import java.util.ResourceBundle;
 @Component
 public class SpringFXMLLoader {
     private final ResourceBundle resourceBundle;
+    @Lazy
     private final ApplicationContext context;
 
     @Autowired
