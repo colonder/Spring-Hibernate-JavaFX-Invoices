@@ -15,6 +15,8 @@ public class Main extends Application {
     protected SceneManager sceneManager;
 
     public static void main(final String[] args) {
+        System.setProperty("java.awt.headless", System.getProperty(
+                "java.awt.headless", Boolean.toString(false)));
         Application.launch(args);
     }
 
