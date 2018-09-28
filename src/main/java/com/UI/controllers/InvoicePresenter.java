@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -181,9 +182,11 @@ public class InvoicePresenter {
         BigDecimal vat23Net = BigDecimal.ZERO;
         BigDecimal vat23Gross = BigDecimal.ZERO;
 
+        Font font = new Font(15);
+
         for (int i = 0; i < templates.size(); i++) {
 
-            addRow(i + 1, templates.get(i), date);
+            addRow(i + 1, templates.get(i), date, font);
 
             totNet = totNet.add(templates.get(i).getNetValProp());
             totTax = totTax.add(templates.get(i).getTaxValProp());
@@ -213,25 +216,49 @@ public class InvoicePresenter {
         gross23Val.setText(formatNumber(vat23Gross));
     }
 
-    private void addRow(int i, Templates template, LocalDate date) {
+    private void addRow(int i, Templates template, LocalDate date, Font font) {
 
         Text name = new Text();
         name.setWrappingWidth(200);
         name.setText(template.getProduct().getPerMonth() ?
                 template.getProduct().getProductName() + " za m-c " + constructDate(date)
                 : template.getProduct().getProductName());
+        name.setFont(font);
 
+        Label symbol = new Label(template.getProduct().getSymbol());
+        symbol.setFont(font);
+
+        Label unit = new Label(template.getProduct().getUnit());
+        unit.setFont(font);
+
+        Label unitNetPrice = new Label(formatNumber(template.getProduct().getUnitNetPrice()));
+        unitNetPrice.setFont(font);
+
+        Label quantity = new Label(formatNumber(template.getQuantity()));
+        quantity.setFont(font);
+
+        Label netVal = new Label(formatNumber(template.getNetValProp()));
+        netVal.setFont(font);
+
+        Label vatRate = new Label(formatNumber(template.getProduct().getVatRate()));
+        vatRate.setFont(font);
+
+        Label taxVal = new Label(formatNumber(template.getTaxValProp()));
+        taxVal.setFont(font);
+
+        Label grossVal = new Label(formatNumber(template.getGrossValProp()));
+        grossVal.setFont(font);
 
         productsGrid.addRow(i,
                 name,
-                new Label(template.getProduct().getSymbol()),
-                new Label(template.getProduct().getUnit()),
-                new Label(formatNumber(template.getProduct().getUnitNetPrice())),
-                new Label(formatNumber(template.getQuantity())),
-                new Label(formatNumber(template.getNetValProp())),
-                new Label(formatNumber(template.getProduct().getVatRate())),
-                new Label(formatNumber(template.getTaxValProp())),
-                new Label(formatNumber(template.getGrossValProp()))
+                symbol,
+                unit,
+                unitNetPrice,
+                quantity,
+                netVal,
+                vatRate,
+                taxVal,
+                grossVal
         );
     }
 
