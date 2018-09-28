@@ -5,19 +5,19 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171"
+            prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="com.UI.controllers.NewCustomerPresenter">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <GridPane alignment="CENTER" layoutX="277.0" layoutY="53.0" prefHeight="435.0" prefWidth="623.0"
-                          AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0"
+                <GridPane alignment="CENTER" layoutX="277.0" layoutY="53.0" prefHeight="435.0"
+                          AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0"
                           AnchorPane.topAnchor="53.0">
                     <columnConstraints>
-                        <ColumnConstraints halignment="LEFT" minWidth="-Infinity" prefWidth="110.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="500.0"/>
+                        <ColumnConstraints halignment="LEFT" minWidth="-Infinity" prefWidth="170.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="800.0"/>
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -31,35 +31,109 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <Label text="%alias"/>
-                        <Label text="%last_name" GridPane.rowIndex="2"/>
-                        <Label text="%name" GridPane.rowIndex="1"/>
-                        <Label text="%ID" GridPane.rowIndex="3"/>
-                        <Label text="%firm" GridPane.rowIndex="4"/>
-                        <Label text="%address" GridPane.rowIndex="5"/>
-                        <Label text="%postal_code" GridPane.rowIndex="6"/>
-                        <Label text="%city" GridPane.rowIndex="7"/>
-                        <Label text="%payment" GridPane.rowIndex="8"/>
-                        <TextField fx:id="aliasTxtFld" GridPane.columnIndex="1"/>
-                        <TextField fx:id="nameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                        <TextField fx:id="lastNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <TextField fx:id="idTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                        <TextField fx:id="firmNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                        <TextField fx:id="addressTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                        <TextField fx:id="postalTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                        <TextField fx:id="cityTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                        <Label text="%alias">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%last_name" GridPane.rowIndex="2">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%name" GridPane.rowIndex="1">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%ID" GridPane.rowIndex="3">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%firm" GridPane.rowIndex="4">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%address" GridPane.rowIndex="5">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%postal_code" GridPane.rowIndex="6">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%city" GridPane.rowIndex="7">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%payment" GridPane.rowIndex="8">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="aliasTxtFld" GridPane.columnIndex="1">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="nameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="lastNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="idTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="firmNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="addressTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="postalTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="cityTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
                         <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="8">
                             <children>
                                 <RadioButton fx:id="cashRadioBtn" mnemonicParsing="false" selected="true" text="%cash">
                                     <toggleGroup>
                                         <ToggleGroup fx:id="paymentToggle"/>
                                     </toggleGroup>
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
                                 </RadioButton>
                                 <RadioButton fx:id="transferRadioBtn" mnemonicParsing="false" text="%transfer"
                                              toggleGroup="$paymentToggle">
                                     <padding>
                                         <Insets left="15.0"/>
                                     </padding>
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
                                 </RadioButton>
                             </children>
                         </HBox>

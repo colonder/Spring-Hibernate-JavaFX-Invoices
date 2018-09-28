@@ -5,18 +5,18 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
             prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="com.UI.controllers.SettingsPresenter">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <GridPane alignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0"
-                          AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="50.0">
+                <GridPane alignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0"
+                          AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
                     <columnConstraints>
-                        <ColumnConstraints halignment="LEFT" minWidth="-Infinity" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="500.0"/>
+                        <ColumnConstraints halignment="LEFT" minWidth="-Infinity" prefWidth="150.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="800.0"/>
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -30,24 +30,96 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <Label text="%last_name" GridPane.rowIndex="1"/>
-                        <Label text="%name"/>
-                        <Label text="%ID" GridPane.rowIndex="2"/>
-                        <Label text="%firm" GridPane.rowIndex="3"/>
-                        <Label text="%address" GridPane.rowIndex="4"/>
-                        <Label text="%postal_code" GridPane.rowIndex="5"/>
-                        <Label text="%city" GridPane.rowIndex="6"/>
-                        <Label text="%account" GridPane.rowIndex="7"/>
-                        <TextField fx:id="nameTxtFld" GridPane.columnIndex="1"/>
-                        <TextField fx:id="lastNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                        <TextField fx:id="idTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <TextField fx:id="firmNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                        <TextField fx:id="addressTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                        <TextField fx:id="postalTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                        <TextField fx:id="cityTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                        <TextField fx:id="bankAccTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                        <Label text="%invoice_num" wrapText="true" GridPane.rowIndex="8"/>
-                        <TextField fx:id="currInvoiceNumLbl" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                        <Label text="%last_name" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%name">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%ID" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%firm" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%address" GridPane.rowIndex="4">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%postal_code" GridPane.rowIndex="5">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%city" GridPane.rowIndex="6">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%account" GridPane.rowIndex="7">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="nameTxtFld" GridPane.columnIndex="1">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="lastNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="idTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="firmNameTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="addressTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="postalTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="cityTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="bankAccTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <Label text="%invoice_num" wrapText="true" GridPane.rowIndex="8">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="currInvoiceNumLbl" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
                     </children>
                 </GridPane>
             </children>

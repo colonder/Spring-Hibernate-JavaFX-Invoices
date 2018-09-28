@@ -5,7 +5,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controllers.HomePresenter">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="1280.0"
+            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.UI.controllers.HomePresenter">
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
@@ -135,7 +136,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </HBox>
-                  <ListView fx:id="customersList" prefHeight="500.0" />
+                   <ListView fx:id="customersList" prefHeight="500.0" stylesheets="@../css/listview.css"/>
                </children>
             </VBox>
          </children>
@@ -153,10 +154,10 @@
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="468.0" minWidth="10.0" prefWidth="208.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="56.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="56.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES"/>
           <RowConstraints maxHeight="448.0" minHeight="10.0" prefHeight="442.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="387.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES"/>
-          <RowConstraints maxHeight="129.0" minHeight="0.0" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="387.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="129.0" minHeight="0.0" prefHeight="65.0" vgrow="SOMETIMES"/>
         </rowConstraints>
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2">
@@ -179,21 +180,22 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="471.0" GridPane.columnSpan="3" GridPane.rowIndex="3">
+             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="471.0" GridPane.columnSpan="4"
+                   GridPane.rowIndex="2">
                <children>
                    <Label text="%total">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                         <Font name="System Bold" size="20.0"/>
                      </font>
                   </Label>
                    <Label fx:id="totalLbl" text="-">
                      <font>
-                        <Font size="18.0" />
+                         <Font size="20.0"/>
                      </font>
                   </Label>
                    <Label text="%in_words">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                         <Font name="System Bold" size="20.0"/>
                      </font>
                      <HBox.margin>
                         <Insets left="20.0" />
@@ -201,7 +203,7 @@
                   </Label>
                    <Label fx:id="wordsLbl" text="-">
                      <font>
-                        <Font size="18.0" />
+                         <Font size="20.0"/>
                      </font>
                   </Label>
                </children>
@@ -212,22 +214,22 @@
                  </GridPane.margin>
              </DatePicker>
              <TableView fx:id="templateTable" editable="true" prefHeight="200.0" prefWidth="200.0"
-                        GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                        stylesheets="@../css/table.css" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
               <columns>
                   <TableColumn fx:id="nameCol" prefWidth="276.0" text="%alias"/>
-                  <TableColumn fx:id="symbolCol" maxWidth="1200.0" minWidth="0.0" prefWidth="63.0" text="Symbol"/>
-                  <TableColumn fx:id="unitCol" maxWidth="600.0" prefWidth="44.0" text="%unit"/>
+                  <TableColumn fx:id="symbolCol" maxWidth="1300.0" minWidth="0.0" prefWidth="63.0" text="Symbol"/>
+                  <TableColumn fx:id="unitCol" maxWidth="700.0" prefWidth="44.0" text="%unit"/>
                   <TableColumn fx:id="netCol" maxWidth="1400.0" prefWidth="108.0">
                       <graphic>
                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%unit_net_price" textAlignment="CENTER"
                                 wrappingWidth="80.0"/>
                       </graphic>
                   </TableColumn>
-                  <TableColumn fx:id="quantityCol" maxWidth="800.0" prefWidth="72.0" text="%quantity"/>
+                  <TableColumn fx:id="quantityCol" maxWidth="1000.0" prefWidth="72.0" text="%quantity"/>
                   <TableColumn fx:id="netTotalCol" maxWidth="1500.0" prefWidth="77.0" text="%net_value"/>
                   <TableColumn editable="false" prefWidth="118.0" text="VAT">
                      <columns>
-                         <TableColumn fx:id="vatRateCol" maxWidth="900.0" prefWidth="51.0" text="%rate"/>
+                         <TableColumn fx:id="vatRateCol" maxWidth="1100.0" prefWidth="51.0" text="%rate"/>
                          <TableColumn fx:id="vatValCol" maxWidth="1500.0" prefWidth="69.0" text="%value"/>
                      </columns>
                   </TableColumn>
@@ -246,7 +248,7 @@
                      <Insets bottom="5.0"/>
                  </GridPane.margin>
              </Label>
-             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
                  <children>
                      <Button mnemonicParsing="false" onAction="#addProduct" text="%add_product">
                          <font>

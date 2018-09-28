@@ -5,18 +5,18 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171"
+            prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="com.UI.controllers.NewProductPresenter">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <GridPane alignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0"
-                          AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="50.0">
+                <GridPane alignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0"
+                          AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
                     <columnConstraints>
-                        <ColumnConstraints halignment="LEFT" minWidth="-Infinity" prefWidth="120.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="500.0"/>
+                        <ColumnConstraints halignment="LEFT" minWidth="-Infinity" prefWidth="200.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="700.0"/>
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -27,31 +27,77 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <Label text="Symbol" textAlignment="CENTER" GridPane.rowIndex="1"/>
-                        <Label text="%alias" textAlignment="CENTER"/>
-                        <Label text="%unit" textAlignment="CENTER" GridPane.rowIndex="2"/>
-                        <Label text="%unit_net_price" wrapText="true" GridPane.rowIndex="3"/>
-                        <Label text="%vat_rate" textAlignment="CENTER" GridPane.rowIndex="5"/>
-                        <TextField fx:id="nameTxtFld" GridPane.columnIndex="1"/>
-                        <TextField fx:id="symbolTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                        <TextField fx:id="unitTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <TextField fx:id="unitNetPriceTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <Label text="Symbol" textAlignment="CENTER" GridPane.rowIndex="1">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%alias" textAlignment="CENTER">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%unit" textAlignment="CENTER" GridPane.rowIndex="2">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%unit_net_price" wrapText="true" GridPane.rowIndex="3">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label text="%vat_rate" textAlignment="CENTER" GridPane.rowIndex="5">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="nameTxtFld" GridPane.columnIndex="1">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="symbolTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="unitTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="unitNetPriceTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </TextField>
                         <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="5">
                             <children>
                                 <RadioButton fx:id="VAT8RadioBtn" mnemonicParsing="false" selected="true" text="8%">
                                     <toggleGroup>
                                         <ToggleGroup fx:id="vatToggle"/>
                                     </toggleGroup>
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
                                 </RadioButton>
                                 <RadioButton fx:id="VAT23RadioBtn" mnemonicParsing="false" selected="true" text="23%"
                                              toggleGroup="$vatToggle">
                                     <padding>
                                         <Insets left="15.0"/>
                                     </padding>
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
                                 </RadioButton>
                             </children>
                         </HBox>
-                        <Label text="%per_month" textAlignment="CENTER" GridPane.rowIndex="4"/>
+                        <Label text="%per_month" textAlignment="CENTER" GridPane.rowIndex="4">
+                            <font>
+                                <Font name="System Bold" size="18.0"/>
+                            </font>
+                        </Label>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
                               GridPane.rowIndex="4">
                             <children>
@@ -59,6 +105,9 @@
                                     <toggleGroup>
                                         <ToggleGroup fx:id="monthToggle"/>
                                     </toggleGroup>
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
                                 </RadioButton>
                                 <RadioButton fx:id="monthNoRadioBtn" mnemonicParsing="false" selected="true" text="%no"
                                              toggleGroup="$monthToggle">
@@ -68,6 +117,9 @@
                                     <padding>
                                         <Insets left="15.0"/>
                                     </padding>
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
                                 </RadioButton>
                             </children>
                         </HBox>

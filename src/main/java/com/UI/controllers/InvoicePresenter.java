@@ -216,10 +216,11 @@ public class InvoicePresenter {
     private void addRow(int i, Templates template, LocalDate date) {
 
         Text name = new Text();
-        name.setWrappingWidth(230);
+        name.setWrappingWidth(200);
         name.setText(template.getProduct().getPerMonth() ?
                 template.getProduct().getProductName() + " za m-c " + constructDate(date)
                 : template.getProduct().getProductName());
+
 
         productsGrid.addRow(i,
                 name,

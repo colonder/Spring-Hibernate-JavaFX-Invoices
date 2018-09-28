@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="1200.0"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="1280.0"
             xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.UI.controllers.ProductsPresenter">
    <top>
       <HBox BorderPane.alignment="CENTER">
@@ -116,7 +116,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </HBox>
-            <TableView fx:id="productsTable" prefHeight="465.0" prefWidth="810.0">
+             <TableView fx:id="productsTable" prefHeight="465.0" prefWidth="810.0" stylesheets="@../css/table.css">
                <columns>
                    <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="%alias"/>
                    <TableColumn fx:id="symbolCol" editable="false" maxWidth="1000.0" prefWidth="75.0" text="Symbol"/>

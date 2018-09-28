@@ -8,15 +8,15 @@
           minWidth="-Infinity" prefHeight="1123.0" prefWidth="794.0" style="-fx-background-color: white;"
           xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.UI.controllers.InvoicePresenter">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="160.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="159.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="175.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="150.0"/>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0"/>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0"/>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="150.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="230.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+        <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="20.0" vgrow="NEVER"/>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
@@ -41,7 +41,7 @@
             <children>
                 <Label text="ORYGINAŁ/KOPIA">
                     <font>
-                        <Font name="System Bold" size="18.0"/>
+                        <Font name="System Bold" size="20.0"/>
                     </font>
                 </Label>
             </children>
@@ -51,19 +51,19 @@
             <children>
                 <Label text="FAKTURA VAT Nr ">
                     <font>
-                        <Font name="System Bold" size="18.0"/>
+                        <Font name="System Bold" size="20.0"/>
                     </font>
                 </Label>
                 <Label fx:id="invoiceNumLbl" text="Label">
                     <font>
-                        <Font name="System Bold" size="18.0"/>
+                        <Font name="System Bold" size="20.0"/>
                     </font>
                 </Label>
             </children>
         </HBox>
         <GridPane GridPane.columnSpan="3" GridPane.rowIndex="5">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="37.0" prefWidth="110.0"/>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0"/>
             </columnConstraints>
             <rowConstraints>
@@ -74,11 +74,19 @@
             <children>
                 <Label text="SPRZEDAWCA">
                     <font>
-                        <Font name="System Bold" size="13.0"/>
+                        <Font name="System Bold" size="15.0"/>
                     </font>
                 </Label>
-                <Label text="NIP" GridPane.rowIndex="2"/>
-                <Label text="Adres" GridPane.rowIndex="1"/>
+                <Label text="NIP" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                </Label>
+                <Label text="Adres" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                </Label>
                 <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1"
                       GridPane.rowIndex="1">
                     <children>
@@ -86,19 +94,37 @@
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
                         </Label>
-                        <Label fx:id="sellerPostalCode" text="Label" wrapText="true"/>
+                        <Label fx:id="sellerPostalCode" text="Label" wrapText="true">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Label>
                     </children>
                 </VBox>
-                <Label fx:id="sellerTaxID" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label fx:id="sellerTaxID" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
                 <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                     <children>
                         <Label fx:id="sellerName" text="Label" wrapText="true">
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
                         </Label>
-                        <Label fx:id="sellerFirm" text="Label" wrapText="true"/>
+                        <Label fx:id="sellerFirm" text="Label" wrapText="true">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Label>
                     </children>
                 </VBox>
             </children>
@@ -116,12 +142,24 @@
             <children>
                 <Label text="NABYWCA">
                     <font>
-                        <Font name="System Bold" size="13.0"/>
+                        <Font name="System Bold" size="15.0"/>
                     </font>
                 </Label>
-                <Label text="NIP/PESEL" GridPane.rowIndex="2"/>
-                <Label text="Adres" GridPane.rowIndex="1"/>
-                <Label fx:id="buyerTaxId" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label text="NIP/PESEL" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                </Label>
+                <Label text="Adres" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="buyerTaxId" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
                 <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1"
                       GridPane.rowIndex="1">
                     <children>
@@ -129,8 +167,15 @@
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
                         </Label>
-                        <Label fx:id="buyerPostalCode" text="Label" wrapText="true"/>
+                        <Label fx:id="buyerPostalCode" text="Label" wrapText="true">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Label>
                     </children>
                     <opaqueInsets>
                         <Insets/>
@@ -143,25 +188,56 @@
                             <VBox.margin>
                                 <Insets bottom="5.0"/>
                             </VBox.margin>
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
                         </Text>
                         <Text fx:id="buyerFirm" strokeType="OUTSIDE" strokeWidth="0.0" text="Text"
-                              wrappingWidth="315.0"/>
+                              wrappingWidth="315.0">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Text>
                     </children>
                 </VBox>
             </children>
         </GridPane>
-        <Label text="Płatność:" GridPane.rowIndex="7"/>
-        <Label fx:id="paymentMethod" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-        <Label fx:id="bankLbl" text="Nr konta PKO S.A.:" visible="false" GridPane.rowIndex="6"/>
-        <Label text="Miejscowość, data: " GridPane.rowIndex="2"/>
-        <Label text="Data sprzedaży:" GridPane.rowIndex="3"/>
+        <Label text="Płatność:" GridPane.rowIndex="7">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <Label fx:id="paymentMethod" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <Label fx:id="bankLbl" text="Nr konta PKO S.A.:" visible="false" GridPane.rowIndex="6">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <Label text="Miejscowość, data: " GridPane.rowIndex="2">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <Label text="Data sprzedaży:" GridPane.rowIndex="3">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
         <Label fx:id="sellCity" text="Warszawa, " GridPane.columnIndex="1" GridPane.columnSpan="2"
                GridPane.rowIndex="2">
             <font>
-                <Font name="System Bold" size="13.0"/>
+                <Font name="System Bold" size="15.0"/>
             </font>
         </Label>
-        <Label fx:id="sellDate" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3"/>
+        <Label fx:id="sellDate" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
         <Label text="DO ZAPŁATY:" GridPane.rowIndex="10">
             <font>
                 <Font name="System Bold" size="18.0"/>
@@ -196,20 +272,32 @@
                GridPane.columnSpan="2" GridPane.rowIndex="16"/>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="17">
             <children>
-                <Label text="Podpis osoby upoważnionej do odbioru faktury VAT" textAlignment="CENTER" wrapText="true"/>
+                <Label text="Podpis osoby upoważnionej do odbioru faktury VAT" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
             </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2"
               GridPane.rowIndex="17">
             <children>
-                <Label text="Data odbioru" textAlignment="CENTER" wrapText="true"/>
+                <Label text="Data odbioru" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
             </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.columnSpan="2"
               GridPane.rowIndex="17">
             <children>
                 <Label text="Podpis i pieczęć osoby upoważnionej do wystawienia faktury VAT" textAlignment="CENTER"
-                       wrapText="true"/>
+                       wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
             </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.columnSpan="2"
@@ -222,7 +310,11 @@
                 </Label>
             </children>
         </HBox>
-        <Label fx:id="bankAccNum" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6"/>
+        <Label fx:id="bankAccNum" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
         <GridPane gridLinesVisible="true" prefWidth="393.0" GridPane.columnIndex="4" GridPane.columnSpan="2147483647"
                   GridPane.rowIndex="9">
             <columnConstraints>
@@ -241,75 +333,111 @@
                     <GridPane.margin>
                         <Insets left="5.0"/>
                     </GridPane.margin>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
                 </Label>
                 <Label fx:id="net8Val" text="Label" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets left="5.0"/>
                     </GridPane.margin>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
                 </Label>
                 <Label alignment="CENTER" text="8%" textAlignment="CENTER" GridPane.columnIndex="1"
                        GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets left="5.0"/>
                     </GridPane.margin>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
                 </Label>
                 <Label fx:id="taxTotVal" text="Label" GridPane.columnIndex="2">
                     <GridPane.margin>
                         <Insets left="5.0"/>
                     </GridPane.margin>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
                 </Label>
                 <Label fx:id="tax8Val" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets left="5.0"/>
                     </GridPane.margin>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
                 </Label>
                 <Label fx:id="grossTotVal" text="Label" GridPane.columnIndex="3">
                     <GridPane.margin>
                         <Insets left="5.0"/>
                     </GridPane.margin>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
                 </Label>
                 <Label fx:id="gross8Val" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets left="5.0"/>
                     </GridPane.margin>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
                 </Label>
                 <Label fx:id="net23Val" text="Label" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets left="5.0"/>
                     </GridPane.margin>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
                 </Label>
                 <Label text="23%" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets left="5.0"/>
                     </GridPane.margin>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
                 </Label>
                 <Label fx:id="tax23Val" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets left="5.0"/>
                     </GridPane.margin>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
                 </Label>
                 <Label fx:id="gross23Val" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets left="5.0"/>
                     </GridPane.margin>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
                 </Label>
-                <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                    <children>
-                        <Label alignment="CENTER" layoutX="34.0" layoutY="2.0" text="X" textAlignment="CENTER"/>
-                    </children>
-                </Pane>
+                <Label text="X" GridPane.columnIndex="1">
+                    <GridPane.margin>
+                        <Insets left="5.0"/>
+                    </GridPane.margin>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
             </children>
             <GridPane.margin>
-                <Insets left="30.0"/>
+                <Insets left="29.0"/>
             </GridPane.margin>
         </GridPane>
         <GridPane fx:id="productsGrid" alignment="CENTER" gridLinesVisible="true" GridPane.columnSpan="2147483647"
                   GridPane.rowIndex="8">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="8.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="9.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="6.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0"/>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0"/>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0"/>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0"/>
@@ -317,14 +445,14 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
                 <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
                     <children>
                         <Label alignment="CENTER" text="Nazwa">
                             <font>
-                                <Font name="System Bold" size="13.0"/>
+                                <Font name="System Bold" size="15.0"/>
                             </font>
                         </Label>
                     </children>
@@ -333,7 +461,7 @@
                     <children>
                         <Label alignment="CENTER" text="Symbol">
                             <font>
-                                <Font name="System Bold" size="13.0"/>
+                                <Font name="System Bold" size="15.0"/>
                             </font>
                         </Label>
                     </children>
@@ -342,7 +470,7 @@
                     <children>
                         <Label alignment="CENTER" text="j. m.">
                             <font>
-                                <Font name="System Bold" size="13.0"/>
+                                <Font name="System Bold" size="15.0"/>
                             </font>
                         </Label>
                     </children>
@@ -350,9 +478,9 @@
                 <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                     <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cena jednostk. netto [zł]"
-                              textAlignment="CENTER" wrappingWidth="70.0">
+                              textAlignment="CENTER" wrappingWidth="80.0">
                             <font>
-                                <Font name="System Bold" size="13.0"/>
+                                <Font name="System Bold" size="15.0"/>
                             </font>
                         </Text>
                     </children>
@@ -361,18 +489,19 @@
                     <children>
                         <Label alignment="CENTER" text="Ilość">
                             <font>
-                                <Font name="System Bold" size="13.0"/>
+                                <Font name="System Bold" size="15.0"/>
                             </font>
                         </Label>
                     </children>
                 </FlowPane>
                 <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
                     <children>
-                        <Label alignment="CENTER" text="Netto [zł]">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Netto [zł]" textAlignment="CENTER"
+                              wrappingWidth="80.0">
                             <font>
-                                <Font name="System Bold" size="13.0"/>
+                                <Font name="System Bold" size="15.0"/>
                             </font>
-                        </Label>
+                        </Text>
                     </children>
                 </FlowPane>
                 <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
@@ -380,7 +509,7 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Podatek stawka [%]" textAlignment="CENTER"
                               wrappingWidth="75.0">
                             <font>
-                                <Font name="System Bold" size="13.0"/>
+                                <Font name="System Bold" size="15.0"/>
                             </font>
                         </Text>
                     </children>
@@ -390,18 +519,19 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Podatek wartość [zł]" textAlignment="CENTER"
                               wrappingWidth="77.0">
                             <font>
-                                <Font name="System Bold" size="13.0"/>
+                                <Font name="System Bold" size="15.0"/>
                             </font>
                         </Text>
                     </children>
                 </FlowPane>
                 <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8">
                     <children>
-                        <Label alignment="CENTER" text="Brutto [zł]">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Brutto [zł]" textAlignment="CENTER"
+                              wrappingWidth="80.0">
                             <font>
-                                <Font name="System Bold" size="13.0"/>
+                                <Font name="System Bold" size="15.0"/>
                             </font>
-                        </Label>
+                        </Text>
                     </children>
                 </FlowPane>
             </children>

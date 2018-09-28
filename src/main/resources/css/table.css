@@ -1,0 +1,9 @@
+.table-view .table-cell {
+    -fx-font-size: 15px;
+}
+
+.table-view .table-column .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-font-size: 15px;
+}
