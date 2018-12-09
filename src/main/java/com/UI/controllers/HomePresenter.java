@@ -18,7 +18,8 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.print.*;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -275,18 +276,32 @@ public class HomePresenter implements Initializable {
                         datePicker.getValue(),
                         numbering.getNumber());
 
-                Printer printer = Printer.getDefaultPrinter();
-                PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT,
-                        Printer.MarginType.HARDWARE_MINIMUM);
-                PrinterJob job = PrinterJob.createPrinterJob();
-                double scaleX = pageLayout.getPrintableWidth() / 794;
-                double scaleY = pageLayout.getPrintableHeight() / 1123;
-                Scale scale = new Scale(scaleX, scaleY);
-                rootNode.getTransforms().add(scale);
-                if (job != null && job.showPrintDialog(sceneManager.getPrimaryStage())) {
-                    boolean success = job.printPage(pageLayout, rootNode);
 
-                    // we increase invoice number when the printing job is finished
+                PrinterJob job = PrinterJob.createPrinterJob();
+                job.setPrinter(Miscellaneous.chosenPrinter);
+
+                System.out.println(Miscellaneous.chosenPrinter.getDefaultPageLayout().getPrintableWidth());
+                System.out.println(rootNode.getBoundsInParent().getHeight());
+                System.out.println(Miscellaneous.chosenPrinter.getDefaultPageLayout().getPrintableHeight());
+
+                if (job.showPrintDialog(sceneManager.getPrimaryStage())) {
+
+                    Printer printer = job.getPrinter();
+
+                    // caching the chosen printer so that we won't have to select
+                    // the desired printer every single time
+                    if (!printer.equals(Miscellaneous.chosenPrinter)) {
+                        Miscellaneous.chosenPrinter = printer;
+                    }
+
+                    // we have to scale down the node to the actual paper sheet dimensions
+                    rootNode.getTransforms().add(new Scale(
+                            printer.getDefaultPageLayout().getPrintableWidth() / 794, // width of the fxml
+                            printer.getDefaultPageLayout().getPrintableHeight() / 1123)); // height of the fxml
+
+                    boolean success = job.printPage(printer.getDefaultPageLayout(), rootNode);
+
+                    // we increase invoice number only when the printing job is finished
                     if (success) {
                         job.endJob();
                         numbering.setNumber(numbering.getNumber() + 1);
@@ -299,8 +314,6 @@ public class HomePresenter implements Initializable {
 
                     alert.showAndWait();
                 }
-
-                rootNode.getTransforms().remove(scale);
 
             } catch (IOException e) {
                 e.printStackTrace();

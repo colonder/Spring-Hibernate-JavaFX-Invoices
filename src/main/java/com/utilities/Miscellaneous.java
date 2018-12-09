@@ -1,5 +1,6 @@
 package com.utilities;
 
+import javafx.print.Printer;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
@@ -35,4 +36,5 @@ public class Miscellaneous {
     public static LocalDate chosenDate = LocalDate.now();
     public static ButtonType ok = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
     public static ButtonType cancel = new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE);
+    public static Printer chosenPrinter = Printer.getDefaultPrinter();
 }
