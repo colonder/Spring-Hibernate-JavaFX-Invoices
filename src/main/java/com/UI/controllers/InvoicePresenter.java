@@ -1,10 +1,8 @@
 package com.UI.controllers;
 
 import com.entity.Customer;
-import com.entity.Numbering;
 import com.entity.Settings;
 import com.entity.Templates;
-import com.service.INumberingService;
 import com.service.ISettingsService;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -117,25 +115,13 @@ public class InvoicePresenter {
     @Autowired
     private ISettingsService settingsService;
 
-    @Autowired
-    private INumberingService numberingService;
-
     public void initData(Customer customer, ObservableList<Templates> templates, String total,
-                         String words, LocalDate date) {
+                         String words, LocalDate date, int invoiceNum) {
         Settings settings = settingsService.findById(1);
         setSellerFields(settings);
         setBuyerFields(customer, settings);
 
-        Numbering numbering = numberingService.findById(1);
-
-        if (date.getMonth().compareTo(numbering.getMonth()) != 0) {
-            numbering.setNumber(1);
-            numbering.setMonth(date.getMonth());
-        }
-
-        invoiceNumLbl.setText(numbering.getNumber() + "/" + constructDate(date));
-        numbering.setNumber(numbering.getNumber() + 1);
-        numberingService.save(numbering);
+        invoiceNumLbl.setText(invoiceNum + "/" + constructDate(date));
 
         totalNum.setText(total);
         totalWords.setText(words);

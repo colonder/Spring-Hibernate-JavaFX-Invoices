@@ -3,9 +3,11 @@ package com.UI.controllers;
 import com.UI.FxmlView;
 import com.UI.SceneManager;
 import com.entity.Customer;
+import com.entity.Numbering;
 import com.entity.Product;
 import com.entity.Templates;
 import com.service.ICustomerService;
+import com.service.INumberingService;
 import com.service.IProductService;
 import com.service.ITemplatesService;
 import com.utilities.BigDecimalEditableCell;
@@ -106,6 +108,9 @@ public class HomePresenter implements Initializable {
 
     @Autowired
     private CurrencyHandler currencyHandler;
+
+    @Autowired
+    private INumberingService numberingService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -254,12 +259,22 @@ public class HomePresenter implements Initializable {
             FXMLLoader loader = sceneManager.getLoader(FxmlView.INVOICE);
             try {
                 rootNode = loader.load();
+
+                Numbering numbering = numberingService.findById(1);
+
+                if (datePicker.getValue().getMonth().compareTo(numbering.getMonth()) != 0) {
+                    numbering.setNumber(1);
+                    numbering.setMonth(datePicker.getValue().getMonth());
+                }
+
                 loader.<InvoicePresenter>getController().initData(
                         customersList.getSelectionModel().getSelectedItem(),
                         templateTable.getItems(),
                         totalLbl.getText(),
                         wordsLbl.getText(),
-                        datePicker.getValue());
+                        datePicker.getValue(),
+                        numbering.getNumber());
+
                 Printer printer = Printer.getDefaultPrinter();
                 PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT,
                         Printer.MarginType.HARDWARE_MINIMUM);
@@ -271,8 +286,12 @@ public class HomePresenter implements Initializable {
                 if (job != null && job.showPrintDialog(sceneManager.getPrimaryStage())) {
                     boolean success = job.printPage(pageLayout, rootNode);
 
-                    if (success)
+                    // we increase invoice number when the printing job is finished
+                    if (success) {
                         job.endJob();
+                        numbering.setNumber(numbering.getNumber() + 1);
+                        numberingService.save(numbering);
+                    }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Błąd drukowania");

@@ -66,8 +66,8 @@ public class NewCustomerPresenter extends NewItemController implements Initializ
 
     @FXML
     private void saveCustomer() {
-        if (validate("Imię", nameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+", true) &&
-                validate("Nazwisko", lastNameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź]+", true) &&
+        if (validate("Imię", nameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź\\s]+", true) &&
+                validate("Nazwisko", lastNameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź\\s\\-]+", true) &&
                 validate("NIP/PESEL", idTxtFld.getText(), "[\\d\\-?]+", false) &&
                 validate("Kod pocztowy", postalTxtFld.getText(), "\\d{2}\\-\\d{3}", false) &&
                 validate("Miasto", cityTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź\\s]+", false) &&
