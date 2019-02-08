@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 public class AppJavaConfig {
 
     @Autowired
+    @Lazy
     SpringFXMLLoader springFXMLLoader;
 
     @Bean
