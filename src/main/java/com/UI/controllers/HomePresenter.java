@@ -307,16 +307,14 @@ public class HomePresenter implements Initializable {
                         numbering.setNumber(numbering.getNumber() + 1);
                         numberingService.save(numbering);
                     }
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Błąd drukowania");
-                    alert.setHeaderText("Wystąpił błąd podczas drukowania");
-
-                    alert.showAndWait();
                 }
 
             } catch (IOException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Błąd drukowania");
+                alert.setHeaderText("Wystąpił błąd podczas drukowania");
+
+                alert.showAndWait();
             }
         }
     }
