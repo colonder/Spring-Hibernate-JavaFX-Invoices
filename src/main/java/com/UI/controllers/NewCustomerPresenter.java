@@ -70,7 +70,7 @@ public class NewCustomerPresenter extends NewItemController implements Initializ
                 validate("Nazwisko", lastNameTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź\\s\\-]+", true) &&
                 validate("NIP/PESEL", idTxtFld.getText(), "[\\d\\-?]+", false) &&
                 validate("Kod pocztowy", postalTxtFld.getText(), "\\d{2}\\-\\d{3}", false) &&
-                validate("Miasto", cityTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź\\s]+", false) &&
+                validate("Miasto", cityTxtFld.getText(), "[a-zA-ZĄąĆćĘęŁłŃńÓóŚśŻżŹź\\s\\-]+", false) &&
                 emptyValidation("Adres", addressTxtFld.getText().isEmpty()) &&
                 emptyValidation("Nazwa", aliasTxtFld.getText().isEmpty())) {
             if (this.customer == null) {
